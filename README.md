@@ -45,7 +45,7 @@ npm run start
 ca va permettre de lancer le serveur de dev Expo, puis pour pouvoir avoir
 un rendu en temps réel du développement:
 
-- telecharger `expo go` sur le store
+- telecharger `expo go` sur le store de votre téléphone
 - scanner le QrCode
 
 et voilà, normalement c'est tout bon, si vous avez des problèmes
