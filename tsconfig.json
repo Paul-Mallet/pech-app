@@ -1,6 +1,11 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "typeRoots": ["node_modules/@types", "node_modules/react-native-vector-icons"],
+    "types": ["react", "react-native", "react-native-vector-icons"]
   }
 }
