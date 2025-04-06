@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Animated, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import BottomTabNavigator from './components/navbar.tsx';
-import SplashScreen from './components/loadingScreen.tsx';
+import BottomTabNavigator from './components/organisms/navbar.tsx';
+import SplashScreen from './components/pages/loadingScreen.tsx';
 import Colors from './components/colors.tsx';
 
 export default function App() {

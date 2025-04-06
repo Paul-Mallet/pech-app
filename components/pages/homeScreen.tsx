@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import MyButton from './button.tsx';
-import HomeCard from './homeCard.tsx';
-import HomeTextCard from './homeTextCard.tsx';
-import MiniFishPicture from './miniFishPicture.tsx';
-import FishCard from './fishCard.tsx';
+import MyButton from '../atoms/button.tsx';
+import HomeCard from '../molecules/homeCard.tsx';
+import HomeTextCard from '../molecules/homeTextCard.tsx';
+import MiniFishPicture from '../atoms/miniFishPicture.tsx';
+import FishCard from '../molecules/fishCard.tsx';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
   return (

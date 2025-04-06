@@ -4,5 +4,5 @@ const Colors = {
     textBoldLight: '#F6FEFF',
     backgroundLight: '#FFFDF6'
 };
-  
+
 export default Colors;

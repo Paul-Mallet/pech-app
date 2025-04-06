@@ -1,0 +1,35 @@
+[
+	{
+		"id": 1,
+		"commonName": "Mérou Brun",
+		"scientificName": "Polyprion americanus",
+		"category": "Cernier",
+		"localNames": ["Cabot"],
+		"minSizeCm": 70,
+		"physicalDescription": {
+			"WRF": "Corps ovale, très épais, tête osseuse, un décroché entre le front et le dos, mandibule saillante, très grande bouche, couleur grise, ligne latérale fine, 1 dorsale, toutes les nageoires sont sombres, 2 épines anales.",
+			"moreInfos": "Confusion très facile avec le mérou noir."
+		},
+		"fishingMethods": ["Ligne", "Filet", "Chalut"],
+		"regulation": {
+			"reference": "R(UE) 2016/2336",
+			"annex": "Annexe I"
+		}
+	},
+	{
+		"id": 2,
+		"commonName": "Thon Rouge",
+		"scientificName": "Thunnus thynnus",
+		"category": "Scombridés",
+		"minSizeCm": 144,
+		"englishAcronym": "BFT",
+		"physicalDescription": {
+			"WRF": "corps rond, très grosse tête, grande bouche, dos sombre, ventre argenté. Pointe de la pectorale au milieu des 2 dorsales, la 2ème nageoire dorsale et l’anale sont de taille similaire, pinnules jaunes, bordées d’un fin liseré noir, large carène sur le pédoncule caudal."
+		},
+		"fishingMethods": ["Palangre", "Senne tournante", "Chalut pélagique", "Ligne"],
+		"regulation": {
+			"reference": "R(UE) 2016/2336",
+			"annex": "Annexe I"
+		}
+	}
+]

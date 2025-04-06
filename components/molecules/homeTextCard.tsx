@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import GlobalStyles from './styles.tsx';
-import Colors from './colors.tsx';
+import GlobalStyles from './globalStyles.tsx';
+import Colors from '../colors.tsx';
 
 interface HomeTextCardProps {
     text: string;
