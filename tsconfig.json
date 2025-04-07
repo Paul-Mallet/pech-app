@@ -1,14 +1,5 @@
 {
   "compilerOptions": {
-<<<<<<< HEAD
-    "strict": true,
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
-    "typeRoots": ["node_modules/@types", "node_modules/react-native-vector-icons"],
-    "types": ["react", "react-native", "react-native-vector-icons"]
-  }
-=======
     "lib": [
       "ES2015",
       "DOM"
@@ -33,5 +24,4 @@
   },
   "moduleResolution": "bundler",
   "extends": "expo/tsconfig.base"
->>>>>>> architecture
 }
