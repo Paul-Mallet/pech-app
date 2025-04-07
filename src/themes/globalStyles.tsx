@@ -9,7 +9,7 @@ const GlobalStyles = StyleSheet.create({
 	h2: {
 		fontSize: 24,
 		fontWeight: '700',
-		marginVertical: 16,
+		marginBottom: 16, // previously marginVertical
 		color: Colors.textDark,
 	},
 	titleDark: {
@@ -40,11 +40,16 @@ const GlobalStyles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	homeCard: {
+	homePanel: {
 		display: "flex",
 		flexDirection: "column",
-		padding: 32,
-		width: "100%"
+		paddingTop: 0,
+		paddingLeft: 32,
+		paddingRight: 32,
+		paddingBottom: 0,
+		width: "100%",
+		marginBottom: 60,
+		marginTop: 40,
 	},
 	fishCardsContainer: {
 		display: "flex",
@@ -106,6 +111,42 @@ const GlobalStyles = StyleSheet.create({
 		// Android elevation
 		elevation: 10,
 	},
+	searchBar: {
+		top: 40,
+		marginHorizontal: 'auto',
+		width: "95%",
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderWidth: 1,
+		borderColor: '#ccc',
+		borderRadius: 32,
+		paddingHorizontal: 10,
+		height: 60,
+		backgroundColor: Colors.searchBarBackground,
+		zIndex: 1,
+	  },
+	  searchBarIconLeft:
+	  {
+		marginRight: 8,
+	  },
+	  searchBarButtonRight:
+	  {
+		backgroundColor: Colors.textHighlightDark,
+		borderRadius: "50%",
+		padding: 6,
+		shadowColor: '#000',
+		shadowOffset: { width: 1, height: 1 },
+		shadowRadius: 5,
+		shadowOpacity: 0.25,
+		// Android elevation
+		elevation: 5,
+	  },
+	  input:
+	  {
+		marginTop: 4,
+		flex: 1,
+		fontSize: 14
+	  },
 });
 
 export default GlobalStyles;

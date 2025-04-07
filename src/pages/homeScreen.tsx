@@ -1,24 +1,17 @@
 import React from 'react';
 
-// <<<<<<< HEAD:src/pages/homeScreen.tsx
-// import { View, Text, Button } from 'react-native';
-// import MyButton from '../components/atoms/button.tsx';
-import HomeCard from '../components/molecules/homeCard.tsx';
-// import HomeTextCard from '../components/molecules/homeTextCard.tsx';
-// import MiniFishPicture from '../components/atoms/miniFishPicture.tsx';
+import HomePanel from '../components/molecules/homePanel.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
-// =======
 import { View, Text, SafeAreaView } from 'react-native';
-// import HomeCard from '../molecules/homeCard.tsx';
-// import FishCard from '../molecules/fishCard.tsx';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
 import GlobalStyles from '../themes/globalStyles.tsx';
-// >>>>>>> origin/styling-home-page-pamallet:components/pages/homeScreen.tsx
+import SearchBar from '../components/organisms/searchBar.tsx';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
   return (
 	<SafeAreaView style={GlobalStyles.body}>
-		<HomeCard onPress={() => console.log('Card pressed')}>
+		<SearchBar/>
+		<HomePanel>
 			<Text style={GlobalStyles.h2}>Voir à nouveau</Text>
 			<View style={GlobalStyles.fishCardsContainer}>
 				<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' />
@@ -32,7 +25,11 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
 				title="Arrêté du 22 Mars 2024"
 				text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."          
 			/>
-		</HomeCard>
+			<LegislationCard
+				title="Arrêté du 22 Mars 2024"
+				text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."          
+			/>
+		</HomePanel>
 	</SafeAreaView>
   );
 };
