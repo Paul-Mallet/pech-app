@@ -5,7 +5,8 @@ import { Text, StyleSheet } from 'react-native';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import SearchScreen from '../../pages/searchScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
-import Colors from '../../themes/colors.tsx';
+import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
+import Colors from '../../styles/base/colors.tsx';
 
 type TabParamList = {
   Accueil: undefined;

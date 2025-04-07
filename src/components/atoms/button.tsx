@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ButtonStyles from '../../styles/atoms/buttonStyles';
+import ButtonStyles from '../../styles/atoms/buttonStyles.tsx';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 type ButtonTextProps = {

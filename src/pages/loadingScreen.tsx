@@ -5,7 +5,7 @@ import { Animated,
 	Text,
 	Image,
 	useWindowDimensions } from 'react-native';
-import LoadingScreenStyles from '../styles/pages/LoadingScreenStyles';
+import LoadingScreenStyles from '../styles/pages/LoadingScreenStyles.tsx';
 
 const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim : any, onAnimationEnd : any, translateYAnim : any}) => {
 	const { height: windowHeight, width, scale, fontScale } = useWindowDimensions();

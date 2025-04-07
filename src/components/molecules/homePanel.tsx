@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ScrollView } from 'react-native';
-import GlobalStyles from '../../themes/globalStyles.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface HomeCardProps {
   children: ReactNode;

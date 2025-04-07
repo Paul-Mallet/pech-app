@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../themes/colors.tsx';
-import GlobalStyles from '../../themes/globalStyles.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import Colors from '../../styles/base/colors.tsx';
 
 const SearchBar = () => {
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);

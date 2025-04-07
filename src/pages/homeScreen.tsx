@@ -4,7 +4,7 @@ import HomePanel from '../components/molecules/homePanel.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
 import { View, Text, SafeAreaView } from 'react-native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
-import GlobalStyles from '../themes/globalStyles.tsx';
+import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBar from '../components/organisms/searchBar.tsx';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../base/colors.tsx";
 
 const NavBarStyles = StyleSheet.create({
   tabLabel: {
@@ -9,7 +10,7 @@ const NavBarStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   tapBar : {
-    backgroundColor: '#31909C52',
+    backgroundColor: Colors.navBarBackground,
     height: 60,
     paddingBottom: 5,
     paddingTop: 5,
