@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text} from 'react-native';
+import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import SearchScreen from '../../pages/searchScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
@@ -17,7 +18,7 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={({ route : any}) => ({
+      screenOptions={({route} : any) => ({
         tabBarIcon: ({ color, size, focused } : any) => {
           let iconName: string;
           switch (route.name) {
@@ -37,24 +38,9 @@ const BottomTabNavigator = () => {
         },
         tabBarActiveTintColor: '#31909C',
         tabBarInactiveTintColor: '#003B44',
-        tabBarStyle: {
-          backgroundColor: '#31909C52',
-          height: 60,
-          paddingBottom: 5,
-          paddingTop: 5,
-          width: '100%',
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          elevation: 0, // Android shadow removal
-          shadowColor: 'transparent', // iOS shadow removal
-          borderTopWidth: 0,
-          borderTopLeftRadius: 16,
-          borderTopRightRadius: 16,
-        },
+        tapBarStyle: NavBarStyles.tapBar,
         tabBarLabel: ({ focused, color } : any) => (
-          <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>  
+          <Text style={[NavBarStyles.tabLabel, focused && NavBarStyles.tabLabelFocused, { color }]}>  
             {route.name}
           </Text>
         ),
@@ -87,15 +73,5 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  tabLabel: {
-    fontSize: 14,
-    fontWeight: 'normal',
-  },
-  tabLabelFocused: {
-    fontWeight: 'bold',
-  },
-});
 
 export default BottomTabNavigator;

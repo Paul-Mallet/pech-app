@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ButtonStyles from '../../styles/atoms/buttonStyles';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 type ButtonTextProps = {
@@ -13,23 +14,11 @@ const MyButton = (props: ButtonTextProps) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.container}>
-      <Text style={styles.text}>{buttonTitle}</Text>
+    <TouchableOpacity onPress={handlePress} style={ButtonStyles.container}>
+      <Text style={ButtonStyles.text}>{buttonTitle}</Text>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: '#3498db',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-  },
-});
 
 export default MyButton;
