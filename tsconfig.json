@@ -1,6 +1,6 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+<<<<<<< HEAD
     "strict": true,
     "module": "NodeNext",
     "moduleResolution": "nodenext",
@@ -8,4 +8,30 @@
     "typeRoots": ["node_modules/@types", "node_modules/react-native-vector-icons"],
     "types": ["react", "react-native", "react-native-vector-icons"]
   }
+=======
+    "lib": [
+      "ES2015",
+      "DOM"
+    ],
+    "strict": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/react-native-vector-icons"
+    ],
+    "types": [
+      "react",
+      "react-native",
+      "react-native-vector-icons",
+      "react-navigation",
+      "@react-navigation/native"
+    ]
+  },
+  "moduleResolution": "bundler",
+  "extends": "expo/tsconfig.base"
+>>>>>>> architecture
 }
