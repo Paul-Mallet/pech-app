@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { View, Text, StyleSheet } from 'react-native';
+// <<<<<<< HEAD:src/components/organisms/navbar.tsx
+import { Text, StyleSheet } from 'react-native';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import SearchScreen from '../../pages/searchScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
+// =======
+// import { Text, StyleSheet } from 'react-native';
+// import HomeScreen from '../pages/homeScreen.tsx';
+// import SearchScreen from '../pages/searchScreen.tsx';
+// import SettingsScreen from '../pages/settingsScreen.tsx';
+// >>>>>>> origin/styling-home-page-pamallet:components/organisms/navbar.tsx
 
 const Tab = createBottomTabNavigator();
 

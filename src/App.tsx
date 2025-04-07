@@ -3,7 +3,11 @@ import { Animated, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import BottomTabNavigator from './components/organisms/navbar.tsx';
+// <<<<<<< HEAD:src/App.tsx
 import SplashScreen from './pages/loadingScreen.tsx';
+// =======
+// import SplashScreen from './components/pages/loadingScreen.tsx';
+// >>>>>>> origin/styling-home-page-pamallet:App.tsx
 import Colors from './themes/colors.tsx';
 
 export default function App() {
