@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import HomeScreen from '../pages/homeScreen.tsx';
 import SearchScreen from '../pages/searchScreen.tsx';
 import SettingsScreen from '../pages/settingsScreen.tsx';

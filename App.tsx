@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import BottomTabNavigator from './components/organisms/navbar.tsx';
 import SplashScreen from './components/pages/loadingScreen.tsx';
-import Colors from './components/colors.tsx';
+import Colors from './themes/colors.tsx';
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
