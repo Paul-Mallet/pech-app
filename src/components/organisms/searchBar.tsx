@@ -10,12 +10,10 @@ const SearchBar = () => {
   const handleSearch = (text: string) => {
     if (text.length < 2)
       return;
-    // search bar code
     console.log('User typed:', text);
   };
 
   const handleRightIconPress = () => {
-    // search button press
     console.log('Right icon pressed');
     setSearchText('');
   };

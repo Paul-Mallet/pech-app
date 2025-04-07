@@ -1,4 +1,3 @@
-// SplashScreen.js
 import React, { useEffect } from 'react';
 import { Animated,
 	Easing,
@@ -26,20 +25,6 @@ const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim :
 	  }, 1500);
 	}, [fadeAnim, translateYAnim, windowHeight]);
   
-// <<<<<<< HEAD:src/pages/loadingScreen.tsx
-//     return (
-//       <Animated.View
-//         style={[
-//           styles.container,
-//           { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }, // Apply fade and move-up effect
-//         ]}
-//       >
-//         <Image source={require('../../assets/Logo.webp')} style={styles.image} />
-//         <Text style={styles.text}>Pêch’App</Text>
-//       </Animated.View>
-//     );
-//   };
-// =======
 	return (
 	  <Animated.View
 		style={[
@@ -52,7 +37,6 @@ const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim :
 	  </Animated.View>
 	);
 };
-// >>>>>>> origin/styling-home-page-pamallet:components/pages/loadingScreen.tsx
 
 const styles = StyleSheet.create({
   container: {

@@ -32,9 +32,6 @@ const GlobalStyles = StyleSheet.create({
 		fontSize: 14,
 		fontWeight: 'bold',
 		color: Colors.textHighlightDark,
-		// textShadowColor: '#00000088',
-		// textShadowOffset: { width: 0.5, height: 0.5 },
-		// textShadowRadius: 1,
 	},
 	centered: {
 		justifyContent: 'center',
@@ -65,16 +62,13 @@ const GlobalStyles = StyleSheet.create({
 		borderRadius: 24,
 		backgroundColor: "#fff",
 		overflow: 'hidden',
-		// iOS shadow
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 10 },
 		shadowOpacity: 0.2,
 		shadowRadius: 10,
-		// Android elevation
 		elevation: 10,
 	},
 	backgroundImage: {
-		// position: 'absolute',
 		width: '100%',
 		height: '100%',
 		transform: [{ scale: 2 }],
@@ -103,12 +97,10 @@ const GlobalStyles = StyleSheet.create({
 		padding: 16,
 		backgroundColor: '#F6FEFF',
 		borderRadius: 24,
-		// iOS shadow
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 10 },
 		shadowOpacity: 0.2,
 		shadowRadius: 10,
-		// Android elevation
 		elevation: 10,
 	},
 	searchBar: {
@@ -138,7 +130,6 @@ const GlobalStyles = StyleSheet.create({
 		shadowOffset: { width: 1, height: 1 },
 		shadowRadius: 5,
 		shadowOpacity: 0.25,
-		// Android elevation
 		elevation: 5,
 	  },
 	  input:
