@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { View, Text, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Text, StyleSheet } from 'react-native';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import SearchScreen from '../../pages/searchScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
+import Colors from '../../themes/colors.tsx';
+
+type TabParamList = {
+  Accueil: undefined;
+  Législation: undefined;
+  Paramètres: undefined;
+};
 
 const Tab = createBottomTabNavigator();
 
@@ -17,28 +24,29 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size, focused }) => {
+      screenOptions={({ route }: { route: { name: keyof TabParamList } }) => ({
+        tabBarIcon: ({ color, size, focused }: { color: string; size: number; focused: boolean }) => {
           let iconName: string;
-          switch (route.name) {
-            case 'Home':
+          switch (route.name)
+          {
+            case 'Accueil':
               iconName = focused ? 'home' : 'home-outline';
               break;
-            case 'Search':
+            case 'Législation':
               iconName = focused ? 'book' : 'book-outline';
               break;
-            case 'Settings':
+            case 'Paramètres':
               iconName = focused ? 'settings' : 'settings-outline';
               break;
             default:
-              iconName = 'help'; // fallback
+              iconName = 'help';
           }
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName as keyof typeof Ionicons.glyphMap} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#31909C',
-        tabBarInactiveTintColor: '#003B44',
+        tabBarActiveTintColor: Colors.textHighlightDark,
+        tabBarInactiveTintColor: Colors.textDark,
         tabBarStyle: {
-          backgroundColor: '#31909C52',
+          backgroundColor: Colors.navBarBackground,
           height: 60,
           paddingBottom: 5,
           paddingTop: 5,
@@ -53,7 +61,7 @@ const BottomTabNavigator = () => {
           borderTopLeftRadius: 16,
           borderTopRightRadius: 16,
         },
-        tabBarLabel: ({ focused, color }) => (
+        tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
           <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>  
             {route.name}
           </Text>
@@ -61,26 +69,26 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="Home"
+        name="Accueil"
         component={HomeScreen}
         listeners={{
-          tabPress: () => handleTabPress('Home'),
+          tabPress: () => handleTabPress('Accueil'),
         }}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Search"
+        name="Législation"
         component={SearchScreen}
         listeners={{
-          tabPress: () => handleTabPress('Search'),
+          tabPress: () => handleTabPress('Législation'),
         }}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Settings"
+        name="Paramètres"
         component={SettingsScreen}
         listeners={{
-          tabPress: () => handleTabPress('Settings'),
+          tabPress: () => handleTabPress('Paramètres'),
         }}
         options={{ headerShown: false }}
       />
