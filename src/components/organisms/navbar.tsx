@@ -45,24 +45,9 @@ const BottomTabNavigator = () => {
         },
         tabBarActiveTintColor: Colors.textHighlightDark,
         tabBarInactiveTintColor: Colors.textDark,
-        tabBarStyle: {
-          backgroundColor: Colors.navBarBackground,
-          height: 60,
-          paddingBottom: 5,
-          paddingTop: 5,
-          width: '100%',
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          elevation: 0, // Android shadow removal
-          shadowColor: 'transparent', // iOS shadow removal
-          borderTopWidth: 0,
-          borderTopLeftRadius: 16,
-          borderTopRightRadius: 16,
-        },
+        tapBarStyle: NavBarStyles.tapBar,
         tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
-          <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>  
+          <Text style={[NavBarStyles.tabLabel, focused && NavBarStyles.tabLabelFocused, { color }]}>  
             {route.name}
           </Text>
         ),
@@ -95,15 +80,5 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  tabLabel: {
-    fontSize: 14,
-    fontWeight: 'normal',
-  },
-  tabLabelFocused: {
-    fontWeight: 'bold',
-  },
-});
 
 export default BottomTabNavigator;
