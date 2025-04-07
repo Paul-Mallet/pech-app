@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"date": "22 Mars 2022",
+		"title": "Pêche de loisir à Porquerolles",
+		"content": ["Autour de ses îlots, neuf zones de pêche sont définies. Dans les zones F, H et R toute forme de pêche maritime de loisir est interdite toute l’année. Dans les zones A, B, C, D, E et G la pêche maritime de loisir est autorisée du 1er Septembre au 30 Juin de chaque année aux titulaires d’une autorisation. Pour les zones D, E et G la pratique de la chasse sous-marine est interdite toute l’année."],
+		"metadata": {
+			"reference": "R(UE) 2016/2336",
+			"lastUpdated": "2024-07-15"
+		}
+	},
+	{
+		"id": 2,
+		"date": "9 Juillet 2024",
+		"title": "Pêche maritime de loisir à l’intérieur du périmètre de la Réserve Naturelle Marine de Cerbère-Banyuls",
+		"content": ["Pêche maritime de loisir à l’intérieur de la zone est soumise à la détention préalable d’une autorisation. Maximum de 1000 autorisations sur une année civile. Pêche maritime de loisir autorisée qu’entre le lever et le coucher du soleil.10 prises dans la limite des quotas et tailles minimales, par jour et par navire quel que soit le nombre de personnes embarquées, et par jour et par pêcheur à pied lorsque ce dernier œuvre depuis le rivage."],
+		"metadata": {
+			"reference": "R(UE) 2016/2336",
+			"lastUpdated": "2024-08-04"
+		}
+	}
+]
