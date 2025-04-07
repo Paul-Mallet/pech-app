@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import GlobalStyles from '../../themes/globalStyles.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface HomeCardProps {
   children: ReactNode;

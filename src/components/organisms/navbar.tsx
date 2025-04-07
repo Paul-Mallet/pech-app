@@ -17,8 +17,8 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size, focused }) => {
+      screenOptions={({ route : any}) => ({
+        tabBarIcon: ({ color, size, focused } : any) => {
           let iconName: string;
           switch (route.name) {
             case 'Home':
@@ -53,7 +53,7 @@ const BottomTabNavigator = () => {
           borderTopLeftRadius: 16,
           borderTopRightRadius: 16,
         },
-        tabBarLabel: ({ focused, color }) => (
+        tabBarLabel: ({ focused, color } : any) => (
           <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>  
             {route.name}
           </Text>
