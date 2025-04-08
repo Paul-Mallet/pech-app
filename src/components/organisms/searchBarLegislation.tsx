@@ -3,18 +3,20 @@ import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import Colors from '../../styles/base/colors.tsx';
+interface SearchBarLegislationProps {
+  searchText: string;
+  setSearchText: (text: string) => void;
+}
 
-const SearchBarLegislation = () => {
-  const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
-  const [searchText, setSearchText] = useState('');
+const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislationProps) => {
+  const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+
   const handleSearch = (text: string) => {
-    if (text.length < 2)
-      return;
+    if (text.length < 2) return;
     console.log('User typed:', text);
   };
 
   const handleRightIconPress = () => {
-    console.log('Right icon pressed');
     setSearchText('');
   };
 
@@ -33,7 +35,7 @@ const SearchBarLegislation = () => {
       <TextInput
         style={[GlobalStyles.textDark, GlobalStyles.input]}
         placeholder="Rechercher..."
-        placeholderTextColor= {Colors.inputPlaceholder}
+        placeholderTextColor={Colors.inputPlaceholder}
         onChangeText={handleTextChange}
         value={searchText}
       />

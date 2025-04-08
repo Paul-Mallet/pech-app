@@ -33,6 +33,10 @@ const GlobalStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: Colors.textHighlightDark,
 	},
+	textHighlightSearch: {
+		backgroundColor: '#0066ff',
+		color: 'white',
+	},
 	centered: {
 		alignSelf: 'center',
 		justifyContent: 'center',

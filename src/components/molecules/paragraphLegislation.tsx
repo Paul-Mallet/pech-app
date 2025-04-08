@@ -3,45 +3,35 @@ import { Text, View } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface ParagraphLegislationCardProps {
-    text: string;
-    title: string;
+  text: string;
+  title: string;
+  searchText?: string;
 }
 
-const ParagraphLegislationCard = (props: ParagraphLegislationCardProps) => {
-  const { text, title } = props;
+const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislationCardProps) => {
 
-  const getHighlightedText = (text: string) => {
-    const regex = /<h>(.*?)<\/h>/g;
-    const parts = [];
-    let lastIndex = 0;
+  const highlightSearchMatches = (text: string, query: string) => {
+    if (!query) return [<Text key="0">{text}</Text>];
 
-    let match;
-    while ((match = regex.exec(text)) !== null) {
-      if (match.index > lastIndex) {
-        parts.push(<Text key={lastIndex}>{text.substring(lastIndex, match.index)}</Text>);
-      }
+    const regex = new RegExp(`(${query})`, 'gi');
+    const parts = text.split(regex);
 
-      parts.push(
-        <Text key={match.index} style={GlobalStyles.textHighlightDark}>
-          {match[1]}
-        </Text>
-      );
-
-      lastIndex = regex.lastIndex;
-    }
-
-    if (lastIndex < text.length) {
-      parts.push(<Text key={lastIndex}>{text.substring(lastIndex)}</Text>);
-    }
-
-    return parts;
+    return parts.map((part, i) => (
+      part.toLowerCase() === query.toLowerCase() ? (
+        <Text key={i} style={GlobalStyles.textHighlightSearch}>{part}</Text>
+      ) : (
+        <Text key={i}>{part}</Text>
+      )
+    ));
   };
 
   return (
     <View style={GlobalStyles.legislationParagraph}>
-      <Text style={GlobalStyles.titleDark}>{props.title}</Text>
+      <Text style={GlobalStyles.titleDark}>
+        {searchText ? highlightSearchMatches(title, searchText) : title}
+      </Text>
       <Text style={GlobalStyles.textDark}>
-        {getHighlightedText(text)}
+        {searchText ? highlightSearchMatches(text, searchText) : text}
       </Text>
     </View>
   );
