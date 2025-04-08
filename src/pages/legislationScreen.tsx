@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
 import LegislationPanel from '../components/molecules/legislationPanel.tsx';
 import ParagraphLegislationCard from '../components/molecules/paragraphLegislation.tsx';
+import { useFocusEffect } from '@react-navigation/native';
 
-const LegislationScreen = ({navigation}: {navigation: any}) => {
+const LegislationScreen = ({ route }: { route: any }) => {
 	const [searchText, setSearchText] = useState('');
-
 	const handleSearch = (text: string) => {
 	  setSearchText(text);
 	};
+	
+	useFocusEffect(
+		React.useCallback(() => {
+		  if (route.params?.searchText) {
+			setSearchText(route.params.searchText);
+		  }
+		}, [route.params?.searchText])
+	  );
 
 	// delete the paragraphs when the server gives the data.
 	const [allParagraphs, setAllParagraphs] = useState<JSX.Element[]>([
