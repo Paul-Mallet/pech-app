@@ -10,6 +10,7 @@ interface SearchBarLegislationProps {
 
 const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislationProps) => {
   const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSearch = (text: string) => {
     if (text.length < 2) return;
@@ -29,8 +30,12 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
     setDebounceTimer(timer);
   };
 
+  const searchBarStyle = isFocused
+    ? [GlobalStyles.searchBar, GlobalStyles.searchBarFocused]
+    : GlobalStyles.searchBar;
+
   return (
-    <View style={GlobalStyles.searchBar}>
+    <View style={searchBarStyle}>
       <Ionicons name="search" size={24} color={Colors.textDark} style={GlobalStyles.searchBarIconLeft} />
       <TextInput
         style={[GlobalStyles.textDark, GlobalStyles.input]}
@@ -38,6 +43,8 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
         placeholderTextColor={Colors.inputPlaceholder}
         onChangeText={handleTextChange}
         value={searchText}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
       <TouchableOpacity onPress={handleRightIconPress}>
         <Ionicons name="close" size={26} color={Colors.textHighlightDark} />

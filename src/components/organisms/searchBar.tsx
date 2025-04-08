@@ -7,6 +7,7 @@ import Colors from '../../styles/base/colors.tsx';
 const SearchBar = () => {
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   const handleSearch = (text: string) => {
     if (text.length < 2)
       return;
@@ -26,15 +27,21 @@ const SearchBar = () => {
     const timer = setTimeout(() => handleSearch(text), 500);
     setDebounceTimer(timer);
   };
+  
+  const searchBarStyle = isFocused
+    ? [GlobalStyles.searchBar, GlobalStyles.searchBarFocused]
+    : GlobalStyles.searchBar;
 
   return (
-    <View style={GlobalStyles.searchBar}>
+    <View style={searchBarStyle}>
       <Ionicons name="search" size={24} color={Colors.textDark} style={GlobalStyles.searchBarIconLeft} />
       <TextInput
         style={[GlobalStyles.textDark, GlobalStyles.input]}
         placeholder="Rechercher..."
         placeholderTextColor= {Colors.inputPlaceholder}
         onChangeText={handleTextChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
       <TouchableOpacity style={GlobalStyles.searchBarButtonRight} onPress={handleRightIconPress}>
         <Ionicons name="list" size={26} color={Colors.searchBarBackground} />

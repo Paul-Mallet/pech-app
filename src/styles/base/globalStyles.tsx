@@ -121,6 +121,15 @@ const GlobalStyles = StyleSheet.create({
 		backgroundColor: Colors.searchBarBackground,
 		zIndex: 1,
 	  },
+	searchBarFocused: {
+		backgroundColor: "#EFFDFF",
+		borderColor: Colors.textHighlightDark,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 10 },
+		shadowOpacity: 0.4,
+		shadowRadius: 10,
+		elevation: 10,
+	},
 	searchBarIconLeft:
 	  {
 		marginRight: 8,
