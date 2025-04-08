@@ -4,7 +4,7 @@ import Colors from './colors.tsx';
 const GlobalStyles = StyleSheet.create({
 	body: {
 		flex: 1,
-		backgroundColor: '#F6F4EB',
+		backgroundColor: Colors.body,
 	},
 	h2: {
 		fontSize: 24,
@@ -99,7 +99,7 @@ const GlobalStyles = StyleSheet.create({
 		textAlign: 'left',
 		marginBottom: 16,
 		padding: 16,
-		backgroundColor: '#F6FEFF',
+		backgroundColor: Colors.searchBarBackground,
 		borderRadius: 24,
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 10 },

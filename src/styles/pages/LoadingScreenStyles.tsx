@@ -1,22 +1,23 @@
 import { StyleSheet } from "react-native";
+import Colors from "../base/colors.tsx";
 
 const LoadingScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#31909C',
-    position: 'absolute', // Make it appear in front of everything
+    backgroundColor: Colors.textHighlightDark,
+    position: 'absolute',
     width: '100%',
     height: '100%',
-    zIndex: 10, // Ensure it stays on top of everything else
+    zIndex: 10,
   },
   image: {
     width: 256,
     height: 99,
   },
   text: {
-    color: '#F6F4EB',
+    color: Colors.body,
     fontSize: 32,
     fontFamily: 'BoldFont',
     marginTop: 20,

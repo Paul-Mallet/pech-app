@@ -1,4 +1,5 @@
 const Colors = {
+    body: '#F6F4EB',
     textDark: '#003B44',
     textHighlightDark: '#31909C',
     textBoldLight: '#F6FEFF',
