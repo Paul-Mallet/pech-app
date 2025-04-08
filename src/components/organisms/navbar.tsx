@@ -46,7 +46,7 @@ const BottomTabNavigator = () => {
         },
         tabBarActiveTintColor: Colors.textHighlightDark,
         tabBarInactiveTintColor: Colors.textDark,
-        tapBarStyle: NavBarStyles.tapBar,
+        tabBarStyle: NavBarStyles.tabBar,
         tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
           <Text style={[NavBarStyles.tabLabel, focused && NavBarStyles.tabLabelFocused, { color }]}>  
             {route.name}

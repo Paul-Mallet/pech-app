@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import Colors from './colors.tsx'; // assuming you already created this
+import Colors from './colors.tsx';
 
 const GlobalStyles = StyleSheet.create({
 	body: {
@@ -44,7 +44,6 @@ const GlobalStyles = StyleSheet.create({
 		paddingLeft: 32,
 		paddingRight: 32,
 		paddingBottom: 0,
-		width: "100%",
 		marginBottom: 60,
 		marginTop: 40,
 	},

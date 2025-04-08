@@ -9,7 +9,7 @@ const NavBarStyles = StyleSheet.create({
   tabLabelFocused: {
     fontWeight: 'bold',
   },
-  tapBar : {
+  tabBar: {
     backgroundColor: Colors.navBarBackground,
     height: 60,
     paddingBottom: 5,
@@ -27,4 +27,4 @@ const NavBarStyles = StyleSheet.create({
   },
 });
 
-export default NavBarStyles
+export default NavBarStyles;
