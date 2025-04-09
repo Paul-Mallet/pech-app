@@ -34,7 +34,7 @@ const GlobalStyles = StyleSheet.create({
 		color: Colors.textHighlightDark,
 	},
 	textHighlightSearch: {
-		backgroundColor: '#0066ff',
+		backgroundColor: '#0070ff',
 		color: 'white',
 	},
 	centered: {
@@ -130,12 +130,10 @@ const GlobalStyles = StyleSheet.create({
 		shadowRadius: 10,
 		elevation: 10,
 	},
-	searchBarIconLeft:
-	  {
+	searchBarIconLeft: {
 		marginRight: 8,
 	  },
-	searchBarButtonRight:
-	  {
+	searchBarButtonRight: {
 		backgroundColor: Colors.textHighlightDark,
 		borderRadius: "50%",
 		padding: 6,
@@ -145,8 +143,7 @@ const GlobalStyles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		elevation: 5,
 	  },
-	input:
-	  {
+	input: {
 		marginTop: 4,
 		flex: 1,
 		fontSize: 14
@@ -173,6 +170,12 @@ const GlobalStyles = StyleSheet.create({
 		shadowOpacity: 0.2,
 		shadowRadius: 5,
 		elevation: 5,
+	  },
+	miniImg: {
+		width: '100%',
+		aspectRatio: 1,
+		height: undefined,
+		borderRadius: 24,
 	  },
 });
 
