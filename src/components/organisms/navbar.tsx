@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, StyleSheet } from 'react-native';
+import QuizzScreen from '../../pages/quizzScreen.tsx';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
@@ -9,6 +10,7 @@ import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import Colors from '../../styles/base/colors.tsx';
 
 type TabParamList = {
+  Quizz: undefined;
   Accueil: undefined;
   Législation: undefined;
   Paramètres: undefined;
@@ -30,6 +32,9 @@ const BottomTabNavigator = () => {
           let iconName: string;
           switch (route.name)
           {
+            case 'Quizz':
+              iconName = focused ? 'book' : 'book-outline';
+              break;
             case 'Accueil':
               iconName = focused ? 'home' : 'home-outline';
               break;
