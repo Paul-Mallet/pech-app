@@ -5,9 +5,10 @@ import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
 import LegislationPanel from '../components/molecules/legislationPanel.tsx';
 import ParagraphLegislationCard from '../components/molecules/paragraphLegislation.tsx';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const LegislationScreen = ({ route }: { route: any }) => {
+	const navigation = useNavigation();
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text: string) => {
 	  setSearchText(text);
@@ -18,6 +19,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		  if (route.params?.searchText) {
 			setSearchText(route.params.searchText);
 		  }
+		  navigation.setParams({ searchText: undefined });
 		}, [route.params?.searchText])
 	  );
 

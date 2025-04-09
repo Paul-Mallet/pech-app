@@ -25,7 +25,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 		<HomePanel>
 			<Text style={GlobalStyles.h2}>Voir à nouveau</Text>
 			<View style={GlobalStyles.fishCardsContainer}>
-				<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' />
+				<FishCard onPress={() => goToLegislationScreen("machin")} fishName='Mérou brun' />
 				<FishCard onPress={() => console.log('Card pressed')} fishName='Thon rouge' />
 			</View>
 			<LegislationCard
