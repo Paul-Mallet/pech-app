@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import LegislationStyles from '../../styles/pages/LegislationStyles.tsx';
 
 interface ParagraphLegislationCardProps {
   text: string;
@@ -26,7 +27,7 @@ const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislat
   };
 
   return (
-    <View style={GlobalStyles.legislationParagraph}>
+    <View style={LegislationStyles.legislationParagraph}>
       <Text style={GlobalStyles.titleDark}>
         {searchText ? highlightSearchMatches(title, searchText) : title}
       </Text>
