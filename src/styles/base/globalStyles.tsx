@@ -4,7 +4,7 @@ import Colors from './colors.tsx';
 const GlobalStyles = StyleSheet.create({
 	body: {
 		flex: 1,
-		backgroundColor: '#F6F4EB',
+		backgroundColor: Colors.body,
 	},
 	h2: {
 		fontSize: 24,
@@ -33,7 +33,12 @@ const GlobalStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: Colors.textHighlightDark,
 	},
+	textHighlightSearch: {
+		backgroundColor: '#0070ff',
+		color: 'white',
+	},
 	centered: {
+		alignSelf: 'center',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -94,7 +99,7 @@ const GlobalStyles = StyleSheet.create({
 		textAlign: 'left',
 		marginBottom: 16,
 		padding: 16,
-		backgroundColor: '#F6FEFF',
+		backgroundColor: Colors.searchBarBackground,
 		borderRadius: 24,
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 10 },
@@ -116,12 +121,19 @@ const GlobalStyles = StyleSheet.create({
 		backgroundColor: Colors.searchBarBackground,
 		zIndex: 1,
 	  },
-	  searchBarIconLeft:
-	  {
+	searchBarFocused: {
+		backgroundColor: "#EFFDFF",
+		borderColor: Colors.textHighlightDark,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 10 },
+		shadowOpacity: 0.4,
+		shadowRadius: 10,
+		elevation: 10,
+	},
+	searchBarIconLeft: {
 		marginRight: 8,
 	  },
-	  searchBarButtonRight:
-	  {
+	searchBarButtonRight: {
 		backgroundColor: Colors.textHighlightDark,
 		borderRadius: "50%",
 		padding: 6,
@@ -131,11 +143,39 @@ const GlobalStyles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		elevation: 5,
 	  },
-	  input:
-	  {
+	input: {
 		marginTop: 4,
 		flex: 1,
 		fontSize: 14
+	  },
+	legislationPanel: {
+		display: "flex",
+		flexDirection: "column",
+		paddingTop: 0,
+		paddingLeft: 8,
+		paddingRight: 8,
+		paddingBottom: 0,
+		marginBottom: 60,
+		marginTop: 40,
+	  },
+	legislationParagraph: {
+		position: "relative",
+		width: '100%',
+		padding: 8,
+		borderRadius: 8,
+		backgroundColor: "#ffffff50",
+		// overflow: 'hidden',
+		shadowColor: '#00000010',
+		shadowOffset: { width: 0, height: 10 },
+		shadowOpacity: 0.2,
+		shadowRadius: 5,
+		elevation: 5,
+	  },
+	miniImg: {
+		width: '100%',
+		aspectRatio: 1,
+		height: undefined,
+		borderRadius: 24,
 	  },
 });
 

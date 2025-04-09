@@ -1,15 +1,15 @@
 import React, { ReactNode } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface HomeCardProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const HomePanel = ({ children }: HomeCardProps) => {
   return (
     <ScrollView style={GlobalStyles.homePanel}>
-      {children}
+      {children || <Text>Aucun contenu</Text>}
     </ScrollView>
   );
 };
