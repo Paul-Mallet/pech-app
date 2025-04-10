@@ -53,14 +53,16 @@ const GlobalStyles = StyleSheet.create({
 		marginTop: 40,
 	},
 	fishCardsContainer: {
+		flex: 1,
+		width: '49%',
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-between",
 		marginBottom: 20,
+		gap: 10,
 	},
 	fishCardContainer: {
 		position: "relative",
-		width: '47.5%',
 		aspectRatio: 1,
 		padding: 16,
 		borderRadius: 24,
@@ -76,8 +78,6 @@ const GlobalStyles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 		transform: [{ scale: 2 }],
-		top: -16,
-		left: -16,
 		aspectRatio: 1,
 	},
 	fishCardName: {
@@ -94,6 +94,9 @@ const GlobalStyles = StyleSheet.create({
 		textShadowColor: 'black', // Shadow color
 		textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
 		textShadowRadius: 6,
+	},
+	propertyCardName: {
+		bottom: -10,
 	},
 	legislationCard: {
 		textAlign: 'left',

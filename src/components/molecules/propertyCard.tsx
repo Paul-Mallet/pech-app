@@ -2,13 +2,13 @@ import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import React from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 
-interface FishCardProps {
+interface PropertyCardProps {
 	onPress?: () => void;
 	fishName: string;
 	imgSource: string;
 }
 
-const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
+const PropertyCard = ({ onPress, fishName: propertyName, imgSource }: PropertyCardProps) => {
 	return (
 		<View style={GlobalStyles.fishCardContainer}>
 		 	<TouchableOpacity onPress={onPress}>
@@ -16,10 +16,10 @@ const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 					source={{ uri: imgSource }}
 					style={GlobalStyles.backgroundImage}
 				/>
-				<Text style={GlobalStyles.fishCardName}>{fishName}</Text>
+				<Text style={[GlobalStyles.fishCardName, GlobalStyles.propertyCardName]}>{propertyName}</Text>
 		 	</TouchableOpacity>
 		</View>
 	);
 };
 
-export default FishCard;
+export default PropertyCard;
