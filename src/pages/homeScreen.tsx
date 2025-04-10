@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = ({ route }: { route: any }) => {
 
-	const navigation = useNavigation(); // Hook to access navigation
+	const navigation = useNavigation();
 
 	// use with goToLegislationScreen('test') to search for 'test' in the legislation page
 	const goToLegislationScreen = (text: string) => {
@@ -25,7 +25,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 		<HomePanel>
 			<Text style={GlobalStyles.h2}>Voir à nouveau</Text>
 			<View style={GlobalStyles.fishCardsContainer}>
-				<FishCard onPress={() => goToLegislationScreen("machin")} fishName='Mérou brun' />
+				<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' />
 				<FishCard onPress={() => console.log('Card pressed')} fishName='Thon rouge' />
 			</View>
 			<LegislationCard

@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useNavigation } from '@react-navigation/native';
+import LegislationCard from '../components/molecules/legislationCard.tsx';
 
 const QuizzScreen = ({ route }: { route: any }) => {
 
@@ -17,7 +18,18 @@ const QuizzScreen = ({ route }: { route: any }) => {
   return (
 	// content here
 	<SafeAreaView style={GlobalStyles.body}>
-		
+		<LegislationCard
+				title="Ceci est la quizz page"
+				text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
+			/>
+			<LegislationCard
+					title="Ceci est la quizz page"
+					text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
+				/>
+				<LegislationCard
+						title="Ceci est la quizz page"
+						text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
+					/>
 	</SafeAreaView>
   );
 };
