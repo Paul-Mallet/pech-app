@@ -16,9 +16,13 @@ const GlobalStyles = StyleSheet.create({
 		fontFamily: 'BoldFont',
 		textAlign: 'left',
 		fontSize: 16,
-		fontWeight: 'bold',
 		color: Colors.textDark,
 		marginBottom: 8,
+	},
+	titleModal: {
+		marginLeft: 10,
+		marginTop: 10,
+		textAlign: 'center',
 	},
 	textDark: {
 		fontFamily: 'RegularFont',
@@ -146,6 +150,15 @@ const GlobalStyles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		elevation: 5,
 	  },
+	buttonBackModal: {
+		width: 48,
+		height: 48,
+		left: '50%',
+		borderRadius: '50%',
+		transform: [{ translateX: -24 }],
+		backgroundColor: Colors.textHighlightDark,
+		padding: 6,
+	},
 	input: {
 		marginTop: 4,
 		flex: 1,

@@ -4,11 +4,11 @@ import { View, Image, TouchableOpacity, Text } from 'react-native';
 
 interface PropertyCardProps {
 	onPress?: () => void;
-	fishName: string;
+	propertyName: string;
 	imgSource: string;
 }
 
-const PropertyCard = ({ onPress, fishName: propertyName, imgSource }: PropertyCardProps) => {
+const PropertyCard = ({ onPress, propertyName: propertyName, imgSource }: PropertyCardProps) => {
 	return (
 		<View style={GlobalStyles.fishCardContainer}>
 		 	<TouchableOpacity onPress={onPress}>
