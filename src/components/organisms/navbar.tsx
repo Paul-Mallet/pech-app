@@ -8,6 +8,7 @@ import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
 import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import Colors from '../../styles/base/colors.tsx';
+import { useTheme } from '../../styles/base/ThemeContext.tsx';
 import { useNavigationState } from '@react-navigation/native';
 
 type TabParamList = {
@@ -20,6 +21,8 @@ type TabParamList = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const { theme } = useTheme();
+	const styles = NavBarStyles();
   const [activeTab, setActiveTab] = useState('');
 
   const handleTabPress = (tabName: string) => {
@@ -71,13 +74,13 @@ const BottomTabNavigator = () => {
             );
           },
           tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
-            <Text style={[NavBarStyles.tabLabel, focused && NavBarStyles.tabLabelFocused, { color }]}>
+            <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>
               {isAccueil ? (isOnQuizz ? 'Retour' : 'Accueil') : route.name}
             </Text>
           ),
-          tabBarActiveTintColor: Colors.textHighlightDark,
-          tabBarInactiveTintColor: Colors.textDark,
-          tabBarStyle: NavBarStyles.tabBar,
+          tabBarActiveTintColor: theme.textHighlightDark,
+          tabBarInactiveTintColor: theme.textDark,
+          tabBarStyle: styles.tabBar,
         };
       }}
     >

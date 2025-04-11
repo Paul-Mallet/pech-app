@@ -7,8 +7,9 @@ interface HomeCardProps {
 }
 
 const HomePanel = ({ children }: HomeCardProps) => {
+	const styles = GlobalStyles();
   return (
-    <ScrollView style={GlobalStyles.homePanel}>
+    <ScrollView style={styles.homePanel}>
       {children || <Text>Aucun contenu</Text>}
     </ScrollView>
   );

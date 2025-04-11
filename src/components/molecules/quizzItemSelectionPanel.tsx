@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, Dimensions, Modal, TouchableOpacity, ScrollView } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import PropertyCard from './propertyCard.tsx';
-import Colors from '../../styles/base/colors.tsx';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../styles/base/ThemeContext.tsx';
+import QuizzStyles from '../../styles/pages/QuizzStyles.tsx';
 
 interface QuizzItemSelectionPanelProps {
     elementsData: Record<string, string>;
@@ -30,6 +31,9 @@ interface QuizzItemSelectionPanelProps {
       		setVisible={setModalVisible}></QuizzItemSelectionPanel>
 */
 const QuizzItemSelectionPanel: React.FC<QuizzItemSelectionPanelProps> = ({ elementsData, questionType, visible, setVisible }) => {
+  const { theme } = useTheme();
+	const globalStyles = GlobalStyles();
+	const quizzStyles = QuizzStyles();
 
   // if dataType === "", it returns without passing data
   const handleClose = (dataType: string) => {
@@ -40,36 +44,22 @@ const QuizzItemSelectionPanel: React.FC<QuizzItemSelectionPanelProps> = ({ eleme
   };
 
   return (
-    <Modal style={styles.container} visible={visible} animationType="slide" onRequestClose={() => handleClose("")}>
-      <TouchableOpacity style={GlobalStyles.buttonBackModal} onPress={() => handleClose("")}>
-        <Ionicons name="close" size={36} color={Colors.searchBarBackground} />
+    <Modal visible={visible} animationType="slide" onRequestClose={() => handleClose("")}>
+      <View style={[globalStyles.body, {padding: 10}]}>
+      <TouchableOpacity style={globalStyles.buttonBackModal} onPress={() => handleClose("")}>
+        <Ionicons name="close" size={36} color={theme.searchBarBackground} />
       </TouchableOpacity>
-      <Text style={[GlobalStyles.titleDark, GlobalStyles.titleModal]}>{questionType}</Text>
-      <ScrollView contentContainerStyle={styles.grid}>
+      <Text style={[globalStyles.titleDark, globalStyles.titleModal]}>{questionType}</Text>
+      <ScrollView contentContainerStyle={quizzStyles.grid}>
         {Object.entries(elementsData).map(([propertyName, imageSource], index) => (
-          <View key={index} style={styles.element}>
+          <View key={index} style={quizzStyles.element}>
             <PropertyCard onPress={() => handleClose(propertyName)} propertyName={propertyName} imgSource={imageSource}/>
           </View>
         ))}
       </ScrollView>
-  </Modal>
+      </View>
+    </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: Colors.body,
-      },
-      grid: {
-        padding: 10,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      },
-      element: {
-        width: '48%',
-        marginBottom: 10,
-      },
-  });
 
 export default QuizzItemSelectionPanel;

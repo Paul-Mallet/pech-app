@@ -10,6 +10,7 @@ interface ParagraphLegislationCardProps {
 }
 
 const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislationCardProps) => {
+	const styles = GlobalStyles();
 
   const highlightSearchMatches = (text: string, query: string) => {
     if (!query) return [<Text key="0">{text}</Text>];
@@ -19,7 +20,7 @@ const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislat
 
     return parts.map((part, i) => (
       part.toLowerCase() === query.toLowerCase() ? (
-        <Text key={i} style={GlobalStyles.textHighlightSearch}>{part}</Text>
+        <Text key={i} style={styles.textHighlightSearch}>{part}</Text>
       ) : (
         <Text key={i}>{part}</Text>
       )
@@ -28,10 +29,10 @@ const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislat
 
   return (
     <View style={LegislationStyles.legislationParagraph}>
-      <Text style={GlobalStyles.titleDark}>
+      <Text style={styles.titleDark}>
         {searchText ? highlightSearchMatches(title, searchText) : title}
       </Text>
-      <Text style={GlobalStyles.textDark}>
+      <Text style={styles.textDark}>
         {searchText ? highlightSearchMatches(text, searchText) : text}
       </Text>
     </View>

@@ -6,6 +6,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import SplashScreen from './pages/loadingScreen.tsx';
 import Colors from './styles/base/colors.tsx';
 import MainNavigator from './pages/mainNavigator.tsx';
+import { ThemeProvider } from './styles/base/ThemeContext.tsx';
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -39,24 +40,27 @@ export default function App() {
 
   if (!fontLoaded) {
     return (
-      <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
-      </View>
+      <ThemeProvider>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
+          <Text>Loading...</Text>
+        </View>
+      </ThemeProvider>
     );
   }
 
   return (
-    <View style={styles.container}>
-        <SplashScreen
-          fadeAnim={fadeAnim}
-          translateYAnim={translateYAnim}
-          onAnimationEnd={handleAnimationEnd}
-        />
-        <NavigationContainer theme={MyTheme}>
-          <MainNavigator />
-          {/* <BottomTabNavigator /> */}
-        </NavigationContainer>
-    </View>
+    <ThemeProvider>
+        <View style={{ flex: 1 }}>
+          <SplashScreen
+            fadeAnim={fadeAnim}
+            translateYAnim={translateYAnim}
+            onAnimationEnd={handleAnimationEnd}
+          />
+          <NavigationContainer theme={MyTheme}>
+            <MainNavigator />
+          </NavigationContainer>
+      </View>
+    </ThemeProvider>
   );
 }
 

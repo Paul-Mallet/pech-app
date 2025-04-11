@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
 
 const QuizzScreen = ({ route }: { route: any }) => {
+	const globalStyles = GlobalStyles();
 
 	const navigation = useNavigation(); // Hook to access navigation
 
@@ -17,19 +18,19 @@ const QuizzScreen = ({ route }: { route: any }) => {
 	};
   return (
 	// content here
-	<SafeAreaView style={GlobalStyles.body}>
+	<SafeAreaView style={globalStyles.body}>
 		<LegislationCard
-				title="Ceci est la quizz page"
-				text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
-			/>
-			<LegislationCard
-					title="Ceci est la quizz page"
-					text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
-				/>
-				<LegislationCard
-						title="Ceci est la quizz page"
-						text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
-					/>
+			title="Ceci est la quizz page"
+			text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
+		/>
+		<LegislationCard
+			title="Ceci est la quizz page"
+			text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
+		/>
+		<LegislationCard
+			title="Ceci est la quizz page"
+			text="quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page quizz page "         
+		/>
 	</SafeAreaView>
   );
 };

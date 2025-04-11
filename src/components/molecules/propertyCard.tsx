@@ -9,14 +9,15 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({ onPress, propertyName: propertyName, imgSource }: PropertyCardProps) => {
+	const styles = GlobalStyles();
 	return (
-		<View style={GlobalStyles.fishCardContainer}>
+		<View style={styles.fishCardContainer}>
 		 	<TouchableOpacity onPress={onPress}>
 				<Image
 					source={{ uri: imgSource }}
-					style={GlobalStyles.backgroundImage}
+					style={styles.backgroundImage}
 				/>
-				<Text style={[GlobalStyles.fishCardName, GlobalStyles.propertyCardName]}>{propertyName}</Text>
+				<Text style={[styles.fishCardName, styles.propertyCardName]}>{propertyName}</Text>
 		 	</TouchableOpacity>
 		</View>
 	);

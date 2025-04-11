@@ -8,6 +8,7 @@ interface HomeTextCardProps {
 }
 
 const HomeTextCard = (props: HomeTextCardProps) => {
+	const styles = GlobalStyles();
   const { text, title } = props;
 
   const getHighlightedText = (text: string) => {
@@ -22,7 +23,7 @@ const HomeTextCard = (props: HomeTextCardProps) => {
       }
 
       parts.push(
-        <Text key={match.index} style={GlobalStyles.textHighlightDark}>
+        <Text key={match.index} style={styles.textHighlightDark}>
           {match[1]}
         </Text>
       );
@@ -39,8 +40,8 @@ const HomeTextCard = (props: HomeTextCardProps) => {
 
   return (
     <View>
-      <Text style={GlobalStyles.titleDark}>{props.title}</Text>
-      <Text style={GlobalStyles.textDark}>
+      <Text style={styles.titleDark}>{props.title}</Text>
+      <Text style={styles.textDark}>
         {getHighlightedText(text)}
       </Text>
     </View>
