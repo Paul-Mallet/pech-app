@@ -33,57 +33,54 @@ const BottomTabNavigator = () => {
     return route.name;
   });
   return (
-    <Tab.Navigator
-      tabBar={(props: { state: { routes: any[]; index: any } }) => {
-        const visibleRoutes = props.state.routes.filter(route => route.name !== 'Quizz');
-        const realIndex = props.state.index;
-        const adjustedIndex = visibleRoutes.findIndex(
-          route => route.key === props.state.routes[realIndex]?.key
-        );
+      <Tab.Navigator
+        tabBar={(props: { state: { routes: any[]; index: any } }) => {
+          const visibleRoutes = props.state.routes.filter(route => route.name !== 'Quizz');
+          const realIndex = props.state.index;
+          const adjustedIndex = visibleRoutes.findIndex(
+            route => route.key === props.state.routes[realIndex]?.key
+          );
 
-        return (
-          <BottomTabBar
-            {...props}
-            state={{
-              ...props.state,
-              routes: visibleRoutes,
-              index: adjustedIndex === -1 ? 0 : adjustedIndex,
-            }}
-          />
-        );
-      }}
-      screenOptions={function ({ route }: { route: { name: keyof TabParamList } }) {
-        const isOnQuizz = currentRouteName === 'Quizz';
-        const isAccueil = route.name === 'Accueil';
-
-        let iconName: string;
-        if (isAccueil) {
-          iconName = isOnQuizz ? 'arrow-back' : 'home';
-        } else if (route.name === 'Législation') {
-          iconName = 'book-outline';
-        } else if (route.name === 'Paramètres') {
-          iconName = 'settings-outline';
-        } else {
-          iconName = 'help';
-        }
-
-        return {
-          tabBarIcon: ({ color, size }: { color: string; size: number }) => {
-            return (
-              <Ionicons name={iconName as keyof typeof Ionicons.glyphMap} size={size} color={color} />
-            );
+          return (
+            <BottomTabBar
+              {...props}
+              state={{
+                ...props.state,
+                routes: visibleRoutes,
+                index: adjustedIndex === -1 ? 0 : adjustedIndex,
+              }}
+            />
+          );
+        }}
+        screenOptions={({ route }: { route: { name: keyof TabParamList } }) => ({
+          tabBarIcon: ({ color, size, focused }: { color: string; size: number; focused: boolean }) => {
+            let iconName: string;
+            switch (route.name)
+            {
+              case 'Accueil':
+                iconName = focused ? 'home' : 'home-outline';
+                break;
+              case 'Législation':
+                iconName = focused ? 'book' : 'book-outline';
+                break;
+              case 'Paramètres':
+                iconName = focused ? 'settings' : 'settings-outline';
+                break;
+              default:
+                iconName = 'help';
+            }
+            return <Ionicons name={iconName as keyof typeof Ionicons.glyphMap} size={size} color={color} />;
           },
-          tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
-            <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>
-              {isAccueil ? (isOnQuizz ? 'Retour' : 'Accueil') : route.name}
-            </Text>
-          ),
           tabBarActiveTintColor: theme.textHighlightDark,
           tabBarInactiveTintColor: theme.textDark,
           tabBarStyle: styles.tabBar,
-        };
-      }}
-    >
+          tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
+            <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>  
+              {route.name}
+            </Text>
+          ),
+        })}
+      >
       <Tab.Screen
         name="Accueil"
         component={HomeScreen}
