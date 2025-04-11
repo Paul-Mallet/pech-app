@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Animated, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import BottomTabNavigator from './components/organisms/navbar.tsx';
 import SplashScreen from './pages/loadingScreen.tsx';
+import { ThemeProvider } from './styles/base/ThemeContext.tsx';
 import Colors from './styles/base/colors.tsx';
 
 export default function App() {
@@ -12,14 +13,6 @@ export default function App() {
   const fadeAnim = useRef(new Animated.Value(1)).current; // Opacity starting at 1
   const translateYAnim = useRef(new Animated.Value(0)).current; // Starting position
 
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: 'tomato', // useless?
-      background: Colors.backgroundLight,
-    },
-  };
 
   useEffect(() => {
     async function loadFonts() {
@@ -36,25 +29,29 @@ export default function App() {
     setShowMainContent(true);
   };
 
-  if (!fontLoaded) {
+  if (!fontLoaded) { // delete or replace with the Pech'App splash screen?
     return (
-      <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
-      </View>
+      <ThemeProvider>
+        <View style={styles.loadingContainer}>
+          <Text>Loading...</Text>
+        </View>
+      </ThemeProvider>
     );
   }
 
   return (
-    <View style={styles.container}>
-        <SplashScreen
-          fadeAnim={fadeAnim}
-          translateYAnim={translateYAnim}
-          onAnimationEnd={handleAnimationEnd}
-        />
-        <NavigationContainer theme={MyTheme}>
-          <BottomTabNavigator />
-        </NavigationContainer>
-    </View>
+    <ThemeProvider>
+      <View style={styles.container}>
+          <SplashScreen
+            fadeAnim={fadeAnim}
+            translateYAnim={translateYAnim}
+            onAnimationEnd={handleAnimationEnd}
+          />
+          <NavigationContainer>
+            <BottomTabNavigator />
+          </NavigationContainer>
+      </View>
+    </ThemeProvider>
   );
 }
 

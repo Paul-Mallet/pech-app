@@ -8,14 +8,15 @@ interface FishCardProps {
 }
 
 const FishCard = ({ onPress, fishName }: FishCardProps) => {
+	const styles = GlobalStyles();
 	return (
-		<View style={GlobalStyles.fishCardContainer}>
+		<View style={styles.fishCardContainer}>
 		 	<TouchableOpacity onPress={onPress}>
 				<Image
 					source={{ uri: 'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' }}
-					style={GlobalStyles.backgroundImage}
+					style={styles.backgroundImage}
 				/>
-				<Text style={GlobalStyles.fishCardName}>{fishName}</Text>
+				<Text style={styles.fishCardName}>{fishName}</Text>
 		 	</TouchableOpacity>
 		</View>
 	);

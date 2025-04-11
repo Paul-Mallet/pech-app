@@ -9,6 +9,7 @@ interface HomeTextCardProps {
 }
 
 const LegislationCard = (props: HomeTextCardProps) => {
+	const styles = GlobalStyles();
 	const { text } = props;
 	const getHighlightedText = (text: string) => {
 		const regex = /<h>(.*?)<\/h>/g;
@@ -22,7 +23,7 @@ const LegislationCard = (props: HomeTextCardProps) => {
 				parts.push(<Text key={lastIndex}>{text.substring(lastIndex, match.index)}</Text>);
 			};
 			parts.push(
-				<Text key={match.index} style={GlobalStyles.textHighlightDark}>
+				<Text key={match.index} style={styles.textHighlightDark}>
 					{match[1]}
 				</Text>
 			);
@@ -35,11 +36,11 @@ const LegislationCard = (props: HomeTextCardProps) => {
 	};
 
 	return (
-		<TouchableOpacity onPress={props.onPress} style={GlobalStyles.legislationCard}>
-			<Text style={GlobalStyles.titleDark}>
+		<TouchableOpacity onPress={props.onPress} style={styles.legislationCard}>
+			<Text style={styles.titleDark}>
 				{props.title}
 			</Text>
-			<Text style={GlobalStyles.textDark}>
+			<Text style={styles.textDark}>
 				{getHighlightedText(text)}
 			</Text>
 		</TouchableOpacity>

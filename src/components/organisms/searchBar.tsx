@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import Colors from '../../styles/base/colors.tsx';
+import { useTheme } from '../../styles/base/ThemeContext.tsx';
 
 const SearchBar = () => {
+  const { theme } = useTheme();
+	const styles = GlobalStyles();
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -29,22 +31,22 @@ const SearchBar = () => {
   };
   
   const searchBarStyle = isFocused
-    ? [GlobalStyles.searchBar, GlobalStyles.searchBarFocused]
-    : GlobalStyles.searchBar;
+    ? [styles.searchBar, styles.searchBarFocused]
+    : styles.searchBar;
 
   return (
     <View style={searchBarStyle}>
-      <Ionicons name="search" size={24} color={Colors.textDark} style={GlobalStyles.searchBarIconLeft} />
+      <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
       <TextInput
-        style={[GlobalStyles.textDark, GlobalStyles.input]}
+        style={[styles.textDark, styles.input]}
         placeholder="Rechercher..."
-        placeholderTextColor= {Colors.inputPlaceholder}
+        placeholderTextColor= {theme.inputPlaceholder}
         onChangeText={handleTextChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
-      <TouchableOpacity style={GlobalStyles.searchBarButtonRight} onPress={handleRightIconPress}>
-        <Ionicons name="list" size={26} color={Colors.searchBarBackground} />
+      <TouchableOpacity style={styles.searchBarButtonRight} onPress={handleRightIconPress}>
+        <Ionicons name="list" size={26} color={theme.searchBarBackground} />
       </TouchableOpacity>
     </View>
   );

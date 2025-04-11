@@ -8,6 +8,7 @@ import ParagraphLegislationCard from '../components/molecules/paragraphLegislati
 import { useFocusEffect } from '@react-navigation/native';
 
 const LegislationScreen = ({ route }: { route: any }) => {
+	const styles = GlobalStyles();
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text: string) => {
 	  setSearchText(text);
@@ -66,7 +67,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
     .map(p => React.cloneElement(p, { searchText }));
 
 	return (
-		<SafeAreaView style={GlobalStyles.body}>
+		<SafeAreaView style={styles.body}>
 			<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
 			<LegislationPanel>
 				{filtered}

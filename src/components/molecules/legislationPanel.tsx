@@ -8,9 +8,10 @@ interface LegislationCardProps {
 }
 
 const LegislationPanel = ({ children }: LegislationCardProps) => {
+	const styles = GlobalStyles();
   return (
     <ScrollView style={LegislationStyles.legislationPanel}>
-      {children || <Text style={GlobalStyles.centered}>Aucun contenu</Text>}
+      {children || <Text style={styles.centered}>Aucun contenu</Text>}
     </ScrollView>
   );
 };

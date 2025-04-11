@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import Colors from '../../styles/base/colors.tsx';
+import { useTheme } from '../../styles/base/ThemeContext.tsx';
 interface SearchBarLegislationProps {
   searchText: string;
   setSearchText: (text: string) => void;
 }
 
 const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislationProps) => {
+  const { theme } = useTheme();
+	const styles = GlobalStyles();
   const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -31,23 +33,23 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
   };
 
   const searchBarStyle = isFocused
-    ? [GlobalStyles.searchBar, GlobalStyles.searchBarFocused]
-    : GlobalStyles.searchBar;
+    ? [styles.searchBar, styles.searchBarFocused]
+    : styles.searchBar;
 
   return (
     <View style={searchBarStyle}>
-      <Ionicons name="search" size={24} color={Colors.textDark} style={GlobalStyles.searchBarIconLeft} />
+      <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
       <TextInput
-        style={[GlobalStyles.textDark, GlobalStyles.input]}
+        style={[styles.textDark, styles.input]}
         placeholder="Rechercher..."
-        placeholderTextColor={Colors.inputPlaceholder}
+        placeholderTextColor={theme.inputPlaceholder}
         onChangeText={handleTextChange}
         value={searchText}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
       <TouchableOpacity onPress={handleRightIconPress}>
-        <Ionicons name="close" size={26} color={Colors.textHighlightDark} />
+        <Ionicons name="close" size={26} color={theme.textHighlightDark} />
       </TouchableOpacity>
     </View>
   );
