@@ -32,7 +32,8 @@ export default function App() {
   if (!fontLoaded) { // delete or replace with the Pech'App splash screen?
     return (
       <ThemeProvider>
-        <View style={styles.loadingContainer}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}
+      }>
           <Text>Loading...</Text>
         </View>
       </ThemeProvider>
@@ -41,7 +42,7 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <View style={styles.container}>
+      <View style={{ flex: 1 }}>
           <SplashScreen
             fadeAnim={fadeAnim}
             translateYAnim={translateYAnim}
@@ -54,15 +55,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backgroundLight,
-  },
-});
