@@ -32,8 +32,7 @@ export default function App() {
   if (!fontLoaded) { // delete or replace with the Pech'App splash screen?
     return (
       <ThemeProvider>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}
-      }>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
           <Text>Loading...</Text>
         </View>
       </ThemeProvider>
