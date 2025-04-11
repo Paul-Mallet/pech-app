@@ -27,12 +27,12 @@ export const darkTheme =
 export const poppinsFont =
 {
     mode: 'poppins',
-    bold: '../../../fonts/Poppins-Bold.ttf',
-    regular: '../../../fonts/Poppins-Regular.ttf',
+    bold: '../../../assets/fonts/Poppins-Bold.ttf',
+    regular: '../../../assets/fonts/Poppins-Regular.ttf',
 };
 export const otherFont =
 {
     mode: 'other',
-    bold: '../../../fonts/Poppins-Bold.ttf',
-    regular: '../../../fonts/Poppins-Regular.ttf',
+    bold: '../../../assets/fonts/Poppins-Bold.ttf',
+    regular: '../../../assets/fonts/Poppins-Regular.ttf',
 };
