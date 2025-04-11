@@ -23,3 +23,16 @@ export const darkTheme =
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#66807E',
 };
+
+export const poppinsFont =
+{
+    mode: 'poppins',
+    bold: '../../../fonts/Poppins-Bold.ttf',
+    regular: '../../../fonts/Poppins-Regular.ttf',
+};
+export const otherFont =
+{
+    mode: 'other',
+    bold: '../../../fonts/Poppins-Bold.ttf',
+    regular: '../../../fonts/Poppins-Regular.ttf',
+};

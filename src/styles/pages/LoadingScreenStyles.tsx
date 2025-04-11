@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { useTheme } from "../base/ThemeContext.tsx";
 
 const LoadingScreenStyles = () => {
-  const { theme } = useTheme();
+  const { theme, font } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -22,7 +22,7 @@ const LoadingScreenStyles = () => {
     text: {
       color: theme.body,
       fontSize: 32,
-      fontFamily: 'BoldFont',
+      fontFamily: font.bold,
       marginTop: 20,
     },
   });

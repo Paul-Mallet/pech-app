@@ -4,7 +4,7 @@ import { useTheme } from './ThemeContext.tsx';
 
 const GlobalStyles = () => {
   // Get theme from context within the component
-  const { theme } = useTheme();
+  const { theme, font } = useTheme();
 
   // Dynamically create the styles based on the theme
   const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const GlobalStyles = () => {
       color: theme.textDark,
     },
     titleDark: {
-      fontFamily: 'BoldFont',
+      fontFamily: font.bold,
       textAlign: 'left',
       fontSize: 16,
       fontWeight: 'bold',
@@ -27,14 +27,13 @@ const GlobalStyles = () => {
       marginBottom: 8,
     },
     textDark: {
-      fontFamily: 'RegularFont',
+      fontFamily: font.regular,
       fontSize: 12,
-      fontWeight: '400',
       color: theme.textDark,
       textAlign: 'left',
     },
     textHighlightDark: {
-      fontFamily: 'BoldFont',
+      fontFamily: font.bold,
       fontSize: 14,
       fontWeight: 'bold',
       color: theme.textHighlightDark,

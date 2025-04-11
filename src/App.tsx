@@ -9,44 +9,13 @@ import MainNavigator from './pages/mainNavigator.tsx';
 import { ThemeProvider } from './styles/base/ThemeContext.tsx';
 
 export default function App() {
-  const [fontLoaded, setFontLoaded] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false); // State to control content display
   const fadeAnim = useRef(new Animated.Value(1)).current; // Opacity starting at 1
   const translateYAnim = useRef(new Animated.Value(0)).current; // Starting position
 
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: 'tomato', // useless?
-      background: Colors.backgroundLight,
-    },
-  };
-
-  useEffect(() => {
-    async function loadFonts() {
-      await Font.loadAsync({
-        'BoldFont': require('../assets/fonts/Poppins-Bold.ttf'),
-        'RegularFont': require('../assets/fonts/Poppins-Regular.ttf'),
-      });
-      setFontLoaded(true);
-    }
-    loadFonts();
-  }, []);
-
   const handleAnimationEnd = () => {
     setShowMainContent(true);
   };
-
-  if (!fontLoaded) {
-    return (
-      <ThemeProvider>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
-          <Text>Loading...</Text>
-        </View>
-      </ThemeProvider>
-    );
-  }
 
   return (
     <ThemeProvider>
@@ -56,22 +25,10 @@ export default function App() {
             translateYAnim={translateYAnim}
             onAnimationEnd={handleAnimationEnd}
           />
-          <NavigationContainer theme={MyTheme}>
+          <NavigationContainer>
             <MainNavigator />
           </NavigationContainer>
       </View>
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backgroundLight,
-  },
-});
