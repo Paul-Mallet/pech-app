@@ -35,7 +35,10 @@ const HomeScreen = ({ route }: { route: any }) => {
 	// const showModal = () => setModalVisible(true);
 	// use with goToLegislationScreen('test') to search for 'test' in the legislation page
 	const goToLegislationScreen = (text: string) => {
-		navigation.navigate('Législation', { searchText: text });
+		navigation.navigate('Tabs', {
+			screen: 'Législation',
+			params: { searchText: text },
+		  });
 	};
   return (
 	<SafeAreaView style={GlobalStyles.body}>

@@ -3,8 +3,10 @@ import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import Colors from '../../styles/base/colors.tsx';
+import { useNavigation } from '@react-navigation/native';
 
 const SearchBar = () => {
+	const navigation = useNavigation();
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -15,6 +17,7 @@ const SearchBar = () => {
   };
 
   const handleRightIconPress = () => {
+    navigation.navigate('Quizz');
     console.log('Right icon pressed');
     setSearchText('');
   };
