@@ -6,19 +6,17 @@ import { View, Text, SafeAreaView, Button } from 'react-native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBar from '../components/organisms/searchBar.tsx';
-import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen = ({ route }: { route: any }) => {
-
-	const navigation = useNavigation(); // Hook to access navigation
+const HomeScreen = ({navigation}: any) => {
 
 	// use with goToLegislationScreen('test') to search for 'test' in the legislation page
 	const goToLegislationScreen = (text: string) => {
 		navigation.navigate('Législation', { searchText: text });
-	};
+	}
+	
   return (
 	<SafeAreaView style={GlobalStyles.body}>
-		<SearchBar/>
+		<SearchBar navigation={navigation}/>
 		<HomePanel>
 			<Text style={GlobalStyles.h2}>Voir à nouveau</Text>
 			<View style={GlobalStyles.fishCardsContainer}>

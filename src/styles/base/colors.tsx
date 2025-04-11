@@ -7,6 +7,9 @@ const Colors = {
     navBarBackground: '#cfe5e3',
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#F6FEFF',
+    roundButton: '#31909C',
+    viewFishButton: '#92D8E1',
+    highlightBlue: '#92D8E1'
 };
 
 export default Colors;

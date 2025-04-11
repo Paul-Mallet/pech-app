@@ -16,7 +16,7 @@ type TabParamList = {
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({routeName} : {routeName? : string}) => {
   const [activeTab, setActiveTab] = useState('');
 
   const handleTabPress = (tabName: string) => {
@@ -25,6 +25,7 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName={routeName}
       screenOptions={({ route }: { route: { name: keyof TabParamList } }) => ({
         tabBarIcon: ({ color, size, focused }: { color: string; size: number; focused: boolean }) => {
           let iconName: string;
@@ -42,7 +43,7 @@ const BottomTabNavigator = () => {
             default:
               iconName = 'help';
           }
-          return <Ionicons name={iconName as keyof typeof Ionicons.glyphMap} size={size} color={color} />;
+          return <Ionicons name={iconName as any} size={size} color={color} />;
         },
         tabBarActiveTintColor: Colors.textHighlightDark,
         tabBarInactiveTintColor: Colors.textDark,

@@ -12,6 +12,11 @@ const ButtonStyles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
+  searchButton: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    flex: 0.5,
+  }
 });
 
 export default ButtonStyles

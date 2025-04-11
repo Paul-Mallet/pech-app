@@ -2,9 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Animated, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './components/organisms/navbar.tsx';
 import SplashScreen from './pages/loadingScreen.tsx';
 import Colors from './styles/base/colors.tsx';
+import SearchBar from './components/organisms/searchBar.tsx';
+import FishResearch from './pages/fishResearchScreen.tsx';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -52,7 +57,10 @@ export default function App() {
           onAnimationEnd={handleAnimationEnd}
         />
         <NavigationContainer theme={MyTheme}>
-          <BottomTabNavigator />
+          <Stack.Navigator screenOptions={{headerShown : false}}>
+            <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
+            <Stack.Screen name="FishResearch" component={FishResearch} />
+          </Stack.Navigator>
         </NavigationContainer>
     </View>
   );
@@ -66,6 +74,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.backgroundLight,
+    backgroundColor: '#FFFDF6',
   },
 });
