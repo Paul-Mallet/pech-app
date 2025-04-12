@@ -11,8 +11,8 @@ export default function useLoadFonts() {
         'PoppinsBold': require('../../../assets/fonts/Poppins-Bold.ttf'),
         'PoppinsRegular': require('../../../assets/fonts/Poppins-Regular.ttf'),
         // 'PoppinsItalic': require('../../../assets/fonts/Poppins-Italic.ttf'),
-        'DyslexiaBold': require('../../../assets/fonts/OpenDyslexic-Bold.ttf'),
-        'DyslexiaRegular': require('../../../assets/fonts/OpenDyslexic-Regular.ttf'),
+        'DyslexicBold': require('../../../assets/fonts/OpenDyslexic-Bold.ttf'),
+        'DyslexicRegular': require('../../../assets/fonts/OpenDyslexic-Regular.ttf'),
         // 'DyslexiaItalic': require('../../../assets/fonts/OpenDyslexic-Italic.ttf'),
       });
       setFontsLoaded(true);

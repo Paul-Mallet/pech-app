@@ -53,7 +53,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 			<HomePanel>
 			{/* <QuizzItemSelectionPanel elementsData={elementsData} questionType={"Quel type de nageoire caudale ?"} visible={visibleModal}
       		setVisible={setModalVisible}></QuizzItemSelectionPanel> */}
-				<Button title="Toggle Theme" onPress={toggleTheme} />
+				{/* <Button title="Toggle Theme" onPress={toggleTheme} /> */}
 				<Text style={styles.h2}>Voir à nouveau</Text>
 				<View style={styles.fishCardsContainer}>
 					<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' />

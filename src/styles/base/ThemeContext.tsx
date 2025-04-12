@@ -8,6 +8,7 @@ interface ThemeContextType {
     setThemeByName: (themeName: string) => void;
     toggleTheme: () => void;
     font: FontType;
+    setFontByName: (fontName: string) => void;
     toggleFont: () => void;
 }
 
@@ -29,12 +30,20 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
+  const setFontByName = (fontName: string) => {
+    if (fontName === 'Poppins') {
+      setFont(poppinsFont);
+    } else if (fontName === 'Dyslexic') {
+      setFont(dyslexiaFont);
+    }
+  };
+
   const toggleFont = () => {
-    setFont(prev => (prev.mode === 'poppins' ? dyslexiaFont : poppinsFont));
+    setFont(prev => (prev.mode === 'Poppins' ? dyslexiaFont : poppinsFont));
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setThemeByName, toggleTheme, font, toggleFont }}>
+    <ThemeContext.Provider value={{ theme, setThemeByName, toggleTheme, font, setFontByName, toggleFont }}>
       {children}
     </ThemeContext.Provider>
   );

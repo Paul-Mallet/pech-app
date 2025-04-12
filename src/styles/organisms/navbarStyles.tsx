@@ -2,14 +2,14 @@ import { StyleSheet } from "react-native";
 import { useTheme } from "../base/ThemeContext.tsx";
 
 const NavBarStyles = () => {
-  const { theme } = useTheme();
+  const { theme, font } = useTheme();
   const styles = StyleSheet.create({
     tabLabel: {
-      fontSize: 14,
-      fontWeight: 'normal',
+      fontSize: 12,
+      fontFamily: font.regular,
     },
     tabLabelFocused: {
-      fontWeight: 'bold',
+      fontFamily: font.bold,
     },
     tabBar: {
       backgroundColor: theme.navBarBackground,
