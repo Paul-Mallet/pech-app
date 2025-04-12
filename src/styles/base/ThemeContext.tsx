@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from 'react';
-import { lightTheme, darkTheme, poppinsFont, otherFont } from './Themes.tsx';
+import { lightTheme, darkTheme, poppinsFont, dyslexiaFont } from './Themes.tsx';
 
 type ThemeType = typeof lightTheme;
 type FontType = typeof poppinsFont;
 interface ThemeContextType {
     theme: ThemeType;
+    setThemeByName: (themeName: string) => void;
     toggleTheme: () => void;
     font: FontType;
     toggleFont: () => void;
@@ -20,12 +21,20 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setTheme(prev => (prev.mode === 'light' ? darkTheme : lightTheme));
   };
 
+  const setThemeByName = (themeName: string) => {
+    if (themeName === 'dark') {
+      setTheme(darkTheme);
+    } else if (themeName === 'light') {
+      setTheme(lightTheme);
+    }
+  };
+
   const toggleFont = () => {
-    setFont(prev => (prev.mode === 'poppins' ? otherFont : poppinsFont));
+    setFont(prev => (prev.mode === 'poppins' ? dyslexiaFont : poppinsFont));
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, font, toggleFont }}>
+    <ThemeContext.Provider value={{ theme, setThemeByName, toggleTheme, font, toggleFont }}>
       {children}
     </ThemeContext.Provider>
   );
