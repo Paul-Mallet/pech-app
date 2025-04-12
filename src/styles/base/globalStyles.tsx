@@ -3,10 +3,8 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { useTheme } from './ThemeContext.tsx';
 
 const GlobalStyles = () => {
-  // Get theme from context within the component
   const { theme, font } = useTheme();
 
-  // Dynamically create the styles based on the theme
   const styles = StyleSheet.create({
     body: {
       flex: 1,
@@ -14,17 +12,18 @@ const GlobalStyles = () => {
     },
     h2: {
       fontSize: 24,
-      fontWeight: '700',
-      marginBottom: 16, // previously marginVertical
+      marginVertical: 8,
       color: theme.textDark,
+      fontFamily: font.bold,
+      lineHeight: 40
     },
     titleDark: {
       fontFamily: font.bold,
       textAlign: 'left',
       fontSize: 16,
-      fontWeight: 'bold',
       color: theme.textDark,
       marginBottom: 8,
+      lineHeight: 20
     },
     textDark: {
       fontFamily: font.regular,
@@ -39,7 +38,7 @@ const GlobalStyles = () => {
       color: theme.textHighlightDark,
     },
     textHighlightSearch: {
-      backgroundColor: '#0070ff',
+      backgroundColor: theme.textHighlightSearch,
       color: 'white',
     },
     centered: {

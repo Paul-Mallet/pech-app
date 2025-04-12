@@ -34,7 +34,7 @@ const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim :
         ]}
       >
         <Image source={require('../../assets/Logo.webp')} style={styles.image} />
-        <Text style={styles.text}>Pêch’App</Text>
+        <Text style={styles.pechAppTitle}>Pêch’App</Text>
       </Animated.View>
     );
   };

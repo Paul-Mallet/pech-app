@@ -9,6 +9,7 @@ export const lightTheme =
     navBarBackground: '#cfe5e3',
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#F6FEFF',
+    textHighlightSearch: '#0070ff',
 };
   
 export const darkTheme =
@@ -22,17 +23,18 @@ export const darkTheme =
     navBarBackground: '#31909C',
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#66807E',
+    textHighlightSearch: '#0070ff',
 };
 
 export const poppinsFont =
 {
     mode: 'poppins',
-    bold: '../../../fonts/Poppins-Bold.ttf',
-    regular: '../../../fonts/Poppins-Regular.ttf',
+    bold: 'PoppinsBold',
+    regular: 'PoppinsRegular',
 };
 export const otherFont =
 {
     mode: 'other',
-    bold: '../../../fonts/Poppins-Bold.ttf',
-    regular: '../../../fonts/Poppins-Regular.ttf',
+    bold: 'DyslexiaBold',
+    regular: 'DyslexiaRegular',
 };

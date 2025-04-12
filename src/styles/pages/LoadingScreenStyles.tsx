@@ -19,11 +19,12 @@ const LoadingScreenStyles = () => {
       width: 256,
       height: 99,
     },
-    text: {
+    pechAppTitle: {
       color: theme.body,
       fontSize: 32,
       fontFamily: font.bold,
       marginTop: 20,
+      lineHeight: 60
     },
   });
   return styles;

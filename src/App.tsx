@@ -7,15 +7,22 @@ import SplashScreen from './pages/loadingScreen.tsx';
 import Colors from './styles/base/colors.tsx';
 import MainNavigator from './pages/mainNavigator.tsx';
 import { ThemeProvider } from './styles/base/ThemeContext.tsx';
+import useLoadFonts from './components/organisms/loadFonts.tsx';
 
 export default function App() {
-  const [showMainContent, setShowMainContent] = useState(false); // State to control content display
-  const fadeAnim = useRef(new Animated.Value(1)).current; // Opacity starting at 1
-  const translateYAnim = useRef(new Animated.Value(0)).current; // Starting position
+  const fontLoaded = useLoadFonts();
+  const [showMainContent, setShowMainContent] = useState(false);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const translateYAnim = useRef(new Animated.Value(0)).current;
+
 
   const handleAnimationEnd = () => {
     setShowMainContent(true);
   };
+
+  if (!fontLoaded) {
+    return null;
+  }
 
   return (
     <ThemeProvider>
