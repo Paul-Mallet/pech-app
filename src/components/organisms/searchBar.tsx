@@ -58,6 +58,7 @@ const SearchBar = () => {
     ? [styles.searchBar, styles.searchBarFocused]
     : styles.searchBar;
 
+  // make the search icon clickable to expand/reduce the results?
   return (
     <View style={searchBarStyle}>
       <View style={styles.searchBarTopItems}>

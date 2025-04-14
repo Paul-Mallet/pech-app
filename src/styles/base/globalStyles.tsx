@@ -54,7 +54,7 @@ const GlobalStyles = () => {
       paddingRight: 32,
       paddingBottom: 0,
       marginBottom: 60,
-      marginTop: 40,
+      marginTop: 100,
     },
 	fishCardsContainer: {
 		flex: 1,
@@ -112,6 +112,8 @@ const GlobalStyles = () => {
       elevation: 10,
     },
     searchBar: {
+      position: 'absolute',
+      alignSelf: 'center',
       top: 40,
       marginHorizontal: 'auto',
       width: "95%",
@@ -130,10 +132,9 @@ const GlobalStyles = () => {
     searchBarTopItems: {
       alignItems: 'center',
       flexDirection: 'row',
-      height: 60,
+      height: 60, // default searchbar height, the homePanel and legislationPanel have this marginTop + 40!
     },
     searchBarList: {
-      // alignItems: 'center',
       flexDirection: 'column',
       width: '100%',
       height: 'auto',
