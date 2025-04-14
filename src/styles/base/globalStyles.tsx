@@ -115,15 +115,62 @@ const GlobalStyles = () => {
       top: 40,
       marginHorizontal: 'auto',
       width: "95%",
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 32,
       paddingHorizontal: 10,
-      height: 60,
+      height: 'auto',
       backgroundColor: theme.searchBarBackground,
       zIndex: 1,
+      maxHeight: '70%',
+      overflow: 'hidden',
+    },
+    searchBarTopItems: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      height: 60,
+    },
+    searchBarList: {
+      // alignItems: 'center',
+      flexDirection: 'column',
+      width: '100%',
+      height: 'auto',
+      overflow: 'hidden',
+    },
+    searchBarListGroup: {
+      textAlign: 'left',
+      width: '100%',
+      height: 'auto',
+    },
+    searchBarGroupTitle: { // todo: align the text vertically
+      borderRadius: 8,
+      fontFamily: font.regular,
+      fontSize: 12,
+      textAlign: 'left',
+      justifyContent: 'center',
+      backgroundColor: theme.inputPlaceholder,
+      height: 30,
+      paddingLeft: 10,
+      color: theme.body,
+    },
+    searchBarGroupElement: {
+      flexDirection: 'row',
+      justifyContent: "space-between",
+      alignItems: 'center',
+      height: 30,
+      paddingLeft: 20,
+      borderBottomWidth: 1,
+      borderBottomColor: '#00000020'
+    },
+    searchBarGroupElementText: {
+      fontFamily: font.regular,
+      color: theme.textDark,
+    },
+    searchBarGroupElementIcon: {
+      width: 32,
+      height: 32,
     },
     searchBarFocused: {
       backgroundColor: "#EFFDFF",
@@ -175,6 +222,11 @@ const GlobalStyles = () => {
 	propertyCardName: {
 		bottom: -10,
 	},
+  list: {
+    padding: 10,
+		flexDirection: "row",
+    gap: 4,
+  },
   });
 
   return styles;
