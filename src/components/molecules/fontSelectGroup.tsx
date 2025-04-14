@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import FontSelectStyles from '../../styles/organisms/fontSelectStyles.tsx';
-import { useTheme } from '../../styles/base/ThemeContext.tsx';
+import { useTheme } from '../organisms/ThemeContext.tsx';
 
 type RadioOption = {
     value: string;

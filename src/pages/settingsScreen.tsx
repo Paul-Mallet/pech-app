@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Button, SafeAreaView } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { useTheme } from '../styles/base/ThemeContext.tsx';
+import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import RadioButtonGroup from '../components/molecules/radioButtonsGroup.tsx';
 import FontSelectGroup from '../components/molecules/fontSelectGroup.tsx';
-
-const optionsTheme = ['Light', 'Dark'];
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SettingsScreen = ({ route }: { route: any }) => {
 	const styles = GlobalStyles();
-  const { theme, setThemeByName, font, setFontByName } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState('light');
-  const [selectedFont, setSelectedFont] = useState('Poppins');
+  const { selectedTheme, setThemeByName, setSelectedTheme, selectedFont, setFontByName, setSelectedFont } = useTheme();
   
   const options = [
     {
@@ -33,6 +30,26 @@ const SettingsScreen = ({ route }: { route: any }) => {
     },
   ];
 
+  // used to remove the (not true) errors
+  const safeAsyncStorage = AsyncStorage as unknown as {
+    getItem: (key: string) => Promise<string | null>;
+    setItem: (key: string, value: string) => Promise<void>;
+  };
+
+  const selectTheme = (option: string) =>
+  {
+    setThemeByName(option); 
+    setSelectedTheme(option); 
+    safeAsyncStorage.setItem('theme', option);
+  }
+  
+  const selectFont = (option: string) =>
+  {
+    setFontByName(option); 
+    setSelectedFont(option); 
+    safeAsyncStorage.setItem('font', option);
+  }
+
   return (
 		<SafeAreaView style={styles.body}>
       <View style={[styles.homePanel, {paddingTop: 20}]}>
@@ -41,13 +58,13 @@ const SettingsScreen = ({ route }: { route: any }) => {
           <RadioButtonGroup
             options={options}
             selected={selectedTheme}
-            onSelect={(option) => {setThemeByName(option); setSelectedTheme(option);}}
+            onSelect={(option) => selectTheme(option)}
           />
           <Text style={styles.titleDark}>Police</Text>
           <FontSelectGroup
             options={fontOptions}
             selected={selectedFont}
-            onSelect={(option) => {setFontByName(option); setSelectedFont(option);}}
+            onSelect={(option) => selectFont(option)}
           />
         </View>
       </View>

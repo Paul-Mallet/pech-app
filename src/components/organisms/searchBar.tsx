@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import { useTheme } from '../../styles/base/ThemeContext.tsx';
+import { useTheme } from './ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
 
 const SearchBar = () => {

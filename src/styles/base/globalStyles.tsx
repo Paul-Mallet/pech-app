@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { useTheme } from './ThemeContext.tsx';
+import { useTheme } from '../../components/organisms/ThemeContext.tsx';
 
 const GlobalStyles = () => {
   const { theme, font } = useTheme();

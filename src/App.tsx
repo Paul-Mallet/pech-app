@@ -6,8 +6,9 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import SplashScreen from './pages/loadingScreen.tsx';
 import Colors from './styles/base/colors.tsx';
 import MainNavigator from './pages/mainNavigator.tsx';
-import { ThemeProvider } from './styles/base/ThemeContext.tsx';
+import { ThemeProvider } from './components/organisms/ThemeContext.tsx';
 import useLoadFonts from './components/organisms/loadFonts.tsx';
+import LoadPreferences from './styles/organisms/loadSaveManager.tsx';
 
 export default function App() {
   const fontLoaded = useLoadFonts();
@@ -26,6 +27,7 @@ export default function App() {
 
   return (
     <ThemeProvider>
+      <LoadPreferences>
         <View style={{ flex: 1 }}>
           <SplashScreen
             fadeAnim={fadeAnim}
@@ -35,7 +37,8 @@ export default function App() {
           <NavigationContainer>
             <MainNavigator />
           </NavigationContainer>
-      </View>
+        </View>
+      </LoadPreferences>
     </ThemeProvider>
   );
 }

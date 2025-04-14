@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { useTheme } from "../base/ThemeContext.tsx";
+import { useTheme } from "../../components/organisms/ThemeContext.tsx";
 
 const FontSelectStyles = () => {
   const { theme, font } = useTheme();

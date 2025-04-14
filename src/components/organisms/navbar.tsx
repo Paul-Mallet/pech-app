@@ -8,7 +8,7 @@ import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
 import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import Colors from '../../styles/base/colors.tsx';
-import { useTheme } from '../../styles/base/ThemeContext.tsx';
+import { useTheme } from './ThemeContext.tsx';
 import { useNavigationState } from '@react-navigation/native';
 
 type TabParamList = {
