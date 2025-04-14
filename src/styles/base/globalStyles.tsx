@@ -149,7 +149,7 @@ const GlobalStyles = () => {
       fontFamily: font.regular,
       fontSize: 12,
       textAlign: 'left',
-      justifyContent: 'center',
+      textAlignVertical: 'center',
       backgroundColor: theme.inputPlaceholder,
       height: 30,
       paddingLeft: 10,
