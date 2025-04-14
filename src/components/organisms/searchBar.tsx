@@ -27,6 +27,7 @@ const data: ResultGroupProps[] = [
 ];
 
 const SearchBar = () => {
+  const [showResults, setShowResults] = useState(false);
   const { theme } = useTheme();
 	const styles = GlobalStyles();
 	const navigation = useNavigation();
@@ -58,11 +59,12 @@ const SearchBar = () => {
     ? [styles.searchBar, styles.searchBarFocused]
     : styles.searchBar;
 
-  // make the search icon clickable to expand/reduce the results?
   return (
     <View style={searchBarStyle}>
       <View style={styles.searchBarTopItems}>
-        <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
+        <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
+          <Ionicons name="search" size={24} color={showResults ? theme.textHighlightDark : theme.textDark} style={styles.searchBarIconLeft} />
+        </TouchableOpacity>
         <TextInput
           style={[styles.textDark, styles.input]}
           placeholder="Rechercher..."
@@ -75,9 +77,7 @@ const SearchBar = () => {
           <Ionicons name="list" size={26} color={theme.searchBarBackground} />
         </TouchableOpacity>
       </View>
-      <SearchBarResults
-        elements={data}>
-      </SearchBarResults>
+      {showResults && <SearchBarResults elements={data} />}
     </View>
   );
 };
