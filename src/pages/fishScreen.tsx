@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, ScrollView, Text, View, StyleSheet } from 'react-native';
+import React, { ReactNode, useState } from 'react';
+import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
 
@@ -133,43 +133,29 @@ const data = [
   
 const FishScreen = ({ children }: HomeCardProps) => {
 	const styles = GlobalStyles();
-	const [searchText, setSearchText] = useState('');
-	const handleSearch = (text: string) => {
-	  setSearchText(text);
-	};
 
 	return (
 		<SafeAreaView style={styles.body}>
 		    <View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
                 <Text style={styles.titleDark}>Poissons</Text>
                 <FlatList
-                
                     contentContainerStyle={{gap: 12}}
                     data={data}
                     numColumns={2}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                        <View style={style.cardContainer}>
-                        <FishCard
-                          onPress={() => console.log('Card pressed')}
-                          fishName={item.fishName}
-                          imgSource={item.imgSource}
-                        />
+                        <View style={{flex: 1}}>
+                            <FishCard
+                                onPress={() => console.log('Card pressed')}
+                                fishName={item.fishName}
+                                imgSource={item.imgSource}
+                            />
                       </View>
-                )}
-            />
+                    )}
+                />
            </View>
         </SafeAreaView>
 	);
 };
-
-const style = StyleSheet.create({
-    list: {
-      padding: 10,
-    },
-    cardContainer: {
-      flex: 1,
-    },
-  });
 
 export default FishScreen;
