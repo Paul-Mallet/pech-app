@@ -52,7 +52,7 @@ const SettingsScreen = ({ route }: { route: any }) => {
 
   return (
 		<SafeAreaView style={styles.body}>
-      <View style={[styles.homePanel, {paddingTop: 20}]}>
+      <View style={[styles.homePanel, {paddingTop: 20, marginTop: 40}]}>
         <View>
           <Text style={styles.titleDark}>Thème</Text>
           <RadioButtonGroup

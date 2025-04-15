@@ -8,21 +8,25 @@ export const lightTheme =
     navBarBackground: '#cfe5e3',
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#F6FEFF',
+    searchBarBackgroundFocused: '#EFFDFF',
     textHighlightSearch: '#0070ff',
+    cardBackground: '#F6FEFF',
     green: '#0c0',
 };
   
 export const darkTheme =
 {
     mode: 'dark',
-    body: '#003B44',
+    body: '#00282e',
     textDark: '#F4FEFF',
-    textHighlightDark: '#92D8E1',
+    textHighlightDark: '#0095a8',
     textBoldLight: '#F6FEFF',
-    navBarBackground: '#31909C',
+    navBarBackground: '#004752',
     inputPlaceholder: '#8CABAF',
-    searchBarBackground: '#66807E',
+    searchBarBackground: '#254a50',
+    searchBarBackgroundFocused: '#2c5e68',
     textHighlightSearch: '#0070ff',
+    cardBackground: '#003942',
     green: '#0c0',
 };
 
