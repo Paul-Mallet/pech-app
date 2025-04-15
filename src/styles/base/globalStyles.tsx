@@ -54,7 +54,7 @@ const GlobalStyles = () => {
       paddingRight: 32,
       paddingBottom: 0,
       marginBottom: 60,
-      marginTop: 40,
+      marginTop: 100,
     },
 	fishCardsContainer: {
 		flex: 1,
@@ -112,18 +112,66 @@ const GlobalStyles = () => {
       elevation: 10,
     },
     searchBar: {
+      position: 'absolute',
+      alignSelf: 'center',
       top: 40,
       marginHorizontal: 'auto',
       width: "95%",
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 32,
       paddingHorizontal: 10,
-      height: 60,
+      height: 'auto',
       backgroundColor: theme.searchBarBackground,
       zIndex: 1,
+      maxHeight: '70%',
+      overflow: 'hidden',
+    },
+    searchBarTopItems: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      height: 60, // default searchbar height, the homePanel and legislationPanel have this marginTop + 40!
+    },
+    searchBarList: {
+      flexDirection: 'column',
+      width: '100%',
+      height: 'auto',
+      overflow: 'hidden',
+    },
+    searchBarListGroup: {
+      textAlign: 'left',
+      width: '100%',
+      height: 'auto',
+    },
+    searchBarGroupTitle: { // todo: align the text vertically
+      borderRadius: 8,
+      fontFamily: font.regular,
+      fontSize: 12,
+      textAlign: 'left',
+      textAlignVertical: 'center',
+      backgroundColor: theme.inputPlaceholder,
+      height: 30,
+      paddingLeft: 10,
+      color: theme.body,
+    },
+    searchBarGroupElement: {
+      flexDirection: 'row',
+      justifyContent: "space-between",
+      alignItems: 'center',
+      height: 30,
+      paddingLeft: 20,
+      borderBottomWidth: 1,
+      borderBottomColor: '#00000020'
+    },
+    searchBarGroupElementText: {
+      fontFamily: font.regular,
+      color: theme.textDark,
+    },
+    searchBarGroupElementIcon: {
+      width: 32,
+      height: 32,
     },
     searchBarFocused: {
       backgroundColor: "#EFFDFF",
@@ -175,6 +223,11 @@ const GlobalStyles = () => {
 	propertyCardName: {
 		bottom: -10,
 	},
+  list: {
+    padding: 10,
+		flexDirection: "row",
+    gap: 4,
+  },
   });
 
   return styles;

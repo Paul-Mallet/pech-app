@@ -1,11 +1,33 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../../styles/base/ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
+import SearchBarResults from '../molecules/searchBarResult.tsx';
+
+
+interface ResultGroupProps {
+  elementType: string;
+  elements: string[];
+}
+const data: ResultGroupProps[] = [
+  {
+    elementType: 'Poissons',
+    elements: ['Poisson 1', 'Poisson 2', 'Poisson 3'],
+  }, 
+  {
+    elementType: 'Fruit',
+    elements: ['Apple', 'Banana', 'Orange'],
+  }, 
+  {
+    elementType: 'Autre',
+    elements: ['Autre 1', 'Autre 2', 'Autre 3'],
+  }
+];
 
 const SearchBar = () => {
+  const [showResults, setShowResults] = useState(false);
   const { theme } = useTheme();
 	const styles = GlobalStyles();
 	const navigation = useNavigation();
@@ -39,18 +61,23 @@ const SearchBar = () => {
 
   return (
     <View style={searchBarStyle}>
-      <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
-      <TextInput
-        style={[styles.textDark, styles.input]}
-        placeholder="Rechercher..."
-        placeholderTextColor= {theme.inputPlaceholder}
-        onChangeText={handleTextChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-      <TouchableOpacity style={styles.searchBarButtonRight} onPress={handleRightIconPress}>
-        <Ionicons name="list" size={26} color={theme.searchBarBackground} />
-      </TouchableOpacity>
+      <View style={styles.searchBarTopItems}>
+        <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
+          <Ionicons name="search" size={24} color={showResults ? theme.textHighlightDark : theme.textDark} style={styles.searchBarIconLeft} />
+        </TouchableOpacity>
+        <TextInput
+          style={[styles.textDark, styles.input]}
+          placeholder="Rechercher..."
+          placeholderTextColor= {theme.inputPlaceholder}
+          onChangeText={handleTextChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        <TouchableOpacity style={styles.searchBarButtonRight} onPress={handleRightIconPress}>
+          <Ionicons name="list" size={26} color={theme.searchBarBackground} />
+        </TouchableOpacity>
+      </View>
+      {showResults && <SearchBarResults elements={data} />}
     </View>
   );
 };

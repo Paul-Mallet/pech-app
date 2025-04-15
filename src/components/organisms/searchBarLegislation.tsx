@@ -38,19 +38,21 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
 
   return (
     <View style={searchBarStyle}>
-      <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
-      <TextInput
-        style={[styles.textDark, styles.input]}
-        placeholder="Rechercher..."
-        placeholderTextColor={theme.inputPlaceholder}
-        onChangeText={handleTextChange}
-        value={searchText}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-      <TouchableOpacity onPress={handleRightIconPress}>
-        <Ionicons name="close" size={26} color={theme.textHighlightDark} />
-      </TouchableOpacity>
+      <View style={styles.searchBarTopItems}>
+        <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
+        <TextInput
+          style={[styles.textDark, styles.input]}
+          placeholder="Rechercher..."
+          placeholderTextColor={theme.inputPlaceholder}
+          onChangeText={handleTextChange}
+          value={searchText}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        <TouchableOpacity onPress={handleRightIconPress}>
+          <Ionicons name="close" size={26} color={theme.textHighlightDark} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

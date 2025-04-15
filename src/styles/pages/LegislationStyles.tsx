@@ -10,7 +10,7 @@ const LegislationStyles = StyleSheet.create({
 		paddingRight: 8,
 		paddingBottom: 0,
 		marginBottom: 60,
-		marginTop: 40,
+		marginTop: 100,
 	  },
 	legislationParagraph: {
 		position: "relative",
