@@ -9,9 +9,11 @@ import SettingsScreen from '../../pages/settingsScreen.tsx';
 import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import { useNavigationState } from '@react-navigation/native';
+import FishScreen from '../../pages/fishScreen.tsx';
 
 type TabParamList = {
   Quizz: undefined;
+  Poissons: undefined;
   Accueil: undefined;
   Législation: undefined;
   Paramètres: undefined;
@@ -59,6 +61,9 @@ const BottomTabNavigator = () => {
               case 'Accueil':
                 iconName = focused ? 'home' : 'home-outline';
                 break;
+              case 'Poissons':
+                iconName = focused ? 'fish' : 'fish-outline';
+                break;
               case 'Législation':
                 iconName = focused ? 'book' : 'book-outline';
                 break;
@@ -89,6 +94,14 @@ const BottomTabNavigator = () => {
             navigation.navigate('Accueil');
           },
         })}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Poissons"
+        component={FishScreen}
+        listeners={{
+          tabPress: () => handleTabPress('Poissons'),
+        }}
         options={{ headerShown: false }}
       />
       <Tab.Screen
