@@ -2,8 +2,8 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '../../styles/base/ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../organisms/ThemeContext.tsx';
 
 interface ResultGroupProps {
     text: string;
