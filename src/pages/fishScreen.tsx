@@ -12,121 +12,121 @@ const data = [
     id: '1',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '2',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '3',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '4',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '5',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '6',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '7',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '8',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '9',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '10',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '11',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '12',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '13',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '14',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '15',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '16',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '17',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '18',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '19',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 {
     id: '20',
     fishName: 'Mérou brun',
     imgSource:
-    'https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg',
+    'https://cdn.britannica.com/73/9173-050-9D9EA4BA/Surgeonfish.jpg',
 },
 // Add more items as needed
 ];

@@ -9,7 +9,7 @@ const LoadingScreenStyles = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: theme.textHighlightDark,
+      backgroundColor: theme.titleBackground,
       position: 'absolute',
       width: '100%',
       height: '100%',
@@ -20,7 +20,7 @@ const LoadingScreenStyles = () => {
       height: 99,
     },
     pechAppTitle: {
-      color: theme.body,
+      color: theme.title,
       fontSize: 32,
       fontFamily: font.bold,
       marginTop: 20,

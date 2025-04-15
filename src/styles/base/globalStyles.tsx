@@ -205,8 +205,8 @@ const GlobalStyles = () => {
     marginRight: 8,
   },
   searchBarButtonRight: {
-    borderWidth: 2,
-    borderColor: theme.textHighlightDark,
+    borderWidth: 1,
+    borderColor: theme.iconColor,
     backgroundColor: theme.searchBarBackground,
     borderRadius: "50%",
     padding: 4,

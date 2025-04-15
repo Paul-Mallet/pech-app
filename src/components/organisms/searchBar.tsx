@@ -63,7 +63,7 @@ const SearchBar = () => {
     <View style={searchBarStyle}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
-          <Ionicons name="search" size={24} color={theme.textHighlightDark} style={styles.searchBarIconLeft} />
+          <Ionicons name="search" size={24} color={showResults ? theme.textHighlightSearch : theme.iconColor} style={styles.searchBarIconLeft} />
         </TouchableOpacity>
         <TextInput
           style={[styles.textDark, styles.input]}
@@ -74,7 +74,7 @@ const SearchBar = () => {
           onBlur={() => setIsFocused(false)}
         />
         <TouchableOpacity style={styles.searchBarButtonRight} onPress={handleRightIconPress}>
-          <Ionicons name="list" size={26} color={theme.textHighlightDark} />
+          <Ionicons name="list" size={26} color={theme.iconColor} />
         </TouchableOpacity>
       </View>
       {showResults && <SearchBarResults elements={data} />}

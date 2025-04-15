@@ -14,7 +14,7 @@ const RadioButtonStyles = () => {
         height: 150,
     },
     container: {
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         flexDirection: 'row',
         textAlign: 'center',
     },
