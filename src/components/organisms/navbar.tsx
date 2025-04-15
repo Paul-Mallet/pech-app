@@ -8,7 +8,7 @@ import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
 import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import Colors from '../../styles/base/colors.tsx';
-import { useTheme } from '../../styles/base/ThemeContext.tsx';
+import { useTheme } from './ThemeContext.tsx';
 import { useNavigationState } from '@react-navigation/native';
 
 type TabParamList = {
@@ -21,7 +21,7 @@ type TabParamList = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { theme } = useTheme();
+  const { theme, font } = useTheme();
 	const styles = NavBarStyles();
   const [activeTab, setActiveTab] = useState('');
 
@@ -75,7 +75,7 @@ const BottomTabNavigator = () => {
           tabBarInactiveTintColor: theme.textDark,
           tabBarStyle: styles.tabBar,
           tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
-            <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>  
+            <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>
               {route.name}
             </Text>
           ),

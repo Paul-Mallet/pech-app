@@ -6,6 +6,7 @@
     "moduleResolution": "nodenext",
     "allowImportingTsExtensions": true,
     "typeRoots": ["node_modules/@types", "node_modules/react-native-vector-icons"],
-    "types": ["react", "react-native", "react-native-vector-icons"]
+    "types": ["react", "react-native", "react-native-vector-icons"],
+    "esModuleInterop": true
   }
 }

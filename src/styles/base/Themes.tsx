@@ -5,11 +5,11 @@ export const lightTheme =
     textDark: '#003B44',
     textHighlightDark: '#31909C',
     textBoldLight: '#F6FEFF',
-    backgroundLight: '#FFFDF6',
     navBarBackground: '#cfe5e3',
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#F6FEFF',
     textHighlightSearch: '#0070ff',
+    green: '#0c0',
 };
   
 export const darkTheme =
@@ -19,22 +19,22 @@ export const darkTheme =
     textDark: '#F4FEFF',
     textHighlightDark: '#92D8E1',
     textBoldLight: '#F6FEFF',
-    backgroundLight: '#FFFDF6',
     navBarBackground: '#31909C',
     inputPlaceholder: '#8CABAF',
     searchBarBackground: '#66807E',
     textHighlightSearch: '#0070ff',
+    green: '#0c0',
 };
 
 export const poppinsFont =
 {
-    mode: 'poppins',
+    mode: 'Poppins',
     bold: 'PoppinsBold',
     regular: 'PoppinsRegular',
 };
-export const otherFont =
+export const dyslexiaFont =
 {
-    mode: 'other',
-    bold: 'DyslexiaBold',
-    regular: 'DyslexiaRegular',
+    mode: 'Dyslexic',
+    bold: 'DyslexicBold',
+    regular: 'DyslexicRegular',
 };

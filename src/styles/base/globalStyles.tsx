@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { useTheme } from './ThemeContext.tsx';
+import { useTheme } from '../../components/organisms/ThemeContext.tsx';
 
 const GlobalStyles = () => {
   const { theme, font } = useTheme();
@@ -78,54 +78,64 @@ const GlobalStyles = () => {
 		shadowRadius: 10,
 		elevation: 10,
 	},
-    backgroundImage: {
-      width: '100%',
-      height: '100%',
-      transform: [{ scale: 2 }],
-      aspectRatio: 1,
-    },
-    fishCardName: {
-      position: 'absolute',
-      left: '50%',
-      bottom: 0,
-      fontSize: 20,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      color: theme.textBoldLight,
-      transform: [
-        { translateX: '-50%' },
-      ],
-      textShadowColor: 'black', // Shadow color
-      textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
-      textShadowRadius: 6,
-    },
-    legislationCard: {
-      textAlign: 'left',
-      marginBottom: 16,
-      padding: 16,
-      backgroundColor: theme.searchBarBackground,
-      borderRadius: 24,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 10 },
-      shadowOpacity: 0.2,
-      shadowRadius: 10,
-      elevation: 10,
-    },
-    searchBar: {
+  boxShadow: 
+  {
+    backgroundColor: 'red',
+    borderRadius: 10,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 10 },
+		shadowOpacity: 1,
+		shadowRadius: 10,
+		elevation: 10,
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    transform: [{ scale: 2 }],
+    aspectRatio: 1,
+  },
+  fishCardName: {
+    position: 'absolute',
+    left: '50%',
+    bottom: 0,
+    fontFamily: font.bold,
+    fontSize: 16,
+    textAlign: 'center',
+    color: theme.textBoldLight,
+    transform: [
+      { translateX: '-50%' },
+    ],
+    textShadowColor: 'black', // Shadow color
+    textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
+    textShadowRadius: 6,
+  },
+  legislationCard: {
+    textAlign: 'left',
+    marginBottom: 16,
+    padding: 16,
+    backgroundColor: theme.searchBarBackground,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  searchBar: {
       position: 'absolute',
       alignSelf: 'center',
-      top: 40,
-      marginHorizontal: 'auto',
-      width: "95%",
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderWidth: 1,
-      borderColor: '#ccc',
-      borderRadius: 32,
-      paddingHorizontal: 10,
-      height: 'auto',
-      backgroundColor: theme.searchBarBackground,
-      zIndex: 1,
+    top: 40,
+    marginHorizontal: 'auto',
+    width: "95%",
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 32,
+    paddingHorizontal: 10,
+    height: 'auto',
+    backgroundColor: theme.searchBarBackground,
+    zIndex: 1,
       maxHeight: '70%',
       overflow: 'hidden',
     },
@@ -172,40 +182,40 @@ const GlobalStyles = () => {
     searchBarGroupElementIcon: {
       width: 32,
       height: 32,
-    },
-    searchBarFocused: {
-      backgroundColor: "#EFFDFF",
-      borderColor: theme.textHighlightDark,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 10 },
-      shadowOpacity: 0.4,
-      shadowRadius: 10,
-      elevation: 10,
-    },
-    searchBarIconLeft: {
-      marginRight: 8,
-    },
-    searchBarButtonRight: {
-      backgroundColor: theme.textHighlightDark,
-      borderRadius: "50%",
-      padding: 6,
-      shadowColor: '#000',
-      shadowOffset: { width: 1, height: 1 },
-      shadowRadius: 5,
-      shadowOpacity: 0.25,
-      elevation: 5,
-    },
-    input: {
-      marginTop: 4,
-      flex: 1,
-      fontSize: 14
-    },
-    miniImg: {
-      width: '100%',
-      aspectRatio: 1,
-      height: undefined,
-      borderRadius: 24,
-    },
+  },
+  searchBarFocused: {
+    backgroundColor: "#EFFDFF",
+    borderColor: theme.textHighlightDark,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  searchBarIconLeft: {
+    marginRight: 8,
+  },
+  searchBarButtonRight: {
+    backgroundColor: theme.textHighlightDark,
+    borderRadius: "50%",
+    padding: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowRadius: 5,
+    shadowOpacity: 0.25,
+    elevation: 5,
+  },
+  input: {
+    marginTop: 4,
+    flex: 1,
+    fontSize: 14
+  },
+  miniImg: {
+    width: '100%',
+    aspectRatio: 1,
+    height: undefined,
+    borderRadius: 24,
+  },
 	buttonBackModal: {
 		width: 48,
 		height: 48,

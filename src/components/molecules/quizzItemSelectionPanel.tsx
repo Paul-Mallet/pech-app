@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Dimensions, Modal, TouchableOpacity, ScrollView
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import PropertyCard from './propertyCard.tsx';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '../../styles/base/ThemeContext.tsx';
+import { useTheme } from '../organisms/ThemeContext.tsx';
 import QuizzStyles from '../../styles/pages/QuizzStyles.tsx';
 
 interface QuizzItemSelectionPanelProps {
