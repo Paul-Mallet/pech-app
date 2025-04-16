@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-
+import React, { useState, useCallback, useRef } from 'react';
+import { View, Text, SafeAreaView, Button, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import SearchBar from '../components/organisms/searchBar.tsx';
 import HomePanel from '../components/molecules/homePanel.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
-import { View, Text, SafeAreaView, Button, TouchableOpacity } from 'react-native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
+import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import SearchBar from '../components/organisms/searchBar.tsx';
-import { useNavigation } from '@react-navigation/native';
 import QuizzItemSelectionPanel from '../components/molecules/quizzItemSelectionPanel.tsx';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
@@ -29,7 +29,18 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 //   };
 
 const HomeScreen = ({ route }: { route: any }) => {
+	const [pressedFish, setPressedFish] = useState<string | null>(null);
+	const bottomSheetRef = useRef<BottomSheet>(null);
 	const styles = GlobalStyles();
+
+	const handleFishPress = (fishName: string) => {
+		setPressedFish(fishName);
+		bottomSheetRef.current?.expand();
+	};
+
+	const handleSheetClose = useCallback(() => {
+		setPressedFish(null);
+	}, []);
 	
 	// const [visibleModal, setModalVisible] = useState(false);
 	const navigation = useNavigation();
@@ -40,7 +51,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 		navigation.navigate('Tabs', {
 			screen: 'Législation',
 			params: { searchText: text },
-		  });
+		});
 	};
 	// const { theme } = useTheme();
 	return (
@@ -54,8 +65,8 @@ const HomeScreen = ({ route }: { route: any }) => {
       		setVisible={setModalVisible}></QuizzItemSelectionPanel> */}
 				<Text style={styles.h2}>Voir à nouveau</Text>
 				<View style={styles.fishCardsContainer}>
-					<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' />
-					<FishCard onPress={() => console.log('Card pressed')} fishName='Thon rouge' imgSource='https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg' />
+					<FishCard onPress={() => handleFishPress('Mérou brun')} fishName='Mérou brun' imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' />
+					<FishCard onPress={() => handleFishPress('Thon rouge')} fishName='Thon rouge' imgSource='https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg' />
 				</View>
 				<LegislationCard
 					title="Arrêté du 9 Juillet 2024"
@@ -73,6 +84,15 @@ const HomeScreen = ({ route }: { route: any }) => {
 					onPress={() => console.log("Text card pressed")}
 				/>
 			</HomePanel>
+			{
+				pressedFish && (
+					<DescriptionSheet
+						ref={bottomSheetRef}
+						fishName={pressedFish}
+						onClose={handleSheetClose}
+					/>
+				)
+			}
 		</SafeAreaView>
 	);
 };

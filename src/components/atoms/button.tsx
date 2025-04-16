@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ButtonStyles from '../../styles/atoms/buttonStyles.tsx';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
-type ButtonTextProps = {
-  text: string;
-};
-
-const MyButton = (props: ButtonTextProps) => {
-  const [buttonTitle, setButtonTitle] = useState(props.text); // Start with passed prop
-
-  const handlePress = () => {
-    setButtonTitle('Clicked!');
-  };
-
+const CTAButton = () => {
   return (
-    <TouchableOpacity onPress={handlePress} style={ButtonStyles.container}>
-      <Text style={ButtonStyles.text}>{buttonTitle}</Text>
+    <TouchableOpacity style={ButtonStyles.container} onPress={() => console.log('call goToLegislation()')}>
+      <Text
+        style={ButtonStyles.text}  
+      >
+        Législation
+      </Text>
     </TouchableOpacity>
   );
 };
 
-
-export default MyButton;
+export default CTAButton;
