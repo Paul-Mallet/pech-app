@@ -8,11 +8,9 @@ import { useTheme } from '../organisms/ThemeContext.tsx';
 interface ResultGroupProps {
     elementType: string;
     elements: string[];
-    // visible: boolean;
-    // setVisible: (visible: boolean) => void;
 }
 
-const SearchBarResultGroup: React.FC<ResultGroupProps> = ({ elementType, elements/*, visible, setVisible */}) => {
+const SearchBarResultGroup: React.FC<ResultGroupProps> = ({ elementType, elements}) => {
     const { theme } = useTheme();
     const globalStyles = GlobalStyles();
 

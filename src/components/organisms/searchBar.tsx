@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
@@ -6,55 +6,45 @@ import { useTheme } from './ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
 
-
 interface ResultGroupProps {
   elementType: string;
   elements: string[];
 }
+
 const data: ResultGroupProps[] = [
-  {
-    elementType: 'Poissons',
-    elements: ['Poisson 1', 'Poisson 2', 'Poisson 3'],
-  }, 
-  {
-    elementType: 'Fruit',
-    elements: ['Apple', 'Banana', 'Orange'],
-  }, 
-  {
-    elementType: 'Autre',
-    elements: ['Autre 1', 'Autre 2', 'Autre 3'],
-  }
+  { elementType: 'Poissons', elements: ['Poisson 1', 'Poisson 2', 'Poisson 3'] },
+  { elementType: 'Fruit', elements: ['Apple', 'Banana', 'Orange'] },
+  { elementType: 'Autre', elements: ['Autre 1', 'Autre 2', 'Autre 3'] },
 ];
 
 const SearchBar = () => {
   const [showResults, setShowResults] = useState(false);
   const { theme } = useTheme();
-	const styles = GlobalStyles();
-	const navigation = useNavigation();
-  const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
+  const styles = GlobalStyles();
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const handleSearch = (text: string) => {
-    if (text.length < 2)
-      return;
+
+  const debounceTimerRef = useRef<number | null>(null);
+
+  const handleSearch = useCallback((text: string) => {
+    if (text.length < 2) return;
     console.log('User typed:', text);
-  };
+  }, []);
 
   const handleRightIconPress = () => {
     navigation.navigate('Quizz');
-    console.log('Right icon pressed');
     setSearchText('');
   };
 
   const handleTextChange = (text: string) => {
     setSearchText(text);
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
     }
-    const timer = setTimeout(() => handleSearch(text), 500);
-    setDebounceTimer(timer);
+    debounceTimerRef.current = setTimeout(() => handleSearch(text), 500);
   };
-  
+
   const searchBarStyle = isFocused
     ? [styles.searchBar, styles.searchBarFocused]
     : styles.searchBar;
@@ -63,12 +53,17 @@ const SearchBar = () => {
     <View style={searchBarStyle}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
-          <Ionicons name="search" size={24} color={showResults ? theme.textHighlightSearch : theme.iconColor} style={styles.searchBarIconLeft} />
+          <Ionicons
+            name="search"
+            size={24}
+            color={showResults ? theme.textHighlightSearch : theme.iconColor}
+            style={styles.searchBarIconLeft}
+          />
         </TouchableOpacity>
         <TextInput
           style={[styles.textDark, styles.input]}
           placeholder="Rechercher..."
-          placeholderTextColor= {theme.inputPlaceholder}
+          placeholderTextColor={theme.inputPlaceholder}
           onChangeText={handleTextChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
