@@ -1,5 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { lightTheme, darkTheme, poppinsFont, dyslexiaFont } from '../../styles/base/Themes.tsx';
+import { StatusBar } from 'react-native';
+import * as NavigationBar from 'expo-navigation-bar';
 
 type ThemeType = typeof lightTheme;
 type FontType = typeof poppinsFont;
@@ -23,6 +25,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [font, setFont] = useState(poppinsFont);
   const [selectedTheme, setSelectedTheme] = useState('light');
   const [selectedFont, setSelectedFont] = useState('Poppins');
+  StatusBar.setBarStyle(theme === lightTheme ? 'dark-content' : 'light-content');
+  StatusBar.setBackgroundColor(theme.body);
+  NavigationBar.setBackgroundColorAsync(theme.navBarBackground);
+  NavigationBar.setButtonStyleAsync(theme === lightTheme ? 'dark': 'light');
 
   const toggleTheme = () => {
     setTheme(prev => (prev.mode === 'light' ? darkTheme : lightTheme));
