@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
 import { useTheme } from "../../components/organisms/ThemeContext.tsx";
+import { useMemo } from "react";
 
 const NavBarStyles = () => {
   const { theme, font } = useTheme();
-  const styles = StyleSheet.create({
+
+  const styles = useMemo(() => StyleSheet.create({
     tabLabel: {
       fontSize: 12,
       fontFamily: font.regular,
@@ -27,7 +29,8 @@ const NavBarStyles = () => {
       borderTopLeftRadius: 16,
       borderTopRightRadius: 16,
     },
-  });
+  }), [theme, font]);
+
   return styles;
 };
 

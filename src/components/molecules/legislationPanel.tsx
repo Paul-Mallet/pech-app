@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
-import { ScrollView, Text } from 'react-native';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { ScrollView } from 'react-native';
 import LegislationStyles from '../../styles/pages/LegislationStyles.tsx';
 
 interface LegislationCardProps {
@@ -8,10 +7,10 @@ interface LegislationCardProps {
 }
 
 const LegislationPanel = ({ children }: LegislationCardProps) => {
-	const styles = GlobalStyles();
+  const legislationStyles = LegislationStyles();
   return (
-    <ScrollView style={LegislationStyles.legislationPanel}>
-      {children || <Text style={styles.centered}>Aucun contenu</Text>}
+    <ScrollView style={legislationStyles.legislationPanel}>
+      {children}
     </ScrollView>
   );
 };

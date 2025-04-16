@@ -11,6 +11,7 @@ interface ParagraphLegislationCardProps {
 
 const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislationCardProps) => {
 	const styles = GlobalStyles();
+  const legislationStyles = LegislationStyles();
 
   const highlightSearchMatches = (text: string, query: string) => {
     if (!query) return [<Text key="0">{text}</Text>];
@@ -28,7 +29,7 @@ const ParagraphLegislationCard = ({ text, title, searchText }: ParagraphLegislat
   };
 
   return (
-    <View style={LegislationStyles.legislationParagraph}>
+    <View style={legislationStyles.legislationParagraph}>
       <Text style={styles.titleDark}>
         {searchText ? highlightSearchMatches(title, searchText) : title}
       </Text>

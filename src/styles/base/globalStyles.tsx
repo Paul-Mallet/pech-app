@@ -1,11 +1,11 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
+import { useMemo } from 'react';
 
 const GlobalStyles = () => {
   const { theme, font } = useTheme();
 
-  const styles = StyleSheet.create({
+  const styles = useMemo(() => StyleSheet.create({
     body: {
       flex: 1,
       backgroundColor: theme.body,
@@ -249,7 +249,7 @@ const GlobalStyles = () => {
 		flexDirection: "row",
     gap: 4,
   },
-  });
+  }), [theme, font]); // Only recompute when `theme` or `font` change
 
   return styles;
 };
