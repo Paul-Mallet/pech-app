@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-
-import HomePanel from '../components/molecules/homePanel.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
-import { View, Text, SafeAreaView, Button, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, Button, TouchableOpacity, ScrollView } from 'react-native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import { useNavigation } from '@react-navigation/native';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import QuizzItemSelectionPanel from '../components/molecules/quizzItemSelectionPanel.tsx';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
@@ -30,9 +29,16 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 
 const HomeScreen = ({ route }: { route: any }) => {
 	const styles = GlobalStyles();
-	
+	const [activeTab, setActiveTab] = useState<'découvrir' | 'revoir'>('découvrir');
 	// const [visibleModal, setModalVisible] = useState(false);
 	const navigation = useNavigation();
+	const handleSwipeLeft = () => {
+		if (activeTab === 'découvrir') setActiveTab('revoir');
+	  };
+	
+	  const handleSwipeRight = () => {
+		if (activeTab === 'revoir') setActiveTab('découvrir');
+	  };
 	
 	// const showModal = () => setModalVisible(true);
 	// use with goToLegislationScreen('test') to search for 'test' in the legislation page
@@ -49,30 +55,48 @@ const HomeScreen = ({ route }: { route: any }) => {
 			{/* <TouchableOpacity style={styles.buttonBackModal} onPress={showModal}>
 				<Ionicons name="close" size={26} color={theme.searchBarBackground} />
 			</TouchableOpacity> */}
-			<HomePanel>
 			{/* <QuizzItemSelectionPanel elementsData={elementsData} questionType={"Quel type de nageoire caudale ?"} visible={visibleModal}
       		setVisible={setModalVisible}></QuizzItemSelectionPanel> */}
-				<Text style={styles.h2}>Voir à nouveau</Text>
-				<View style={styles.fishCardsContainer}>
-					<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' />
-					<FishCard onPress={() => console.log('Card pressed')} fishName='Thon rouge' imgSource='https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg' />
+			<View>
+				<View style={styles.homePanelTabs}>
+					<TouchableOpacity onPress={() => setActiveTab('découvrir')} style={{borderRightWidth: 1, borderRightColor: '#00000010', flex: 1/2, backgroundColor: activeTab === 'découvrir' ? '#eee' : 'transparent'}}>
+						<Text style={[styles.textDark, {textAlign: 'center', fontSize: 16}]}>Découvrir</Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => setActiveTab('revoir')} style={{borderLeftWidth: 1, borderLeftColor: '#00000010', flex: 1/2, backgroundColor: activeTab === 'revoir' ? '#eee' : 'transparent'}}>
+						<Text style={[styles.textDark, {textAlign: 'center', fontSize: 16}]}>Revoir</Text>
+					</TouchableOpacity>
 				</View>
-				<LegislationCard
-					title="Arrêté du 9 Juillet 2024"
-					text="Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>"  
-					onPress={() => console.log("Text card pressed")}
-				/>
-				<LegislationCard
-					title="Arrêté du 22 Mars 2024"
-					text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
-					onPress={() => console.log("Text card pressed")}
-				/>
-				<LegislationCard
-					title="Arrêté du 22 Mars 2024"
-					text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
-					onPress={() => console.log("Text card pressed")}
-				/>
-			</HomePanel>
+			</View>
+			<GestureRecognizer
+				onSwipeLeft={handleSwipeLeft}
+				onSwipeRight={handleSwipeRight}
+				style={{ flex: 1, padding: 20 }}
+			>
+				{activeTab === 'découvrir' && (
+					<ScrollView style={styles.homePanel}>
+						{/* <Text style={styles.h2}>Voir à nouveau</Text> */}
+						<View style={styles.fishCardsContainer}>
+							<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' />
+							<FishCard onPress={() => console.log('Card pressed')} fishName='Thon rouge' imgSource='https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg' />
+						</View>
+						<LegislationCard
+							title="Arrêté du 9 Juillet 2024"
+							text="Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>"  
+							onPress={() => console.log("Text card pressed")}
+						/>
+						<LegislationCard
+							title="Arrêté du 22 Mars 2024"
+							text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
+							onPress={() => console.log("Text card pressed")}
+						/>
+						<LegislationCard
+							title="Arrêté du 22 Mars 2024"
+							text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
+							onPress={() => console.log("Text card pressed")}
+						/>
+					</ScrollView>
+				)}
+			</GestureRecognizer>
 		</SafeAreaView>
 	);
 };

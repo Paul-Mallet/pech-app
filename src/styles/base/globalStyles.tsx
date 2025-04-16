@@ -54,7 +54,17 @@ const GlobalStyles = () => {
       paddingRight: 16,
       paddingBottom: 0,
       marginBottom: 60,
+      marginTop: 0,
+    },
+    homePanelTabs: {
       marginTop: 100,
+      textAlign: 'center',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      backgroundColor: 'ffffff10',
+      flexDirection: "row",
+      width: '100%',
+      height: 40,
     },
     fishCardsContainer: {
       flex: 1,
