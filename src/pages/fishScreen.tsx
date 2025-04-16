@@ -145,13 +145,11 @@ const FishScreen = ({ children }: HomeCardProps) => {
 						numColumns={2}
 						keyExtractor={(item) => item.id.toString()}
 						renderItem={({ item }) => (
-							<View style={{flex: 1}}>
-								<FishCard
-									onPress={() => handleFishPress(item.name)}
-									fishName={item.name}
-									imgSource={item.img}
-								/>
-							</View>
+                            <FishCard
+                                onPress={() => handleFishPress(item.name)}
+                                fishName={item.name}
+                                imgSource={item.img}
+                            />
 						)}
 						scrollEnabled={false}
 					/>
