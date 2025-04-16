@@ -36,31 +36,33 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			}
 		}, [onClose]);
 
-		if (loading) {
-			return (
-				<BottomSheet ref={ref} enablePanDownToClose snapPoints={['70%', '100%']} onChange={handleSheetChanges}>
-					<BottomSheetView style={styles.contentContainer}>
-						<Text>Chargement...</Text>
-					</BottomSheetView>
-				</BottomSheet>
-			);
-		}
-		if (!stats?.commonName) {
-			return (
-				<BottomSheet ref={ref} enablePanDownToClose snapPoints={['70%', '100%']} onChange={handleSheetChanges}>
-					<BottomSheetView style={styles.contentContainer}>
-						<Text>Poisson non trouvé</Text>
-					</BottomSheetView>
-				</BottomSheet>
-			);
-		};
+		// if (loading) {
+		// 	return (
+		// 		<BottomSheet ref={ref} enablePanDownToClose snapPoints={['70%', '100%']} onChange={handleSheetChanges}>
+		// 			<BottomSheetView style={styles.contentContainerBottomSheet}>
+		// 				<Text>Chargement...</Text>
+		// 			</BottomSheetView>
+		// 		</BottomSheet>
+		// 	);
+		// }
+		// if (!stats?.commonName) {
+		// 	return (
+		// 		<BottomSheet ref={ref} enablePanDownToClose snapPoints={['70%', '100%']} onChange={handleSheetChanges}>
+		// 			<BottomSheetView style={styles.contentContainerBottomSheet}>
+		// 				<Text>Poisson non trouvé</Text>
+		// 			</BottomSheetView>
+		// 		</BottomSheet>
+		// 	);
+		// };
 		return (
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
 				snapPoints={['70%', '100%']}
-				enableContentPanningGesture={true}
-				enableHandlePanningGesture={true}
+				initialSnapIndex={0}
+				focusBehavior='content'
+				// enableContentPanningGesture={true}
+				// enableHandlePanningGesture={false}
 				gestureHandlerProps={{
 					activeOffsetX: [-10, 10],
 				}}
@@ -72,9 +74,9 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
           			elevation: 999,
 				}}
 			>
-				<BottomSheetView style={styles.contentContainerBottomSheet}>
+				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
 					<View style={styles.headerContainerBottomSheet}>
-						<View style={styles.titlesContainerBottomSheet}>
+						<View>
 							<Text style={styles.h2}>{stats?.commonName}</Text>
 							<Text style={styles.hScientific}>({stats?.scientificName})</Text>
 						</View>
@@ -93,8 +95,8 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					<ImageSlider />
 					<Text style={styles.textDescriptionBottomSheet}>
 						{stats?.englishAcronym && `${stats?.englishAcronym}, `}
-						{stats?.physicalDescription.WRF}
-						{stats?.physicalDescription.moreInfos && ` ${stats?.physicalDescription.moreInfos}`}
+						{stats?.physicalDescription?.WRF}
+						{stats?.physicalDescription?.moreInfos && ` ${stats?.physicalDescription?.moreInfos}`}
 					</Text>
 					<CTAButton />
 				</BottomSheetView>

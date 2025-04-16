@@ -269,6 +269,7 @@ const GlobalStyles = () => {
 		backgroundColor: theme.body,
 	},
 	contentContainerBottomSheet: {
+		flex: 1,
 		position:'relative',
 		width: '100%',
 		padding: 36,
