@@ -1,5 +1,6 @@
 import React, { ReactNode, useState, useEffect, useRef, useCallback } from 'react';
-import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView } from 'react-native';
+import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -7,7 +8,7 @@ import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 
 interface HomeCardProps {
     children?: ReactNode;
-  }
+}
 
 interface Fish {
     id: number;
@@ -32,7 +33,7 @@ interface Fish {
         position: string;
     }>;
 }
-  
+
 const FishScreen = ({ children }: HomeCardProps) => {
 	const styles = GlobalStyles();
     const [pressedFish, setPressedFish] = useState<string | null>(null);
@@ -41,6 +42,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [refreshing, setRefreshing] = useState<boolean>(false);
+    const [isOfflineData, setIsOfflineData] = useState<boolean>(false);
 
     useEffect(() => {
         fetchFishes();
@@ -51,19 +53,59 @@ const FishScreen = ({ children }: HomeCardProps) => {
 		bottomSheetRef.current?.expand();
 	};
 
+    const saveFishesToStorage = async (fishesData: Fish[]) => {
+        try {
+            await AsyncStorage.setItem('cached_fishes', JSON.stringify(fishesData));
+            await AsyncStorage.setItem('fishes_last_updated', new Date().toISOString());
+        } catch (e) {
+            console.error('Erreur lors de la sauvegarde des données dans le stockage local:', e);
+        }
+    };
+
+    const getStoredFishes = async (): Promise<Fish[] | null> => {
+        try {
+            const cachedFishes = await AsyncStorage.getItem('cached_fishes');
+            if (cachedFishes) {
+                return JSON.parse(cachedFishes);
+            }
+            return null;
+        } catch (e) {
+            console.error('Erreur lors de la récupération des données du stockage local:', e);
+            return null;
+        }
+    };
+
     const fetchFishes = async () => {
         try {
             setLoading(true);
+            setIsOfflineData(false);
+            
             const response = await fetch('https://pechapp.edwindev.fr/api/fish');
+            
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des données');
             }
+            
             const data = await response.json();
             setFishes(data);
             setError(null);
+            
+            // Sauvegarder les données dans le stockage local
+            saveFishesToStorage(data);
+            
         } catch (err) {
             console.error('Erreur:', err);
-            setError('Impossible de charger les données. Veuillez réessayer.');
+            
+            // En cas d'erreur (comme pas de connexion), essayer de charger depuis le stockage local
+            const storedFishes = await getStoredFishes();
+            
+            if (storedFishes && storedFishes.length > 0) {
+                setFishes(storedFishes);
+                setIsOfflineData(true);
+                setError(null);
+            } else {
+                setError('Impossible de charger les données. Veuillez réessayer.');
+            }
         } finally {
             setLoading(false);
             setRefreshing(false);
@@ -92,6 +134,11 @@ const FishScreen = ({ children }: HomeCardProps) => {
 			>
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
 					<Text style={styles.titleDark}>Poissons</Text>
+					{isOfflineData && (
+						<Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
+							Données chargées depuis le cache. Tirez vers le bas pour actualiser.
+						</Text>
+					)}
 					<FlatList
 						contentContainerStyle={{gap: 12}}
 						data={fishes}
