@@ -10,12 +10,10 @@ interface ThemeContextType {
     setSelectedTheme: (themeName: string) => void;
     selectedTheme: string;
     setThemeByName: (themeName: string) => void;
-    toggleTheme: () => void;
     font: FontType;
     setFontByName: (fontName: string) => void;
     selectedFont: string;
     setSelectedFont: (fontName: string) => void;
-    toggleFont: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -25,16 +23,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [font, setFont] = useState(poppinsFont);
   const [selectedTheme, setSelectedTheme] = useState('light');
   const [selectedFont, setSelectedFont] = useState('Poppins');
-  StatusBar.setBarStyle(theme === lightTheme ? 'dark-content' : 'light-content');
-  StatusBar.setBackgroundColor(theme.body);
-  NavigationBar.setBackgroundColorAsync(theme.navBarBackground);
-  NavigationBar.setButtonStyleAsync(theme === lightTheme ? 'dark': 'light');
+  useEffect(() => {
+    StatusBar.setBarStyle(theme === lightTheme ? 'dark-content' : 'light-content');
+    StatusBar.setBackgroundColor(theme.body);
+    NavigationBar.setBackgroundColorAsync(theme.navBarBackground);
+    NavigationBar.setButtonStyleAsync(theme === lightTheme ? 'dark' : 'light');
+  }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prev => (prev.mode === 'light' ? darkTheme : lightTheme));
-  };
-
-  const setThemeByName = (themeName: string, isLoading?: false) => {
+  const setThemeByName = (themeName: string) => {
     if (themeName === 'dark') {
       setTheme(darkTheme);
     } else if (themeName === 'light') {
@@ -50,12 +46,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const toggleFont = () => {
-    setFont(prev => (prev.mode === 'Poppins' ? dyslexiaFont : poppinsFont));
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, setSelectedTheme, selectedTheme, setThemeByName, toggleTheme, font, setSelectedFont, selectedFont, setFontByName, toggleFont }}>
+    <ThemeContext.Provider value={{ theme, setSelectedTheme, selectedTheme, setThemeByName, font, setSelectedFont, selectedFont, setFontByName }}>
       {children}
     </ThemeContext.Provider>
   );

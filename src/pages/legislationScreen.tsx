@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, SafeAreaView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
 import LegislationPanel from '../components/molecules/legislationPanel.tsx';

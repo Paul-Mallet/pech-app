@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';

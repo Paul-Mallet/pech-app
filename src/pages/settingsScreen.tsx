@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Button, SafeAreaView } from 'react-native';
+import React from 'react';
+import { View, Text, SafeAreaView } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import RadioButtonGroup from '../components/molecules/radioButtonsGroup.tsx';

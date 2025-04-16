@@ -1,14 +1,14 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
-interface HomeTextCardProps {
+interface LegislationCardProps {
 	text: string;
 	title: string;
 	onPress?: () => void;
 }
 
-const LegislationCard = (props: HomeTextCardProps) => {
+const LegislationCard = (props: LegislationCardProps) => {
 	const styles = GlobalStyles();
 	const { text } = props;
 	const getHighlightedText = (text: string) => {

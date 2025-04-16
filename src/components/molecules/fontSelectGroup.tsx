@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import FontSelectStyles from '../../styles/organisms/fontSelectStyles.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
 

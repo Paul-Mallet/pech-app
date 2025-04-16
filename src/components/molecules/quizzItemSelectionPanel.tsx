@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Dimensions, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Modal, TouchableOpacity, ScrollView } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import PropertyCard from './propertyCard.tsx';
 import { Ionicons } from '@expo/vector-icons';

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, TouchableOpacity, Image } from 'react-native';
 import RadioButtonStyles from '../../styles/organisms/radioButtonStyles.tsx';
 
 type RadioOption = {

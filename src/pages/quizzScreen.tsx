@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useNavigation } from '@react-navigation/native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';

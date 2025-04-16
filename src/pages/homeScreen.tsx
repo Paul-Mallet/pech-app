@@ -9,7 +9,6 @@ import SearchBar from '../components/organisms/searchBar.tsx';
 import { useNavigation } from '@react-navigation/native';
 import QuizzItemSelectionPanel from '../components/molecules/quizzItemSelectionPanel.tsx';
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../styles/base/colors.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 
 // const elementsData: Record<string, string> = {
@@ -43,17 +42,16 @@ const HomeScreen = ({ route }: { route: any }) => {
 			params: { searchText: text },
 		  });
 	};
-	const { theme, toggleTheme } = useTheme();
+	// const { theme } = useTheme();
 	return (
 		<SafeAreaView style={styles.body}>
 			<SearchBar/>
 			{/* <TouchableOpacity style={styles.buttonBackModal} onPress={showModal}>
-				<Ionicons name="close" size={26} color={Colors.searchBarBackground} />
+				<Ionicons name="close" size={26} color={theme.searchBarBackground} />
 			</TouchableOpacity> */}
 			<HomePanel>
 			{/* <QuizzItemSelectionPanel elementsData={elementsData} questionType={"Quel type de nageoire caudale ?"} visible={visibleModal}
       		setVisible={setModalVisible}></QuizzItemSelectionPanel> */}
-				{/* <Button title="Toggle Theme" onPress={toggleTheme} /> */}
 				<Text style={styles.h2}>Voir à nouveau</Text>
 				<View style={styles.fishCardsContainer}>
 					<FishCard onPress={() => console.log('Card pressed')} fishName='Mérou brun' imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg' />
