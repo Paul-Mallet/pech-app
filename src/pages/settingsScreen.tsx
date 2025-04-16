@@ -38,15 +38,15 @@ const SettingsScreen = ({ route }: { route: any }) => {
 
   const selectTheme = (option: string) =>
   {
-    setThemeByName(option); 
-    setSelectedTheme(option); 
+    setThemeByName(option);
+    setSelectedTheme(option);
     safeAsyncStorage.setItem('theme', option);
   }
-  
+
   const selectFont = (option: string) =>
   {
-    setFontByName(option); 
-    setSelectedFont(option); 
+    setFontByName(option);
+    setSelectedFont(option);
     safeAsyncStorage.setItem('font', option);
   }
 
@@ -54,13 +54,13 @@ const SettingsScreen = ({ route }: { route: any }) => {
 		<SafeAreaView style={styles.body}>
       <View style={[styles.homePanel, {paddingTop: 20, marginTop: 40}]}>
         <View>
-          <Text style={styles.titleDark}>Thème</Text>
+          <Text style={[styles.h2, {marginBottom: 16}]}>Thème</Text>
           <RadioButtonGroup
             options={options}
             selected={selectedTheme}
             onSelect={(option) => selectTheme(option)}
           />
-          <Text style={styles.titleDark}>Police</Text>
+          <Text style={[styles.h2, {marginBottom: 16}]}>Police</Text>
           <FontSelectGroup
             options={fontOptions}
             selected={selectedFont}

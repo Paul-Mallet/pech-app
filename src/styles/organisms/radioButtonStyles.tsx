@@ -12,9 +12,10 @@ const RadioButtonStyles = () => {
       borderWidth: 2,
       borderRadius: 8,
       width: 100,
-      height: 150,
+      height: 164,
     },
     container: {
+      display: 'flex',
       justifyContent: 'space-around',
       flexDirection: 'row',
       textAlign: 'center',
@@ -22,7 +23,7 @@ const RadioButtonStyles = () => {
     radioButton: {
       flexDirection: 'column',
       alignItems: 'center',
-      marginBottom: 15,
+      marginBottom: 24,
     },
     radioCircle: {
       marginTop: 10,

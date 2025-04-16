@@ -133,7 +133,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
 				}
 			>
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
-					<Text style={styles.titleDark}>Poissons</Text>
+                    <Text style={styles.h2}>Poissons</Text>
 					{isOfflineData && (
 						<Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
 							Données chargées depuis le cache. Tirez vers le bas pour actualiser.
