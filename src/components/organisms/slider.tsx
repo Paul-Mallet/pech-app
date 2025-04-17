@@ -52,7 +52,10 @@ const ImageSlider = () => {
 			showsHorizontalScrollIndicator={false}
 			renderItem={({ item, index }) => (
 				<Pressable
-					onPress={(e) => handleEdgeTap(e, index)}
+					onPress={(e) => {
+						e.stopPropagation();
+						handleEdgeTap(e, index);
+					}}
 					style={[styles.imageContainer, { width: (width - (36 * 2)) }]}
 				>
 					<Image

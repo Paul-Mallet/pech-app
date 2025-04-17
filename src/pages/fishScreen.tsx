@@ -133,7 +133,8 @@ const FishScreen = ({ children }: HomeCardProps) => {
 				}
 			>
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
-					<Text style={styles.titleDark}>Poissons</Text>
+
+          <Text style={styles.h2}>Poissons</Text>
 					{isOfflineData && (
 						<Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
 							Données chargées depuis le cache. Tirez vers le bas pour actualiser.
@@ -145,13 +146,11 @@ const FishScreen = ({ children }: HomeCardProps) => {
 						numColumns={2}
 						keyExtractor={(item) => item.id.toString()}
 						renderItem={({ item }) => (
-							<View style={{flex: 1}}>
-								<FishCard
-									onPress={() => handleFishPress(item.name)}
-									fishName={item.name}
-									imgSource={item.img}
-								/>
-							</View>
+                            <FishCard
+                                onPress={() => handleFishPress(item.name)}
+                                fishName={item.name}
+                                imgSource={item.img}
+                            />
 						)}
 						scrollEnabled={false}
 					/>

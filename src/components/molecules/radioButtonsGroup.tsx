@@ -26,7 +26,7 @@ const RadioButtonGroup: React.FC<RadioButtonGroupProps> = React.memo(({ options,
         const isSelected = selected === option.value;
         const imgStyle = isSelected ? [styles.img, styles.selectedOption] : styles.img;
         const radioCircleStyle = isSelected ? [styles.radioCircle, styles.selectedOption] : styles.radioCircle;
-        
+
         return (
           <TouchableOpacity
             activeOpacity={1}

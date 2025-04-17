@@ -71,6 +71,7 @@ const GlobalStyles = () => {
 			width: '47.5%',
 			aspectRatio: 1,
 			marginTop: 16, // previously marginVertical
+			marginRight: 16,
 			padding: 16,
 			borderRadius: 24,
 			backgroundColor: "#fff",
@@ -269,6 +270,7 @@ const GlobalStyles = () => {
 		backgroundColor: theme.body,
 	},
 	contentContainerBottomSheet: {
+		flex: 1,
 		position:'relative',
 		width: '100%',
 		padding: 36,
