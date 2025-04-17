@@ -15,6 +15,9 @@ export const lightTheme = {
     btnBottomSheetBackground: '#92D8E1',
     green: '#0c0',
     iconColor: '#31909C',
+    roundButton: '#31909C',
+    viewFishButton: '#92D8E1',
+    highlightBlue: '#92D8E1'
 };
   
 export const darkTheme = {
@@ -34,6 +37,9 @@ export const darkTheme = {
     btnBottomSheetBackground: '#0095a8',
     green: '#0c0',
     iconColor: '#F6FEFF',
+    roundButton: '#31909C',
+    viewFishButton: '#92D8E1',
+    highlightBlue: '#92D8E1'
 };
 
 export const poppinsFont = {

@@ -33,8 +33,8 @@ const SearchBar = () => {
   }, []);
 
   const handleRightIconPress = () => {
-    navigation.navigate('Quizz');
     setSearchText('');
+    navigation.navigate('FishResearch');
   };
 
   const handleTextChange = (text: string) => {

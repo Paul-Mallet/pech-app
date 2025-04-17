@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from 'react-native';
-import QuizzScreen from '../../pages/quizzScreen.tsx';
+// import QuizzScreen from '../../pages/quizzScreen.tsx';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
@@ -10,9 +10,10 @@ import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import { useNavigationState } from '@react-navigation/native';
 import FishScreen from '../../pages/fishScreen.tsx';
+import FishResearch from '../../pages/fishResearchScreen.tsx';
 
 type TabParamList = {
-  Quizz: undefined;
+  FishResearch: undefined;
   Poissons: undefined;
   Accueil: undefined;
   Législation: undefined;
@@ -36,7 +37,7 @@ const BottomTabNavigator = () => {
   return (
       <Tab.Navigator
         tabBar={(props: { state: { routes: any[]; index: any } }) => {
-          const visibleRoutes = props.state.routes.filter(route => route.name !== 'Quizz');
+          const visibleRoutes = props.state.routes.filter(route => route.name !== 'FishResearch');
           const realIndex = props.state.index;
           const adjustedIndex = visibleRoutes.findIndex(
             route => route.key === props.state.routes[realIndex]?.key
@@ -121,10 +122,10 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Quizz"
-        component={QuizzScreen}
+        name="FishResearch"
+        component={FishResearch}
         listeners={{
-          tabPress: () => handleTabPress('Quizz'),
+          tabPress: () => handleTabPress('FishResearch'),
         }}
         options={{ headerShown: false }}
       />
