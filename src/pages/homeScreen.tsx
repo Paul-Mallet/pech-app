@@ -11,19 +11,21 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
+	const decouvrir = 'découvrir';
+	const revoir = 'revoir';
 	const styles = GlobalStyles();
 	const { theme } = useTheme();
 	const navigation = useNavigation();
 
-	const [activeTab, setActiveTab] = useState('découvrir');
+	const [activeTab, setActiveTab] = useState(decouvrir);
 	const translateX = useRef(new Animated.Value(0)).current;
 
 	const startTouch = useRef({ x: 0, y: 0 });
 	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
 	const hasSwitched = useRef(false);
 
-	const switchTab = (target: 'découvrir' | 'revoir') => {
-		const toValue = target === 'découvrir' ? 0 : -screenWidth;
+	const switchTab = (target: string) => {
+		const toValue = target === decouvrir ? 0 : -screenWidth;
 		Animated.spring(translateX, {
 			toValue,
 			useNativeDriver: true,
@@ -47,23 +49,20 @@ const HomeScreen = ({ route }: { route: any }) => {
 				gestureDirection.current = null;
 				hasSwitched.current = false;
 			},
-			onPanResponderMove: (evt, gestureState) => {
-				if (gestureDirection.current === 'vertical') return;
-				const dx = gestureState.dx;
-				const dy = gestureState.dy;
+			onPanResponderMove: (_, gestureState) => {
+				if (gestureDirection.current === 'vertical' || hasSwitched.current) return;
 			
-				if (!gestureDirection.current)
-				{
-					if (Math.abs(dx) > 40 || Math.abs(dy) > 40)
-						gestureDirection.current = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+				const { dx, dy } = gestureState;
+				if (!gestureDirection.current && (Math.abs(dx) > 40 || Math.abs(dy) > 40)) {
+					gestureDirection.current = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
 				}
-				if (gestureDirection.current === 'horizontal' && !hasSwitched.current)
-				{
+			
+				if (gestureDirection.current === 'horizontal') {
 					if (dx < -30) {
-						switchTab('revoir');
+						switchTab(revoir);
 						hasSwitched.current = true;
 					} else if (dx > 30) {
-						switchTab('découvrir');
+						switchTab(decouvrir);
 						hasSwitched.current = true;
 					}
 				}
@@ -93,28 +92,28 @@ const HomeScreen = ({ route }: { route: any }) => {
 			<View>
 				<View style={styles.homePanelTabs}>
 					<TouchableOpacity
-						onPress={() => switchTab('découvrir')}
+						onPress={() => switchTab(decouvrir)}
 						style={{
 							borderBottomWidth: 2,
-							borderBottomColor: activeTab === 'découvrir' ? theme.navBarBackground : 'transparent',
+							borderBottomColor: activeTab === decouvrir ? theme.navBarBackground : 'transparent',
 							flex: 1 / 2,
 						}}
 					>
 						<Text style={[styles.textDark, { textAlign: 'center', fontSize: 16,
-							color: activeTab === 'découvrir' ? theme.textHighlightDark : theme.textDark }]}>
+							color: activeTab === decouvrir ? theme.textHighlightDark : theme.textDark }]}>
 							Découvrir
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
-						onPress={() => switchTab('revoir')}
+						onPress={() => switchTab(revoir)}
 						style={{
 							flex: 1 / 2,
 							borderBottomWidth: 2,
-							borderBottomColor: activeTab === 'revoir' ? theme.navBarBackground : 'transparent',
+							borderBottomColor: activeTab === revoir ? theme.navBarBackground : 'transparent',
 						}}
 					>
 						<Text style={[styles.textDark, { textAlign: 'center', fontSize: 16,
-							color: activeTab === 'revoir' ? theme.textHighlightDark : theme.textDark }]}>
+							color: activeTab === revoir ? theme.textHighlightDark : theme.textDark }]}>
 							Revoir
 						</Text>
 					</TouchableOpacity>
@@ -179,7 +178,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 						showsVerticalScrollIndicator={false}
 					>
 						<Text style={styles.textDark}>Contenu Revoir</Text>
-						{/* You can render previously viewed cards or history here */}
 					</ScrollView>
 				</Animated.View>
 			</View>
