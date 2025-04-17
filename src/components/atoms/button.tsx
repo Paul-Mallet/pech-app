@@ -1,13 +1,29 @@
 import React from 'react';
-import ButtonStyles from '../../styles/atoms/buttonStyles.tsx';
 import { Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
-const CTAButton = () => {
+interface CTAButton {
+  fishName: string;
+}
+
+const CTAButton: React.FC<CTAButton> = ({ fishName }) => {
+	const navigation = useNavigation();
+  const styles = GlobalStyles();
+
+  const goToLegislationScreen = (text: string) => {
+		navigation.navigate('Tabs', {
+			screen: 'Législation',
+			params: { searchText: text },
+		});
+	};
+
   return (
-    <TouchableOpacity style={ButtonStyles.container} onPress={() => console.log('call goToLegislation()')}>
-      <Text
-        style={ButtonStyles.text}  
-      >
+    <TouchableOpacity
+      style={styles.containerCTAButton}
+      onPress={() => goToLegislationScreen(fishName)}
+    >
+      <Text style={styles.textCTAButton}>
         Législation
       </Text>
     </TouchableOpacity>

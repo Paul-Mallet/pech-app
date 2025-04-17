@@ -1,18 +1,20 @@
 import { StyleSheet } from "react-native";
-import { lightTheme } from "../base/Themes.tsx"; 
+import { useTheme } from '../../components/organisms/ThemeContext.tsx'; 
+
+const { theme, font } = useTheme();
 
 const ButtonStyles = StyleSheet.create({
-  container: {
+  containerCTAButton: {
     width: '100%',
     alignItems: 'center',
     padding: 16,
     borderRadius: 48,
     backgroundColor: lightTheme.btnBottomSheetBackground,
   },
-  text: {
+  textCTAButton: {
     fontSize: 16,
-    fontWeight: 700,
-    color: lightTheme.textDark,
+    fontFamily: font.bold,
+    color: font.textDark,
   },
 });
 

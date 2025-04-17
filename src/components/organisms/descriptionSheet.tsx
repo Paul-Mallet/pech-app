@@ -98,7 +98,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 						{stats?.physicalDescription?.WRF}
 						{stats?.physicalDescription?.moreInfos && ` ${stats?.physicalDescription?.moreInfos}`}
 					</Text>
-					<CTAButton />
+					<CTAButton fishName={stats?.commonName} />
 				</BottomSheetView>
 			</BottomSheet>
 		);

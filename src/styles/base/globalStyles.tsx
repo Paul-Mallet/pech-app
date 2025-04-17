@@ -1,6 +1,6 @@
+import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
-import { useMemo } from 'react';
 
 const GlobalStyles = () => {
 	const { theme, font } = useTheme();
@@ -68,15 +68,14 @@ const GlobalStyles = () => {
     },
     fishCardsContainer: {
       flex: 1,
-      width: '49%',
+      width: '100%',
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
       marginBottom: 20,
-      gap: 10,
+      // gap: 10,
     },
-    boxShadow: 
-    {
+    boxShadow: {
       backgroundColor: 'red',
       borderRadius: 10,
       shadowColor: '#000',
@@ -218,7 +217,7 @@ const GlobalStyles = () => {
 		hscientific: {
 			fontSize: 16,
 			fontWeight: '300',
-			fontStyle: 'italic',
+      fontFamily: font.italic,
 			color: theme.textDark,
 		},
 		fishCardContainer: {
@@ -287,20 +286,24 @@ const GlobalStyles = () => {
 		marginTop: -16,
 		marginBottom: 16,
 	},
+  headerContainerTitles: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 	sizeContainerBottomSheet: {
 		display: 'flex',
 		alignItems: 'center',
 	},
 	hScientific: {
+    marginTop: -16,
 		fontSize: 16,
-		fontWeight: '300',
-		fontStyle: 'italic',
+		fontFamily: font.italic,
 		color: theme.textDark,
 	},
 	hSize: {
 		marginTop: -8,
 		fontSize: 12,
-		fontWeight: '800',
+		fontFamily: font.bold,
 		color: theme.textDark,
 		backgroundColor: theme.body,
 	},
@@ -312,8 +315,21 @@ const GlobalStyles = () => {
 	textDescriptionBottomSheet: {
 		marginTop: 12,
 		marginBottom: 12,
+    fontFamily: font.regular,
 		color: theme.textDark,
 	},
+  containerCTAButton: {
+    width: '100%',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 48,
+    backgroundColor: theme.btnBottomSheetBackground,
+  },
+  textCTAButton: {
+    fontSize: 16,
+    fontFamily: font.bold,
+    color: theme.textDark,
+  },
 	}), [theme, font]); // Only recompute when `theme` or `font` change
 
 	return styles;

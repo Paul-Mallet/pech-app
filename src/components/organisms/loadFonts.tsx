@@ -10,7 +10,7 @@ export default function useLoadFonts() {
       await Font.loadAsync({
         'PoppinsBold': require('../../../assets/fonts/Poppins-Bold.ttf'),
         'PoppinsRegular': require('../../../assets/fonts/Poppins-Regular.ttf'),
-        // 'PoppinsItalic': require('../../../assets/fonts/Poppins-Italic.ttf'),
+        'PoppinsLightItalic': require('../../../assets/fonts/Poppins-LightItalic.ttf'),
         'DyslexicBold': require('../../../assets/fonts/OpenDyslexic-Bold.ttf'),
         'DyslexicRegular': require('../../../assets/fonts/OpenDyslexic-Regular.ttf'),
         // 'DyslexiaItalic': require('../../../assets/fonts/OpenDyslexic-Italic.ttf'),

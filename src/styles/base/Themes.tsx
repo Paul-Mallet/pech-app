@@ -1,5 +1,4 @@
-export const lightTheme =
-{
+export const lightTheme = {
     mode: 'light',
     body: '#F6F4EB',
     title: '#F6F4EB',
@@ -18,8 +17,7 @@ export const lightTheme =
     iconColor: '#31909C',
 };
   
-export const darkTheme =
-{
+export const darkTheme = {
     mode: 'dark',
     body: '#00282e',
     title: '#F6F4EB',
@@ -37,15 +35,15 @@ export const darkTheme =
     iconColor: '#F6FEFF',
 };
 
-export const poppinsFont =
-{
+export const poppinsFont = {
     mode: 'Poppins',
     bold: 'PoppinsBold',
+    italic: 'PoppinsLightItalic',
     regular: 'PoppinsRegular',
 };
-export const dyslexiaFont =
-{
+export const dyslexiaFont = {
     mode: 'Dyslexic',
     bold: 'DyslexicBold',
+    italic: 'DyslexicRegular',
     regular: 'DyslexicRegular',
 };
