@@ -37,10 +37,10 @@ const LegislationCard = (props: LegislationCardProps) => {
 
 	return (
 		<TouchableOpacity onPress={props.onPress} style={styles.legislationCard}>
-			<Text style={styles.titleDark}>
+			<Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleDark}>
 				{props.title}
 			</Text>
-			<Text style={styles.textDark}>
+			<Text numberOfLines={5} ellipsizeMode="tail" style={styles.textDark}>
 				{getHighlightedText(text)}
 			</Text>
 		</TouchableOpacity>

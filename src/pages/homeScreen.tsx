@@ -1,14 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {
-	View,
-	Text,
-	SafeAreaView,
-	TouchableOpacity,
-	ScrollView,
-	Animated,
-	Dimensions,
-	PanResponder,
-} from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Animated, Dimensions, PanResponder } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import FishCard from '../components/molecules/fishCard.tsx';
@@ -41,11 +32,13 @@ const HomeScreen = ({ route }: { route: any }) => {
 	};
 
 	// probable bug with multiple tabs (more than 2): the activeTab doesn't update correctly
-	// other bug: sometimes the scrollbar is blocked until the user switch the tab
 	const panResponder = useRef(
 		PanResponder.create({
 			onStartShouldSetPanResponder: () => true,
-			onMoveShouldSetPanResponder: () => true,
+			onMoveShouldSetPanResponder: (_, gestureState) => {
+				const { dx, dy } = gestureState;
+				return Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy);
+			},
 			onPanResponderGrant: (evt) => {
 				startTouch.current = {
 					x: evt.nativeEvent.pageX,
@@ -55,15 +48,15 @@ const HomeScreen = ({ route }: { route: any }) => {
 				hasSwitched.current = false;
 			},
 			onPanResponderMove: (evt, gestureState) => {
+				if (gestureDirection.current === 'vertical') return;
 				const dx = gestureState.dx;
 				const dy = gestureState.dy;
 			
 				if (!gestureDirection.current)
 				{
-					if (Math.abs(dx) > 60 || Math.abs(dy) > 60)
+					if (Math.abs(dx) > 40 || Math.abs(dy) > 40)
 						gestureDirection.current = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
 				}
-			
 				if (gestureDirection.current === 'horizontal' && !hasSwitched.current)
 				{
 					if (dx < -30) {
@@ -79,12 +72,10 @@ const HomeScreen = ({ route }: { route: any }) => {
 			onPanResponderRelease: () => {
 				gestureDirection.current = null;
 				hasSwitched.current = false;
-				// startTouch.current = {x: 0, y: 0};
 			},
 			onPanResponderTerminate: () => {
 				gestureDirection.current = null;
 				hasSwitched.current = false;
-				// startTouch.current = {x: 0, y: 0};
 			},
 		})
 	).current;
@@ -166,8 +157,8 @@ const HomeScreen = ({ route }: { route: any }) => {
 							onPress={() => console.log('Text card pressed')}
 						/>
 						<LegislationCard
-							title='Arrêté du 22 Mars 2024'
-							text='Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots...'
+							title='Arrêté du 9 Juillet 2024 portant réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la Réserve Naturelle Marine de Cerbère-Banyuls :'
+							text='Pêche maritime de loisir à l’intérieur de la zone est soumise à la détention préalable d’une autorisation. Maximum de 1000 autorisations sur une année civile. Pêche maritime de loisir autorisée qu’entre le lever et le coucher du soleil.10 prises dans la limite des quotas et tailles minimales, par jour et par navire quel que soit le nombre de personnes embarquées, et par jour et par pêcheur à pied lorsque ce dernier œuvre depuis le rivage.'
 							onPress={() => console.log('Text card pressed')}
 						/>
 						<LegislationCard
