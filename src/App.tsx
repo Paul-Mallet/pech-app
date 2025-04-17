@@ -6,6 +6,7 @@ import MainNavigator from './pages/mainNavigator.tsx';
 import { ThemeProvider } from './components/organisms/ThemeContext.tsx';
 import useLoadFonts from './components/organisms/loadFonts.tsx';
 import LoadPreferences from './styles/organisms/loadSaveManager.tsx';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const fontLoaded = useLoadFonts();
@@ -23,19 +24,21 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
-      <LoadPreferences>
-        <View style={{ flex: 1 }}>
-          <SplashScreen
-            fadeAnim={fadeAnim}
-            translateYAnim={translateYAnim}
-            onAnimationEnd={handleAnimationEnd}
-          />
-          <NavigationContainer>
-            <MainNavigator />
-          </NavigationContainer>
-        </View>
-      </LoadPreferences>
-    </ThemeProvider>
+    <GestureHandlerRootView>
+      <ThemeProvider>
+        <LoadPreferences>
+          <View style={{ flex: 1 }}>
+            <SplashScreen
+              fadeAnim={fadeAnim}
+              translateYAnim={translateYAnim}
+              onAnimationEnd={handleAnimationEnd}
+            />
+            <NavigationContainer>
+              <MainNavigator />
+            </NavigationContainer>
+          </View>
+        </LoadPreferences>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

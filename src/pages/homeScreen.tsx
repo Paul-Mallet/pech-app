@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Animated, Dimensions, PanResponder } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,6 +15,20 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const revoir = 'revoir';
 	const styles = GlobalStyles();
 	const { theme } = useTheme();
+	const [pressedFish, setPressedFish] = useState<string | null>(null);
+	const bottomSheetRef = useRef<BottomSheet>(null);
+	const styles = GlobalStyles();
+
+	const handleFishPress = (fishName: string) => {
+		setPressedFish(fishName);
+		bottomSheetRef.current?.expand();
+	};
+
+	const handleSheetClose = useCallback(() => {
+		setPressedFish(null);
+	}, []);
+	
+	// const [visibleModal, setModalVisible] = useState(false);
 	const navigation = useNavigation();
 
 	const [activeTab, setActiveTab] = useState(decouvrir);
@@ -181,6 +195,15 @@ const HomeScreen = ({ route }: { route: any }) => {
 					</ScrollView>
 				</Animated.View>
 			</View>
+			{
+				pressedFish && (
+					<DescriptionSheet
+						ref={bottomSheetRef}
+						fishName={pressedFish}
+						onClose={handleSheetClose}
+					/>
+				)
+			}
 		</SafeAreaView>
 	);
 };

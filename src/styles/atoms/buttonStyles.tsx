@@ -1,16 +1,18 @@
 import { StyleSheet } from "react-native";
-
+import { lightTheme } from "../base/Themes.tsx"; 
 
 const ButtonStyles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: '#3498db',
-    borderRadius: 10,
+    width: '100%',
     alignItems: 'center',
+    padding: 16,
+    borderRadius: 48,
+    backgroundColor: lightTheme.btnBottomSheetBackground,
   },
   text: {
-    color: 'white',
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: 700,
+    color: lightTheme.textDark,
   },
 });
 

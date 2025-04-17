@@ -13,6 +13,7 @@ export const lightTheme =
     searchBarBackgroundFocused: '#EFFDFF',
     textHighlightSearch: '#0070ff',
     cardBackground: '#F6FEFF',
+    btnBottomSheetBackground: '#92D8E1',
     green: '#0c0',
     iconColor: '#31909C',
 };
