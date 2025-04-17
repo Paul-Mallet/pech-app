@@ -8,12 +8,11 @@ const QuestionStyles = () => {
   
     const styles = useMemo(() => StyleSheet.create({
         mainDiv : {
-            flex: 1,
             justifyContent: 'center',
             alignItems : 'center',
         },
         questionDiv : {
-            flexShrink: 1,
+            top: 80,
             maxHeight : 450,
             width: '80%',
             borderRadius: 24,

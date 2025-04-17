@@ -6,11 +6,13 @@ import { useAnswers } from "../../@config/answerContext.tsx";
 
 type SingleQuestionProps = {
     text: string;
-    field?: "fin"; // | "" to expand as needed
+    isAnswered: boolean,
+    field?: string; // | "" to expand as needed
     navigation: any;
+    onPress: () => void;
 };
 
-const SingleQuestion : React.FC<SingleQuestionProps> = ({text, field, navigation}) => {
+const SingleQuestion : React.FC<SingleQuestionProps> = ({text, isAnswered, field, navigation, onPress}) => {
     const styles = SingleQuestionStyle();
     const {answers, setAnswers} = useAnswers();
 
@@ -34,7 +36,7 @@ const SingleQuestion : React.FC<SingleQuestionProps> = ({text, field, navigation
     */
 
     return (
-        <Pressable style={styles.mainDiv} onPress={() => {alert(text)}}>
+        <Pressable style={styles.mainDiv} onPress={() => {onPress()}}>
             <View style={styles.container}>
                 <Text style={styles.text}>
                     {beforeLastWord} <Text style={styles.highlight}>{lastWord}</Text> {questionMark}
