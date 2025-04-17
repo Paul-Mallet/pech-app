@@ -12,12 +12,18 @@ import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
-	const decouvrir = 'découvrir';
-	const revoir = 'revoir';
+	const bottomSheetRef = useRef<BottomSheet>(null);
+	const translateX = useRef(new Animated.Value(0)).current;
+	const startTouch = useRef({ x: 0, y: 0 });
+	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
+	const hasSwitched = useRef(false);
+	const [pressedFish, setPressedFish] = useState<string | null>(null);
+	const [activeTab, setActiveTab] = useState('découvrir');
+	// const navigation = useNavigation();
 	const styles = GlobalStyles();
 	const { theme } = useTheme();
-	const [pressedFish, setPressedFish] = useState<string | null>(null);
-	const bottomSheetRef = useRef<BottomSheet>(null);
+	const decouvrir = 'découvrir';
+	const revoir = 'revoir';
 
 	const handleFishPress = (fishName: string) => {
 		setPressedFish(fishName);
@@ -29,15 +35,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 	}, []);
 	
 	// const [visibleModal, setModalVisible] = useState(false);
-	const navigation = useNavigation();
-
-	const [activeTab, setActiveTab] = useState(decouvrir);
-	const translateX = useRef(new Animated.Value(0)).current;
-
-	const startTouch = useRef({ x: 0, y: 0 });
-	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
-	const hasSwitched = useRef(false);
-
 	const switchTab = (target: string) => {
 		const toValue = target === decouvrir ? 0 : -screenWidth;
 		Animated.spring(translateX, {
@@ -81,7 +78,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 					}
 				}
 			},
-			
 			onPanResponderRelease: () => {
 				gestureDirection.current = null;
 				hasSwitched.current = false;
@@ -93,12 +89,12 @@ const HomeScreen = ({ route }: { route: any }) => {
 		})
 	).current;
 
-	const goToLegislationScreen = (text: string) => {
-		navigation.navigate('Tabs', {
-			screen: 'Législation',
-			params: { searchText: text },
-		});
-	};
+	// const goToLegislationScreen = (text: string) => {
+	// 	navigation.navigate('Tabs', {
+	// 		screen: 'Législation',
+	// 		params: { searchText: text },
+	// 	});
+	// };
 
 	return (
 		<SafeAreaView style={styles.body}>
@@ -133,7 +129,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 					</TouchableOpacity>
 				</View>
 			</View>
-
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>
 				<Animated.View
 					style={{

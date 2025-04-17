@@ -23,8 +23,8 @@ const imageMap: Record<ImageKey, number> = {
 const images = ['bar_01.png', 'bar_02.png', 'bar_03.png', 'bar_04.png'];
 
 const ImageSlider = () => {
-	const [activeIndex, setActiveIndex] = useState(0);
 	const flatListRef = useRef<BottomSheetFlatListMethods>(null);
+	const [activeIndex, setActiveIndex] = useState(0);
 	const { width } = Dimensions.get('window');
 
 	const handleEdgeTap = (event: GestureResponderEvent, index: number) => {
@@ -52,7 +52,7 @@ const ImageSlider = () => {
 			showsHorizontalScrollIndicator={false}
 			renderItem={({ item, index }) => (
 				<Pressable
-					onPress={(e) => {
+					onTouchStart={(e) => {
 						e.stopPropagation();
 						handleEdgeTap(e, index);
 					}}

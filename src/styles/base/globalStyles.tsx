@@ -12,7 +12,7 @@ const GlobalStyles = () => {
     },
     h2: {
       fontSize: 24,
-      marginVertical: 8,
+      marginBottom: 8,
       color: theme.textDark,
       fontFamily: font.bold,
       lineHeight: 40
@@ -313,8 +313,8 @@ const GlobalStyles = () => {
 		borderRadius: 32,
 	},
 	textDescriptionBottomSheet: {
-		marginTop: 12,
-		marginBottom: 12,
+		marginTop: 16,
+		marginBottom: 16,
     fontFamily: font.regular,
 		color: theme.textDark,
 	},

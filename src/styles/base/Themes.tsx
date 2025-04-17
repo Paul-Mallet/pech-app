@@ -31,6 +31,7 @@ export const darkTheme = {
     searchBarBackgroundFocused: '#2c5e68',
     textHighlightSearch: '#0070ff',
     cardBackground: '#003942',
+    btnBottomSheetBackground: '#0095a8',
     green: '#0c0',
     iconColor: '#F6FEFF',
 };

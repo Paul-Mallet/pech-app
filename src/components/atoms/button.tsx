@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, Pressable, GestureResponderEvent } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
@@ -19,14 +19,20 @@ const CTAButton: React.FC<CTAButton> = ({ fishName }) => {
 	};
 
   return (
-    <TouchableOpacity
-      style={styles.containerCTAButton}
-      onPress={() => goToLegislationScreen(fishName)}
+    <Pressable
+      style={({ pressed }) => [
+        styles.containerCTAButton, 
+        { opacity: pressed ? 0.5 : 1 }
+      ]}
+      onTouchStart={(e: GestureResponderEvent) => {
+        e.stopPropagation();
+        goToLegislationScreen(fishName);
+      }}
     >
       <Text style={styles.textCTAButton}>
         Législation
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
