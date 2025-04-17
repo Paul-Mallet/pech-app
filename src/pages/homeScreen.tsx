@@ -7,6 +7,7 @@ import LegislationCard from '../components/molecules/legislationCard.tsx';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
+import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -17,7 +18,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const { theme } = useTheme();
 	const [pressedFish, setPressedFish] = useState<string | null>(null);
 	const bottomSheetRef = useRef<BottomSheet>(null);
-	const styles = GlobalStyles();
 
 	const handleFishPress = (fishName: string) => {
 		setPressedFish(fishName);
@@ -149,12 +149,12 @@ const HomeScreen = ({ route }: { route: any }) => {
 					>
 						<View style={styles.fishCardsContainer}>
 							<FishCard
-								onPress={() => console.log('Card pressed')}
+								onPress={() => handleFishPress('Mérou brun')}
 								fishName='Mérou brun'
 								imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg'
 							/>
 							<FishCard
-								onPress={() => console.log('Card pressed')}
+								onPress={() => handleFishPress('Thon rouge')}
 								fishName='Thon rouge'
 								imgSource='https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg'
 							/>
