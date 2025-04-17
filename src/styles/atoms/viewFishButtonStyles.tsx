@@ -8,15 +8,20 @@ const ButtonStyles = () => {
   
     const styles = useMemo(() => StyleSheet.create({
         mainDiv: {
-            flex: 0.5,
+            position: 'absolute',
+            bottom: 70,
+            alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
         },
         button : {
-            paddingVertical: 15,
+            height: 40,
             paddingHorizontal: 40,
-            borderRadius: 36,
-            backgroundColor : theme.viewFishButton,
+            borderRadius: 24,
+            borderWidth: 2,
+            borderColor: theme.iconColor,
+            textAlign: 'center',
+            backgroundColor : theme.navBarBackground,
         },
         text : {
             color : theme.textDark,

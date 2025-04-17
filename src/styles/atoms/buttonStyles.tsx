@@ -18,10 +18,23 @@ const ButtonStyles = () => {
       fontFamily: font.bold,
       color: theme.textDark,
     },
-    searchButton: {
+    closeSearchButton: {
+      alignSelf: 'center',
+      top: 50,
+      width: 40,
+      height: 40,
       alignItems: 'center',
-      justifyContent: 'flex-end',
-      flex: 0.5,
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: theme.iconColor,
+      backgroundColor: theme.body,
+      borderRadius: "50%",
+      padding: 4,
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowRadius: 5,
+      shadowOpacity: 0.25,
+      elevation: 5,
     }
   }), [theme]);
 

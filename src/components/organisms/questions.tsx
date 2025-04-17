@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View , Text, ScrollView} from "react-native";
+import React from "react";
+import { View , Text} from "react-native";
 import QuestionStyles from "../../styles/organisms/questionStyles.tsx";
 import SingleQuestion from "../molecules/singleQuestion.tsx";
 import { useAnswers } from "../../@config/answerContext.tsx";
@@ -9,9 +9,8 @@ const Questions = ({navigation} : {navigation : any}) => {
     const styles = QuestionStyles();
 
     return (
-        <>
             <View style={styles.mainDiv}>
-                <ScrollView style={styles.questionDiv} contentContainerStyle={styles.scrollContent}>
+                <View style={styles.questionDiv}>
                     <SingleQuestion text={"Quelle est la teinte ?"} navigation={navigation}/>
                     <Text style={styles.line}></Text>
                     <SingleQuestion text={"Forme des nageoires ?"} field="fin" navigation={navigation}/>
@@ -23,9 +22,8 @@ const Questions = ({navigation} : {navigation : any}) => {
                     <SingleQuestion text={"A t-il des dents ?"} navigation={navigation}/>
                     <Text style={styles.line}></Text>
                     <SingleQuestion text={"Forme du corps ?"} navigation={navigation}/>
-                </ScrollView>
+                </View>
             </View>
-        </>
     )
 
 }

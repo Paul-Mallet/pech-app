@@ -268,6 +268,12 @@ const GlobalStyles = () => {
 	},
 	containerBottomSheet: {
 		backgroundColor: theme.body,
+    borderTopEndRadius: 32,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 10,
 	},
 	contentContainerBottomSheet: {
 		flex: 1,
@@ -318,18 +324,6 @@ const GlobalStyles = () => {
     fontFamily: font.regular,
 		color: theme.textDark,
 	},
-  containerCTAButton: {
-    width: '100%',
-    alignItems: 'center',
-    padding: 16,
-    borderRadius: 48,
-    backgroundColor: theme.btnBottomSheetBackground,
-  },
-  textCTAButton: {
-    fontSize: 16,
-    fontFamily: font.bold,
-    color: theme.textDark,
-  },
 	}), [theme, font]); // Only recompute when `theme` or `font` change
 
 	return styles;

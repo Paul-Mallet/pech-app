@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Pressable, GestureResponderEvent } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import ButtonStyles from '../../styles/atoms/buttonStyles.tsx';
 
 interface CTAButton {
   fishName: string;
@@ -9,7 +9,7 @@ interface CTAButton {
 
 const CTAButton: React.FC<CTAButton> = ({ fishName }) => {
 	const navigation = useNavigation();
-  const styles = GlobalStyles();
+  const styles = ButtonStyles();
 
   const goToLegislationScreen = (text: string) => {
 		navigation.navigate('Tabs', {

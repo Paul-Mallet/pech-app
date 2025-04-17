@@ -5,8 +5,8 @@ import ArrowHead from "../atoms/arrowHead.tsx";
 import { useAnswers } from "../../@config/answerContext.tsx";
 
 type SingleQuestionProps = {
-    text : string;
-    field : "fin"; // | "" to expand as needed
+    text: string;
+    field?: "fin"; // | "" to expand as needed
     navigation: any;
 };
 

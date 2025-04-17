@@ -6,7 +6,6 @@ import CTAButton from '../atoms/button.tsx';
 import ImageSlider from '../organisms/slider.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
-import { lightTheme } from '../../styles/base/Themes.tsx';
 import data from '../../data/mocks/descriptions.json';
 
 type DescriptionSheetProps = {
@@ -18,7 +17,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fishName, onClose }, ref) => {
 		const [stats, setStats] = useState<any>({});
 		const [loading, setLoading] = useState<boolean>(false);
-		const { theme, font } = useTheme();
+		const { theme } = useTheme();
 		const styles = GlobalStyles();
 
 		function handleData() {
@@ -73,7 +72,6 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				backgroundStyle={styles.containerBottomSheet}
 				containerStyle={{
 					zIndex: 999,
-          			elevation: 999,
 				}}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
