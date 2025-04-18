@@ -3,7 +3,7 @@ import { useTheme } from "../../components/organisms/ThemeContext.tsx";
 import { useMemo } from "react";
 
 const SingleQuestionStyle = () => {
-    const { theme } = useTheme();
+    const { theme, font } = useTheme();
   
     const styles = useMemo(() => StyleSheet.create({
         mainDiv : {
@@ -17,13 +17,16 @@ const SingleQuestionStyle = () => {
             alignItems : 'center'
         },
         text : {
+            fontFamily: font.regular,
             alignSelf : 'flex-start',
-            fontSize : 20,
+            fontSize : 16,
             color : theme.textDark,
             flexWrap : "wrap"
         },
         highlight : {
-            color : theme.highlightBlue,
+            fontSize : 16,
+            fontFamily: font.bold,
+            color : theme.textHighlightDark,
         }
     }), [theme]);
   

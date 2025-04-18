@@ -8,25 +8,20 @@ const QuestionStyles = () => {
   
     const styles = useMemo(() => StyleSheet.create({
         mainDiv : {
-            paddingVertical : 50,
             justifyContent: 'center',
             alignItems : 'center',
         },
         questionDiv : {
-            flexShrink: 1,
+            top: 80,
             maxHeight : 450,
-            width: '70%',
-            overflow : 'scroll',
-            borderRadius: 32,
+            width: '80%',
+            borderRadius: 24,
             backgroundColor: theme.searchBarBackground,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 10 },
             shadowOpacity: 0.2,
             shadowRadius: 10,
             elevation: 10,
-        },
-        scrollContent : {
-            flexGrow : 1,
         },
         line : {
             alignSelf : 'center',

@@ -7,7 +7,7 @@ const NavBarStyles = () => {
 
   const styles = useMemo(() => StyleSheet.create({
     tabLabel: {
-      fontSize: 12,
+      fontSize: 10,
       fontFamily: font.regular,
     },
     tabLabelFocused: {

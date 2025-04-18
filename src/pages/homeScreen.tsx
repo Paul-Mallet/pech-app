@@ -8,6 +8,7 @@ import SearchBar from '../components/organisms/searchBar.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 const screenWidth = Dimensions.get('window').width;
 

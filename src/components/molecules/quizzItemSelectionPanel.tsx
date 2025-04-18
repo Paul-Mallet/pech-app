@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Modal, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import PropertyCard from './propertyCard.tsx';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,7 +8,7 @@ import QuizzStyles from '../../styles/pages/QuizzStyles.tsx';
 
 interface QuizzItemSelectionPanelProps {
     elementsData: Record<string, string>;
-    questionType: string;
+    questionType: string | null;
     visible: boolean;
     setVisible: (visible: boolean) => void;
 }
@@ -46,17 +46,27 @@ const QuizzItemSelectionPanel: React.FC<QuizzItemSelectionPanelProps> = ({ eleme
   return (
     <Modal visible={visible} animationType="slide" onRequestClose={() => handleClose("")}>
       <View style={[globalStyles.body, {padding: 10}]}>
-      <TouchableOpacity style={globalStyles.buttonBackModal} onPress={() => handleClose("")}>
-        <Ionicons name="close" size={36} color={theme.searchBarBackground} />
-      </TouchableOpacity>
-      <Text style={[globalStyles.titleDark, globalStyles.titleModal]}>{questionType}</Text>
-      <ScrollView contentContainerStyle={quizzStyles.grid}>
-        {Object.entries(elementsData).map(([propertyName, imageSource], index) => (
-          <View key={index} style={quizzStyles.element}>
-            <PropertyCard onPress={() => handleClose(propertyName)} propertyName={propertyName} imgSource={imageSource}/>
-          </View>
-        ))}
-      </ScrollView>
+        <TouchableOpacity style={globalStyles.buttonBackModal} onPress={() => handleClose("")}>
+          <Ionicons name="close" size={36} color={theme.searchBarBackground} />
+        </TouchableOpacity>
+        <Text style={[globalStyles.titleDark, globalStyles.titleModal]}>{questionType}</Text>
+        <FlatList
+          data={Object.entries(elementsData)}
+          keyExtractor={([propertyName], index) => propertyName + index}
+          numColumns={2} // for 2 elements per row
+          columnWrapperStyle={{ justifyContent: 'space-between', }}
+          renderItem={({ item }) => {
+            const [propertyName, imageSource] = item;
+            return (
+                <PropertyCard
+                  onPress={() => handleClose(propertyName)}
+                  propertyName={propertyName}
+                  imgSource={imageSource}
+                />
+            );
+          }}
+          contentContainerStyle={quizzStyles.grid}
+        />
       </View>
     </Modal>
   );

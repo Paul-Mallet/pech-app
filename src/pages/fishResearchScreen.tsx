@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, View , Text, Pressable} from "react-native"
+import { Button, View , Text, TouchableOpacity} from "react-native"
 import ButtonStyles from "../styles/atoms/buttonStyles.tsx"
 import { Ionicons } from '@expo/vector-icons';
 import Questions from "../components/organisms/questions.tsx";
@@ -16,9 +16,9 @@ const FishResearch = ({navigation} : any) => {
         <>
             <AnswerProvider>
                 <View style={styles.mainDiv}>
-                    <Pressable style={buttonStyles.searchButton} onPress={() => navigation.goBack()}>
-                        <Ionicons name='close-circle' size={70} color={theme.roundButton}/>
-                    </Pressable>
+                    <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.goBack()}>
+                        <Ionicons name='close' size={24} color={theme.iconColor}/>
+                    </TouchableOpacity>
                     <Questions navigation={navigation}/>
                     <ViewFishButton/>
                 </View>

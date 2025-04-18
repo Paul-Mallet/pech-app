@@ -31,11 +31,13 @@ const ImageSlider = () => {
 		const tapX = event.nativeEvent.locationX;
 
 		if (tapX < width * 0.25 && index > 0) {
-		flatListRef.current?.scrollToIndex({ index: index - 1, animated: true });
-		setActiveIndex(index - 1);
+			console.log(`Left side`);
+			flatListRef.current?.scrollToIndex({ index: index - 1, animated: true });
+			setActiveIndex(index - 1);
 		} else if (tapX > width * 0.55 && index < images.length - 1) {
-		flatListRef.current?.scrollToIndex({ index: index + 1, animated: true });
-		setActiveIndex(index + 1);
+			console.log(`Right side`);
+			flatListRef.current?.scrollToIndex({ index: index + 1, animated: true });
+			setActiveIndex(index + 1);
 		} else {
 		console.log(`Image ${index + 1} tapée (centre)`);
 		}
@@ -52,7 +54,7 @@ const ImageSlider = () => {
 			showsHorizontalScrollIndicator={false}
 			renderItem={({ item, index }) => (
 				<Pressable
-					onTouchStart={(e) => {
+					onTouchStart={(e: GestureResponderEvent) => {
 						e.stopPropagation();
 						handleEdgeTap(e, index);
 					}}

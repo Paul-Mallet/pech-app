@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Svg, Path } from 'react-native-svg';
 import CTAButton from '../atoms/button.tsx';
 import ImageSlider from '../organisms/slider.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
-import { lightTheme } from '../../styles/base/Themes.tsx';
 import data from '../../data/mocks/descriptions.json';
 
 type DescriptionSheetProps = {
@@ -18,7 +17,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fishName, onClose }, ref) => {
 		const [stats, setStats] = useState<any>({});
 		const [loading, setLoading] = useState<boolean>(false);
-		const { theme, font } = useTheme();
+		const { theme } = useTheme();
 		const styles = GlobalStyles();
 
 		function handleData() {
@@ -56,18 +55,40 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		// 		</BottomSheet>
 		// 	);
 		// };
+		if (!stats?.commonName) return null;
 		return (
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
-				snapPoints={['70%', '100%']}
-				focusBehavior='content'
+				snapPoints={['70%', '95%']}
 				overDragResistanceFactor={1}
+				enableContentPanningGesture={false}
+				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
 				containerStyle={{
 					zIndex: 999,
 				}}
+				handleComponent={() => (
+					<Pressable 
+						style={{ 
+						paddingVertical: 20,
+						paddingHorizontal: '30%',
+						justifyContent: 'center',
+						}}
+					>
+						<View
+						style={{
+							width: 40,
+							height: 5,
+							borderRadius: 4,
+							backgroundColor: '#1a1a1a',
+							opacity: 0.7,
+							alignSelf: 'center',
+						}}
+						/>
+					</Pressable>
+				)}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
 					<View style={styles.headerContainerBottomSheet}>

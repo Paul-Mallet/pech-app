@@ -9,7 +9,7 @@ const FishResearchStyle = () => {
         mainDiv : {
             backgroundColor: theme.body,
             height: '100%', 
-            justifyContent: 'space-between'
+            width: '100%', 
         }
     }), [theme]);
   
