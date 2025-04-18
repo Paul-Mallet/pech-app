@@ -23,7 +23,7 @@ type TabParamList = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { theme, font } = useTheme();
+  const { theme } = useTheme();
 	const styles = NavBarStyles();
   const [activeTab, setActiveTab] = useState('');
 
