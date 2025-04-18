@@ -9,10 +9,13 @@ import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { useHistory } from '../components/organisms/HistoryContext.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
+	const history = useHistory().history;
+	const { groupedHistory } = useHistory();
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
 	const startTouch = useRef({ x: 0, y: 0 });
@@ -188,6 +191,18 @@ const HomeScreen = ({ route }: { route: any }) => {
 						showsVerticalScrollIndicator={false}
 					>
 						<Text style={styles.textDark}>Contenu Revoir</Text>
+						{Object.entries(groupedHistory).map(([entryType, items]) => (
+							<View key={entryType}>
+							<Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, marginBottom: 10 }]}>
+								{entryType}
+							</Text>
+							{items.map((item, idx) => (
+								<Text key={idx} style={styles.textDark}>
+								{item.label}
+								</Text>
+							))}
+							</View>
+						))}
 					</ScrollView>
 				</Animated.View>
 			</View>

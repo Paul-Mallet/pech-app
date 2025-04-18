@@ -3,12 +3,14 @@ import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from './ThemeContext.tsx';
+import { useHistory } from './HistoryContext.tsx';
 interface SearchBarLegislationProps {
   searchText: string;
   setSearchText: (text: string) => void;
 }
 
 const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislationProps) => {
+	const { addToHistory } = useHistory();
   const { theme } = useTheme();
 	const styles = GlobalStyles();
   const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
@@ -16,6 +18,7 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
 
   const handleSearch = (text: string) => {
     if (text.length < 2) return;
+    addToHistory({entryType: "research", label: text});
     console.log('User typed:', text);
   };
 

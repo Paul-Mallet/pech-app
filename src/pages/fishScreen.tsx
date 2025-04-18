@@ -53,10 +53,16 @@ const FishScreen = ({ children }: HomeCardProps) => {
 		bottomSheetRef.current?.expand();
 	};
 
+    // used to remove the (not true) errors
+    const safeAsyncStorage = AsyncStorage as unknown as {
+        getItem: (key: string) => Promise<string | null>;
+        setItem: (key: string, value: string) => Promise<void>;
+    };
+
     const saveFishesToStorage = async (fishesData: Fish[]) => {
         try {
-            await AsyncStorage.setItem('cached_fishes', JSON.stringify(fishesData));
-            await AsyncStorage.setItem('fishes_last_updated', new Date().toISOString());
+            await safeAsyncStorage.setItem('cached_fishes', JSON.stringify(fishesData));
+            await safeAsyncStorage.setItem('fishes_last_updated', new Date().toISOString());
         } catch (e) {
             console.error('Erreur lors de la sauvegarde des données dans le stockage local:', e);
         }
@@ -64,7 +70,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
 
     const getStoredFishes = async (): Promise<Fish[] | null> => {
         try {
-            const cachedFishes = await AsyncStorage.getItem('cached_fishes');
+            const cachedFishes = await safeAsyncStorage.getItem('cached_fishes');
             if (cachedFishes) {
                 return JSON.parse(cachedFishes);
             }

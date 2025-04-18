@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { useHistory } from '../organisms/HistoryContext.tsx';
 
 interface FishCardProps {
 	onPress?: () => void;
@@ -10,8 +11,12 @@ interface FishCardProps {
 
 const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 	const styles = GlobalStyles();
+	const { addToHistory } = useHistory();
 	const handlePress = () => {
-		console.log(`Fish pressed: ${fishName}`);
+		addToHistory({
+			entryType: "fish",
+			label: fishName,
+		})
 		if (onPress) {
 			onPress();
 		}
