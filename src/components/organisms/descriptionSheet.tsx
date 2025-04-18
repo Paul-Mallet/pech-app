@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Button, ActivityIndicator } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Svg, Path } from 'react-native-svg';
 import CTAButton from '../atoms/button.tsx';
@@ -17,8 +17,24 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fishName, onClose }, ref) => {
 		const [stats, setStats] = useState<any>({});
 		const [loading, setLoading] = useState<boolean>(false);
+		// const [error, setError] = useState<string | null>(null);
 		const { theme } = useTheme();
 		const styles = GlobalStyles();
+
+		// const fetchFishData = useCallback(async () => {
+		// 	try {
+		// 		setLoading(true);
+		// 		setError(null);
+		// 		const res = await fetch(`https://lienverslapi.com/fishes/${fishName}`);
+		// 		const data = await res.json();
+		// 		setStats(data);
+		// 	} catch (err: any) {
+		// 		setError(err.message || 'Erreur de chargment');
+		// 		console.error('API Error:', err);
+		// 	} finally {
+		// 		setLoading(false);
+		// 	}
+		// }, [fishName]);
 
 		function handleData() {
 			const fishStats = data.find(fish => fish.commonName.toLowerCase() === fishName?.toLowerCase());
@@ -26,10 +42,12 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		}
 
 		useEffect(() => {
+			// if (fishName)
+			// 	fetchFishData();
 			setLoading(true);
 			handleData();
 			setLoading(false);
-		}, [fishName]);
+		}, [fishName/*, fetchFishData */]);
 
 		const handleSheetChanges = useCallback((index: number) => {
 			if (index === -1) {
@@ -37,25 +55,39 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			}
 		}, [onClose]);
 
-		// if (loading) {
-		// 	return (
-		// 		<BottomSheet ref={ref} enablePanDownToClose snapPoints={['70%', '100%']} onChange={handleSheetChanges}>
-		// 			<BottomSheetView style={styles.contentContainerBottomSheet}>
-		// 				<Text>Chargement...</Text>
-		// 			</BottomSheetView>
-		// 		</BottomSheet>
-		// 	);
-		// }
-		// if (!stats?.commonName) {
-		// 	return (
-		// 		<BottomSheet ref={ref} enablePanDownToClose snapPoints={['70%', '100%']} onChange={handleSheetChanges}>
-		// 			<BottomSheetView style={styles.contentContainerBottomSheet}>
-		// 				<Text>Poisson non trouvé</Text>
-		// 			</BottomSheetView>
-		// 		</BottomSheet>
-		// 	);
-		// };
-		if (!stats?.commonName) return null;
+		if (loading) {
+			return (
+				<BottomSheet
+					ref={ref}
+					snapPoints={['20%']}
+				>
+		 			<BottomSheetView style={styles.contentContainerBottomSheet}>
+		 				<ActivityIndicator size="large" color={theme.textDark} />
+						<Text style={styles.h2}>Chargement...</Text>
+		 			</BottomSheetView>
+		 		</BottomSheet>
+		 	);
+		}
+		if (/* error || */!stats) {
+			return (
+				<BottomSheet
+					ref={ref}
+					enablePanDownToClose
+					snapPoints={['40%']}
+				>
+					<BottomSheetView style={styles.contentContainerBottomSheet}>
+						<Text>Erreur</Text>
+						<Text>{/* error || */"Données non disponibles"}</Text>
+						<Button
+							title="Réessayer"
+							// onPress={fetchFishData}
+							color={theme.textDark}
+						/>
+					</BottomSheetView>
+				</BottomSheet>
+			);
+		};
+		if (!stats) return null;
 		return (
 			<BottomSheet
 				ref={ref}
@@ -78,14 +110,14 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 						}}
 					>
 						<View
-						style={{
-							width: 40,
-							height: 5,
-							borderRadius: 4,
-							backgroundColor: '#1a1a1a',
-							opacity: 0.7,
-							alignSelf: 'center',
-						}}
+							style={{
+								width: 40,
+								height: 5,
+								borderRadius: 4,
+								backgroundColor: '#1a1a1a',
+								opacity: 0.7,
+								alignSelf: 'center',
+							}}
 						/>
 					</Pressable>
 				)}
