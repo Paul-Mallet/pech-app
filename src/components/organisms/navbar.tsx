@@ -30,10 +30,12 @@ const BottomTabNavigator = () => {
   const handleTabPress = (tabName: string) => {
     setActiveTab(tabName); // Update the active tab
   };
+
   const currentRouteName = useNavigationState((state: { routes: { [x: string]: any; }; index: string | number; }) => {
     const route = state.routes[state.index];
     return route.name;
   });
+
   return (
       <Tab.Navigator
         tabBar={(props: { state: { routes: any[]; index: any } }) => {

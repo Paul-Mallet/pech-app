@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import { useTheme } from './ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';        
+import { useTheme } from './ThemeContext.tsx';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 interface ResultGroupProps {
   elementType: string;
@@ -18,12 +18,12 @@ const data: ResultGroupProps[] = [
 ];
 
 const SearchBar = () => {
-  const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState('');
+  const navigation = useNavigation();
   const { theme } = useTheme();
   const styles = GlobalStyles();
-  const navigation = useNavigation();
-  const [searchText, setSearchText] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
 
   const debounceTimerRef = useRef<number | null>(null);
 
@@ -69,7 +69,8 @@ const SearchBar = () => {
           onBlur={() => setIsFocused(false)}
         />
         <TouchableOpacity style={styles.searchBarButtonRight} onPress={handleRightIconPress}>
-          <Ionicons name="list" size={26} color={theme.iconColor} />
+          {/* <Ionicons name="list" size={26} color={theme.iconColor} /> */}
+          <FontAwesome name="filter" size={20} color={theme.textBoldLight} />
         </TouchableOpacity>
       </View>
       {showResults && <SearchBarResults elements={data} />}
