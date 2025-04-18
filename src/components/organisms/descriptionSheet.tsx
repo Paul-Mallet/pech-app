@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Svg, Path } from 'react-native-svg';
 import CTAButton from '../atoms/button.tsx';
@@ -59,20 +59,40 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
-				snapPoints={['70%', '100%']}
+				snapPoints={['70%', '95%']}
 				initialSnapIndex={0}
 				focusBehavior='content'
-				// enableContentPanningGesture={true}
-				// enableHandlePanningGesture={false}
+				overDragResistanceFactor={1}
+				enableContentPanningGesture={false}
+				enableHandlePanningGesture={true}
+				onChange={handleSheetChanges}
 				gestureHandlerProps={{
 					activeOffsetX: [-10, 10],
 				}}
-				overDragResistanceFactor={1}
-				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
 				containerStyle={{
 					zIndex: 999,
 				}}
+				handleComponent={() => (
+					<Pressable 
+						style={{ 
+						paddingVertical: 20,
+						paddingHorizontal: '30%',
+						justifyContent: 'center',
+						}}
+					>
+						<View
+						style={{
+							width: 40,
+							height: 5,
+							borderRadius: 4,
+							backgroundColor: '#1a1a1a',
+							opacity: 0.7,
+							alignSelf: 'center',
+						}}
+						/>
+					</Pressable>
+				)}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
 					<View style={styles.headerContainerBottomSheet}>

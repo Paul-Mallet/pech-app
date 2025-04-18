@@ -273,7 +273,7 @@ const GlobalStyles = () => {
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
-    elevation: 10,
+    // elevation: 10,
 	},
 	contentContainerBottomSheet: {
 		flex: 1,
@@ -289,7 +289,7 @@ const GlobalStyles = () => {
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		width: '100%',
-		marginTop: -16,
+		marginTop: -40,
 		marginBottom: 16,
 	},
   headerContainerTitles: {
