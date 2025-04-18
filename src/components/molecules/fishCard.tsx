@@ -14,7 +14,7 @@ const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 	const { addToHistory } = useHistory();
 	const handlePress = () => {
 		addToHistory({
-			entryType: "fish",
+			entryType: "Poissons",
 			label: fishName,
 		})
 		if (onPress) {

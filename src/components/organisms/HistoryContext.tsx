@@ -12,6 +12,13 @@ type HistoryContextType = {
   clearHistory: () => void;
 };
 
+
+/* 
+    TODO:
+
+    - add a style to the texts in the Revoir page.
+    - check the entryType and add a fish card for the fishes and a clickable text for the research with maximum elements. Maybe a scrollview?
+*/
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 
 export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
