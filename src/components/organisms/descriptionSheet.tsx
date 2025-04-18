@@ -61,19 +61,12 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				ref={ref}
 				enablePanDownToClose
 				snapPoints={['70%', '100%']}
-				initialSnapIndex={0}
 				focusBehavior='content'
-				// enableContentPanningGesture={true}
-				// enableHandlePanningGesture={false}
-				gestureHandlerProps={{
-					activeOffsetX: [-10, 10],
-				}}
 				overDragResistanceFactor={1}
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
 				containerStyle={{
 					zIndex: 999,
-          			elevation: 999,
 				}}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>

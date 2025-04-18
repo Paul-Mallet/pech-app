@@ -10,9 +10,16 @@ interface FishCardProps {
 
 const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 	const styles = GlobalStyles();
+	const handlePress = () => {
+		console.log(`Fish pressed: ${fishName}`);
+		if (onPress) {
+			onPress();
+		}
+	};
+
 	return (
 		<View style={styles.fishCardContainer}>
-		 	<TouchableOpacity onPress={onPress}>
+		 	<TouchableOpacity onPress={handlePress}>
 				<Image
 					source={{ uri: imgSource }}
 					style={styles.backgroundImage}
