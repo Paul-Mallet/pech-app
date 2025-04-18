@@ -55,20 +55,16 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		// 		</BottomSheet>
 		// 	);
 		// };
+		if (!stats?.commonName) return null;
 		return (
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
 				snapPoints={['70%', '95%']}
-				initialSnapIndex={0}
-				focusBehavior='content'
 				overDragResistanceFactor={1}
 				enableContentPanningGesture={false}
 				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
-				gestureHandlerProps={{
-					activeOffsetX: [-10, 10],
-				}}
 				backgroundStyle={styles.containerBottomSheet}
 				containerStyle={{
 					zIndex: 999,
