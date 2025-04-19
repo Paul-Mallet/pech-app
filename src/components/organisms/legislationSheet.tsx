@@ -33,6 +33,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
     const [loading, setLoading] = useState<boolean>(false);
     const [geojsonData, setGeojsonData] = useState<any>(null);
     const [loadingGeojson, setLoadingGeojson] = useState<boolean>(false);
+    const [mapRegion, setMapRegion] = useState(null);
     const { theme } = useTheme();
     const styles = GlobalStyles();
 
@@ -52,12 +53,53 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
       setRegulation(legislationData || null);
     }
 
+    const calculateRegionFromGeoJson = (geoJson) => {
+      let minLat = 90;
+      let maxLat = -90;
+      let minLng = 180;
+      let maxLng = -180;
+
+      const processCoordinates = (coords) => {
+        coords.forEach(coord => {
+          if (Array.isArray(coord[0])) {
+            processCoordinates(coord);
+          } else {
+            const [lng, lat] = coord;
+            minLat = Math.min(minLat, lat);
+            maxLat = Math.max(maxLat, lat);
+            minLng = Math.min(minLng, lng);
+            maxLng = Math.max(maxLng, lng);
+          }
+        });
+      };
+
+      geoJson.features.forEach(feature => {
+        if (feature.geometry.coordinates) {
+          processCoordinates(feature.geometry.coordinates);
+        }
+      });
+
+      const centerLat = (minLat + maxLat) / 2;
+      const centerLng = (minLng + maxLng) / 2;
+      const latDelta = (maxLat - minLat) * 1.5; // 1.5 pour ajouter une marge
+      const lngDelta = (maxLng - minLng) * 1.5;
+
+      return {
+        latitude: centerLat,
+        longitude: centerLng,
+        latitudeDelta: latDelta,
+        longitudeDelta: lngDelta
+      };
+    };
+
     const loadGeojsonData = async () => {
       try {
         setLoadingGeojson(true);
         const response = await fetch(demoGeoJsonUrl);
         const data = await response.json();
         setGeojsonData(data);
+        const region = calculateRegionFromGeoJson(data);
+        setMapRegion(region);
         setLoadingGeojson(false);
       } catch (error) {
         console.error("Erreur lors du chargement des données GeoJSON:", error);
@@ -169,7 +211,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
                   <MapView
                     provider={PROVIDER_GOOGLE}
                     style={{ height: 200, width: '100%' }}
-                    initialRegion={{
+                    initialRegion={mapRegion || {
                       latitude: 46.603354,
                       longitude: 1.888334,
                       latitudeDelta: 10,
