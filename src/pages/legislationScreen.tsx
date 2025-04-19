@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { SafeAreaView } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
@@ -6,13 +6,25 @@ import LegislationPanel from '../components/molecules/legislationPanel.tsx';
 import ParagraphLegislationCard from '../components/molecules/paragraphLegislation.tsx';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
+import LegislationSheet from '../components/organisms/legislationSheet.tsx';
+import type BottomSheet from '@gorhom/bottom-sheet';
+import regulations from '../data/mocks/regulations.json';
 
 const LegislationScreen = ({ route }: { route: any }) => {
 	const navigation = useNavigation();
 	const styles = GlobalStyles();
 	const [searchText, setSearchText] = useState('');
+	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
+	const [bottomSheetLegislationTitle, setBottomSheetLegislationTitle] = useState<string | null>(null);
+	const bottomSheetRef = useRef<BottomSheet>(null);
+
 	const handleSearch = (text: string) => {
 	  setSearchText(text);
+	};
+
+	const handleLegislationPress = (title: string) => {
+		setBottomSheetLegislationTitle(title);
+		bottomSheetRef.current?.expand();
 	};
 	
 	useFocusEffect(
@@ -24,24 +36,16 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		}, [route.params?.searchText])
 	  );
 
-	// delete the paragraphs when the server gives the data.
-	const [allParagraphs, setAllParagraphs] = useState<JSX.Element[]>([
-		<LegislationCard
-			title='Arrêté du 9 Juillet 2024'
-			text='Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>'
-			onPress={() => console.log('Text card pressed')}
-		/>,
-		<LegislationCard
-			title='Arrêté du 9 Juillet 2024'
-			text='Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>'
-			onPress={() => console.log('Text card pressed')}
-		/>,
-		<LegislationCard
-			title='Arrêté du 9 Juillet 2024'
-			text='Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>'
-			onPress={() => console.log('Text card pressed')}
-		/>,
-	  ]);
+	const [allParagraphs] = useState<JSX.Element[]>(
+		regulations.map((reg) => (
+		  <LegislationCard
+			key={reg.id}
+			title={reg.title}
+			text={reg.content.join('\n')}
+			onPress={() => handleLegislationPress(reg.title)}
+		  />
+		))
+	);
 
 	/*
 		Function to add a new paragraph dynamically:
@@ -74,6 +78,11 @@ const LegislationScreen = ({ route }: { route: any }) => {
 			<LegislationPanel>
 				{filtered}
 			</LegislationPanel>
+			<LegislationSheet
+				ref={bottomSheetRef}
+				legislationTitle={bottomSheetLegislationTitle || undefined}
+				onClose={() => setBottomSheetLegislationTitle(null)}
+			/>
 		</SafeAreaView>
 	);
 };

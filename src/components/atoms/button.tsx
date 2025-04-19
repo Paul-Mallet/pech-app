@@ -3,20 +3,33 @@ import { Text, Pressable, GestureResponderEvent } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ButtonStyles from '../../styles/atoms/buttonStyles.tsx';
 
-interface CTAButton {
-  fishName: string;
+interface CTAButtonProps {
+  searchText?: string;
+  buttonText?: string;
+  onPress?: () => void;
 }
 
-const CTAButton: React.FC<CTAButton> = ({ fishName }) => {
-	const navigation = useNavigation();
+const CTAButton: React.FC<CTAButtonProps> = ({ 
+  searchText, 
+  buttonText = "Législation",
+  onPress
+}) => {
+  const navigation = useNavigation();
   const styles = ButtonStyles();
 
-  const goToLegislationScreen = (text: string) => {
-		navigation.navigate('Tabs', {
-			screen: 'Législation',
-			params: { searchText: text },
-		});
-	};
+  const handlePress = (e: GestureResponderEvent) => {
+    e.stopPropagation();
+    
+    if (onPress) {
+      onPress();
+    } else if (searchText) {
+      // Navigation par défaut vers l'écran Législation si searchText est fourni
+      navigation.navigate('Tabs', {
+        screen: 'Législation',
+        params: { searchText: searchText },
+      });
+    }
+  };
 
   return (
     <Pressable
@@ -24,13 +37,10 @@ const CTAButton: React.FC<CTAButton> = ({ fishName }) => {
         styles.containerCTAButton, 
         { opacity: pressed ? 0.5 : 1 }
       ]}
-      onTouchStart={(e: GestureResponderEvent) => {
-        e.stopPropagation();
-        goToLegislationScreen(fishName);
-      }}
+      onTouchStart={handlePress}
     >
       <Text style={styles.textCTAButton}>
-        Législation
+        {buttonText}
       </Text>
     </Pressable>
   );
