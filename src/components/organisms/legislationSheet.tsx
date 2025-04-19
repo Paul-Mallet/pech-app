@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, Pressable, ScrollView, ActivityIndicator, StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
+import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
 import regulations from '../../data/mocks/regulations.json';
@@ -34,7 +35,7 @@ const LegislationSheet = React.forwardRef<BottomSheet, LegislationSheetProps>(
 
     // URL de démonstration pour les données GeoJSON - devrait être remplacée par l'URL réelle
     // basée sur la réglementation spécifique
-    const demoGeoJsonUrl = 'https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries/FRA.geojson';
+    const demoGeoJsonUrl = 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/regions/corse/cantons-corse.geojson';
     
     function handleData() {
       let legislationData: RegulationType | undefined;
