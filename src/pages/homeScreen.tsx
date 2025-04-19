@@ -2,15 +2,14 @@ import React, { useRef, useCallback, useState } from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Animated, Dimensions, PanResponder, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import FishCard from '../components/molecules/fishCard.tsx';
-import LegislationCard from '../components/molecules/legislationCard.tsx';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
-import ExpandableSection from '../components/organisms/expandableSection.tsx';
+import HistoryList from './historySection.tsx';
+import DecouvrirTab from './discoverSection.tsx';
+import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -104,116 +103,21 @@ const HomeScreen = ({ route }: { route: any }) => {
 	return (
 		<SafeAreaView style={styles.body}>
 			<SearchBar />
-			<View>
-				<View style={styles.homePanelTabs}>
-					<TouchableOpacity
-						onPress={() => switchTab(decouvrir)}
-						style={{
-							borderBottomWidth: 2,
-							borderBottomColor: activeTab === decouvrir ? theme.navBarBackground : 'transparent',
-							flex: 1 / 2,
-						}}
-					>
-						<Text style={[styles.textDark, { textAlign: 'center', fontSize: 16,
-							color: activeTab === decouvrir ? theme.textHighlightDark : theme.textDark }]}>
-							Découvrir
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => switchTab(revoir)}
-						style={{
-							flex: 1 / 2,
-							borderBottomWidth: 2,
-							borderBottomColor: activeTab === revoir ? theme.navBarBackground : 'transparent',
-						}}
-					>
-						<Text style={[styles.textDark, { textAlign: 'center', fontSize: 16,
-							color: activeTab === revoir ? theme.textHighlightDark : theme.textDark }]}>
-							Revoir
-						</Text>
-					</TouchableOpacity>
-				</View>
-			</View>
+			<TabSwitcher
+				activeTab={activeTab}
+				switchTab={switchTab}
+				tabs={[
+					{ key: decouvrir, label: 'Découvrir' },
+					{ key: revoir, label: 'Revoir' },
+				]}
+			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>
-				<Animated.View
-					style={{
-						flexDirection: 'row',
-						width: screenWidth * 2,
-						transform: [{ translateX }],
-					}}
-				>
-					{/* Découvrir Tab */}
-					<ScrollView
-						style={[styles.homePanel, { width: screenWidth, padding: 20 }]}
-						showsVerticalScrollIndicator={false}
-					>
-						<View style={styles.fishCardsContainer}>
-							<FishCard
-								onPress={() => handleFishPress('Mérou brun')}
-								fishName='Mérou brun'
-								imgSource='https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg'
-							/>
-							<FishCard
-								onPress={() => handleFishPress('Thon rouge')}
-								fishName='Thon rouge'
-								imgSource='https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg'
-							/>
-						</View>
-						<LegislationCard
-							title='Arrêté du 9 Juillet 2024'
-							text='Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>'
-							onPress={() => console.log('Text card pressed')}
-						/>
-						<LegislationCard
-							title='Arrêté du 22 Mars 2024'
-							text='Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots...'
-							onPress={() => console.log('Text card pressed')}
-						/>
-						<LegislationCard
-							title='Arrêté du 9 Juillet 2024 portant réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la Réserve Naturelle Marine de Cerbère-Banyuls :'
-							text='Pêche maritime de loisir à l’intérieur de la zone est soumise à la détention préalable d’une autorisation. Maximum de 1000 autorisations sur une année civile. Pêche maritime de loisir autorisée qu’entre le lever et le coucher du soleil.10 prises dans la limite des quotas et tailles minimales, par jour et par navire quel que soit le nombre de personnes embarquées, et par jour et par pêcheur à pied lorsque ce dernier œuvre depuis le rivage.'
-							onPress={() => console.log('Text card pressed')}
-						/>
-						<LegislationCard
-							title='Arrêté du 22 Mars 2024'
-							text='Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots...'
-							onPress={() => console.log('Text card pressed')}
-						/>
-						<LegislationCard
-							title='Arrêté du 22 Mars 2024'
-							text='Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots...'
-							onPress={() => console.log('Text card pressed')}
-						/>
-					</ScrollView>
-
-					{/* Revoir Tab */}
-					<FlatList
-						data={Object.entries(groupedHistory)}
-						keyExtractor={([entryType]) => entryType}
-						renderItem={({ item: [entryType, items] }) => {
-							const maxItems = entryType === 'Poissons' ? 4 : entryType === 'Recherches' ? 6 : items.length;
-							return (
-							<ExpandableSection
-								entryType={entryType}
-								items={items.slice(0, maxItems)}
-								onFishPress={handleFishPress}
-							/>
-							);
-						}}
-						contentContainerStyle={{ width: screenWidth, padding: 20 }}
-						showsVerticalScrollIndicator={false}
-					/>
+				<Animated.View style={{ flexDirection: 'row', width: screenWidth * 2, transform: [{ translateX }] }}>
+					<DecouvrirTab handleFishPress={handleFishPress} />
+					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
 				</Animated.View>
 			</View>
-			{
-				pressedFish && (
-					<DescriptionSheet
-						ref={bottomSheetRef}
-						fishName={pressedFish}
-						onClose={handleSheetClose}
-					/>
-				)
-			}
+			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fishName={pressedFish} onClose={handleSheetClose} />)}
 		</SafeAreaView>
 	);
 };
