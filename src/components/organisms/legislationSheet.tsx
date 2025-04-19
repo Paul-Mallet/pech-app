@@ -20,6 +20,7 @@ type RegulationType = {
     reference: string;
     lastUpdated: string;
   };
+  geojson: string;
 };
 
 type LegislationSheetProps = {
@@ -38,8 +39,6 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
     const { theme } = useTheme();
     const styles = GlobalStyles();
     const insets = useSafeAreaInsets();
-
-    const demoGeoJsonUrl = 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/regions/corse/cantons-corse.geojson';
     
     function handleData() {
       let legislationData: RegulationType | undefined;
@@ -55,13 +54,13 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
       setRegulation(legislationData || null);
     }
 
-    const calculateRegionFromGeoJson = (geoJson) => {
+    const calculateRegionFromGeoJson = (geoJson: any) => {
       let minLat = 90;
       let maxLat = -90;
       let minLng = 180;
       let maxLng = -180;
 
-      const processCoordinates = (coords) => {
+      const processCoordinates = (coords: any[]) => {
         coords.forEach(coord => {
           if (Array.isArray(coord[0])) {
             processCoordinates(coord);
@@ -75,7 +74,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
         });
       };
 
-      geoJson.features.forEach(feature => {
+      geoJson.features.forEach((feature: any) => {
         if (feature.geometry.coordinates) {
           processCoordinates(feature.geometry.coordinates);
         }
@@ -95,9 +94,17 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
     };
 
     const loadGeojsonData = async () => {
+      if (!regulation || !regulation.geojson) {
+        console.error("Aucune URL GeoJSON disponible dans la regulation.");
+        return;
+      }
+
       try {
         setLoadingGeojson(true);
-        const response = await fetch(demoGeoJsonUrl);
+        const response = await fetch(regulation.geojson);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         setGeojsonData(data);
         const region = calculateRegionFromGeoJson(data);
