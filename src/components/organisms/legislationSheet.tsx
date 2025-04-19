@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Pressable, ScrollView, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, Pressable, ScrollView, ActivityIndicator, StyleSheet, Platform } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetMethods } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Import avec 'with' au lieu de 'assert'
 import regulationsData from '../../data/mocks/regulations.json' with { type: 'json' };
@@ -36,6 +37,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
     const [mapRegion, setMapRegion] = useState(null);
     const { theme } = useTheme();
     const styles = GlobalStyles();
+    const insets = useSafeAreaInsets();
 
     const demoGeoJsonUrl = 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/regions/corse/cantons-corse.geojson';
     
@@ -131,8 +133,9 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
       <BottomSheet
         ref={ref}
         enablePanDownToClose
-        snapPoints={['70%', '95%']}
-        overDragResistanceFactor={1}
+        snapPoints={['70%', '85%']}
+        topInset={insets.top + 10}
+        overDragResistanceFactor={2}
         enableContentPanningGesture={false}
         enableHandlePanningGesture={true}
         onChange={handleSheetChanges}
@@ -141,6 +144,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
           zIndex: 999,
           height: '100%',
         }}
+        android_keyboardInputMode="adjustPan"
         handleComponent={() => (
           <Pressable 
             style={{ 
@@ -217,6 +221,10 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
                       latitudeDelta: 10,
                       longitudeDelta: 10,
                     }}
+                    scrollEnabled={false}
+                    zoomEnabled={false}
+                    rotateEnabled={false}
+                    pitchEnabled={false}
                   >
                     <Geojson 
                       geojson={geojsonData} 
@@ -233,32 +241,6 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
                 )}
               </View>
             </View>
-          </ScrollView>
-          
-          <View style={{ 
-            flexDirection: 'row', 
-            justifyContent: 'space-between', 
-            width: '100%', 
-            paddingVertical: 15,
-            paddingHorizontal: 10,
-            borderTopWidth: 1,
-            borderTopColor: theme.inputPlaceholder,
-            backgroundColor: theme.body,
-            height: 60,  // Hauteur fixe pour le footer
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            elevation: 5, // Ajoute une ombre sur Android
-            shadowColor: '#000', // Ajoute une ombre sur iOS
-            shadowOffset: {
-              width: 0,
-              height: -2,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            zIndex: 1000 // S'assure que le footer est au-dessus des autres éléments
-          }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Ionicons name="document-text" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
               <Text style={{ fontSize: 14, color: theme.textDark }}>Référence: {regulation.metadata.reference}</Text>
@@ -267,7 +249,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
               <Ionicons name="time" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
               <Text style={{ fontSize: 14, color: theme.textDark }}>Mis à jour: {regulation.metadata.lastUpdated}</Text>
             </View>
-          </View>
+          </ScrollView>
         </BottomSheetView>
       </BottomSheet>
     );
