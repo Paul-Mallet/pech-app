@@ -62,7 +62,7 @@ const handleRightIconPress = (text: string) => {
   return (
     <View style={{ marginBottom: 20, padding: 6, borderRadius: 24, backgroundColor: theme.cardBackground }}>
       <TouchableOpacity onPress={toggleExpand} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18 }]}>
+        <Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, paddingLeft: 12 }]}>
           {entryType}
         </Text>
         <Text style={[styles.textDark, { fontSize: 18 }]}>

@@ -1,7 +1,5 @@
 import React, { useRef, useCallback, useState } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Animated, Dimensions, PanResponder, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
+import { View, SafeAreaView, Animated, Dimensions, PanResponder } from 'react-native';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
@@ -14,7 +12,6 @@ import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
-	const history = useHistory().history;
 	const { groupedHistory } = useHistory();
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
@@ -38,7 +35,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 		setPressedFish(null);
 	}, []);
 	
-	// const [visibleModal, setModalVisible] = useState(false);
 	const switchTab = (target: string) => {
 		const toValue = target === decouvrir ? 0 : -screenWidth;
 		Animated.spring(translateX, {
@@ -57,6 +53,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 				return Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy);
 			},
 			onPanResponderGrant: (evt) => {
+				// console.log("granted");
 				startTouch.current = {
 					x: evt.nativeEvent.pageX,
 					y: evt.nativeEvent.pageY,
@@ -83,10 +80,12 @@ const HomeScreen = ({ route }: { route: any }) => {
 				}
 			},
 			onPanResponderRelease: () => {
+				// console.log("release");
 				gestureDirection.current = null;
 				hasSwitched.current = false;
 			},
 			onPanResponderTerminate: () => {
+				// console.log("terminate");
 				gestureDirection.current = null;
 				hasSwitched.current = false;
 			},

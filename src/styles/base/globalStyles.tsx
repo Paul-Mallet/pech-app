@@ -118,13 +118,14 @@ const GlobalStyles = () => {
       elevation: 10,
     },
     searchBar: {
-        position: 'absolute',
-        alignSelf: 'center',
+      position: 'absolute',
+      alignSelf: 'center',
       top: 40,
       marginHorizontal: 'auto',
       width: "95%",
       flexDirection: 'column',
       alignItems: 'center',
+      justifyContent: 'center',
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 32,
@@ -138,7 +139,7 @@ const GlobalStyles = () => {
     searchBarTopItems: {
       alignItems: 'center',
       flexDirection: 'row',
-      height: 60, // default searchbar height, the homePanel and legislationPanel have this marginTop + 40!
+      height: 50, // default searchbar height, the homePanel and legislationPanel have this marginTop + 40!
     },
     searchBarList: {
       flexDirection: 'column',
@@ -150,6 +151,7 @@ const GlobalStyles = () => {
       textAlign: 'left',
       width: '100%',
       height: 'auto',
+      paddingBottom: 6
     },
     searchBarGroupTitle: { // todo: align the text vertically
       borderRadius: 8,
