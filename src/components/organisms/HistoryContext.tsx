@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 type HistoryItem = {
   entryType: string;
   label: string;
+  parameter: string;
 };
 
 type HistoryContextType = {
@@ -18,6 +19,7 @@ type HistoryContextType = {
 
     - add a style to the texts in the Revoir page.
     - check the entryType and add a fish card for the fishes and a clickable text for the research with maximum elements. Maybe a scrollview?
+    - when I go back from the Revoir to the Decouvrir section, the first click does nothing.
 */
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 

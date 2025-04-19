@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useState } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Animated, Dimensions, PanResponder } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Animated, Dimensions, PanResponder, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import FishCard from '../components/molecules/fishCard.tsx';
@@ -10,6 +10,7 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
+import ExpandableSection from '../components/organisms/expandableSection.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -186,24 +187,22 @@ const HomeScreen = ({ route }: { route: any }) => {
 					</ScrollView>
 
 					{/* Revoir Tab */}
-					<ScrollView
-						style={{ width: screenWidth, padding: 20 }}
+					<FlatList
+						data={Object.entries(groupedHistory)}
+						keyExtractor={([entryType]) => entryType}
+						renderItem={({ item: [entryType, items] }) => {
+							const maxItems = entryType === 'Poissons' ? 4 : entryType === 'Recherches' ? 6 : items.length;
+							return (
+							<ExpandableSection
+								entryType={entryType}
+								items={items.slice(0, maxItems)}
+								onFishPress={handleFishPress}
+							/>
+							);
+						}}
+						contentContainerStyle={{ width: screenWidth, padding: 20 }}
 						showsVerticalScrollIndicator={false}
-					>
-						<Text style={styles.textDark}>Contenu Revoir</Text>
-						{Object.entries(groupedHistory).map(([entryType, items]) => (
-							<View key={entryType}>
-							<Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, marginBottom: 10 }]}>
-								{entryType}
-							</Text>
-							{items.map((item, idx) => (
-								<Text key={idx} style={styles.textDark}>
-								{item.label}
-								</Text>
-							))}
-							</View>
-						))}
-					</ScrollView>
+					/>
 				</Animated.View>
 			</View>
 			{

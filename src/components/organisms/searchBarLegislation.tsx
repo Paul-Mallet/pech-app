@@ -18,7 +18,7 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
 
   const handleSearch = (text: string) => {
     if (text.length < 2) return;
-    addToHistory({entryType: "Recherches", label: text});
+    addToHistory({entryType: "Recherches", label: text, parameter: ''});
     console.log('User typed:', text);
   };
 

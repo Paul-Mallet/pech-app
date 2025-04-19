@@ -8,6 +8,7 @@ import useLoadFonts from './components/organisms/loadFonts.tsx';
 import LoadPreferences from './styles/organisms/loadSaveManager.tsx';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HistoryProvider } from './components/organisms/HistoryContext.tsx';
+import { ReducedMotionConfig, ReduceMotion } from 'react-native-reanimated';
 
 export default function App() {
   const fontLoaded = useLoadFonts();
@@ -36,6 +37,7 @@ export default function App() {
                 onAnimationEnd={handleAnimationEnd}
               />
               <NavigationContainer>
+                <ReducedMotionConfig mode={ReduceMotion.Never} />
                 <MainNavigator />
               </NavigationContainer>
             </View>
