@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Pressable, ScrollView, ActivityIndicator, StyleSheet, Platform } from 'react-native';
+import { View, Text, Pressable, ScrollView, ActivityIndicator, StyleSheet, Platform, BackHandler } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetMethods } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
@@ -31,6 +31,7 @@ type LegislationSheetProps = {
 
 const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetProps>(
   ({ legislationId, legislationTitle, onClose }, ref) => {
+    const bottomSheetRef = ref as React.RefObject<BottomSheetMethods>;
     const [regulation, setRegulation] = useState<RegulationType | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [geojsonData, setGeojsonData] = useState<any>(null);
@@ -128,6 +129,19 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
       }
     }, [regulation]);
 
+    // Interception du bouton retour Android pour fermer la BottomSheet avec animation
+    useEffect(() => {
+      const onBackPress = () => {
+        if (bottomSheetRef && bottomSheetRef.current) {
+          bottomSheetRef.current.close(); // Animation de fermeture
+          return true;
+        }
+        return false;
+      };
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [bottomSheetRef]);
+
     const handleSheetChanges = useCallback((index: number) => {
       if (index === -1) {
         onClose();
@@ -140,10 +154,10 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
       <BottomSheet
         ref={ref}
         enablePanDownToClose
-        snapPoints={['70%', '85%']}
+        snapPoints={['90%']}
         topInset={insets.top + 10}
         overDragResistanceFactor={2}
-        enableContentPanningGesture={true}
+        enableContentPanningGesture={false}
         enableHandlePanningGesture={true}
         handleHeight={40}
         onChange={handleSheetChanges}
@@ -196,13 +210,13 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
             style={{ 
               flex: 1,
               width: '100%',
-              height: '85%'  // Hauteur fixe pour laisser de l'espace pour le footer
             }}
             contentContainerStyle={{ 
-              paddingBottom: 80  // Ajoute un padding en bas pour éviter que le contenu ne soit caché par le footer
+              paddingBottom: 80 
             }}
             bounces={false}
             showsVerticalScrollIndicator={true}
+            keyboardShouldPersistTaps="handled"
           >
             {regulation.content.map((paragraph, index) => (
               <Text key={index} style={[styles.textDescriptionBottomSheet, { marginBottom: 10 }]}>
