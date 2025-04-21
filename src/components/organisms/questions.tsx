@@ -52,8 +52,8 @@ const Questions = ({navigation} : {navigation : any}) => {
                     renderItem={({ item, index }) => (
                     <React.Fragment>
                         <QuestionExpandable
-                            entryType={item.question}
-                            field={item.field}
+                            question={item.question}
+                            qyestionType={item.field}
                             items={item.reponses}
                             onFishPress={() => handleQuestionPress(item.field)}
                         />
