@@ -227,8 +227,8 @@ const GlobalStyles = () => {
 			width: '47.5%',
 			aspectRatio: 1,
 			marginTop: 16, // previously marginVertical
-			marginRight: 16,
-			padding: 16,
+			// marginRight: 16,
+			// padding: 16,
 			borderRadius: 24,
 			backgroundColor: "#fff",
 			overflow: 'hidden',

@@ -14,7 +14,7 @@ const QuestionStyles = () => {
         questionDiv : {
             top: 80,
             maxHeight : 450,
-            width: '80%',
+            width: '90%',
             borderRadius: 24,
             backgroundColor: theme.searchBarBackground,
             shadowColor: '#000',
@@ -22,6 +22,7 @@ const QuestionStyles = () => {
             shadowOpacity: 0.2,
             shadowRadius: 10,
             elevation: 10,
+            gap: 6,
         },
         line : {
             alignSelf : 'center',
