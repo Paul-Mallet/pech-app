@@ -3,6 +3,12 @@ import { View , Text, ScrollView, FlatList} from "react-native";
 import QuestionStyles from "../../styles/organisms/questionStyles.tsx";
 import { useAnswers } from "../../@config/answerContext.tsx";
 import QuestionExpandable from "./questionExpandable.tsx";
+import QuestionModel from "../../models/questions.model.tsx";
+
+type QuestionsProps = {
+    navigation : any,
+    questionsParams : QuestionModel 
+}
 
 type ItemType = {
     label: string;
@@ -30,7 +36,7 @@ const questions = [
   }
 ];
 
-const Questions = ({navigation} : {navigation : any}) => {
+const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => {
     const {answers, setAnswers } = useAnswers();
     const styles = QuestionStyles();
     // const [visibleModal, setModalVisible] = useState(false);
