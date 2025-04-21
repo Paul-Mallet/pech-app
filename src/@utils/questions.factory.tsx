@@ -5,7 +5,7 @@ import EyeModel from "../models/eye.model.tsx";
 
 export default class QuestionsFactory
 {
-    public static RequestToModel(bodyType : BodyTypeModel, fins : FinModel[], eye : EyeModel) : QuestionModel
+    public static RequestToModel(bodyType : BodyTypeModel[], fins : FinModel[], eye : EyeModel[]) : QuestionModel
     {
         const map = new Map<string, FinModel[]>();
 
