@@ -5,11 +5,15 @@ import {
   Dimensions,
   StyleSheet,
   Pressable,
-  GestureResponderEvent
+  GestureResponderEvent,
+  TouchableOpacity,
+  Text
 } from 'react-native';
 import { BottomSheetFlatList, BottomSheetView } from '@gorhom/bottom-sheet';
 import type { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet';
-import { lightTheme } from '../../styles/base/Themes.tsx';
+import BottomSheetStyles from '../../styles/organisms/bottomSheetStyles.tsx';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from './ThemeContext.tsx';
 
 type ImageKey = 'bar_01.png' | 'bar_02.png' | 'bar_03.png' | 'bar_04.png';
 
@@ -23,21 +27,32 @@ const imageMap: Record<ImageKey, number> = {
 const images = ['bar_01.png', 'bar_02.png', 'bar_03.png', 'bar_04.png'];
 
 const ImageSlider = () => {
+    const { theme } = useTheme();
+	const styles = BottomSheetStyles();
 	const flatListRef = useRef<BottomSheetFlatListMethods>(null);
 	const [activeIndex, setActiveIndex] = useState(0);
 	const { width } = Dimensions.get('window');
+
+	const clickLeft = (index: number) =>
+	{
+		console.log(`Left side`);
+		flatListRef.current?.scrollToIndex({ index: index - 1, animated: true });
+		setActiveIndex(index - 1);
+	}
+	const clickRight = (index: number) =>
+	{
+		console.log(`Right side`);
+		flatListRef.current?.scrollToIndex({ index: index + 1, animated: true });
+		setActiveIndex(index + 1);
+	}
 
 	const handleEdgeTap = (event: GestureResponderEvent, index: number) => {
 		const tapX = event.nativeEvent.locationX;
 
 		if (tapX < width * 0.25 && index > 0) {
-			console.log(`Left side`);
-			flatListRef.current?.scrollToIndex({ index: index - 1, animated: true });
-			setActiveIndex(index - 1);
+			clickLeft(index);
 		} else if (tapX > width * 0.55 && index < images.length - 1) {
-			console.log(`Right side`);
-			flatListRef.current?.scrollToIndex({ index: index + 1, animated: true });
-			setActiveIndex(index + 1);
+			clickRight(index);
 		} else {
 		console.log(`Image ${index + 1} tapée (centre)`);
 		}
@@ -68,60 +83,25 @@ const ImageSlider = () => {
 			)}
 			ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
 		/>
-      <View style={styles.pagination}>
-        {images.map((_, index) => (
-			<View
-            key={index}
-            style={[
-				styles.dot,
-				activeIndex === index && styles.activeDot,
-            ]}
-			/>
-        ))}
-      </View>
+		<TouchableOpacity onPress={() => { if (activeIndex < images.length - 1) clickRight(activeIndex); }} style={{transform: [{ translateY: -30 }], position: 'absolute', top: '50%', right: -32, justifyContent: 'center', alignItems: 'center'}}>
+			<Ionicons name='caret-forward' size={40} color={theme.textHighlightDark}/>
+		</TouchableOpacity>
+		<TouchableOpacity onPress={() => { if (activeIndex > 0) clickLeft(activeIndex); }} style={{transform: [{ translateY: -30 }], position: 'absolute', top: '50%', left: -32, justifyContent: 'center', alignItems: 'center'}}>
+			<Ionicons name='caret-back' size={40} color={theme.textHighlightDark}/>
+		</TouchableOpacity>
+		<View style={styles.pagination}>
+			{images.map((_, index) => (
+				<View
+				key={index}
+				style={[
+					styles.dot,
+					activeIndex === index && styles.activeDot,
+				]}
+				/>
+			))}
+		</View>
     </BottomSheetView>
   );
 };
-
-const styles = StyleSheet.create({
-	sliderContainer: {
-		position: 'relative',
-		display: 'flex',
-		flexDirection: 'column',
-		width: '100%',
-		height: 'auto'
-	},
-	flatList: {
-		position: 'relative',
-		width: '100%'
-	},
-	imageContainer: {
-		width: '100%'
-	},
-	image: {
-		resizeMode: 'cover',
-		borderRadius: 24
-	},
-	pagination: {
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		marginTop: 10,
-	},
-	dot: {
-		width: 12,
-		height: 12,
-		borderRadius: 12,
-		backgroundColor: lightTheme.textDark,
-		opacity: 0.4,
-		marginHorizontal: 4,
-	},
-	activeDot: {
-		width: 12,
-		height: 12,
-		backgroundColor: lightTheme.textHighlightDark,
-		opacity: 1,
-	},
-});
 
 export default ImageSlider;
