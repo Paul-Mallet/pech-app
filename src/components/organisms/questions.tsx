@@ -42,22 +42,25 @@ const Questions = ({navigation} : {navigation : any}) => {
     };
 
     return (
-        <View style={[styles.mainDiv, { width: '100%', flex: 1 }]}>
-            <FlatList
-                data={questions}
-                keyExtractor={(_, index) => index.toString()}
-                contentContainerStyle={styles.questionDiv}
-                renderItem={({ item, index }) => (
-                <React.Fragment>
-                    <QuestionExpandable
-                        entryType={item.question}
-                        field={item.field}
-                        items={item.reponses}
-                        onFishPress={() => handleQuestionPress(item.field)}
-                    />
-                </React.Fragment>
-                )}
-            />
+        <View style={styles.mainDiv}>
+        <View style={[styles.questionsList, {justifyContent: 'flex-end',
+        alignItems : 'center',}]}>
+                <FlatList
+                    data={questions}
+                    keyExtractor={(_, index) => index.toString()}
+                    contentContainerStyle={styles.questionDiv}
+                    renderItem={({ item, index }) => (
+                    <React.Fragment>
+                        <QuestionExpandable
+                            entryType={item.question}
+                            field={item.field}
+                            items={item.reponses}
+                            onFishPress={() => handleQuestionPress(item.field)}
+                        />
+                    </React.Fragment>
+                    )}
+                />
+            </View>
         </View>
     )
 

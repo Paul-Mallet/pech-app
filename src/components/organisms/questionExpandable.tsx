@@ -69,15 +69,14 @@ const handleRightIconPress = (text: string) => {
 	  </TouchableOpacity>
 
 	  {expanded && (
-		<FlatList
-		  data={items}
-		  keyExtractor={(item, index) => `${entryType}-${index}`}
-		  renderItem={renderItem}
-		  numColumns={2}
-		  columnWrapperStyle={entryType !== 'Recherches' ? { justifyContent: 'space-between' } : undefined}
-		  contentContainerStyle={{ marginTop: 10 }}
-		/>
-	  )}
+		<View style={{ marginTop: 10, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+			{items.map((item, index) => (
+			<React.Fragment key={`${entryType}-${index}`}>
+				{renderItem({ item })}
+			</React.Fragment>
+			))}
+		</View>
+)}
 	</View>
   );
 };

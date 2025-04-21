@@ -8,12 +8,19 @@ const QuestionStyles = () => {
   
     const styles = useMemo(() => StyleSheet.create({
         mainDiv : {
-            justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'flex-start',
             alignItems : 'center',
         },
-        questionDiv : {
+        questionsList: 
+        {
             top: 80,
-            maxHeight : 450,
+            width: '90%',
+            height: '65%',
+            
+        },
+        questionDiv : {
             width: '90%',
             borderRadius: 24,
             backgroundColor: theme.searchBarBackground,
