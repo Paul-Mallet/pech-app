@@ -82,8 +82,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 							width: 40,
 							height: 5,
 							borderRadius: 4,
-							backgroundColor: '#1a1a1a',
-							opacity: 0.7,
+							backgroundColor: theme.textHighlightDark,
 							alignSelf: 'center',
 						}}
 						/>

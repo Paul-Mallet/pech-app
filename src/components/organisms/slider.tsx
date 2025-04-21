@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { BottomSheetFlatList, BottomSheetView } from '@gorhom/bottom-sheet';
 import type { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet';
-import { lightTheme } from '../../styles/base/Themes.tsx';
+import BottomSheetStyles from '../../styles/organisms/bottomSheetStyles.tsx';
 
 type ImageKey = 'bar_01.png' | 'bar_02.png' | 'bar_03.png' | 'bar_04.png';
 
@@ -23,6 +23,7 @@ const imageMap: Record<ImageKey, number> = {
 const images = ['bar_01.png', 'bar_02.png', 'bar_03.png', 'bar_04.png'];
 
 const ImageSlider = () => {
+	const styles = BottomSheetStyles();
 	const flatListRef = useRef<BottomSheetFlatListMethods>(null);
 	const [activeIndex, setActiveIndex] = useState(0);
 	const { width } = Dimensions.get('window');
@@ -82,46 +83,5 @@ const ImageSlider = () => {
     </BottomSheetView>
   );
 };
-
-const styles = StyleSheet.create({
-	sliderContainer: {
-		position: 'relative',
-		display: 'flex',
-		flexDirection: 'column',
-		width: '100%',
-		height: 'auto'
-	},
-	flatList: {
-		position: 'relative',
-		width: '100%'
-	},
-	imageContainer: {
-		width: '100%'
-	},
-	image: {
-		resizeMode: 'cover',
-		borderRadius: 24
-	},
-	pagination: {
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		marginTop: 10,
-	},
-	dot: {
-		width: 12,
-		height: 12,
-		borderRadius: 12,
-		backgroundColor: lightTheme.textDark,
-		opacity: 0.4,
-		marginHorizontal: 4,
-	},
-	activeDot: {
-		width: 12,
-		height: 12,
-		backgroundColor: lightTheme.textHighlightDark,
-		opacity: 1,
-	},
-});
 
 export default ImageSlider;
