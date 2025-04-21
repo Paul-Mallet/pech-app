@@ -8,6 +8,6 @@ export default class FinFactory {
             response.shape,
             response.color,
             response.size
-        )
+        );
     }
 }
