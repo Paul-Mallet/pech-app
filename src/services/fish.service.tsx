@@ -92,3 +92,13 @@ export const getEyeById = async (id: string) => {
         return error;
     }
 }
+
+export const getLegislationById = async (id : string) => {
+    try {
+        const response = await axios.get(`legislation/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("API error : ", error);
+        return error;
+    }
+}

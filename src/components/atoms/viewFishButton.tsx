@@ -1,20 +1,19 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import ButtonStyles from "../../styles/atoms/viewFishButtonStyles.tsx";
-import { useAnswers } from "../../@config/answerContext.tsx";
+import { useFishList } from "../../@config/fishListContext.tsx";
 
 const ViewFishButton = () => {
-    const {answers} = useAnswers();
+    const fishList = useFishList();
     const styles = ButtonStyles();
 
-    // faire le call api ici, puis update numberOfFish selon la taille
-    // et afficher la page qu'a fait paul pour visualiser les poissons dispo
-
-    let numberOfFish : number = 0;
+    let numberOfFish : number = fishList.fishList.length;
 
     return (
         <View style={styles.mainDiv}>
-            <TouchableOpacity style={styles.button} onPress={() => {alert('pilou')}}>
+            <TouchableOpacity style={styles.button} onPress={() => {
+                console.log(fishList)
+            }}>
                 <Text style={styles.text}>Voir les poissons ({numberOfFish})</Text>
             </TouchableOpacity>
         </View>

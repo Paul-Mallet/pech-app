@@ -7,13 +7,14 @@ import ViewFishButton from "../components/atoms/viewFishButton.tsx";
 import FishResearchStyle from "../styles/pages/fishResearchScreenStyles.tsx";
 import { AnswerProvider } from "../@config/answerContext.tsx";
 import { useTheme } from "../components/organisms/ThemeContext.tsx";
+import { FishListProvider } from "../@config/fishListContext.tsx";
 
 const FishResearch = ({navigation} : any) => {
     const buttonStyles = ButtonStyles();
     const styles = FishResearchStyle();
 	const { theme } = useTheme();
     return (
-        <>
+        <FishListProvider>
             <AnswerProvider>
                 <View style={styles.mainDiv}>
                     <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.goBack()}>
@@ -23,7 +24,7 @@ const FishResearch = ({navigation} : any) => {
                     <ViewFishButton/>
                 </View>
             </AnswerProvider>
-        </>
+        </FishListProvider>
     )
 }
 
