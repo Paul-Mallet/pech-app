@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { useTheme } from '../organisms/ThemeContext.tsx';
 
 interface LegislationCardProps {
 	text: string;
@@ -10,6 +12,7 @@ interface LegislationCardProps {
 
 const LegislationCard = (props: LegislationCardProps) => {
 	const styles = GlobalStyles();
+	const { theme } = useTheme();
 	const { text } = props;
 	const getHighlightedText = (text: string) => {
 		const regex = /<h>(.*?)<\/h>/g;
@@ -37,12 +40,19 @@ const LegislationCard = (props: LegislationCardProps) => {
 
 	return (
 		<TouchableOpacity onPress={props.onPress} style={styles.legislationCard}>
-			<Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleDark}>
-				{props.title}
-			</Text>
-			<Text numberOfLines={5} ellipsizeMode="tail" style={styles.textDark}>
-				{getHighlightedText(text)}
-			</Text>
+			<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+				<View style={{ marginRight: 12 }}>
+					<Ionicons name="book" size={24} color={theme.textHighlightDark} />
+				</View>
+				<View style={{ flex: 1 }}>
+					<Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleDark}>
+						{props.title}
+					</Text>
+					<Text numberOfLines={5} ellipsizeMode="tail" style={styles.textDark}>
+						{getHighlightedText(text)}
+					</Text>
+				</View>
+			</View>
 		</TouchableOpacity>
 	);
 };
