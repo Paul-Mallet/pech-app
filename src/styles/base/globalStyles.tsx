@@ -11,6 +11,7 @@ const GlobalStyles = () => {
       backgroundColor: theme.body,
     },
     h2: {
+      position: 'relative',
       fontSize: 24,
       marginBottom: 8,
       color: theme.textDark,
@@ -112,7 +113,7 @@ const GlobalStyles = () => {
       backgroundColor: theme.cardBackground,
       borderRadius: 24,
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 10 },
+      shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.2,
       shadowRadius: 10,
       elevation: 10,
@@ -245,8 +246,8 @@ const GlobalStyles = () => {
 			width: '47.5%',
 			aspectRatio: 1,
 			marginTop: 16, // previously marginVertical
-			// marginRight: 16,
-			// padding: 16,
+			marginRight: 16,
+			padding: 16,
 			borderRadius: 24,
 			backgroundColor: "#fff",
 			overflow: 'hidden',
@@ -309,7 +310,6 @@ const GlobalStyles = () => {
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		width: '100%',
-		marginTop: -40,
 		marginBottom: 16,
 	},
   headerContainerTitles: {
@@ -321,7 +321,7 @@ const GlobalStyles = () => {
 		alignItems: 'center',
 	},
 	hScientific: {
-    marginTop: -16,
+    marginTop: -12,
 		fontSize: 16,
 		fontFamily: font.italic,
 		color: theme.textDark,

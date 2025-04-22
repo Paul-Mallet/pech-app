@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Pressable, ScrollView, ActivityIndicator, StyleSheet, Platform, BackHandler } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
 import BottomSheet, { BottomSheetView, BottomSheetMethods } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
-import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import HitArea from '../atoms/hitArea.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 // Import avec 'with' au lieu de 'assert'
 import regulationsData from '../../data/mocks/regulations.json' with { type: 'json' };
@@ -154,7 +155,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
       <BottomSheet
         ref={ref}
         enablePanDownToClose
-        snapPoints={['90%']}
+        snapPoints={['100%']}
         topInset={insets.top + 10}
         overDragResistanceFactor={2}
         enableContentPanningGesture={false}
@@ -164,60 +165,34 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
         backgroundStyle={[styles.containerBottomSheet, { height: '100%' }]}
         containerStyle={{
           zIndex: 999,
-          height: '100%',
         }}
         android_keyboardInputMode="adjustPan"
         handleComponent={() => (
-          <Pressable 
-            style={{ 
-              paddingVertical: 20,
-              paddingHorizontal: '30%',
-              justifyContent: 'center',
-            }}
-          >
-            <View
-              style={{
-                width: 40,
-                height: 5,
-                borderRadius: 4,
-                backgroundColor: '#1a1a1a',
-                opacity: 0.7,
-                alignSelf: 'center',
-              }}
-            />
-          </Pressable>
+          <HitArea />
         )}
       >
-        <BottomSheetView focusable={true} style={[styles.contentContainerBottomSheet, { 
-          flex: 1,
-          maxHeight: '100%',
-          overflow: 'hidden'
-        }]}>
-          <View style={styles.headerContainerBottomSheet}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.h2}>{regulation.title}</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
-                <Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-                <Text style={styles.hScientific}>{regulation.date}</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Ionicons name="book" size={24} color={theme.textHighlightDark} />
-            </View>
-          </View>
+        <BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
           
           <ScrollView 
-            style={{ 
-              flex: 1,
-              width: '100%',
+            style={{
+              marginTop: -20
             }}
-            contentContainerStyle={{ 
-              paddingBottom: 80 
+            contentContainerStyle={{
+              paddingBottom: 60
             }}
             bounces={false}
             showsVerticalScrollIndicator={true}
             keyboardShouldPersistTaps="handled"
           >
+          <View style={styles.headerContainerBottomSheet}>
+            <View>
+              <Text style={styles.h2}>{regulation.title}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
+              <Text style={[styles.hScientific, { marginTop: 0 }]}>{regulation.date}</Text>
+            </View>
+            </View>
+          </View>
             {regulation.content.map((paragraph, index) => (
               <Text key={index} style={[styles.textDescriptionBottomSheet, { marginBottom: 10 }]}>
                 {paragraph}

@@ -41,14 +41,18 @@ const LegislationCard = (props: LegislationCardProps) => {
 	return (
 		<TouchableOpacity onPress={props.onPress} style={styles.legislationCard}>
 			<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-				<View style={{ marginRight: 12 }}>
-					<Ionicons name="book" size={24} color={theme.textHighlightDark} />
-				</View>
 				<View style={{ flex: 1 }}>
-					<Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleDark}>
-						{props.title}
-					</Text>
-					<Text numberOfLines={5} ellipsizeMode="tail" style={styles.textDark}>
+					<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+						<Text numberOfLines={2} ellipsizeMode="tail" style={[styles.titleDark, { width: '90%' }]}>
+							{props.title}
+						</Text>
+						<Ionicons name="book" size={24} color={theme.textHighlightDark} style={{ position: 'absolute', top: -4, right: 0 }} />
+					</View>
+					<Text
+						numberOfLines={5}
+						ellipsizeMode="tail"
+						style={styles.textDark}
+					>
 						{getHighlightedText(text)}
 					</Text>
 				</View>
