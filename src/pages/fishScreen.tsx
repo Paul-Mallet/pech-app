@@ -156,14 +156,13 @@ const FishScreen = ({ children }: HomeCardProps) => {
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
 
           <Text style={styles.h2}>Poissons</Text>
-          {/* <Button title="press me" onPress={() => {setFiltered(!filtered)}}></Button> */}
 					{isOfflineData && (
 						<Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
 							Données chargées depuis le cache. Tirez vers le bas pour actualiser.
 						</Text>
 					)}
 					<FlatList
-                        columnWrapperStyle={{ justifyContent: 'space-between', gap: 12 }}
+						contentContainerStyle={{gap: 12}}
 						data={fishes}
 						numColumns={2}
 						keyExtractor={(item) => item.id.toString()}
