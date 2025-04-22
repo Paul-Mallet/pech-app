@@ -210,6 +210,19 @@ const GlobalStyles = () => {
     // shadowOpacity: 0.25,
     // elevation: 5,
   },
+  quizzButton: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    padding: 8,
+    borderRadius: 32,
+    backgroundColor: theme.textHighlightDark,
+    zIndex: 10
+  },
   input: {
     marginTop: 4,
     flex: 1,

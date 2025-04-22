@@ -56,7 +56,7 @@ const FishResearch = ({navigation} : any) => {
         <FishListProvider>
             <AnswerProvider>
                 <View style={styles.mainDiv}>
-                    <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.goBack()}>
+                    <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.navigate("Poissons")}>
                         <Ionicons name='close' size={24} color={theme.iconColor}/>
                     </TouchableOpacity>
                     <Questions navigation={navigation}/>

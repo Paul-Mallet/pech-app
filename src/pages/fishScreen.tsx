@@ -1,10 +1,13 @@
 import React, { ReactNode, useState, useEffect, useRef, useCallback } from 'react';
-import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, Alert } from 'react-native';
+import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
 import BottomSheet from '@gorhom/bottom-sheet';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../components/organisms/ThemeContext.tsx';
 
 interface HomeCardProps {
     children?: ReactNode;
@@ -43,6 +46,12 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const [error, setError] = useState<string | null>(null);
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const [isOfflineData, setIsOfflineData] = useState<boolean>(false);
+    const navigation = useNavigation();
+    const { theme } = useTheme();
+
+    const handleRightIconPress = () => {
+        navigation.navigate('FishResearch');
+      };
 
     useEffect(() => {
         fetchFishes();
@@ -125,6 +134,9 @@ const FishScreen = ({ children }: HomeCardProps) => {
 
 	return (
 		<SafeAreaView style={styles.body}>
+            <TouchableOpacity style={styles.quizzButton} onPress={handleRightIconPress}>
+                <FontAwesome name="filter" size={20} color={theme.textBoldLight} />
+            </TouchableOpacity>
 			<ScrollView
 				contentContainerStyle={{flexGrow: 1}}
 				refreshControl={

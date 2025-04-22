@@ -32,11 +32,6 @@ const SearchBar = () => {
     console.log('User typed:', text);
   }, []);
 
-  const handleRightIconPress = () => {
-    setSearchText('');
-    navigation.navigate('FishResearch');
-  };
-
   const handleTextChange = (text: string) => {
     setSearchText(text);
     if (debounceTimerRef.current) {
@@ -68,10 +63,6 @@ const SearchBar = () => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        <TouchableOpacity style={styles.searchBarButtonRight} onPress={handleRightIconPress}>
-          {/* <Ionicons name="list" size={26} color={theme.iconColor} /> */}
-          <FontAwesome name="filter" size={20} color={theme.textBoldLight} />
-        </TouchableOpacity>
       </View>
       {showResults && <SearchBarResults elements={data} />}
     </View>
