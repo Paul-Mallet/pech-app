@@ -147,7 +147,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
 						</Text>
 					)}
 					<FlatList
-						contentContainerStyle={{gap: 12}}
+                        columnWrapperStyle={{ justifyContent: 'space-between', gap: 12 }}
 						data={fishes}
 						numColumns={2}
 						keyExtractor={(item) => item.id.toString()}
