@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
@@ -43,6 +43,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 			title={reg.title}
 			text={reg.content.join('\n')}
 			onPress={() => handleLegislationPress(reg.title)}
+			searchText={searchText}
 		  />
 		))
 	);
@@ -59,6 +60,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 				key={newKey}
 				title={title}
 				text={text}
+				searchText={searchText}
 			/>
 		);
 		setAllParagraphs(prev => [...prev, newParagraph]);

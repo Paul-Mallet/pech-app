@@ -304,6 +304,15 @@ const GlobalStyles = () => {
 		alignItems: 'center',
 		backgroundColor: theme.body,
 	},
+	contentContainerBottomSheetLegislation: {
+		flex: 1,
+		position:'relative',
+		width: '100%',
+		paddingVertical: 36,
+		paddingHorizontal: 16,
+		alignItems: 'center',
+		backgroundColor: theme.body,
+	},
 	headerContainerBottomSheet: {
 		display: 'flex',
 		flexDirection: 'row',

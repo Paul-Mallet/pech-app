@@ -171,7 +171,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
           <HitArea />
         )}
       >
-        <BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
+        <BottomSheetView focusable={true} style={styles.contentContainerBottomSheetLegislation}>
           
           <ScrollView 
             style={{
@@ -186,11 +186,11 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
           >
           <View style={styles.headerContainerBottomSheet}>
             <View>
-              <Text style={styles.h2}>{regulation.title}</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
-              <Text style={[styles.hScientific, { marginTop: 0 }]}>{regulation.date}</Text>
-            </View>
+              <Text style={[styles.h2, {fontSize: 20, lineHeight: 30}]}>{regulation.title}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
+                  <Text style={[styles.hScientific, { marginTop: 0 }]}>{regulation.date}</Text>
+                </View>
             </View>
           </View>
             {regulation.content.map((paragraph, index) => (
@@ -200,8 +200,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
             ))}
             
             <View style={{ marginTop: 20, marginBottom: 20 }}>
-              <Text style={[styles.h2, { marginBottom: 10 }]}>Zone concernée</Text>
-              
+              <Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
               <View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
                 {loadingGeojson ? (
                   <View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
