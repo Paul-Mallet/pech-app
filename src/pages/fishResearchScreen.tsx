@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Button, View , Text, TouchableOpacity} from "react-native"
+import React, { useEffect, useState } from "react"
+import { Button, View , Text, TouchableOpacity, ActivityIndicator} from "react-native"
 import ButtonStyles from "../styles/atoms/buttonStyles.tsx"
 import { Ionicons } from '@expo/vector-icons';
 import Questions from "../components/organisms/questions.tsx";
@@ -15,16 +15,42 @@ import { getAllBodyType, getAllEyes, getAllFins } from "../services/fish.service
 import QuestionModel from "../models/questions.model.tsx";
 import QuestionsFactory from "../@utils/questions.factory.tsx";
 
-const FishResearch = async ({navigation} : any) => {
+const FishResearch = ({navigation} : any) => {
     const buttonStyles = ButtonStyles();
     const styles = FishResearchStyle();
 	const { theme } = useTheme();
 
-    const bodyTypes : BodyTypeModel[] = await getAllBodyType();
-    const fins : FinModel[] = await getAllFins();
-    const eyes : EyeModel[] = await getAllEyes();
+    const [questionsParams, setQuestionsParams] = useState<QuestionModel | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    const questionsParams : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
+    useEffect(() => {
+        const createQuestions = async () => {
+            try {
+                const bodyTypes : BodyTypeModel[] = await getAllBodyType();
+                const fins : FinModel[] = await getAllFins();
+                const eyes : EyeModel[] = await getAllEyes();
+
+                const questionsData : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
+                setQuestionsParams(questionsData);
+                console.log(questionsData)
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        createQuestions();
+    }, [])
+
+
+    if (loading || !questionsParams) {
+        return (
+            <View style={styles.mainDiv}>
+                <ActivityIndicator size="large" color={theme.iconColor} />
+            </View>
+        )
+    }
 
     return (
         <FishListProvider>

@@ -21,102 +21,102 @@ export const getAllFish = async () => {
         const response = await apiClient.get(`fish`);
         return response.data;
     } catch (error) {
-        console.error("API Error : ", error);
-        throw error;
+        console.error("API Error when trying to get the fish: ", error);
+        return error;
     }
 };
 
 export const getFishById = async (id: string) => {
     try {
-       const response = await axios.get(`fish/${id}`) 
-       return response.data;
+        const response = await apiClient.get(`fish/${id}`);
+        return response.data;
     } catch (error) {
-       console.error("API Error : ", error); 
-       return error;
+        console.error("API Error when trying to get a fish by id: ", error); 
+        return error;
     }
 }
 
-export const getAllBodyType = async () : Promise<BodyTypeModel[]> => {
+export const getAllBodyType = async () => {
     try {
-        const response = await axios.get(`body-type`); 
+        const response = await apiClient.get(`body-type`);
 
         const filteredResponse : BodyTypeModel[] = [];
-        response.data.foreach((bodyType : any) => {
+        response.data.forEach((bodyType : any) => {
             filteredResponse.push(BodyTypeFactory.responseToModel(bodyType));
         })
         return filteredResponse;
     } catch (error) {
-        console.error("API error : ", error);
+        console.error("API error when trying to get the body type: ", error);
         throw error;
     }
 }
 
-export const getBodyTypeById = async (id : string) : Promise<BodyTypeModel> => {
+export const getBodyTypeById = async (id : string) => {
     try {
-       const response = await axios.get(`body-type/${id}`) 
-       return BodyTypeFactory.responseToModel(response.data);
+        const response = await apiClient.get(`body-type/${id}`);
+        return BodyTypeFactory.responseToModel(response.data);
     } catch (error) {
-        console.error("API error : ", error);
+        console.error("API error when trying to get a body type by id: ", error);
         throw error;
     }
 }
 
-export const getAllFins = async () : Promise<FinModel[]> => {
+export const getAllFins = async () => {
     try {
-        const response = await axios.get(`fin`);
+        const response = await apiClient.get(`fin`);
 
         const filteredResponse : FinModel[] = [];
-        response.data.foreach((fin : any) => {
+        response.data.forEach((fin : any) => {
             filteredResponse.push(FinFactory.responseToModel(fin));
         })
         return filteredResponse;
     } catch (error) {
-        console.error("API error : ", error);
+        console.error("API error when trying to get the fins: ", error);
         throw error;
     }
 }
 
-export const getFinById = async (id: string) : Promise<FinModel> => {
+export const getFinById = async (id: string) => {
     try {
-        const response = await axios.get(`fin/${id}`);
+        const response = await apiClient.get(`fin/${id}`);
         return FinFactory.responseToModel(response.data);
     } catch (error) {
-        console.error("API error : ", error);
+        console.error("API error when trying to get a fin by id: ", error);
         throw error; 
     }
 }
 
-export const getAllEyes = async () : Promise<EyeModel[]> => {
+export const getAllEyes = async () => {
     try {
-        const response = await axios.get(`eye`);
+        const response = await apiClient.get(`eye`);
 
         const filteredResponse : EyeModel[] = [];
-        response.data.foreach((eye : any) => {
+        response.data.forEach((eye : any) => {
             filteredResponse.push(EyeFactory.responseToModel(eye));
         })
         return filteredResponse;
     } catch (error) {
-       console.error("API error : ", error); 
-       throw error;
+        console.error("API error when trying to get the eyes: ", error); 
+        throw error;
     }
 } 
 
-export const getEyeById = async (id: string) : Promise<EyeModel> => {
+export const getEyeById = async (id: string) => {
     try {
-        const response = await axios.get(`eye/${id}`);
+        const response = await apiClient.get(`eye/${id}`);
         return EyeFactory.responseToModel(response.data);
     } catch (error) {
-        console.error("API error : ", error);
+        console.error("API error when trying to get an eye: ", error);
         throw error;
     }
 }
 
-export const getLegislationById = async (id : string) : Promise<any> => {
+export const getLegislationById = async (id : string) => {
     try {
-        const response = await axios.get(`legislation/${id}`);
+        const response = await apiClient.get(`legislation/${id}`);
         return response.data;
     } catch (error) {
-        console.error("API error : ", error);
+        console.error("API error when trying to get a legislation: ", error);
         return error;
     }
 }
