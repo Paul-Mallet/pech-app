@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
 import ImageSlider from '../organisms/slider.tsx';
@@ -21,6 +22,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		// const [error, setError] = useState<string | null>(null);
 		const { theme } = useTheme();
 		const styles = GlobalStyles();
+		const insets = useSafeAreaInsets();
 
 		// const fetchFishData = useCallback(async () => {
 		// 	try {
@@ -93,7 +95,8 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
-				snapPoints={['70%', '95%']}
+				snapPoints={['70%', '100%']}
+				topInset={insets.top + 10}
 				overDragResistanceFactor={1}
 				enableContentPanningGesture={false}
 				enableHandlePanningGesture={true}
@@ -105,20 +108,12 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				)}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
-					<View style={styles.headerContainerBottomSheet}>
+					<View style={[styles.headerContainerBottomSheet, { marginTop: -20 }]}>
 						<View>
 							<Text style={styles.h2}>{stats?.commonName}</Text>
 							<Text style={styles.hScientific}>({stats?.scientificName})</Text>
 						</View>
 						<View style={styles.sizeContainerBottomSheet}>
-							{/* <Svg
-								width="28"
-								height="28"
-								viewBox="0 0 256 256"
-								fill={theme.textDark}
-							>
-								<Path d="M235.32,73.37,182.63,20.69a16,16,0,0,0-22.63,0L20.68,160a16,16,0,0,0,0,22.63l52.69,52.68a16,16,0,0,0,22.63,0L235.32,96A16,16,0,0,0,235.32,73.37ZM84.68,224,32,171.31l32-32,26.34,26.35a8,8,0,0,0,11.32-11.32L75.31,128,96,107.31l26.34,26.35a8,8,0,0,0,11.32-11.32L107.31,96,128,75.31l26.34,26.35a8,8,0,0,0,11.32-11.32L139.31,64l32-32L224,84.69Z" />
-							</Svg> */}
 							<FontAwesome6 name="ruler" size={28} color={theme.textDark} />
 							<Text style={styles.hSize}>{stats?.minSizeCm}cm</Text>
 						</View>

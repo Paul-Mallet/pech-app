@@ -55,14 +55,14 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	const addParagraph = (title: string, text: string) => {
 		const newKey = String(allParagraphs.length + 1);
 		const newParagraph = (
-		  <ParagraphLegislationCard
-			key={newKey}
-			title={title}
-			text={text}
-		  />
+			<ParagraphLegislationCard
+				key={newKey}
+				title={title}
+				text={text}
+			/>
 		);
 		setAllParagraphs(prev => [...prev, newParagraph]);
-	  };
+	};
   
 	// Filter the children by inspecting props
 	const filtered = allParagraphs
