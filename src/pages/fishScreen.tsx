@@ -1,9 +1,8 @@
 import React, { ReactNode, useState, useEffect, useRef, useCallback } from 'react';
-import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, Alert, TouchableOpacity } from 'react-native';
+import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, Alert, TouchableOpacity, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import FishCard from '../components/molecules/fishCard.tsx';
-import BottomSheet from '@gorhom/bottom-sheet';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -48,9 +47,13 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const [isOfflineData, setIsOfflineData] = useState<boolean>(false);
     const navigation = useNavigation();
     const { theme } = useTheme();
+    const [filtered, setFiltered] = useState<boolean>(false);
 
-    const handleRightIconPress = () => {
-        navigation.navigate('FishResearch');
+    const handleFilterButtonPress = () => {
+        if (!filtered)
+            navigation.navigate('FishResearch');
+        else
+            setFiltered(false);
       };
 
     useEffect(() => {
@@ -134,8 +137,8 @@ const FishScreen = ({ children }: HomeCardProps) => {
 
 	return (
 		<SafeAreaView style={styles.body}>
-            <TouchableOpacity style={styles.quizzButton} onPress={handleRightIconPress}>
-                <FontAwesome name="filter" size={20} color={theme.textBoldLight} />
+            <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
             </TouchableOpacity>
 			<ScrollView
 				contentContainerStyle={{flexGrow: 1}}
@@ -153,6 +156,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
 
           <Text style={styles.h2}>Poissons</Text>
+          {/* <Button title="press me" onPress={() => {setFiltered(!filtered)}}></Button> */}
 					{isOfflineData && (
 						<Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
 							Données chargées depuis le cache. Tirez vers le bas pour actualiser.
