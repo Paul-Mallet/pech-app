@@ -7,7 +7,6 @@ import QuestionModel from "../../models/questions.model.tsx";
 
 type QuestionsProps = {
     navigation : any,
-    questionsParams : QuestionModel 
 }
 
 type ItemType = {
@@ -36,7 +35,7 @@ const questions = [
   }
 ];
 
-const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => {
+const Questions : React.FC<QuestionsProps> = ({navigation}) => {
     const {answers, setAnswers } = useAnswers();
     const styles = QuestionStyles();
     // const [visibleModal, setModalVisible] = useState(false);
@@ -59,7 +58,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
                     <React.Fragment>
                         <QuestionExpandable
                             question={item.question}
-                            qyestionType={item.field}
+                            questionType={item.field}
                             items={item.reponses}
                             onFishPress={() => handleQuestionPress(item.field)}
                         />

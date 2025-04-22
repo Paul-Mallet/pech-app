@@ -20,11 +20,11 @@ const FishResearch = async ({navigation} : any) => {
     const styles = FishResearchStyle();
 	const { theme } = useTheme();
 
-    const bodyTypes : BodyTypeModel[] = await getAllBodyType();
-    const fins : FinModel[] = await getAllFins();
-    const eyes : EyeModel[] = await getAllEyes();
+    // const bodyTypes : BodyTypeModel[] = await getAllBodyType();
+    // const fins : FinModel[] = await getAllFins();
+    // const eyes : EyeModel[] = await getAllEyes();
 
-    const questionsParams : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
+    // const questionsParams : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
 
     return (
         <FishListProvider>
@@ -33,7 +33,7 @@ const FishResearch = async ({navigation} : any) => {
                     <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.goBack()}>
                         <Ionicons name='close' size={24} color={theme.iconColor}/>
                     </TouchableOpacity>
-                    <Questions navigation={navigation} questionsParams={questionsParams}/>
+                    <Questions navigation={navigation}/>
                     <ViewFishButton/>
                 </View>
             </AnswerProvider>
