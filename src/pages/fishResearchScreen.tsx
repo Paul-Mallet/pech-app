@@ -59,7 +59,7 @@ const FishResearch = ({navigation} : any) => {
                     <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.navigate("Poissons")}>
                         <Ionicons name='close' size={24} color={theme.iconColor}/>
                     </TouchableOpacity>
-                    <Questions navigation={navigation}/>
+                    <Questions navigation={navigation} questionsParams={questionsParams}/>
                     <ViewFishButton/>
                 </View>
             </AnswerProvider>

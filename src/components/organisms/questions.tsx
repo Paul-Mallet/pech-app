@@ -10,6 +10,7 @@ import ResearchAnswerModel from "../../models/researchAnswer.model.tsx";
 
 type QuestionsProps = {
     navigation : any,
+    questionsParams : QuestionModel
 }
 
 type ItemType = {
@@ -38,7 +39,7 @@ const questions = [
   }
 ];
 
-const Questions : React.FC<QuestionsProps> = ({navigation}) => {
+const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => {
     const {answers, setAnswers } = useAnswers();
     const {setFishList} = useFishList();
     const styles = QuestionStyles();
