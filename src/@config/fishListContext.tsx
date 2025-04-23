@@ -35,4 +35,4 @@ export const useFishList = (): FishListContextType => {
       throw new Error("useFishList must be used within a FishListProvider");
     }
     return context;
-  };
+};
