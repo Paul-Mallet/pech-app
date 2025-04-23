@@ -124,7 +124,7 @@ export const getLegislationById = async (id : string) => {
 
 export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
     try {
-        const response = await apiClient.get(``);
+        const response = await apiClient.get(`fish`);
         return response.data;
     } catch (error) {
         console.error("API error when trying to update the fishlist : ", error);
