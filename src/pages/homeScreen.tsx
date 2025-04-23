@@ -20,7 +20,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const hasSwitched = useRef(false);
 	const [pressedFish, setPressedFish] = useState<string | null>(null);
 	const [activeTab, setActiveTab] = useState('découvrir');
-	// const navigation = useNavigation();
 	const styles = GlobalStyles();
 	const { theme } = useTheme();
 	const decouvrir = 'découvrir';

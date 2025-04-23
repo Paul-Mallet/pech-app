@@ -111,6 +111,16 @@ export const getEyeById = async (id: string) => {
     }
 }
 
+export const getAllLegislations = async () => {
+    try {
+        const response = await apiClient.get(`legislation`);
+        return response.data;
+    } catch (error) {
+        console.error("API error when trying to get legislations: ", error);
+        return error;
+    }
+}
+
 export const getLegislationById = async (id : string) => {
     try {
         const response = await apiClient.get(`legislation/${id}`);

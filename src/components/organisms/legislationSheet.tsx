@@ -100,7 +100,6 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
         console.error("Aucune URL GeoJSON disponible dans la regulation.");
         return;
       }
-
       try {
         setLoadingGeojson(true);
         const response = await fetch(regulation.geojson);

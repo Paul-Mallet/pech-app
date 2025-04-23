@@ -1,7 +1,8 @@
-import React from 'react';
-import { ScrollView, View, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, View, Text, Dimensions, ActivityIndicator } from 'react-native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
+import { getFishById, getLegislationById } from "../services/fish.service.tsx";
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 
 const screenWidth = Dimensions.get('window').width;
@@ -10,52 +11,110 @@ type DecouvrirTabProps = {
   handleFishPress: (fishName: string) => void;
 };
 
+// handleLegisPress too?
 const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
+  const [fishes, setFishes] = useState<any[]>([]);
+  const [legislations, setLegislations] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const styles = GlobalStyles();
 
+//   useEffect(() => {
+// 	const fetchRandomFishes = async () => {
+// 	  try {
+// 		const randomFishesIds = getRandomIds(2);
+// 		const randomFishes = await Promise.all(
+// 			randomFishesIds.map(id => getFishById(id))
+// 		);
+// 		setFishes(randomFishes);
+// 	  } catch (err) {
+// 		setError("Impossible de charger les infos des poissons.");
+// 	  } finally {
+// 		setLoading(false);
+// 	  }
+// 	};
+// 	fetchRandomFishes();
+//   }, []);
+
+//   useEffect(() => {
+// 	const fetchRandomLegislations = async () => {
+// 	  try {
+// 		const randomLegislationIds = getRandomIds(5);
+// 		const randomLegislations = await Promise.all(
+// 			randomLegislationIds.map(id => getLegislationById(id))
+// 		);
+// 		setLegislations(randomLegislations);
+// 	  } catch (err) {
+// 		setError("Impossible de charger les infos des legislations.");
+// 	  } finally {
+// 		setLoading(false);
+// 	  }
+// 	};
+// 	fetchRandomLegislations();
+//   });
+
+  const getRandomIds = (count: number) => {
+	const ids: any[] = [];
+
+	for (let i = 1; i <= 20; i++)
+		ids.push(i);
+
+	const shuffled = [...ids].sort(() => 0.5 - Math.random());
+	return shuffled.slice(0, count);
+  };
+
   return (
-    <ScrollView
-      style={[styles.homePanel, { width: screenWidth, padding: 20 }]}
-      showsVerticalScrollIndicator={false}
-    >
-      <View style={styles.fishCardsContainer}>
-        <FishCard
-          onPress={() => handleFishPress('Mérou brun')}
-          fishName="Mérou brun"
-          imgSource="https://doris.ffessm.fr/var/doris/storage/images/images/clef-d-identification-18554/161441-1-fre-FR/epinephelus_marginatus-01CD1.jpg"
-        />
-        <FishCard
-          onPress={() => handleFishPress('Thon rouge')}
-          fishName="Thon rouge"
-          imgSource="https://img.cuisineaz.com/660x660/2016/04/28/i58301-thon-rouge-de-ligne-cru.jpg"
-        />
-      </View>
-      <LegislationCard
-        title="Arrêté du 9 Juillet 2024"
-        text="Réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la <h>Réserve Naturelle Marine...</h>"
-        onPress={() => console.log('Text card pressed')}
-      />
-      <LegislationCard
-        title="Arrêté du 22 Mars 2024"
-        text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
-        onPress={() => console.log('Text card pressed')}
-      />
-      <LegislationCard
-        title="Arrêté du 9 Juillet 2024 portant réglementation particulière de la pêche maritime de loisir à l’intérieur du périmètre de la Réserve Naturelle Marine de Cerbère-Banyuls :"
-        text="Pêche maritime de loisir à l’intérieur de la zone est soumise à la détention préalable d’une autorisation. Maximum de 1000 autorisations sur une année civile. Pêche maritime de loisir autorisée qu’entre le lever et le coucher du soleil.10 prises dans la limite des quotas et tailles minimales, par jour et par navire quel que soit le nombre de personnes embarquées, et par jour et par pêcheur à pied lorsque ce dernier œuvre depuis le rivage."
-        onPress={() => console.log('Text card pressed')}
-      />
-      <LegislationCard
-        title="Arrêté du 22 Mars 2024"
-        text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
-        onPress={() => console.log('Text card pressed')}
-      />
-      <LegislationCard
-        title="Arrêté du 22 Mars 2024"
-        text="Réglementation particulière de la pêche maritime de loisir dans les eaux au droit de l’<h>île de Porquerolles</h>, de ses îlots..."
-        onPress={() => console.log('Text card pressed')}
-      />
-    </ScrollView>
+	<ScrollView
+	  style={[styles.homePanel, { width: screenWidth, padding: 20 }]}
+	  showsVerticalScrollIndicator={false}
+	>
+	  	{/*
+		<View style={styles.fishCardsContainer}>
+			{ loading &&
+				<ActivityIndicator size="large" style={{ flex: 1 }} />
+			}
+			{ error &&
+				<Text style={{ color: 'red', padding: 20 }}>{error}</Text>
+			}
+			{ fishes &&
+				<View style={styles.fishCardsContainer}>
+					{
+						fishes.map((fish, index) => (
+							<FishCard
+								key={fish.id || index}
+								onPress={() => handleFishPress(fish.commonName)}
+								fishName={fish.commonName}
+								imgSource={fish.images[0]} //img_card
+							/>
+						))
+					}
+				</View>
+			}
+	  	</View>
+		*/}
+		{/*
+		{ loading &&
+			<ActivityIndicator size="large" style={{ flex: 1 }} />
+		}
+		{ error &&
+			<Text style={{ color: 'red', padding: 20 }}>{error}</Text>
+		}
+		{ legislations &&
+			<View style={styles.fishCardsContainer}>
+				{
+					legislations.map((legislation, index) => (
+						<LegislationCard
+							key={legislation.id || index}
+							title={legislation.title}
+							text={legislation.article}
+							onPress={() => console.log('Text card pressed')}
+						/>
+					))
+				}
+			</View>
+		}
+		*/}
+	</ScrollView>
   );
 };
 

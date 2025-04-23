@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useHistory } from '../organisms/HistoryContext.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface FishCardProps {
 	onPress?: () => void;
