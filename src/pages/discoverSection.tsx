@@ -8,10 +8,9 @@ import GlobalStyles from '../styles/base/globalStyles.tsx';
 const screenWidth = Dimensions.get('window').width;
 
 type DecouvrirTabProps = {
-  handleFishPress: (fishName: string) => void;
+  handleFishPress: (fishId: string) => void;
 };
 
-// handleLegisPress too?
 const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
   const [fishes, setFishes] = useState<any[]>([]);
   const [legislations, setLegislations] = useState<any[]>([]);
@@ -19,39 +18,39 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
   const [error, setError] = useState<string | null>(null);
   const styles = GlobalStyles();
 
-//   useEffect(() => {
-// 	const fetchRandomFishes = async () => {
-// 	  try {
-// 		const randomFishesIds = getRandomIds(2);
-// 		const randomFishes = await Promise.all(
-// 			randomFishesIds.map(id => getFishById(id))
-// 		);
-// 		setFishes(randomFishes);
-// 	  } catch (err) {
-// 		setError("Impossible de charger les infos des poissons.");
-// 	  } finally {
-// 		setLoading(false);
-// 	  }
-// 	};
-// 	fetchRandomFishes();
-//   }, []);
+  useEffect(() => {
+	const fetchRandomFishes = async () => {
+	  try {
+		const randomFishesIds = getRandomIds(2);
+		const randomFishes = await Promise.all(
+			randomFishesIds.map(id => getFishById(id))
+		);
+		setFishes(randomFishes);
+	  } catch (err) {
+		setError("Impossible de charger les infos des poissons.");
+	  } finally {
+		setLoading(false);
+	  }
+	};
+	fetchRandomFishes();
+  }, []);
 
-//   useEffect(() => {
-// 	const fetchRandomLegislations = async () => {
-// 	  try {
-// 		const randomLegislationIds = getRandomIds(5);
-// 		const randomLegislations = await Promise.all(
-// 			randomLegislationIds.map(id => getLegislationById(id))
-// 		);
-// 		setLegislations(randomLegislations);
-// 	  } catch (err) {
-// 		setError("Impossible de charger les infos des legislations.");
-// 	  } finally {
-// 		setLoading(false);
-// 	  }
-// 	};
-// 	fetchRandomLegislations();
-//   });
+  useEffect(() => {
+	const fetchRandomLegislations = async () => {
+	  try {
+		const randomLegislationIds = getRandomIds(5);
+		const randomLegislations = await Promise.all(
+			randomLegislationIds.map(id => getLegislationById(id))
+		);
+		setLegislations(randomLegislations);
+	  } catch (err) {
+		setError("Impossible de charger les infos des legislations.");
+	  } finally {
+		setLoading(false);
+	  }
+	};
+	fetchRandomLegislations();
+  });
 
   const getRandomIds = (count: number) => {
 	const ids: any[] = [];
@@ -68,10 +67,12 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
 	  style={[styles.homePanel, { width: screenWidth, padding: 20 }]}
 	  showsVerticalScrollIndicator={false}
 	>
-	  	{/*
-		<View style={styles.fishCardsContainer}>
+		{/* <View style={styles.fishCardsContainer}>
 			{ loading &&
+			<View style={{ display: 'flex',  }}>
 				<ActivityIndicator size="large" style={{ flex: 1 }} />
+				<ActivityIndicator size="large" style={{ flex: 1 }} />
+			</View>
 			}
 			{ error &&
 				<Text style={{ color: 'red', padding: 20 }}>{error}</Text>
@@ -82,7 +83,7 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
 						fishes.map((fish, index) => (
 							<FishCard
 								key={fish.id || index}
-								onPress={() => handleFishPress(fish.commonName)}
+								onPress={() => handleFishPress(fish.id)}
 								fishName={fish.commonName}
 								imgSource={fish.images[0]} //img_card
 							/>
@@ -91,8 +92,7 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
 				</View>
 			}
 	  	</View>
-		*/}
-		{/*
+
 		{ loading &&
 			<ActivityIndicator size="large" style={{ flex: 1 }} />
 		}
@@ -112,8 +112,7 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
 					))
 				}
 			</View>
-		}
-		*/}
+		} */}
 	</ScrollView>
   );
 };
