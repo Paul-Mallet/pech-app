@@ -32,31 +32,6 @@ const handleRightIconPress = (text: string) => {
 
   const toggleExpand = () => setExpanded(prev => !prev);
 
-  const renderItem = ({ item }: { item: ItemType }) => {
-	switch (questionType) {
-	  case 'fin':
-		return (
-		  <FishCard
-			fishName={item.label}
-			imgSource={item.parameter || ''}
-			onPress={() => onFishPress?.(item.label)}
-		  />
-		);
-	  case 'body':
-		return (
-			<TouchableOpacity onPress={() => handleRightIconPress(item.label)}>
-				<Text style={[styles.textDark, { fontSize: 16, padding: 6, borderColor: '#00000010', borderBottomWidth: 2, borderRadius: 8, color: theme.textHighlightDark }]}>
-				{item.label}
-				</Text>
-			</TouchableOpacity>
-		);
-	  default:
-		return (
-		  <Text style={styles.textDark}>{item.label}</Text>
-		);
-	}
-  };
-
   return (
 	<View style={{ padding: 6, borderRadius: 24, backgroundColor: theme.cardBackground }}>
 	  <TouchableOpacity onPress={toggleExpand} style={ {width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -71,9 +46,13 @@ const handleRightIconPress = (text: string) => {
 	  {expanded && (
 		<View style={{ marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 6}}>
 			{items.map((item, index) => (
-			<View key={`${question}-${index}`} style={{ width: '48.5%', height: 'auto'}}>
-			{renderItem({ item })}
-		</View>
+				<View key={`${question}-${index}`} style={{ width: '48.5%', height: 'auto'}}>
+					<FishCard
+						fishName={item.label}
+						imgSource={item.parameter?.toString() || ''}
+						onPress={() => onFishPress?.(item.label)}
+					/>
+				</View>
 			))}
 		</View>
 )}

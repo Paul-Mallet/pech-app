@@ -18,26 +18,26 @@ type ItemType = {
     parameter?: string;
 };
 
-const questions = [
-  {
-    question: "Oui ou non ?",
-    field: "fin",
-    reponses: [
-      { label: "oui", parameter: "" },
-      { label: "non", parameter: "" },
-      { label: "peut-etre", parameter: "" }
-    ] as ItemType[]
-  },
-  {
-    question: "Et sinon",
-    field: "fin",
-    reponses: [
-      { label: "quoi", parameter: "" },
-      { label: "hein", parameter: "" },
-      { label: "euh", parameter: "" }
-    ] as ItemType[]
-  }
-];
+// const questions = [
+//   {
+//     question: "Oui ou non ?",
+//     field: "fin",
+//     reponses: [
+//       { label: "oui", parameter: "" },
+//       { label: "non", parameter: "" },
+//       { label: "peut-etre", parameter: "" }
+//     ] as ItemType[]
+//   },
+//   {
+//     question: "Et sinon",
+//     field: "fin",
+//     reponses: [
+//       { label: "quoi", parameter: "" },
+//       { label: "hein", parameter: "" },
+//       { label: "euh", parameter: "" }
+//     ] as ItemType[]
+//   }
+// ];
 
 const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => {
     const {answers, setAnswers } = useAnswers();
@@ -46,10 +46,10 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
     // const [visibleModal, setModalVisible] = useState(false);
     // const [questionType, setQuestionType] = useState<string | null>(null);
 
-    type AnswerField = "bodyType" | "fin" | "eye"
+    type AnswerField = "bodyType" | "fins" | "eye"
 
     const handleQuestionPress = (field: AnswerField, id: number) => {
-      if (field !== "fin") {
+      if (field !== "fins") {
         setAnswers({
           ...answers,
           [field]: id,
@@ -93,13 +93,13 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
         <View style={[styles.questionsList, {justifyContent: 'flex-end',
         alignItems : 'center',}]}>
                 <FlatList
-                    data={questions}
+                    data={questionsParams.toFlatListData()}
                     keyExtractor={(_, index) => index.toString()}
                     contentContainerStyle={styles.questionDiv}
                     renderItem={({ item, index }) => (
                     <React.Fragment>
                         <QuestionExpandable
-                            question={item.question}
+                            question={item.type}
                             questionType={item.field}
                             items={item.reponses}
                             onFishPress={() => handleQuestionPress(item.field)}
