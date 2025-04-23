@@ -69,11 +69,19 @@ const handleRightIconPress = (text: string) => {
 	  </TouchableOpacity>
 
 	  {expanded && (
-		<View style={{ marginTop: 10, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+		<View style={{ marginTop: 0, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
 			{items.map((item, index) => (
-			<React.Fragment key={`${question}-${index}`}>
-				{renderItem({ item })}
-			</React.Fragment>
+			<View key={`${question}-${index}`} style={{ width: '100%', height: 'auto',
+				justifyContent: 'space-between',
+				backgroundColor: 'red',
+				borderRadius: 10,
+				shadowColor: '#000',
+				shadowOffset: { width: 0, height: 10 },
+				shadowOpacity: 1,
+				shadowRadius: 10,
+				elevation: 10, }}>
+			{renderItem({ item })}
+		</View>
 			))}
 		</View>
 )}

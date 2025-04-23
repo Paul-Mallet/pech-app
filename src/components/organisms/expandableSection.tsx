@@ -76,8 +76,7 @@ const handleRightIconPress = (text: string) => {
           keyExtractor={(item, index) => `${entryType}-${index}`}
           renderItem={renderItem}
           numColumns={entryType === 'Recherches' ? 1 : 2}
-          columnWrapperStyle={entryType !== 'Recherches' ? { justifyContent: 'space-between' } : undefined}
-          contentContainerStyle={{ marginTop: 10 }}
+          columnWrapperStyle={entryType !== 'Recherches' ? { marginTop: 10, justifyContent: 'space-between', alignItems: 'center', width: "50%", aspectRatio: 1.05, gap: 6 } : undefined}
         />
       )}
     </View>

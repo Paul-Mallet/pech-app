@@ -70,6 +70,7 @@ const GlobalStyles = () => {
     fishCardsContainer: {
       flex: 1,
       width: '100%',
+      height: 160,
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
@@ -243,10 +244,7 @@ const GlobalStyles = () => {
 		},
 		fishCardContainer: {
 			position: "relative",
-			width: '47.5%',
 			aspectRatio: 1,
-			marginTop: 16, // previously marginVertical
-			marginRight: 16,
 			padding: 16,
 			borderRadius: 24,
 			backgroundColor: "#fff",

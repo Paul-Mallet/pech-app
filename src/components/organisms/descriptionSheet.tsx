@@ -45,12 +45,10 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		}
 
 		useEffect(() => {
-			// if (fishName)
-			// 	fetchFishData();
 			setLoading(true);
 			handleData();
 			setLoading(false);
-		}, [fishName/*, fetchFishData */]);
+		}, [fishName]);
 
 		const handleSheetChanges = useCallback((index: number) => {
 			if (index === -1) {
@@ -120,11 +118,11 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					</View>
 					<ImageSlider />
 					<Text style={styles.textDescriptionBottomSheet}>
-						{stats?.englishAcronym && `${stats?.englishAcronym}, `}
-						{stats?.physicalDescription?.WRF}
-						{stats?.physicalDescription?.moreInfos && ` ${stats?.physicalDescription?.moreInfos}`}
+						{stats?.englishAcronym ? `${stats.englishAcronym}, ` : ''}
+						{stats?.physicalDescription?.WRF ?? ''}
+						{stats?.physicalDescription?.moreInfos ? ` ${stats.physicalDescription.moreInfos}` : ''}
 					</Text>
-					<CTAButton fishName={stats?.commonName} />
+					<CTAButton searchText={stats?.commonName} />
 				</BottomSheetView>
 			</BottomSheet>
 		);
