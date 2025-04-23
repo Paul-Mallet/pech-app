@@ -16,9 +16,8 @@ const QuestionStyles = () => {
         questionsList: 
         {
             top: 80,
-            width: '90%',
-            height: '65%',
-            
+            width: '95%',
+            height: '65%'
         },
         questionDiv : {
             width: '90%',

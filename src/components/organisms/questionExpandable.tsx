@@ -69,7 +69,7 @@ const handleRightIconPress = (text: string) => {
 	  </TouchableOpacity>
 
 	  {expanded && (
-		<View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 6}}>
+		<View style={{ marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 6}}>
 			{items.map((item, index) => (
 			<View key={`${question}-${index}`} style={{ width: '48.5%', height: 'auto'}}>
 			{renderItem({ item })}
