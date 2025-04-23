@@ -7,11 +7,17 @@ export type FinGroup = {
     fin : FinModel[]
 }
 
+export type FinsIds = {
+    type : string,
+    ids : number[]
+}
+
 export default class QuestionModel
 {
     constructor(
         public bodyType : BodyTypeModel[],
         public fins : FinGroup[],
-        public eye : EyeModel[]
+        public eye : EyeModel[],
+        public finsIds : FinsIds[]
     ) {}
 }
