@@ -3,6 +3,7 @@ export default class EyeModel {
         public id : number,
         public color : string,
         public size : string,
-        public position : string
+        public position : string,
+        public parameter : string
     ) {}
 }

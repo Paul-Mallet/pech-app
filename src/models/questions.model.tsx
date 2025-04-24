@@ -27,7 +27,7 @@ export default class QuestionModel
             field: 'bodyType',
             reponses: this.bodyType.map(item => ({
               label: item.name,           // Replace `name` with actual field
-              parameter: item.id          // Replace with relevant identifier
+              parameter: item.parameter          // Replace with relevant identifier
             }))
           },
           ...this.fins.map(group => ({
@@ -44,7 +44,7 @@ export default class QuestionModel
             field: 'eye',
             reponses: this.eye.map(item => ({
               label: item.color + " " + item.position,
-              parameter: item.id
+              parameter: item.parameter
             }))
           },
         ];
