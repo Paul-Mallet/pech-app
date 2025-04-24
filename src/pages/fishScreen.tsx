@@ -38,25 +38,30 @@ interface Fish {
 }
 
 const FishScreen = ({ children }: HomeCardProps) => {
-	const styles = GlobalStyles();
-    const [pressedFish, setPressedFish] = useState<Fish | null>(null);
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const [fishes, setFishes] = useState<Fish[]>([]);
-    const [loading, setLoading] = useState<boolean>(true); // useless?
-    const [error, setError] = useState<string | null>(null);
+    const [pressedFish, setPressedFish] = useState<Fish | null>(null);
+    const [filtered, setFiltered] = useState<boolean>(false);
     const [refreshing, setRefreshing] = useState<boolean>(false);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [fishes, setFishes] = useState<Fish[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const [isOfflineData, setIsOfflineData] = useState<boolean>(false);
     const navigation = useNavigation();
+	const styles = GlobalStyles();
     const { theme } = useTheme();
-    const [filtered, setFiltered] = useState<boolean>(false);
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const handleFilterButtonPress = () => {
         if (!filtered)
             navigation.navigate('FishResearch');
         else
             setFiltered(false);
-      };
+    };
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchFishes();
+    };
 
     useEffect(() => {
         if (!isLoaded)
@@ -66,15 +71,13 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const handleFishPress = async (id: string) => {
         try {
             const fish = await getFishById(id);
-            console.log("Fetched fish:", fish);
             setPressedFish(fish);
             bottomSheetRef.current?.expand();
-        } catch (error) {
-            console.error("Failed to fetch fish:", error);
-        }
+        } catch(err) {
+            console.error("Failed to fetch fish:", err);
+        } //finally loading
     };
 
-    // used to remove the (not true) errors
     const safeAsyncStorage = AsyncStorage as unknown as {
         getItem: (key: string) => Promise<string | null>;
         setItem: (key: string, value: string) => Promise<void>;
@@ -141,11 +144,6 @@ const FishScreen = ({ children }: HomeCardProps) => {
         }
     };
 
-    const onRefresh = () => {
-        setRefreshing(true);
-        fetchFishes();
-    };
-
 	return (
 		<SafeAreaView style={styles.body}>
             <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
@@ -165,37 +163,36 @@ const FishScreen = ({ children }: HomeCardProps) => {
 				}
 			>
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
-
-                <Text style={styles.h2}>Poissons</Text>
-                {isOfflineData && (
-                    <Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
-                        Données chargées depuis le cache. Tirez vers le bas pour actualiser.
-                    </Text>
-                )}
-                <FlatList
-                    contentContainerStyle={{gap: 6}}
-                    columnWrapperStyle={{
-                        gap: 6,
-                        width: 160,
-                        aspectRatio: 1}}
-                    data={fishes}
-                    numColumns={2}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <FishCard
-                            onPress={() => handleFishPress(item.id.toString())}
-                            fishName={item.name}
-                            imgSource={item.img}
-                        />
+                    <Text style={styles.h2}>Poissons</Text>
+                    {isOfflineData && (
+                        <Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
+                            Données chargées depuis le cache. Tirez vers le bas pour actualiser.
+                        </Text>
                     )}
-                    scrollEnabled={false}
-                />
+                    <FlatList
+                        data={fishes}
+                        numColumns={2}
+                        contentContainerStyle={{gap: 6}}
+                        scrollEnabled={false}
+                        keyExtractor={(item) => item.id.toString()}
+                        columnWrapperStyle={{
+                            gap: 6,
+                            width: 160,
+                            aspectRatio: 1}}
+                        renderItem={({ item }) => (
+                            <FishCard
+                                onPress={() => handleFishPress(item.id.toString())}
+                                fishName={item.name}
+                                imgSource={item.img}
+                            />
+                        )}
+                    />
 				</View>
 			</ScrollView>
             {pressedFish && (
                 <DescriptionSheet
                     ref={bottomSheetRef}
-                    fishName={pressedFish.name}
+                    fishId={pressedFish.id.toString()}
                     onClose={() => setPressedFish(null)}
                 />
             )}

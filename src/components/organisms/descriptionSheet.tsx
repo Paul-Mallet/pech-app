@@ -26,14 +26,15 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 
 		useEffect(() => {
 			const fetchFish = async () => {
-			  try {
-				const fish = await getFishById(fishId);
-				setStats(fish);
-			  } catch (err) {
-				setError("Impossible de charger les infos du poisson.");
-			  } finally {
-				setLoading(false);
-			  }
+				setLoading(true);
+				try {
+					const fish = await getFishById(fishId);
+					setStats(fish);
+				} catch (err) {
+					setError("Impossible de charger les infos du poisson.");
+				} finally {
+					setLoading(false);
+				}
 			};
 			fetchFish();
 		  }, []);

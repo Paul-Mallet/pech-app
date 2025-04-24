@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
+import { View, Text, Button, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
 import BottomSheet, { BottomSheetView, BottomSheetMethods } from '@gorhom/bottom-sheet';
@@ -8,27 +8,35 @@ import HitArea from '../atoms/hitArea.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { getLegislationById } from '../../services/fish.service.tsx';
+import { FeatureCollection, Geometry } from 'geojson';
 
 // Import avec 'with' au lieu de 'assert'
 // import regulationsData from '../../data/mocks/regulations.json' with { type: 'json' };
 // const regulations = regulationsData;
 
 type LegislationType = {
-  id: number;
-  date: string;
-  title: string;
-  content: string[];
-  metadata: {
-	reference: string;
-	lastUpdated: string;
-  };
-  geojson: string;
+	id: number;
+	date: string;
+	title: string;
+	content: string[];
+	metadata: {
+		reference: string;
+		lastUpdated: string;
+	};
+	geojson: string;
 };
 
 type LegislationSheetProps = {
-  legislationId?: number;
-  legislationTitle?: string;
-  onClose: () => void;
+	legislationId: string;
+	legislationTitle: string;
+	onClose: () => void;
+};
+
+type RegionCoordinates = {
+	latitude: number;
+	longitude: number;
+	latitudeDelta: number;
+	longitudeDelta: number;
 };
 
 const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetProps>(
@@ -39,13 +47,14 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 	const [error, setError] = useState<string | null>(null);
 	const [geojsonData, setGeojsonData] = useState<any>(null);
 	const [loadingGeojson, setLoadingGeojson] = useState<boolean>(false);
-	const [mapRegion, setMapRegion] = useState(null);
+	const [regionCoor, setRegionCoor] = useState<RegionCoordinates | null>(null);
 	const { theme } = useTheme();
 	const styles = GlobalStyles();
 	const insets = useSafeAreaInsets();
 
 	useEffect(() => {
 		const fetchLegislation = async () => {
+			setLoading(true);
 			try {
 				const legislation = await getLegislationById(legislationId);
 				setStats(legislation);
@@ -62,15 +71,15 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 		if (stats)
 		{
 			const loadGeojson = async () => {
+				setLoadingGeojson(true);
 				try {
-					setLoadingGeojson(true);
 					const res = await fetch(stats.geojson);
 					if (!res.ok)
 						throw new Error(`HTTP error! status: ${res.status}`);
 					const data = await res.json();
 					setGeojsonData(data);
-					const region = calculateRegionFromGeoJson(data);
-					setMapRegion(region);
+					const regionCoor = calculateRegionFromGeoJson(data);
+					setRegionCoor(regionCoor);
 				} catch (error) {
 					console.error("Erreur lors du chargement des données GeoJSON:", error);
 				} finally {
@@ -93,7 +102,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
 	}, [bottomSheetRef]);
 
-	const calculateRegionFromGeoJson = (geoJson: any) => {
+	const calculateRegionFromGeoJson = (geoJson: FeatureCollection<Geometry>): RegionCoordinates => {
 	  let minLat = 90;
 	  let maxLat = -90;
 	  let minLng = 180;
@@ -216,7 +225,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 							<MapView
 								provider={PROVIDER_GOOGLE}
 								style={{ height: 200, width: '100%' }}
-								initialRegion={mapRegion || {
+								initialRegion={regionCoor || {
 									latitude: 46.603354,
 									longitude: 1.888334,
 									latitudeDelta: 10,
