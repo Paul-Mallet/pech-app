@@ -45,25 +45,26 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 	const [stats, setStats] = useState<LegislationType | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
-	const [geojsonData, setGeojsonData] = useState<any>(null);
+	const [geojson, setGeojson] = useState<any>(null);
 	const [loadingGeojson, setLoadingGeojson] = useState<boolean>(false);
 	const [regionCoor, setRegionCoor] = useState<RegionCoordinates | null>(null);
 	const { theme } = useTheme();
 	const styles = GlobalStyles();
 	const insets = useSafeAreaInsets();
 
+	const fetchLegislation = async () => {
+		setLoading(true);
+		try {
+			const legislation = await getLegislationById(legislationId);
+			setStats(legislation);
+		} catch (err) {
+			setError("Impossible de charger les infos de la legislation.");
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	useEffect(() => {
-		const fetchLegislation = async () => {
-			setLoading(true);
-			try {
-				const legislation = await getLegislationById(legislationId);
-				setStats(legislation);
-			} catch (err) {
-				setError("Impossible de charger les infos de la legislation.");
-			} finally {
-				setLoading(false);
-			}
-		};
 		fetchLegislation();
 	}, []);
 
@@ -77,11 +78,11 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 					if (!res.ok)
 						throw new Error(`HTTP error! status: ${res.status}`);
 					const data = await res.json();
-					setGeojsonData(data);
+					setGeojson(data);
 					const regionCoor = calculateRegionFromGeoJson(data);
 					setRegionCoor(regionCoor);
-				} catch (error) {
-					console.error("Erreur lors du chargement des données GeoJSON:", error);
+				} catch (err) {
+					console.error("Erreur lors du chargement des données GeoJSON:", err);
 				} finally {
 					setLoadingGeojson(false);
 				}
@@ -92,49 +93,48 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 
 	useEffect(() => {
 		const onBackPress = () => {
-		if (bottomSheetRef && bottomSheetRef.current) {
-			bottomSheetRef.current.close();
-			return true;
-		}
-			return false;
+			if (bottomSheetRef && bottomSheetRef.current) {
+				bottomSheetRef.current.close();
+				return (true);
+			}
+			return (false);
 		};
 		BackHandler.addEventListener('hardwareBackPress', onBackPress);
 		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
 	}, [bottomSheetRef]);
 
 	const calculateRegionFromGeoJson = (geoJson: FeatureCollection<Geometry>): RegionCoordinates => {
-	  let minLat = 90;
-	  let maxLat = -90;
-	  let minLng = 180;
-	  let maxLng = -180;
-	  const processCoordinates = (coords: any[]) => {
-		coords.forEach(coord => {
-		  if (Array.isArray(coord[0])) {
-			processCoordinates(coord);
-		  } else {
-			const [lng, lat] = coord;
-			minLat = Math.min(minLat, lat);
-			maxLat = Math.max(maxLat, lat);
-			minLng = Math.min(minLng, lng);
-			maxLng = Math.max(maxLng, lng);
-		  }
+		let minLat = 90;
+		let maxLat = -90;
+		let minLng = 180;
+		let maxLng = -180;
+		const processCoordinates = (coords: any[]) => {
+			coords.forEach(coord => {
+				if (Array.isArray(coord[0]))
+					processCoordinates(coord);
+				else {
+					const [lng, lat] = coord;
+					minLat = Math.min(minLat, lat);
+					maxLat = Math.max(maxLat, lat);
+					minLng = Math.min(minLng, lng);
+					maxLng = Math.max(maxLng, lng);
+				}
+			});
+		};
+		geoJson.features.forEach((feature: any) => {
+			if (feature.geometry.coordinates)
+				processCoordinates(feature.geometry.coordinates);
 		});
-	  };
-	  geoJson.features.forEach((feature: any) => {
-		if (feature.geometry.coordinates) {
-		  processCoordinates(feature.geometry.coordinates);
-		}
-	  });
-	  const centerLat = (minLat + maxLat) / 2;
-	  const centerLng = (minLng + maxLng) / 2;
-	  const latDelta = (maxLat - minLat) * 1.5;
-	  const lngDelta = (maxLng - minLng) * 1.5;
-	  return {
-		latitude: centerLat,
-		longitude: centerLng,
-		latitudeDelta: latDelta,
-		longitudeDelta: lngDelta
-	  };
+		const centerLat = (minLat + maxLat) / 2;
+		const centerLng = (minLng + maxLng) / 2;
+		const latDelta = (maxLat - minLat) * 1.5;
+		const lngDelta = (maxLng - minLng) * 1.5;
+		return {
+			latitude: centerLat,
+			longitude: centerLng,
+			latitudeDelta: latDelta,
+			longitudeDelta: lngDelta
+		};
 	};
 
 	const handleSheetChanges = useCallback((index: number) => {
@@ -144,30 +144,23 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 
 	if (loading) {
 		return (
-			<BottomSheet
-				ref={ref}
-				snapPoints={['20%']}
-			>
-				 <BottomSheetView style={styles.contentContainerBottomSheet}>
-					 <ActivityIndicator size="large" color={theme.textDark} />
+			<BottomSheet ref={ref} snapPoints={['20%']}>
+				<BottomSheetView style={styles.contentContainerBottomSheet}>
+					<ActivityIndicator size="large" color={theme.textDark} />
 					<Text style={styles.h2}>Chargement...</Text>
-				 </BottomSheetView>
-			 </BottomSheet>
-		 );
+				</BottomSheetView>
+			</BottomSheet>
+		);
 	}
 	if (error || !stats) {
 		return (
-			<BottomSheet
-				ref={ref}
-				enablePanDownToClose
-				snapPoints={['40%']}
-			>
+			<BottomSheet ref={ref} enablePanDownToClose snapPoints={['40%']}>
 				<BottomSheetView style={styles.contentContainerBottomSheet}>
 					<Text>Erreur</Text>
 					<Text>{error || "Données non disponibles"}</Text>
 					<Button
 						title="Réessayer"
-						// onPress={fetchFishData}
+						onPress={fetchLegislation}
 						color={theme.textDark}
 					/>
 				</BottomSheetView>
@@ -221,7 +214,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 								<ActivityIndicator size="large" color={theme.textHighlightDark} />
 								<Text style={{ marginTop: 10, color: theme.textDark }}>Chargement de la carte...</Text>
 							</View>
-							) : geojsonData ? (
+							) : geojson ? (
 							<MapView
 								provider={PROVIDER_GOOGLE}
 								style={{ height: 200, width: '100%' }}
@@ -237,7 +230,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 								pitchEnabled={false}
 							>
 								<Geojson 
-								geojson={geojsonData} 
+								geojson={geojson} 
 								strokeColor={theme.textHighlightDark}
 								fillColor={`${theme.textHighlightDark}50`}
 								strokeWidth={2}

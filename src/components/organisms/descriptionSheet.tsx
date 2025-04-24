@@ -24,18 +24,19 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		const styles = GlobalStyles();
 		const insets = useSafeAreaInsets();
 
+		const fetchFish = async () => {
+			setLoading(true);
+			try {
+				const fish = await getFishById(fishId);
+				setStats(fish);
+			} catch (err) {
+				setError("Impossible de charger les infos du poisson.");
+			} finally {
+				setLoading(false);
+			}
+		};
+
 		useEffect(() => {
-			const fetchFish = async () => {
-				setLoading(true);
-				try {
-					const fish = await getFishById(fishId);
-					setStats(fish);
-				} catch (err) {
-					setError("Impossible de charger les infos du poisson.");
-				} finally {
-					setLoading(false);
-				}
-			};
 			fetchFish();
 		  }, []);
 
@@ -70,7 +71,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 						<Text>{error || "Données non disponibles"}</Text>
 						<Button
 							title="Réessayer"
-							// onPress={fetchFishData}
+							onPress={fetchFish}
 							color={theme.textDark}
 						/>
 					</BottomSheetView>
