@@ -18,7 +18,7 @@ const PropertyCard = ({ onPress, propertyName: propertyName, imgSource }: Proper
 					style={styles.backgroundImage}
           			resizeMode="cover"
 				/>
-				<Text numberOfLines={1} adjustsFontSizeToFit style={[styles.fishCardName, styles.propertyCardName]}>{propertyName}</Text>
+				<Text numberOfLines={fishName.length > 15 ? 2 : 1} adjustsFontSizeToFit style={[styles.fishCardName, styles.propertyCardName]}>{propertyName}</Text>
 		 	</TouchableOpacity>
 		</View>
 	);
