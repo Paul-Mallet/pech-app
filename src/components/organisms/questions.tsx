@@ -13,11 +13,6 @@ type QuestionsProps = {
     questionsParams : QuestionModel
 }
 
-type ItemType = {
-    label: string;
-    parameter?: string;
-};
-
 // const questions = [
 //   {
 //     question: "Oui ou non ?",

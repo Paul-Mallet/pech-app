@@ -26,8 +26,9 @@ export default class QuestionModel
             type: 'Morphologie',
             field: 'bodyType',
             reponses: this.bodyType.map(item => ({
-              label: item.name,           // Replace `name` with actual field
-              parameter: item.parameter          // Replace with relevant identifier
+              label: item.name,
+              id: item.id,
+              parameter: item.parameter
             }))
           },
           ...this.fins.map(group => ({
@@ -35,6 +36,7 @@ export default class QuestionModel
             field: 'fins',
             reponses: [{
               label: group.fin.label,
+              id: group.fin.id,
               parameter: group.fin.parameter
             }],
             groupLabel: group.type
@@ -44,6 +46,7 @@ export default class QuestionModel
             field: 'eye',
             reponses: this.eye.map(item => ({
               label: item.color + " " + item.position,
+              id: item.id,
               parameter: item.parameter
             }))
           },

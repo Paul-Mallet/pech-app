@@ -6,9 +6,11 @@ import { useTheme } from './ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
 import { useAnswers } from '../../@config/answerContext.tsx';
 
-type ItemType = {
+export type ItemType = {
   label: string;
-  parameter?: string;
+  id: string;
+  parameter: string;
+  subItems?: ItemType[];
 };
 
 type QuestionExpandableProps = {
@@ -31,9 +33,9 @@ const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, quest
 		});
 	};
 
-	const handleAnswerPress = (field: string, answer: string) =>
+	const handleAnswerPress = (id: string, answer: string) =>
 	{
-		console.log("Answer: ", field, ", ", answer);
+		console.log("Answer: ", id, ", ", answer);
 	}
 
 	const toggleExpand = () => setExpanded(prev => !prev);
@@ -56,7 +58,7 @@ const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, quest
 							<FishCard
 								fishName={item.label}
 								imgSource={item.parameter?.toString() || ''}
-								onPress={() => handleAnswerPress(questionType, item.label)}
+								onPress={() => handleAnswerPress(item.id, item.label)}
 							/>
 						</View>
 					))}

@@ -4,11 +4,8 @@ import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
+import { ItemType } from './questionExpandable.tsx';
 
-type ItemType = {
-  label: string;
-  parameter?: string;
-};
 
 type ExpandableSectionProps = {
   entryType: string;
