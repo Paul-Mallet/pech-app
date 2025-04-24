@@ -28,7 +28,6 @@ type LegislationType = {
 
 type LegislationSheetProps = {
 	legislationId: string;
-	legislationTitle: string;
 	onClose: () => void;
 };
 
@@ -40,7 +39,7 @@ type RegionCoordinates = {
 };
 
 const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetProps>(
-	({ legislationId, legislationTitle, onClose }, ref) => {
+	({ legislationId, onClose }, ref) => {
 	const bottomSheetRef = ref as React.RefObject<BottomSheetMethods>;
 	const [stats, setStats] = useState<LegislationType | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
