@@ -41,7 +41,6 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
     // const [visibleModal, setModalVisible] = useState(false);
     // const [questionType, setQuestionType] = useState<string | null>(null);
 
-    // console.log("params: ", questionsParams);
     type AnswerField = "bodyType" | "fins" | "eye"
 
     const handleQuestionPress = (field: AnswerField, id: number) => {

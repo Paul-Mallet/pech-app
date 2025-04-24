@@ -12,7 +12,7 @@ const ViewFishButton = () => {
     return (
         <View style={styles.mainDiv}>
             <TouchableOpacity style={styles.button} onPress={() => {
-                console.log(fishList)
+                console.log("\x1b[36mFish list:\x1b[0m \n", fishList)
             }}>
                 <Text style={styles.text}>Voir les poissons ({numberOfFish})</Text>
             </TouchableOpacity>

@@ -93,16 +93,14 @@ const GlobalStyles = () => {
       aspectRatio: 1,
     },
     fishCardName: {
+      width: "90%",
+      alignSelf: 'center',
       position: 'absolute',
-      left: '50%',
-      bottom: 0,
+      bottom: 5,
       fontFamily: font.bold,
       fontSize: 16,
       textAlign: 'center',
       color: theme.textBoldLight,
-      transform: [
-        { translateX: '-50%' },
-      ],
       textShadowColor: 'black', // Shadow color
       textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
       textShadowRadius: 6,
@@ -245,7 +243,6 @@ const GlobalStyles = () => {
 		fishCardContainer: {
 			position: "relative",
 			aspectRatio: 1,
-			padding: 16,
 			borderRadius: 24,
 			backgroundColor: "#fff",
 			overflow: 'hidden',

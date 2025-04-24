@@ -66,7 +66,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const handleFishPress = async (id: string) => {
         try {
             const fish = await getFishById(id);
-            console.log("Fetched fish:", fish);
+            console.log("\x1b[36mFetched fish:\x1b[0m", fish);
             setPressedFish(fish);
             bottomSheetRef.current?.expand();
         } catch (error) {
@@ -119,7 +119,6 @@ const FishScreen = ({ children }: HomeCardProps) => {
             
             // Sauvegarder les données dans le stockage local
             saveFishesToStorage(data);
-            console.log(data);
             
         } catch (err) {
             console.error('Erreur:', err);

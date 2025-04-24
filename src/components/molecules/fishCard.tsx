@@ -30,7 +30,7 @@ const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 					source={{ uri: imgSource }}
 					style={styles.backgroundImage}
 				/>
-				<Text style={styles.fishCardName}>{fishName}</Text>
+				<Text numberOfLines={1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>
 		 	</TouchableOpacity>
 		</View>
 	);

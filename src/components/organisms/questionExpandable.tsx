@@ -35,7 +35,7 @@ const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, quest
 
 	const handleAnswerPress = (id: string, answer: string) =>
 	{
-		console.log("Answer: ", id, ", ", answer);
+		console.log("\x1b[36mAnswer:\x1b[0m ", id, ", ", answer);
 	}
 
 	const toggleExpand = () => setExpanded(prev => !prev);
