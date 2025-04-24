@@ -2,9 +2,9 @@ import BodyTypeModel from "./bodyType.model.tsx";
 import EyeModel from "./eye.model.tsx";
 import FinModel from "./fins.model.tsx";
 
-type FinGroup = {
+export type FinGroup = {
     type: string;
-    fin: { label: string; parameter: string }; // single fin, not an array
+    fin: FinModel; // single fin, not an array
 }
 
 export type FinsIds = {

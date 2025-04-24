@@ -5,5 +5,7 @@ export default class FinModel {
         public shape : string, 
         public color : string, 
         public size : string, 
+        public label?: string,
+        public parameter?: string,
     ) {}
 }

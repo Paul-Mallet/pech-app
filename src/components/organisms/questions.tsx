@@ -46,6 +46,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
     // const [visibleModal, setModalVisible] = useState(false);
     // const [questionType, setQuestionType] = useState<string | null>(null);
 
+    // console.log("params: ", questionsParams);
     type AnswerField = "bodyType" | "fins" | "eye"
 
     const handleQuestionPress = (field: AnswerField, id: number) => {
@@ -102,7 +103,6 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
                             question={item.type}
                             questionType={item.field}
                             items={item.reponses}
-                            onFishPress={() => handleQuestionPress(item.field)}
                         />
                     </React.Fragment>
                     )}
