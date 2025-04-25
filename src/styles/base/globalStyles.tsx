@@ -75,7 +75,6 @@ const GlobalStyles = () => {
       flexDirection: "row",
       justifyContent: "space-between",
       marginBottom: 20,
-      // gap: 10,
     },
     boxShadow: {
       backgroundColor: 'red',
@@ -103,8 +102,8 @@ const GlobalStyles = () => {
       transform: [
         { translateX: '-50%' },
       ],
-      textShadowColor: 'black', // Shadow color
-      textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
+      textShadowColor: 'black',
+      textShadowOffset: { width: 1, height: 1 },
       textShadowRadius: 6,
     },
     legislationCard: {
@@ -141,7 +140,7 @@ const GlobalStyles = () => {
     searchBarTopItems: {
       alignItems: 'center',
       flexDirection: 'row',
-      height: 50, // default searchbar height, the homePanel and legislationPanel have this marginTop + 40!
+      height: 50,
     },
     searchBarList: {
       flexDirection: 'column',
@@ -155,7 +154,7 @@ const GlobalStyles = () => {
       height: 'auto',
       paddingBottom: 6
     },
-    searchBarGroupTitle: { // todo: align the text vertically
+    searchBarGroupTitle: {
       borderRadius: 8,
       fontFamily: font.regular,
       fontSize: 12,
@@ -196,8 +195,6 @@ const GlobalStyles = () => {
     marginRight: 8,
   },
   searchBarButtonRight: {
-    // borderWidth: 1,
-    // borderColor: theme.iconColor,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -205,12 +202,7 @@ const GlobalStyles = () => {
     height: 40,
     padding: 8,
     borderRadius: 32,
-    backgroundColor: theme.textHighlightDark,
-    // shadowColor: '#000',
-    // shadowOffset: { width: 1, height: 1 },
-    // shadowRadius: 5,
-    // shadowOpacity: 0.25,
-    // elevation: 5,
+    backgroundColor: theme.textHighlightDark
   },
   quizzButton: {
     position: 'absolute',
@@ -351,7 +343,7 @@ const GlobalStyles = () => {
     fontFamily: font.regular,
 		color: theme.textDark,
 	},
-	}), [theme, font]); // Only recompute when `theme` or `font` change
+	}), [theme, font]);
 
 	return styles;
 };

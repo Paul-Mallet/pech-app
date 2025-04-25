@@ -120,12 +120,12 @@ const FishScreen = ({ children }: HomeCardProps) => {
     if (loading) {
 		return (
 			<SafeAreaView style={styles.body}>
+                <Text style={[styles.h2, { zIndex: 110, marginTop: 60, paddingLeft: 16 }]}>Poissons</Text>
                 <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
                     <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
                 </TouchableOpacity>
-                <View>
+                <View style={{ marginTop: 110 }}>
                     <ActivityIndicator size="large" color={theme.textDark} />
-                    <Text style={styles.h2}>Chargement...</Text>
                 </View>
 		    </SafeAreaView>
 		);
@@ -133,10 +133,13 @@ const FishScreen = ({ children }: HomeCardProps) => {
 	if (error || !fishes) {
 		return (
 			<SafeAreaView style={styles.body}>
-                <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                    <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                </TouchableOpacity>
                 <View>
+                    <Text style={styles.h2}>Poissons</Text>
+                    <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                        <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginTop: 110 }}>
                     <Text>Erreur</Text>
                     <Text>{error || "Données non disponibles"}</Text>
                     <Button
@@ -174,10 +177,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
                         contentContainerStyle={{gap: 6}}
                         scrollEnabled={false}
                         keyExtractor={(item) => item.id.toString()}
-                        columnWrapperStyle={{
-                            gap: 6,
-                            width: 160,
-                            aspectRatio: 1}}
+                        columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
                         renderItem={({ item }) => (
                             <FishCard
                                 onPress={() => handleFishPress(item.id.toString())}

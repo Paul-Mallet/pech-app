@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { SafeAreaView, View, Text, Button } from 'react-native';
+import { SafeAreaView, View, Text, Button, ActivityIndicator } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
 import LegislationPanel from '../components/molecules/legislationPanel.tsx';
@@ -8,6 +8,7 @@ import LegislationSheet from '../components/organisms/legislationSheet.tsx';
 import type BottomSheet from '@gorhom/bottom-sheet';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { getAllLegislations } from '../services/fish.service.tsx';
+import { useTheme } from '../components/organisms/ThemeContext.tsx';
 
 interface Legislation {
     id: string;
@@ -31,6 +32,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	const [legislationId, setLegislationId] = useState<string | null>(null);
 	const navigation = useNavigation();
 	const styles = GlobalStyles();
+    const { theme } = useTheme();
 
 	// const handleSearch = (text: string) => {
 	//   setSearchText(text);
@@ -85,17 +87,12 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	// 	setAllParagraphs(prev => [...prev, newParagraph]);
 	// };
   
-	// Filter the children by inspecting props
-
 	if (loading) {
 		return (
 			<SafeAreaView style={styles.body}>
-                <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                    <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                </TouchableOpacity>
-                <View>
+				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
+                <View style={{ marginTop: 110 }}>
                     <ActivityIndicator size="large" color={theme.textDark} />
-                    <Text style={styles.h2}>Chargement...</Text>
                 </View>
 		    </SafeAreaView>
 		);
@@ -104,7 +101,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		return (
 			<SafeAreaView style={styles.body}>
 				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-                <View>
+			<View style={{ marginTop: 110 }}>
                     <Text>Erreur</Text>
                     <Text>{error || "Données non disponibles"}</Text>
                     <Button
