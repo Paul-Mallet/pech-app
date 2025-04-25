@@ -3,11 +3,11 @@ import { SafeAreaView, ScrollView, View, Text, Button, ActivityIndicator } from 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
-import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { getAllLegislations, getLegislationById } from '../services/fish.service.tsx';
-import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
+import GlobalStyles from '../styles/base/globalStyles.tsx';
+import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
+import { getAllLegislations } from '../services/fish.service.tsx';
 
 interface Legislation {
     id: string;
