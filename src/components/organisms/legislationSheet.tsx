@@ -192,10 +192,10 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 				>
 				<View style={styles.headerContainerBottomSheet}>
 					<View>
-					<Text style={[styles.h2, {fontSize: 20, lineHeight: 30}]}>{stats.title}</Text>
+						<Text style={[styles.h2, {fontSize: 20, lineHeight: 30}]}>{stats.title}</Text>
 						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
-						<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
+							<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
+							<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
 						</View>
 					</View>
 				</View>

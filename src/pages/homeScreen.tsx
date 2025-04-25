@@ -88,13 +88,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 		})
 	).current;
 
-	// const goToLegislationScreen = (text: string) => {
-	// 	navigation.navigate('Tabs', {
-	// 		screen: 'Législation',
-	// 		params: { searchText: text },
-	// 	});
-	// };
-
 	return (
 		<SafeAreaView style={styles.body}>
 			<SearchBar />

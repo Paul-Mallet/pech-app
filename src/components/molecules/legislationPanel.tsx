@@ -4,9 +4,10 @@ import LegislationStyles from '../../styles/pages/LegislationStyles.tsx';
 
 interface LegislationCardProps {
   	children?: ReactNode;
+	onPress: () => void;
 }
 
-const LegislationPanel = ({ children }: LegislationCardProps) => {
+const LegislationPanel = ({ children, onPress }: LegislationCardProps) => {
 	const legislationStyles = LegislationStyles();
 
 	return (
