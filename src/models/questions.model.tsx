@@ -4,7 +4,7 @@ import FinModel from "./fins.model.tsx";
 
 export type FinGroup = {
     type: string;
-    fin: FinModel; // single fin, not an array
+    fin: FinModel[]; // single fin, not an array
 }
 
 export type FinsIds = {
@@ -27,6 +27,7 @@ export default class QuestionModel
             field: 'bodyType',
             reponses: this.bodyType.map(item => ({
               label: item.name,
+              type: 'bodyType',
               id: item.id,
               parameter: item.parameter
             }))
@@ -34,11 +35,12 @@ export default class QuestionModel
           ...this.fins.map(group => ({
             type: "Nageoire " + group.type,
             field: 'fins',
-            reponses: [{
-              label: group.fin.label,
-              id: group.fin.id,
-              parameter: group.fin.parameter
-            }],
+            reponses: group.fin.map(fin => ({
+              label: fin.shape ?? '',
+              type: 'fins',
+              id: fin.id ?? 0,
+              parameter: fin.shape ?? '' // or another value if more relevant
+            })),
             groupLabel: group.type
           })),
           {
@@ -46,6 +48,7 @@ export default class QuestionModel
             field: 'eye',
             reponses: this.eye.map(item => ({
               label: item.color + " " + item.position,
+              type: 'eye',
               id: item.id,
               parameter: item.parameter
             }))

@@ -1,71 +1,84 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
-import { useNavigation } from '@react-navigation/native';
-import { useAnswers } from '../../@config/answerContext.tsx';
 
 export type ItemType = {
   label: string;
-  id: string;
+  type: string;
+  id: number;
   parameter: string;
-  subItems?: ItemType[];
 };
-
+type AnswerField = "bodyType" | "fins" | "eye";
 type QuestionExpandableProps = {
   question: string;
   questionType: string;
   items: ItemType[];
+  callBack: (field: AnswerField, id: number) => void;
 };
 
-const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, questionType, items }) => {
-    const {answers, setAnswers } = useAnswers();
-	const [expanded, setExpanded] = useState(false);
-	const { theme } = useTheme();
-	const styles = GlobalStyles();
+const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, questionType, items, callBack }) => {
+  const [expanded, setExpanded] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<string | null>(null);
+  const { theme } = useTheme();
+  const styles = GlobalStyles();
 
-	const navigation = useNavigation();
-	const handleRightIconPress = (text: string) => {
-		navigation.navigate('Tabs', {
-			screen: 'Législation',
-			params: { searchText: text },
-		});
-	};
+  function isAnswerField(answer: string): answer is AnswerField {
+    return ["bodyType", "fins", "eye"].includes(answer);
+  }
 
-	const handleAnswerPress = (id: string, answer: string) =>
-	{
-		console.log("\x1b[36mAnswer:\x1b[0m ", id, ", ", answer);
-	}
+  const handleAnswerPress = (id: number, answer: string, label: string) => {
+    if (isAnswerField(answer)) {
+      setSelectedId((prevSelectedId) => (prevSelectedId === id ? null : id));
+      setSelectedLabel((prevSelectedText) => (prevSelectedText === label ? null : label));
+      const answerField: AnswerField = answer;
+      callBack(answerField, id);
+      setExpanded(false);
+    }
+  };
 
-	const toggleExpand = () => setExpanded(prev => !prev);
+  const toggleExpand = () => setExpanded(prev => !prev);
 
-	return (
-		<View style={{ padding: 6, borderRadius: 24, backgroundColor: theme.cardBackground }}>
-			<TouchableOpacity onPress={toggleExpand} style={ {width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-				<Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, paddingLeft: 12 }]}>
-					{question}
-				</Text>
-				<Text style={[styles.textDark, { fontSize: 18 }]}>
-					{expanded ? '▲' : '▼'}
-				</Text>
-			</TouchableOpacity>
+  return (
+    <View style={{ padding: 6, borderRadius: 24, backgroundColor: selectedId ? theme.searchBarBackgroundFocused : theme.subcardBackground, borderColor: '#00000008', borderWidth: 1 }}>
+      <TouchableOpacity onPress={toggleExpand} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, paddingLeft: 12 }]}>
+          {question}
+		  {selectedLabel && (
+			<Text style={{ color: theme.green }}> - {selectedLabel}</Text>
+		)}
+        </Text>
+        <Text style={[styles.textDark, { fontSize: 18 }]}>
+          {expanded ? '▲' : '▼'}
+        </Text>
+      </TouchableOpacity>
 
-			{expanded && (
-				<View style={{ marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 6}}>
-					{items.map((item, index) => (
-						<View key={`${question}-${index}`} style={{ width: '48.5%', height: 'auto'}}>
-							<FishCard
-								fishName={item.label}
-								imgSource={item.parameter?.toString() || ''}
-								onPress={() => handleAnswerPress(item.id, item.label)}
-							/>
-						</View>
-					))}
-				</View>
-			)}
-		</View>
-	);
+      {expanded && (
+        <View style={{ marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 6 }}>
+          {items.map((item, index) => (
+            <View
+              key={`${question}-${index}`}
+              style={{ 
+                width: '48.5%', 
+                height: 'auto', 
+                borderWidth: selectedId === item.id ? 3 : 0,
+                borderRadius: 28,
+				        borderColor: "#00ff00"
+              }}
+            >
+              <FishCard
+                fishName={item.label}
+                imgSource={item.parameter?.toString() || ''}
+                onPress={() => handleAnswerPress(item.id, item.type, item.label)}
+              />
+            </View>
+          ))}
+        </View>
+      )}
+    </View>
+  );
 };
 
 export default QuestionExpandable;

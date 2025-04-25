@@ -32,7 +32,7 @@ const FishResearch = ({navigation} : any) => {
 
                 const questionsData : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
                 setQuestionsParams(questionsData);
-                console.log("\x1b[36mQuestions data:\x1b[0m\n", questionsData);
+                console.log("\x1b[36mQuestions data:\x1b[0m\n", JSON.stringify(questionsData, null, 2));
             } catch (error) {
                 console.log(error);
             } finally {

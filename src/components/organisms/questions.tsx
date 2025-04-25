@@ -44,6 +44,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
     type AnswerField = "bodyType" | "fins" | "eye"
 
     const handleQuestionPress = (field: AnswerField, id: number) => {
+      console.log("\x1b[36mAnswer:\x1b[0m", field, ", ", id);
       if (field !== "fins") {
         setAnswers({
           ...answers,
@@ -51,7 +52,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
         });
         return;
       }
-    
+
       const finGroup = questionsParams.finsIds.find(group =>
         group.ids.includes(id)
       );
@@ -85,8 +86,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
 
     return (
         <View style={styles.mainDiv}>
-        <View style={[styles.questionsList, {justifyContent: 'flex-end',
-        alignItems : 'center',}]}>
+        <View style={[styles.questionsList, {justifyContent: 'flex-end', alignItems : 'center',}]}>
                 <FlatList
                     data={questionsParams.toFlatListData()}
                     keyExtractor={(_, index) => index.toString()}
@@ -97,6 +97,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams}) => 
                             question={item.type}
                             questionType={item.field}
                             items={item.reponses}
+                            callBack={handleQuestionPress}
                         />
                     </React.Fragment>
                     )}

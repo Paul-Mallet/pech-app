@@ -12,6 +12,7 @@ interface FishCardProps {
 const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 	const styles = GlobalStyles();
 	const { addToHistory } = useHistory();
+	const hasImage = imgSource ? true : false;
 	const handlePress = () => {
 		addToHistory({
 			entryType: "Poissons",
@@ -27,10 +28,10 @@ const FishCard = ({ onPress, fishName, imgSource }: FishCardProps) => {
 		<View style={styles.fishCardContainer}>
 		 	<TouchableOpacity onPress={handlePress}>
 				<Image
-					source={{ uri: imgSource }}
+					source={hasImage ? { uri: imgSource } : require('../../../assets/DefaultFish.webp')}
 					style={styles.backgroundImage}
 				/>
-				<Text numberOfLines={fishName.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>
+				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>
 		 	</TouchableOpacity>
 		</View>
 	);
