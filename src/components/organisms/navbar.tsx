@@ -51,7 +51,7 @@ const BottomTabNavigator = () => {
               state={{
                 ...props.state,
                 routes: visibleRoutes,
-                index: adjustedIndex === -1 ? 0 : adjustedIndex,
+                index: adjustedIndex === -1 ? 1 : adjustedIndex,
               }}
             />
           );

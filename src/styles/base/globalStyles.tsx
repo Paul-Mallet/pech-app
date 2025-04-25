@@ -11,6 +11,7 @@ const GlobalStyles = () => {
       backgroundColor: theme.body,
     },
     h2: {
+      position: 'relative',
       fontSize: 24,
       marginBottom: 8,
       color: theme.textDark,
@@ -69,11 +70,11 @@ const GlobalStyles = () => {
     fishCardsContainer: {
       flex: 1,
       width: '100%',
+      height: 160,
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
       marginBottom: 20,
-      // gap: 10,
     },
     boxShadow: {
       backgroundColor: 'red',
@@ -101,8 +102,8 @@ const GlobalStyles = () => {
       transform: [
         { translateX: '-50%' },
       ],
-      textShadowColor: 'black', // Shadow color
-      textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
+      textShadowColor: 'black',
+      textShadowOffset: { width: 1, height: 1 },
       textShadowRadius: 6,
     },
     legislationCard: {
@@ -112,7 +113,7 @@ const GlobalStyles = () => {
       backgroundColor: theme.cardBackground,
       borderRadius: 24,
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 10 },
+      shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.2,
       shadowRadius: 10,
       elevation: 10,
@@ -139,7 +140,7 @@ const GlobalStyles = () => {
     searchBarTopItems: {
       alignItems: 'center',
       flexDirection: 'row',
-      height: 50, // default searchbar height, the homePanel and legislationPanel have this marginTop + 40!
+      height: 50,
     },
     searchBarList: {
       flexDirection: 'column',
@@ -153,7 +154,7 @@ const GlobalStyles = () => {
       height: 'auto',
       paddingBottom: 6
     },
-    searchBarGroupTitle: { // todo: align the text vertically
+    searchBarGroupTitle: {
       borderRadius: 8,
       fontFamily: font.regular,
       fontSize: 12,
@@ -194,8 +195,6 @@ const GlobalStyles = () => {
     marginRight: 8,
   },
   searchBarButtonRight: {
-    // borderWidth: 1,
-    // borderColor: theme.iconColor,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -203,12 +202,20 @@ const GlobalStyles = () => {
     height: 40,
     padding: 8,
     borderRadius: 32,
+    backgroundColor: theme.textHighlightDark
+  },
+  quizzButton: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    padding: 8,
+    borderRadius: 32,
     backgroundColor: theme.textHighlightDark,
-    // shadowColor: '#000',
-    // shadowOffset: { width: 1, height: 1 },
-    // shadowRadius: 5,
-    // shadowOpacity: 0.25,
-    // elevation: 5,
+    zIndex: 10
   },
   input: {
     marginTop: 4,
@@ -229,11 +236,8 @@ const GlobalStyles = () => {
 		},
 		fishCardContainer: {
 			position: "relative",
-			width: '47.5%',
 			aspectRatio: 1,
-			marginTop: 16, // previously marginVertical
-			// marginRight: 16,
-			// padding: 16,
+			padding: 16,
 			borderRadius: 24,
 			backgroundColor: "#fff",
 			overflow: 'hidden',
@@ -290,13 +294,21 @@ const GlobalStyles = () => {
 		alignItems: 'center',
 		backgroundColor: theme.body,
 	},
+	contentContainerBottomSheetLegislation: {
+		flex: 1,
+		position:'relative',
+		width: '100%',
+		paddingVertical: 36,
+		paddingHorizontal: 16,
+		alignItems: 'center',
+		backgroundColor: theme.body,
+	},
 	headerContainerBottomSheet: {
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		width: '100%',
-		marginTop: -40,
 		marginBottom: 16,
 	},
   headerContainerTitles: {
@@ -308,7 +320,7 @@ const GlobalStyles = () => {
 		alignItems: 'center',
 	},
 	hScientific: {
-    marginTop: -16,
+    marginTop: -12,
 		fontSize: 16,
 		fontFamily: font.italic,
 		color: theme.textDark,
@@ -331,7 +343,7 @@ const GlobalStyles = () => {
     fontFamily: font.regular,
 		color: theme.textDark,
 	},
-	}), [theme, font]); // Only recompute when `theme` or `font` change
+	}), [theme, font]);
 
 	return styles;
 };

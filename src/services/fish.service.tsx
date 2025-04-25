@@ -5,6 +5,7 @@ import EyeFactory from "../@utils/eye.factory.tsx";
 import BodyTypeModel from "../models/bodyType.model.tsx";
 import FinModel from "../models/fins.model.tsx";
 import EyeModel from "../models/eye.model.tsx";
+import ResearchAnswerModel from "../models/researchAnswer.model.tsx";
 
 const API_BASE_URL = "https://pechapp.edwindev.fr/api/";
 
@@ -111,12 +112,32 @@ export const getEyeById = async (id: string) => {
     }
 }
 
+export const getAllLegislations = async () => {
+    try {
+        const response = await apiClient.get(`legislation`);
+        return response.data;
+    } catch (error) {
+        console.error("API error when trying to get legislations: ", error);
+        return error;
+    }
+}
+
 export const getLegislationById = async (id : string) => {
     try {
         const response = await apiClient.get(`legislation/${id}`);
         return response.data;
     } catch (error) {
         console.error("API error when trying to get a legislation: ", error);
+        return error;
+    }
+}
+
+export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
+    try {
+        const response = await apiClient.get(`fish`);
+        return response.data;
+    } catch (error) {
+        console.error("API error when trying to update the fishlist : ", error);
         return error;
     }
 }
