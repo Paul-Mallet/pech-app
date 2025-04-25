@@ -66,7 +66,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const handleFishPress = async (id: string) => {
         try {
             const fish = await getFishById(id);
-            console.log("\x1b[36mFetched fish:\x1b[0m", fish);
+            // console.log("\x1b[36mFetched fish:\x1b[0m", fish);
             setPressedFish(fish);
             bottomSheetRef.current?.expand();
         } catch (error) {

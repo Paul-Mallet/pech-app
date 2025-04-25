@@ -22,6 +22,13 @@ const FishResearch = ({navigation} : any) => {
 
     const [questionsParams, setQuestionsParams] = useState<QuestionModel | null>(null);
     const [loading, setLoading] = useState(true);
+    const [shouldResetFilters, setShouldResetFilters] = useState(false);
+
+    const resetFilters = () =>
+    {
+        setShouldResetFilters(true);
+        setTimeout(() => setShouldResetFilters(false), 100); // reset back to false
+    }
 
     useEffect(() => {
         const createQuestions = async () => {
@@ -32,7 +39,7 @@ const FishResearch = ({navigation} : any) => {
 
                 const questionsData : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
                 setQuestionsParams(questionsData);
-                console.log("\x1b[36mQuestions data:\x1b[0m\n", JSON.stringify(questionsData, null, 2));
+                // console.log("\x1b[36mQuestions data:\x1b[0m\n", JSON.stringify(questionsData, null, 2));
             } catch (error) {
                 console.log(error);
             } finally {
@@ -59,8 +66,14 @@ const FishResearch = ({navigation} : any) => {
                     <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.navigate("Poissons")}>
                         <Ionicons name='close' size={24} color={theme.iconColor}/>
                     </TouchableOpacity>
-                    <Questions navigation={navigation} questionsParams={questionsParams}/>
-                    <ViewFishButton/>
+                    <Questions navigation={navigation} questionsParams={questionsParams} shouldResetFilters={shouldResetFilters}/>
+
+                    <View style={styles.mainButtonsDiv}>
+                        <TouchableOpacity style={[styles.button, {borderColor: '#ff000080', backgroundColor: '#ff333350', paddingHorizontal: 10}]} onPress={() => resetFilters()}>
+                            <Text style={styles.text}>Réinitialiser les filtres</Text>
+                        </TouchableOpacity>
+                        <ViewFishButton/>
+                    </View>
                 </View>
             </AnswerProvider>
         </FishListProvider>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import FishCard from '../molecules/fishCard.tsx';
@@ -16,18 +16,29 @@ type QuestionExpandableProps = {
   questionType: string;
   items: ItemType[];
   callBack: (field: AnswerField, id: number) => void;
+  resetFilter: number;
 };
 
-const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, questionType, items, callBack }) => {
+const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, questionType, items, callBack, resetFilter }) => {
   const [expanded, setExpanded] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null);
-  const { theme } = useTheme();
+  const { theme, font } = useTheme();
   const styles = GlobalStyles();
 
   function isAnswerField(answer: string): answer is AnswerField {
     return ["bodyType", "fins", "eye"].includes(answer);
   }
+
+
+  useEffect(() => {
+    if (resetFilter !== undefined)
+    {
+      setSelectedId(null);
+      setSelectedLabel(null);
+      setExpanded(false);
+    }
+  }, [resetFilter])
 
   const handleAnswerPress = (id: number, answer: string, label: string) => {
     if (isAnswerField(answer)) {
@@ -44,13 +55,13 @@ const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, quest
   return (
     <View style={{ padding: 6, borderRadius: 24, backgroundColor: selectedId ? theme.searchBarBackgroundFocused : theme.subcardBackground, borderColor: '#00000008', borderWidth: 1 }}>
       <TouchableOpacity onPress={toggleExpand} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, paddingLeft: 12 }]}>
+        <Text style={[styles.textDark, { fontSize: 14, paddingLeft: 12 }]}>
           {question}
-		  {selectedLabel && (
-			<Text style={{ color: theme.green }}> - {selectedLabel}</Text>
-		)}
+          {selectedLabel && (
+            <Text style={{ color: theme.green, fontFamily: font.regular }}> - {selectedLabel}</Text>
+          )}
         </Text>
-        <Text style={[styles.textDark, { fontSize: 18 }]}>
+        <Text style={[styles.textDark, { fontSize: 14 }]}>
           {expanded ? '▲' : '▼'}
         </Text>
       </TouchableOpacity>

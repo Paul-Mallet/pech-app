@@ -15,7 +15,7 @@ const QuestionStyles = () => {
         },
         questionsList: 
         {
-            top: 80,
+            top: 60,
             width: '95%',
             height: '65%',
         },

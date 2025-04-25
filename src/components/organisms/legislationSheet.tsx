@@ -38,7 +38,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
     const [geojsonData, setGeojsonData] = useState<any>(null);
     const [loadingGeojson, setLoadingGeojson] = useState<boolean>(false);
     const [mapRegion, setMapRegion] = useState(null);
-    const { theme } = useTheme();
+    const { theme, font } = useTheme();
     const styles = GlobalStyles();
     const insets = useSafeAreaInsets();
     
@@ -231,18 +231,18 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
                 ) : (
                   <View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
                     <Ionicons name="map" size={48} color={theme.textDark} />
-                    <Text style={{ marginTop: 10, color: theme.textDark }}>Carte non disponible</Text>
+                    <Text style={{ marginTop: 10, color: theme.textDark, fontFamily: font.regular }}>Carte non disponible</Text>
                   </View>
                 )}
               </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Ionicons name="document-text" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-              <Text style={{ fontSize: 14, color: theme.textDark }}>Référence: {regulation.metadata.reference}</Text>
+              <Text style={{ fontSize: 14, color: theme.textDark, fontFamily: font.regular }}>Référence: {regulation.metadata.reference}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Ionicons name="time" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-              <Text style={{ fontSize: 14, color: theme.textDark }}>Mis à jour: {regulation.metadata.lastUpdated}</Text>
+              <Text style={{ fontSize: 14, color: theme.textDark, fontFamily: font.regular }}>Mis à jour: {regulation.metadata.lastUpdated}</Text>
             </View>
           </ScrollView>
         </BottomSheetView>

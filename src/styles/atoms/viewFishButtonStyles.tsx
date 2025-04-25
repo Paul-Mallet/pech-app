@@ -1,10 +1,9 @@
 import { StyleSheet } from "react-native";
-import GlobalStyles from "../base/globalStyles.tsx";
 import { useTheme } from "../../components/organisms/ThemeContext.tsx";
 import { useMemo } from "react";
 
 const ButtonStyles = () => {
-    const { theme } = useTheme();
+    const { theme, font } = useTheme();
   
     const styles = useMemo(() => StyleSheet.create({
         mainDiv: {
@@ -15,18 +14,18 @@ const ButtonStyles = () => {
             alignItems: 'center',
         },
         button : {
+            justifyContent: 'center',
             height: 40,
             paddingHorizontal: 40,
             borderRadius: 24,
             borderWidth: 2,
             borderColor: theme.iconColor,
-            textAlign: 'center',
             backgroundColor : theme.navBarBackground,
         },
         text : {
+            fontFamily: font.regular,
             color : theme.textDark,
-            fontSize: 20,
-            fontFamily: 'BoldFont'
+            fontSize: 16,
         }
     }), [theme]);
   

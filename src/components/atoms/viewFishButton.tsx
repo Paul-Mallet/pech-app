@@ -10,9 +10,9 @@ const ViewFishButton = () => {
     let numberOfFish : number = fishList.fishList.length;
 
     return (
-        <View style={styles.mainDiv}>
+        <View>
             <TouchableOpacity style={styles.button} onPress={() => {
-                console.log("\x1b[36mFish list:\x1b[0m \n", JSON.stringify(fishList, null, 2))
+                // console.log("\x1b[36mFish list:\x1b[0m \n", JSON.stringify(fishList, null, 2))
             }}>
                 <Text style={styles.text}>Voir les poissons ({numberOfFish})</Text>
             </TouchableOpacity>
