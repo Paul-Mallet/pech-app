@@ -72,6 +72,7 @@ const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, quest
                 fishName={item.label}
                 imgSource={item.parameter?.toString() || ''}
                 onPress={() => handleAnswerPress(item.id, item.type, item.label)}
+                addHistory = {false}
               />
             </View>
           ))}
