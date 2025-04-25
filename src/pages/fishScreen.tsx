@@ -1,13 +1,13 @@
-import React, { ReactNode, useState, useEffect, useRef, useCallback } from 'react';
-import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, Alert, TouchableOpacity, Button } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import GlobalStyles from '../styles/base/globalStyles.tsx';
+import React, { ReactNode, useState, useEffect, useRef } from 'react';
+import { FlatList, SafeAreaView, Text, View, RefreshControl,
+    ScrollView, TouchableOpacity, Button, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
+import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
-import { getFishById } from '../services/fish.service.tsx';
+import { getAllFish, getFishById } from '../services/fish.service.tsx';
 
 interface HomeCardProps {
     children?: ReactNode;
@@ -38,32 +38,47 @@ interface Fish {
 }
 
 const FishScreen = ({ children }: HomeCardProps) => {
-	const styles = GlobalStyles();
-    const [pressedFish, setPressedFish] = useState<Fish | null>(null);
     const bottomSheetRef = useRef<BottomSheet>(null);
     const [fishes, setFishes] = useState<Fish[]>([]);
-    const [loading, setLoading] = useState<boolean>(true); // useless?
+    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [refreshing, setRefreshing] = useState<boolean>(false);
-    const [isOfflineData, setIsOfflineData] = useState<boolean>(false);
-    const navigation = useNavigation();
-    const { theme } = useTheme();
+    const [pressedFish, setPressedFish] = useState<Fish | null>(null);
     const [filtered, setFiltered] = useState<boolean>(false);
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
+    const navigation = useNavigation();
+	const styles = GlobalStyles();
+    const { theme } = useTheme();
 
     const handleFilterButtonPress = () => {
         if (!filtered)
             navigation.navigate('FishResearch');
         else
             setFiltered(false);
-      };
+    };
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchFishes();
+    };
+
+    const fetchFishes = async () => {
+        setLoading(true);
+        try {
+            const fishes = await getAllFish();
+            setFishes(fishes);
+        } catch (err) {
+            setError('Impossible de charger les données des poissons.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        if (!isLoaded)
-            fetchFishes();
+        fetchFishes();
     }, []);
 
     const handleFishPress = async (id: string) => {
+        setLoading(true);
         try {
             const fish = await getFishById(id);
             // console.log("\x1b[36mFetched fish:\x1b[0m", fish);
@@ -135,16 +150,70 @@ const FishScreen = ({ children }: HomeCardProps) => {
             }
         } finally {
             setLoading(false);
-            setRefreshing(false);
-            setIsLoaded(false);
         }
     };
 
-    const onRefresh = () => {
-        setRefreshing(true);
-        fetchFishes();
-    };
+    // const safeAsyncStorage = AsyncStorage as unknown as {
+    //     getItem: (key: string) => Promise<string | null>;
+    //     setItem: (key: string, value: string) => Promise<void>;
+    // };
 
+    // const saveFishesToStorage = async (fishesData: Fish[]) => {
+    //     try {
+    //         await safeAsyncStorage.setItem('cached_fishes', JSON.stringify(fishesData));
+    //         await safeAsyncStorage.setItem('fishes_last_updated', new Date().toISOString());
+    //     } catch (e) {
+    //         console.error('Erreur lors de la sauvegarde des données dans le stockage local:', e);
+    //     }
+    // };
+
+    // const getStoredFishes = async (): Promise<Fish[] | null> => {
+    //     try {
+    //         const cachedFishes = await safeAsyncStorage.getItem('cached_fishes');
+    //         if (cachedFishes) {
+    //             return JSON.parse(cachedFishes);
+    //         }
+    //         return null;
+    //     } catch (e) {
+    //         console.error('Erreur lors de la récupération des données du stockage local:', e);
+    //         return null;
+    //     }
+    // };
+
+    if (loading) {
+		return (
+			<SafeAreaView style={styles.body}>
+                <Text style={[styles.h2, { zIndex: 110, marginTop: 60, paddingLeft: 16 }]}>Poissons</Text>
+                <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                    <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                </TouchableOpacity>
+                <View style={{ marginTop: 110 }}>
+                    <ActivityIndicator size="large" color={theme.textDark} />
+                </View>
+		    </SafeAreaView>
+		);
+	}
+	if (error || !fishes) {
+		return (
+			<SafeAreaView style={styles.body}>
+                <View>
+                    <Text style={styles.h2}>Poissons</Text>
+                    <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                        <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginTop: 110 }}>
+                    <Text>Erreur</Text>
+                    <Text>{error || "Données non disponibles"}</Text>
+                    <Button
+                        title="Réessayer"
+                        onPress={fetchFishes}
+                        color={theme.textDark}
+                    />
+                </View>
+		    </SafeAreaView>
+		);
+	};
 	return (
 		<SafeAreaView style={styles.body}>
             <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
@@ -164,37 +233,28 @@ const FishScreen = ({ children }: HomeCardProps) => {
 				}
 			>
 				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
-
-                <Text style={styles.h2}>Poissons</Text>
-                {isOfflineData && (
-                    <Text style={{textAlign: 'center', color: '#e67e22', marginBottom: 10}}>
-                        Données chargées depuis le cache. Tirez vers le bas pour actualiser.
-                    </Text>
-                )}
-                <FlatList
-                    contentContainerStyle={{gap: 6}}
-                    columnWrapperStyle={{
-                        gap: 6,
-                        width: 160,
-                        aspectRatio: 1}}
-                    data={fishes}
-                    numColumns={2}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <FishCard
-                            onPress={() => handleFishPress(item.id.toString())}
-                            fishName={item.name}
-                            imgSource={item.img}
-                        />
-                    )}
-                    scrollEnabled={false}
-                />
+                    <Text style={styles.h2}>Poissons</Text>
+                    <FlatList
+                        data={fishes}
+                        numColumns={2}
+                        contentContainerStyle={{gap: 6}}
+                        scrollEnabled={false}
+                        keyExtractor={(item) => item.id.toString()}
+                        columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
+                        renderItem={({ item }) => (
+                            <FishCard
+                                onPress={() => handleFishPress(item.id.toString())}
+                                fishName={item.name}
+                                imgSource={item.img}
+                            />
+                        )}
+                    />
 				</View>
 			</ScrollView>
             {pressedFish && (
                 <DescriptionSheet
                     ref={bottomSheetRef}
-                    fishName={pressedFish.name}
+                    fishId={pressedFish.id.toString()}
                     onClose={() => setPressedFish(null)}
                 />
             )}

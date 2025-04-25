@@ -24,12 +24,12 @@ const LegislationCard = (props: LegislationCardProps) => {
 	
 		return parts.map((part, i) => (
 		  part.toLowerCase() === query.toLowerCase() ? (
-			<Text key={i} style={styles.textHighlightSearch}>{part}</Text>
-		  ) : (
-			<Text key={i}>{part}</Text>
-		  )
+				<Text key={i} style={styles.textHighlightSearch}>{part}</Text>
+			) : (
+				<Text key={i}>{part}</Text>
+			)
 		));
-	  };
+	};
 
 	const getHighlightedText = (text: string) => {
 		const regex = /<h>(.*?)<\/h>/g;

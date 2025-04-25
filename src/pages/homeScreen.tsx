@@ -25,8 +25,8 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const decouvrir = 'découvrir';
 	const revoir = 'revoir';
 
-	const handleFishPress = (fishName: string) => {
-		setPressedFish(fishName);
+	const handleFishPress = (fishId: string) => {
+		setPressedFish(fishId);
 		bottomSheetRef.current?.expand();
 	};
 
@@ -52,7 +52,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 				return Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy);
 			},
 			onPanResponderGrant: (evt) => {
-				// console.log("granted");
 				startTouch.current = {
 					x: evt.nativeEvent.pageX,
 					y: evt.nativeEvent.pageY,
@@ -79,12 +78,10 @@ const HomeScreen = ({ route }: { route: any }) => {
 				}
 			},
 			onPanResponderRelease: () => {
-				// console.log("release");
 				gestureDirection.current = null;
 				hasSwitched.current = false;
 			},
 			onPanResponderTerminate: () => {
-				// console.log("terminate");
 				gestureDirection.current = null;
 				hasSwitched.current = false;
 			},
