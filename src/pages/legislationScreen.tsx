@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { SafeAreaView, View, Text, Button, ActivityIndicator } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, Button, ActivityIndicator } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
-import LegislationPanel from '../components/molecules/legislationPanel.tsx';
-import LegislationCard from '../components/molecules/legislationCard.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
-import type BottomSheet from '@gorhom/bottom-sheet';
+import LegislationCard from '../components/molecules/legislationCard.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { getAllLegislations } from '../services/fish.service.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
+import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
+import { getAllLegislations } from '../services/fish.service.tsx';
 
 interface Legislation {
     id: string;
@@ -29,19 +28,11 @@ const LegislationScreen = ({ route }: { route: any }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
-	const [legislationId, setLegislationId] = useState<string | null>(null);
+	const [legislationId, setLegislationId] = useState<string>("");
 	const navigation = useNavigation();
 	const styles = GlobalStyles();
+	const legislationStyles = LegislationStyles();
     const { theme } = useTheme();
-
-	// const handleSearch = (text: string) => {
-	//   setSearchText(text);
-	// };
-
-	const handleLegislationPress = (id: string) => {
-		setLegislationId(id);
-		bottomSheetRef.current?.expand();
-	};
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -51,41 +42,32 @@ const LegislationScreen = ({ route }: { route: any }) => {
 			navigation.setParams({ searchText: undefined });
 		}, [route.params?.searchText])
 	);
-
+	
 	const fetchLegislations = async () => {
 		setLoading(true);
 		try {
 			const legislations = await getAllLegislations();
 			setLegislations(legislations);
 		} catch (err) {
-			setError("Impossible de charger les infos de la legislation.");
+			setError("Impossible de charger les infos des legislations.");
 		} finally {
 			setLoading(false);
 		}
 	};
-
+	
 	useEffect(() => {
 		fetchLegislations();
 	}, []);
-
+	
 	const filtered = legislations?.filter(legis => 
 		legis.title.toLowerCase().includes(searchText.toLowerCase()) || 
 		legis.content.toLowerCase().includes(searchText.toLowerCase())
-	)
-	.map(legis => React.cloneElement(legis, { searchText }));
-
-	// const addParagraph = (title: string, text: string) => {
-	// 	const newKey = String(allParagraphs.length + 1);
-	// 	const newParagraph = (
-	// 		<ParagraphLegislationCard
-	// 			key={newKey}
-	// 			title={title}
-	// 			text={text}
-	// 			searchText={searchText}
-	// 		/>
-	// 	);
-	// 	setAllParagraphs(prev => [...prev, newParagraph]);
-	// };
+	);
+	
+	const handleLegislationPress = (id: string) => {
+		setLegislationId(id);
+		bottomSheetRef.current?.expand();
+	};
   
 	if (loading) {
 		return (
@@ -116,9 +98,17 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	return (
 		<SafeAreaView style={styles.body}>
 			<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-			<LegislationPanel>
-				{filtered}
-			</LegislationPanel>
+			<ScrollView style={legislationStyles.legislationPanel}>
+				{filtered.map(legis => (
+					<LegislationCard
+						key={legis.id}
+						title={legis.title}
+						text={legis.content}
+						searchText={searchText}
+						onPress={() => handleLegislationPress(legis.id)}
+					/>
+				))}
+			</ScrollView>
 			{pressedLegislation && (
 				<LegislationSheet
 					ref={bottomSheetRef}
