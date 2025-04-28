@@ -18,39 +18,39 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress }) => {
   const [error, setError] = useState<string | null>(null);
   const styles = GlobalStyles();
 
-  useEffect(() => {
-	const fetchRandomFishes = async () => {
-	  try {
-		const randomFishesIds = getRandomIds(2);
-		const randomFishes = await Promise.all(
-			randomFishesIds.map(id => getFishById(id))
-		);
-		setFishes(randomFishes);
-	  } catch (err) {
-		setError("Impossible de charger les infos des poissons.");
-	  } finally {
-		setLoading(false);
-	  }
-	};
-	fetchRandomFishes();
-  }, []);
+//   useEffect(() => {
+// 	const fetchRandomFishes = async () => {
+// 	  try {
+// 		const randomFishesIds = getRandomIds(2);
+// 		const randomFishes = await Promise.all(
+// 			randomFishesIds.map(id => getFishById(id))
+// 		);
+// 		setFishes(randomFishes);
+// 	  } catch (err) {
+// 		setError("Impossible de charger les infos des poissons.");
+// 	  } finally {
+// 		setLoading(false);
+// 	  }
+// 	};
+// 	fetchRandomFishes();
+//   }, []);
 
-  useEffect(() => {
-	const fetchRandomLegislations = async () => {
-	  try {
-		const randomLegislationIds = getRandomIds(5);
-		const randomLegislations = await Promise.all(
-			randomLegislationIds.map(id => getLegislationById(id))
-		);
-		setLegislations(randomLegislations);
-	  } catch (err) {
-		setError("Impossible de charger les infos des legislations.");
-	  } finally {
-		setLoading(false);
-	  }
-	};
-	fetchRandomLegislations();
-  });
+//   useEffect(() => {
+// 	const fetchRandomLegislations = async () => {
+// 	  try {
+// 		const randomLegislationIds = getRandomIds(5);
+// 		const randomLegislations = await Promise.all(
+// 			randomLegislationIds.map(id => getLegislationById(id))
+// 		);
+// 		setLegislations(randomLegislations);
+// 	  } catch (err) {
+// 		setError("Impossible de charger les infos des legislations.");
+// 	  } finally {
+// 		setLoading(false);
+// 	  }
+// 	};
+// 	fetchRandomLegislations();
+//   });
 
   const getRandomIds = (count: number) => {
 	const ids: any[] = [];

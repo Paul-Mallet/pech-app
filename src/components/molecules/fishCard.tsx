@@ -9,6 +9,7 @@ interface FishCardProps {
 	imgSource: string;
 	addHistory?: boolean;
 }
+const urlPrefixe = "https://pechapp.edwindev.fr";
 
 const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardProps) => {
 	const styles = GlobalStyles();
@@ -30,7 +31,7 @@ const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardP
 		<View style={styles.fishCardContainer}>
 		 	<TouchableOpacity onPress={handlePress}>
 				<Image
-					source={hasImage ? { uri: imgSource } : require('../../../assets/DefaultFish.webp')}
+					source={hasImage ? { uri: urlPrefixe + imgSource } : require('../../../assets/DefaultFish.webp')}
 					style={styles.backgroundImage}
 				/>
 				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>

@@ -18,16 +18,16 @@ type LegislationType = {
 	id: number;
 	date: string;
 	title: string;
-	content: string[];
+	article: string[];
 	metadata: {
-		reference: string;
-		lastUpdated: string;
+		reference: string | '';
+		lastUpdated: string | '';
 	};
 	geojson: string;
 };
 
 type LegislationSheetProps = {
-	legislationId: string;
+	legislationId: string | null;
 	onClose: () => void;
 };
 
@@ -199,7 +199,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 						</View>
 					</View>
 				</View>
-					{stats.content.map((paragraph, index) => (
+					{stats && stats.article && stats.article.map((paragraph, index) => (
 					<Text key={index} style={[styles.textDescriptionBottomSheet, { marginBottom: 10 }]}>
 						{paragraph}
 					</Text>
@@ -245,11 +245,11 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 					</View>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<Ionicons name="document-text" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-						<Text style={{ fontSize: 14, color: theme.textDark }}>Référence: {stats.metadata.reference}</Text>
+						<Text style={{ fontSize: 14, color: theme.textDark }}>Référence: {stats?.metadata?.reference || 'N/A'}</Text>
 					</View>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<Ionicons name="time" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-						<Text style={{ fontSize: 14, color: theme.textDark }}>Mis à jour: {stats.metadata.lastUpdated}</Text>
+						<Text style={{ fontSize: 14, color: theme.textDark }}>Mis à jour: {stats?.metadata?.lastUpdated || 'N/A'}</Text>
 					</View>
 				</ScrollView>
 			</BottomSheetView>

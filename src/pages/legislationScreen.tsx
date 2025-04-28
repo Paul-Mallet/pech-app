@@ -14,7 +14,7 @@ interface Legislation {
     id: string;
     title: string;
     date: string;
-    content: string;
+    article: string;
     metadata: {
 		reference: string,
 		lastUpdated: string
@@ -38,9 +38,14 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	//   setSearchText(text);
 	// };
 
+	useEffect(() => {
+		if (pressedLegislation && bottomSheetRef.current) {
+			bottomSheetRef.current.expand();
+		}
+	}, [pressedLegislation]);
+
 	const handleLegislationPress = (id: string) => {
-		setLegislationId(id);
-		bottomSheetRef.current?.expand();
+		setPressedLegislation(id);
 	};
 
 	useFocusEffect(
@@ -56,6 +61,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		setLoading(true);
 		try {
 			const legislations = await getAllLegislations();
+			// console.log("Legislations: ", legislations);
 			setLegislations(legislations);
 		} catch (err) {
 			setError("Impossible de charger les infos de la legislation.");
@@ -68,11 +74,20 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		fetchLegislations();
 	}, []);
 
-	const filtered = legislations?.filter(legis => 
-		legis.title.toLowerCase().includes(searchText.toLowerCase()) || 
-		legis.content.toLowerCase().includes(searchText.toLowerCase())
-	)
-	.map(legis => React.cloneElement(legis, { searchText }));
+	const filtered = legislations
+    ?.filter(legis => 
+        legis.title.toLowerCase().includes(searchText.toLowerCase()) || 
+        legis.article.toLowerCase().includes(searchText.toLowerCase())
+    )
+    .map(legis => (
+        <LegislationCard
+            key={legis.id}
+            title={legis.title}
+            text={legis.article}
+            searchText={searchText}
+            onPress={() => handleLegislationPress(legis.id)}
+        />
+    ));
 
 	// const addParagraph = (title: string, text: string) => {
 	// 	const newKey = String(allParagraphs.length + 1);

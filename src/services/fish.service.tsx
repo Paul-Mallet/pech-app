@@ -122,7 +122,7 @@ export const getAllLegislations = async () => {
     }
 }
 
-export const getLegislationById = async (id : string) => {
+export const getLegislationById = async (id : string | null) => {
     try {
         const response = await apiClient.get(`legislation/${id}`);
         return response.data;
