@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Button, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
+import { View, Linking, Text, Button, ScrollView, ActivityIndicator, BackHandler, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
 import BottomSheet, { BottomSheetView, BottomSheetMethods } from '@gorhom/bottom-sheet';
@@ -9,22 +9,23 @@ import { useTheme } from '../organisms/ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { getLegislationById } from '../../services/fish.service.tsx';
 import { FeatureCollection, Geometry } from 'geojson';
+import { Legislation } from '../../pages/legislationScreen.tsx';
 
 // Import avec 'with' au lieu de 'assert'
 // import regulationsData from '../../data/mocks/regulations.json' with { type: 'json' };
 // const regulations = regulationsData;
 
-type LegislationType = {
-	id: number;
-	date: string;
-	title: string;
-	content: string[];
-	metadata: {
-		reference: string;
-		lastUpdated: string;
-	};
-	geojson: string;
-};
+// type LegislationType = {
+// 	id: number;
+// 	date: string;
+// 	title: string;
+// 	content: string[];
+// 	metadata: {
+// 		reference: string;
+// 		lastUpdated: string;
+// 	};
+// 	geojson: string;
+// };
 
 type LegislationSheetProps = {
 	legislationId: string;
@@ -41,7 +42,7 @@ type RegionCoordinates = {
 const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetProps>(
 	({ legislationId, onClose }, ref) => {
 	const bottomSheetRef = ref as React.RefObject<BottomSheetMethods>;
-	const [stats, setStats] = useState<LegislationType | null>(null);
+	const [stats, setStats] = useState<Legislation | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 	const [geojson, setGeojson] = useState<any>(null);
@@ -73,7 +74,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 			const loadGeojson = async () => {
 				setLoadingGeojson(true);
 				try {
-					const res = await fetch(stats.geojson);
+					const res = await fetch(`https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/regions/corse/cantons-corse.geojson`); //maps api + ${stats.places[0].name}
 					if (!res.ok)
 						throw new Error(`HTTP error! status: ${res.status}`);
 					const data = await res.json();
@@ -199,12 +200,14 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 						</View>
 					</View>
 				</View>
-					{stats.content.map((paragraph, index) => (
-					<Text key={index} style={[styles.textDescriptionBottomSheet, { marginBottom: 10 }]}>
-						{paragraph}
+					<Text style={[styles.textDescriptionBottomSheet, { marginBottom: -4 }]}>
+						{stats.article}
 					</Text>
-					))}
-					
+					<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
+						<Text style={[styles.textDescriptionBottomSheet, { marginBottom: 10, textDecorationLine: 'underline' }]}>
+							Réglementation complète
+						</Text>
+					</TouchableOpacity>
 					<View style={{ marginTop: 20, marginBottom: 20 }}>
 						<Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
 						<View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
@@ -214,27 +217,41 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 								<Text style={{ marginTop: 10, color: theme.textDark }}>Chargement de la carte...</Text>
 							</View>
 							) : geojson ? (
-							<MapView
-								provider={PROVIDER_GOOGLE}
-								style={{ height: 200, width: '100%' }}
-								initialRegion={regionCoor || {
-									latitude: 46.603354,
-									longitude: 1.888334,
-									latitudeDelta: 10,
-									longitudeDelta: 10,
-								}}
-								scrollEnabled={false}
-								zoomEnabled={false}
-								rotateEnabled={false}
-								pitchEnabled={false}
-							>
-								<Geojson 
-								geojson={geojson} 
-								strokeColor={theme.textHighlightDark}
-								fillColor={`${theme.textHighlightDark}50`}
-								strokeWidth={2}
-								/>
-							</MapView>
+							<View>
+								<MapView
+									provider={PROVIDER_GOOGLE}
+									style={{ height: 200, width: '100%' }}
+									initialRegion={regionCoor || {
+										latitude: 46.603354,
+										longitude: 1.888334,
+										latitudeDelta: 10,
+										longitudeDelta: 10,
+									}}
+									scrollEnabled={false}
+									zoomEnabled={false}
+									rotateEnabled={false}
+									pitchEnabled={false}
+								>
+									<Geojson 
+									geojson={geojson} 
+									strokeColor={theme.textHighlightDark}
+									fillColor={`${theme.textHighlightDark}50`}
+									strokeWidth={2}
+									/>
+								</MapView>
+								{/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+									<Ionicons name="document-text" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
+									<Text style={{ fontSize: 14, color: theme.textDark }}>
+										Référence: {`${stats.places[0].geojson?.features[0].properties.nom}, ${stats.places[0].geojson?.features[0].properties.codeDepartement}`}
+									</Text>
+								</View>
+								<View style={{ marginBottom: 60, flexDirection: 'row', alignItems: 'center' }}>
+									<Ionicons name="time" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
+									<Text style={{ fontSize: 14, color: theme.textDark }}>
+										Mis à jour: {stats.date}
+									</Text>
+								</View> */}
+							</View>
 							) : (
 							<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
 								<Ionicons name="map" size={48} color={theme.textDark} />
@@ -242,14 +259,6 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 							</View>
 							)}
 						</View>
-					</View>
-					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<Ionicons name="document-text" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-						<Text style={{ fontSize: 14, color: theme.textDark }}>Référence: {stats.metadata.reference}</Text>
-					</View>
-					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<Ionicons name="time" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-						<Text style={{ fontSize: 14, color: theme.textDark }}>Mis à jour: {stats.metadata.lastUpdated}</Text>
 					</View>
 				</ScrollView>
 			</BottomSheetView>
