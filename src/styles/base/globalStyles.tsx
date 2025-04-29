@@ -109,6 +109,7 @@ const GlobalStyles = () => {
       textShadowColor: 'black', // Shadow color
       textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
       textShadowRadius: 6,
+      pointerEvents: 'none'
     },
     legislationCard: {
       textAlign: 'left',

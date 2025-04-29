@@ -64,8 +64,10 @@ const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardP
 						style={styles.backgroundImage}
 					/>
 				)}
-				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>
 		 	</TouchableOpacity>
+			 <View pointerEvents="none">
+			 	<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>
+			 </View>
 		</View>
 	);
 };
