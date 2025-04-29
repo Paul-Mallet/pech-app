@@ -69,23 +69,14 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 	}, []);
 
 	useEffect(() => {
-		if (stats)
+		if (stats && stats.places[0].geojson)
 		{
 			const loadGeojson = async () => {
 				setLoadingGeojson(true);
-				try {
-					const res = await fetch(`https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/regions/corse/cantons-corse.geojson`); //maps api + ${stats.places[0].name}
-					if (!res.ok)
-						throw new Error(`HTTP error! status: ${res.status}`);
-					const data = await res.json();
-					setGeojson(data);
-					const regionCoor = calculateRegionFromGeoJson(data);
-					setRegionCoor(regionCoor);
-				} catch (err) {
-					console.error("Erreur lors du chargement des données GeoJSON:", err);
-				} finally {
-					setLoadingGeojson(false);
-				}
+				setGeojson(stats.places[0].geojson);
+				const regionCoor = calculateRegionFromGeoJson(stats.places[0].geojson);
+				setRegionCoor(regionCoor);
+				setLoadingGeojson(false);
 			};
 			loadGeojson();
 		}
@@ -103,7 +94,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
 	}, [bottomSheetRef]);
 
-	const calculateRegionFromGeoJson = (geoJson: FeatureCollection<Geometry>): RegionCoordinates => {
+	const calculateRegionFromGeoJson = (geoJson: any): RegionCoordinates => {
 		let minLat = 90;
 		let maxLat = -90;
 		let minLng = 180;
@@ -223,7 +214,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 				>
 				<View style={styles.headerContainerBottomSheet}>
 					<View>
-						<Text style={[styles.h2, {fontSize: 20, lineHeight: 30}]}>{stats.title}</Text>
+						<Text style={[styles.h2, {fontSize: 16, lineHeight: 24}]}>{stats.title}</Text>
 						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 							<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
 							<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
