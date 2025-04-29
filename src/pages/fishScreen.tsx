@@ -9,6 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import { getAllFish, getFishById } from '../services/fish.service.tsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 interface HomeCardProps {
     children?: ReactNode;
@@ -51,7 +52,7 @@ export interface Fish {
 }
 
 const FishScreen = ({ children }: HomeCardProps) => {
-    const bottomSheetRef = useRef<BottomSheet>(null);
+    const bottomSheetRef = useRef<BottomSheetModal>(null);
     const [fishes, setFishes] = useState<Fish[]>([]);
     // const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -94,9 +95,9 @@ const FishScreen = ({ children }: HomeCardProps) => {
         fetchFishes();
     }, []);
 
-    const handleFishPress = async (id: string) => {
+    const handleFishPress = async (fish: Fish) => {
         try {
-            const fish = await getFishById(id);
+            // const fish = await getFishById(id);
             setPressedFish(fish);
         } catch (error) {
             console.error("Failed to fetch fish:", error);
@@ -257,7 +258,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
                         columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
                         renderItem={({ item }) => (
                             <FishCard
-                                onPress={() => handleFishPress(item.id.toString())}
+                                onPress={() => handleFishPress(item)}
                                 fishName={item.name}
                                 imgSource={item.additionalImages[0].url}
                             />

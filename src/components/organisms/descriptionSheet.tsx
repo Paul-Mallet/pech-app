@@ -28,7 +28,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		const fetchFish = () => {
 			// setLoading(true);
 			try {
-				console.log("\x1b[36mFetched fish:\x1b[0m", fish);
+				// console.log("\x1b[36mFetched fish:\x1b[0m", fish);
 				setStats(fish);
 			} catch (err) {
 				setError("Impossible de charger les infos du poisson.");

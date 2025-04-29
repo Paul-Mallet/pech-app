@@ -21,7 +21,7 @@ const apiClient = axios.create({
 export const getHomeContent = async () => {
     try {
         const response = await apiClient.get(`home`);
-        console.log("Home data: ", JSON.stringify(response.data));
+        // console.log("Home data: ", JSON.stringify(response.data));
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the decouvrir content: ", error);
@@ -32,6 +32,7 @@ export const getHomeContent = async () => {
 export const getAllFish = async () => {
     try {
         const response = await apiClient.get(`fish`);
+        // console.log("Fishes: ", response.data);
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the fish: ", error);
