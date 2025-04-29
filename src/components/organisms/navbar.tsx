@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from 'react-native';
-// import QuizzScreen from '../../pages/quizzScreen.tsx';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
