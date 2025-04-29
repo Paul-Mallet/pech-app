@@ -5,12 +5,13 @@ import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import { useNavigation } from '@react-navigation/native';
 import { ItemType } from './questionExpandable.tsx';
+import { Fish } from '../../pages/fishScreen.tsx';
 
 
 type ExpandableSectionProps = {
   entryType: string;
   items: ItemType[];
-  onFishPress?: (label: string) => void;
+  onFishPress?: (label: Fish) => void;
 };
 
 
@@ -38,7 +39,7 @@ const handleRightIconPress = (text: string) => {
           <FishCard
             fishName={item.label}
             imgSource={item.parameter || ''}
-            onPress={() => onFishPress?.(item.label)}
+            onPress={() => onFishPress?.(item.fish)}
           />
         );
       case 'Recherches':

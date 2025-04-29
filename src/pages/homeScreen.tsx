@@ -8,6 +8,7 @@ import { useHistory } from '../components/organisms/HistoryContext.tsx';
 import HistoryList from './historySection.tsx';
 import DecouvrirTab from './discoverSection.tsx';
 import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
+import { Fish } from './fishScreen.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -18,15 +19,15 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const startTouch = useRef({ x: 0, y: 0 });
 	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
 	const hasSwitched = useRef(false);
-	const [pressedFish, setPressedFish] = useState<string | null>(null);
+	const [pressedFish, setPressedFish] = useState<Fish | null>(null);
 	const [activeTab, setActiveTab] = useState('découvrir');
 	const styles = GlobalStyles();
 	const { theme } = useTheme();
 	const decouvrir = 'découvrir';
 	const revoir = 'revoir';
 
-	const handleFishPress = (fishId: string) => {
-		setPressedFish(fishId);
+	const handleFishPress = (fish: Fish) => {
+		setPressedFish(fish);
 		bottomSheetRef.current?.expand();
 	};
 
@@ -112,7 +113,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
 				</Animated.View>
 			</View>
-			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fishName={pressedFish} onClose={handleSheetClose} />)}
+			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fish={pressedFish} onClose={handleSheetClose} />)}
 		</SafeAreaView>
 	);
 };

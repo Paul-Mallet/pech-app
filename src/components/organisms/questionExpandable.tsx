@@ -3,12 +3,14 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
+import { Fish } from '../../pages/fishScreen.tsx';
 
 export type ItemType = {
   label: string;
   type: string;
   id: number;
   parameter: string;
+  fish: Fish;
 };
 type AnswerField = "bodyType" | "fins" | "eye";
 type QuestionExpandableProps = {

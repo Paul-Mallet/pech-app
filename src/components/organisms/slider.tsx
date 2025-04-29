@@ -14,19 +14,24 @@ import type { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet';
 import BottomSheetStyles from '../../styles/organisms/bottomSheetStyles.tsx';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext.tsx';
+import { API_BASE_URL } from '../../services/fish.service.tsx';
 
-type ImageKey = 'bar_01.png' | 'bar_02.png' | 'bar_03.png' | 'bar_04.png';
+// type ImageKey = 'bar_01.png' | 'bar_02.png' | 'bar_03.png' | 'bar_04.png';
 
-const imageMap: Record<ImageKey, number> = {
-	'bar_01.png': require('../../../assets/images/bar_01.png'),
-	'bar_02.png': require('../../../assets/images/bar_02.png'),
-	'bar_03.png': require('../../../assets/images/bar_03.png'),
-	'bar_04.png': require('../../../assets/images/bar_04.png'),
-};
+// const imageMap: Record<ImageKey, number> = {
+// 	'bar_01.png': require('../../../assets/images/bar_01.png'),
+// 	'bar_02.png': require('../../../assets/images/bar_02.png'),
+// 	'bar_03.png': require('../../../assets/images/bar_03.png'),
+// 	'bar_04.png': require('../../../assets/images/bar_04.png'),
+// };
 
-const images = ['bar_01.png', 'bar_02.png', 'bar_03.png', 'bar_04.png'];
+// const images = ['bar_01.png', 'bar_02.png', 'bar_03.png', 'bar_04.png'];
 
-const ImageSlider = () => {
+interface SliderProps {
+	images: string[];
+}
+
+const ImageSlider = ({ images }: SliderProps) => {
     const { theme } = useTheme();
 	const styles = BottomSheetStyles();
 	const flatListRef = useRef<BottomSheetFlatListMethods>(null);
@@ -76,7 +81,7 @@ const ImageSlider = () => {
 					style={[styles.imageContainer, { width: (width - (36 * 2)) }]}
 				>
 					<Image
-						source={imageMap[item]}
+						source={{uri: API_BASE_URL + images[index]}}
 						style={[styles.image, { width: (width - (36 * 2)), height: width / 2 }]}
 					/>
 				</Pressable>
