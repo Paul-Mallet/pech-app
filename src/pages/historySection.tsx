@@ -1,12 +1,13 @@
 import React from 'react';
 import { FlatList, Dimensions } from 'react-native';
 import ExpandableSection from '../components/organisms/expandableSection.tsx';
+import { Fish } from './fishScreen.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
 type HistoryListProps = {
   groupedHistory: Record<string, any[]>;
-  handleFishPress: (fishName: string) => void;
+  handleFishPress: (fish: Fish) => void;
 };
 
 const HistoryList: React.FC<HistoryListProps> = ({ groupedHistory, handleFishPress }) => {

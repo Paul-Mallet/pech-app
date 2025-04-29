@@ -45,7 +45,7 @@ const SearchBar = () => {
     : styles.searchBar;
 
   return (
-    <View style={searchBarStyle}>
+    <View style={[searchBarStyle, showResults && { zIndex: 1, elevation: 1 }]}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
           <Ionicons

@@ -7,19 +7,32 @@ import FinModel from "../models/fins.model.tsx";
 import EyeModel from "../models/eye.model.tsx";
 import ResearchAnswerModel from "../models/researchAnswer.model.tsx";
 
-const API_BASE_URL = "https://pechapp.edwindev.fr/api/";
+export const API_BASE_URL = "https://pechapp.edwindev.fr";
+const API_NAME = "/api/";
 
 const apiClient = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: API_BASE_URL + API_NAME,
     timeout: 10000,
     headers: {
         "Content-Type": "application/json",
     },
 });
 
+export const getHomeContent = async () => {
+    try {
+        const response = await apiClient.get(`home`);
+        // console.log("Home data: ", JSON.stringify(response.data));
+        return response.data;
+    } catch (error) {
+        console.error("API Error when trying to get the decouvrir content: ", error);
+        return error;
+    }
+};
+
 export const getAllFish = async () => {
     try {
         const response = await apiClient.get(`fish`);
+        // console.log("Fishes: ", response.data);
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the fish: ", error);
@@ -122,7 +135,7 @@ export const getAllLegislations = async () => {
     }
 }
 
-export const getLegislationById = async (id : string) => {
+export const getLegislationById = async (id : string | null) => {
     try {
         const response = await apiClient.get(`legislation/${id}`);
         return response.data;

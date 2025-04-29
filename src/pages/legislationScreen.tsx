@@ -9,30 +9,55 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
 import { getAllLegislations } from '../services/fish.service.tsx';
 
-interface Legislation {
-    id: string;
+export interface Legislation {
+    id: number;
     title: string;
+    article: string;
     date: string;
-    content: string;
-    metadata: {
-		reference: string,
-		lastUpdated: string
-	};
-	geojson: string;
+    link: string;
+    places: {
+		id: number;
+		name: string;
+		geojson?: {
+			type: string;
+			features: {
+				type: string;
+				properties: {
+					nom: string;
+					code: string;
+					codeDepartement: string;
+					siren: string;
+					codeEpci: string;
+					codeRegion: string;
+					codesPostaux: string[];
+					population: number;
+				},
+				geometry: {
+					type: string;
+					coordinates:[number, number][][][];
+				}
+			}[];
+		}
+	}[];
+	fishingTypes: {
+		id: number,
+		name: string
+	}[];
+	fish: [];
 }
 
 const LegislationScreen = ({ route }: { route: any }) => {
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const [searchText, setSearchText] = useState('');
 	const [legislations, setLegislations] = useState<Legislation[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState<string | null>(null);
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const [legislationId, setLegislationId] = useState<string>("");
 	const navigation = useNavigation();
 	const styles = GlobalStyles();
 	const legislationStyles = LegislationStyles();
-    const { theme } = useTheme();
+	const { theme } = useTheme();
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -47,6 +72,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		setLoading(true);
 		try {
 			const legislations = await getAllLegislations();
+			// console.log("Legislations: ", legislations);
 			setLegislations(legislations);
 		} catch (err) {
 			setError("Impossible de charger les infos des legislations.");
@@ -61,11 +87,12 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	
 	const filtered = legislations?.filter(legis => 
 		legis.title.toLowerCase().includes(searchText.toLowerCase()) || 
-		legis.content.toLowerCase().includes(searchText.toLowerCase())
+		legis.article.toLowerCase().includes(searchText.toLowerCase())
 	);
 	
 	const handleLegislationPress = (id: string) => {
 		setLegislationId(id);
+		setPressedLegislation(id);
 		bottomSheetRef.current?.expand();
 	};
   
@@ -103,9 +130,9 @@ const LegislationScreen = ({ route }: { route: any }) => {
 					<LegislationCard
 						key={legis.id}
 						title={legis.title}
-						text={legis.content}
+						text={legis.article}
 						searchText={searchText}
-						onPress={() => handleLegislationPress(legis.id)}
+						onPress={() => handleLegislationPress(legis.id.toString())}
 					/>
 				))}
 			</ScrollView>

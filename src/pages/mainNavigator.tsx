@@ -1,7 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from '../components/organisms/navbar.tsx';
-import QuizzScreen from './quizzScreen.tsx';
 import FishResearch from './fishResearchScreen.tsx';
 
 const Stack = createNativeStackNavigator();

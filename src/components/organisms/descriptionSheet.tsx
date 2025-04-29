@@ -1,39 +1,41 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Button, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
 import ImageSlider from '../organisms/slider.tsx';
 import CTAButton from '../atoms/button.tsx';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { FontAwesome6 } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
 import { getFishById } from '../../services/fish.service.tsx';
+import { Fish } from '../../pages/fishScreen.tsx';
 
 type DescriptionSheetProps = {
-	fishId: string;
+	fish: Fish;
 	onClose: () => void;
 };
 
 const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
-	({ fishId, onClose }, ref) => {
+	({ fish, onClose }, ref) => {
 		const [stats, setStats] = useState<any>({});
-		const [loading, setLoading] = useState<boolean>(false);
+		// const [loading, setLoading] = useState<boolean>(false);
 		const [error, setError] = useState<string | null>(null);
 		const { theme } = useTheme();
 		const styles = GlobalStyles();
 		const insets = useSafeAreaInsets();
 
-		const fetchFish = async () => {
-			setLoading(true);
+		const fetchFish = () => {
+			// setLoading(true);
 			try {
-				const fish = await getFishById(fishId);
+				// console.log("\x1b[36mFetched fish:\x1b[0m", fish);
 				setStats(fish);
 			} catch (err) {
 				setError("Impossible de charger les infos du poisson.");
-			} finally {
-				setLoading(false);
 			}
+			//  finally {
+			// 	setLoading(false);
+			// }
 		};
 
 		useEffect(() => {
@@ -46,25 +48,33 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			}
 		}, [onClose]);
 
-		if (loading) {
-			return (
-				<BottomSheet
-					ref={ref}
-					snapPoints={['20%']}
-				>
-		 			<BottomSheetView style={styles.contentContainerBottomSheet}>
-		 				<ActivityIndicator size="large" color={theme.textDark} />
-						<Text style={styles.h2}>Chargement...</Text>
-		 			</BottomSheetView>
-		 		</BottomSheet>
-		 	);
-		}
+		// if (loading) {
+		// 	return (
+		// 		<BottomSheet
+		// 			ref={ref}
+		// 			snapPoints={['20%']}
+		// 		>
+		//  			<BottomSheetView style={styles.contentContainerBottomSheet}>
+		//  				<ActivityIndicator size="large" color={theme.textDark} />
+		// 				<Text style={styles.h2}>Chargement...</Text>
+		//  			</BottomSheetView>
+		//  		</BottomSheet>
+		//  	);
+		// }
 		if (error || !stats) {
 			return (
 				<BottomSheet
 					ref={ref}
 					enablePanDownToClose
 					snapPoints={['40%']}
+					backdropComponent={(props: BottomSheetBackdropProps) => (
+						<BottomSheetBackdrop
+						  {...props}
+						  appearsOnIndex={0}
+						  disappearsOnIndex={-1}
+						  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+						/>
+					  )}
 				>
 					<BottomSheetView style={styles.contentContainerBottomSheet}>
 						<Text>Erreur</Text>
@@ -89,27 +99,34 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
-				containerStyle={{ zIndex: 999 }}
 				handleComponent={() => <HitArea />}
+				backdropComponent={(props: BottomSheetBackdropProps) => (
+					<BottomSheetBackdrop
+					  {...props}
+					  appearsOnIndex={0}
+					  disappearsOnIndex={-1}
+					  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+					/>
+				  )}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
 					<View style={[styles.headerContainerBottomSheet, { marginTop: -20 }]}>
 						<View>
-							<Text style={styles.h2}>{stats?.commonName}</Text>
-							<Text style={styles.hScientific}>({stats?.scientificName})</Text>
+							<Text style={styles.h2}>{fish?.name}</Text>
+							<Text style={styles.hScientific}>({fish?.scientificName})</Text>
 						</View>
 						<View style={styles.sizeContainerBottomSheet}>
 							<FontAwesome6 name="ruler" size={28} color={theme.textDark} />
-							<Text style={styles.hSize}>{stats?.minSizeCm}cm</Text>
+							<Text style={styles.hSize}>{fish?.minSizeCm}cm</Text>
 						</View>
 					</View>
-					<ImageSlider />
+					<ImageSlider images={fish.additionalImages.map(image => image.url)} />
 					<Text style={styles.textDescriptionBottomSheet}>
-						{stats?.englishAcronym ? `${stats.englishAcronym}, ` : ''}
-						{stats?.physicalDescription?.WRF ?? ''}
-						{stats?.physicalDescription?.moreInfos ? ` ${stats.physicalDescription.moreInfos}` : ''}
+						{fish?.englishAcronym ? `${fish.englishAcronym}, ` : ''}
+						{fish?.physicalDescription?.WRF ?? ''}
+						{fish?.physicalDescription?.moreInfos ? ` ${fish.physicalDescription.moreInfos}` : ''}
 					</Text>
-					<CTAButton searchText={stats?.commonName} />
+					<CTAButton searchText={fish?.name} />
 				</BottomSheetView>
 			</BottomSheet>
 		);
