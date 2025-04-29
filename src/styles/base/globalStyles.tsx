@@ -137,7 +137,6 @@ const GlobalStyles = () => {
       paddingHorizontal: 12,
       height: 'auto',
       backgroundColor: theme.searchBarBackground,
-      zIndex: 1,
       maxHeight: '70%',
       overflow: 'hidden',
     },

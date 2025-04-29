@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, Button, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
-import BottomSheet, { BottomSheetView, BottomSheetMethods } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetView, BottomSheetMethods, BottomSheetBackdropProps, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import HitArea from '../atoms/hitArea.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
@@ -143,7 +143,18 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 
 	if (loading) {
 		return (
-			<BottomSheet ref={ref} snapPoints={['20%']}>
+			<BottomSheet 
+			ref={ref} 
+			snapPoints={['20%']}
+			backdropComponent={(props: BottomSheetBackdropProps) => (
+				<BottomSheetBackdrop
+				  {...props}
+				  appearsOnIndex={0}
+				  disappearsOnIndex={-1}
+				  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+				/>
+			  )}
+			>
 				<BottomSheetView style={styles.contentContainerBottomSheet}>
 					<ActivityIndicator size="large" color={theme.textDark} />
 					<Text style={styles.h2}>Chargement...</Text>
@@ -153,7 +164,18 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 	}
 	if (error || !stats) {
 		return (
-			<BottomSheet ref={ref} enablePanDownToClose snapPoints={['40%']}>
+			<BottomSheet
+			ref={ref} 
+			enablePanDownToClose 
+			snapPoints={['40%']}
+			backdropComponent={(props: BottomSheetBackdropProps) => (
+				<BottomSheetBackdrop
+				  {...props}
+				  appearsOnIndex={0}
+				  disappearsOnIndex={-1}
+				  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+				/>
+			  )}>
 				<BottomSheetView style={styles.contentContainerBottomSheet}>
 					<Text>Erreur</Text>
 					<Text>{error || "Données non disponibles"}</Text>
@@ -181,6 +203,14 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 			containerStyle={{ zIndex: 999 }}
 			android_keyboardInputMode="adjustPan"
 			handleComponent={() => <HitArea /> }
+			backdropComponent={(props: BottomSheetBackdropProps) => (
+				<BottomSheetBackdrop
+				  {...props}
+				  appearsOnIndex={0}
+				  disappearsOnIndex={-1}
+				  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+				/>
+			  )}
 		>
 			<BottomSheetView focusable={true} style={styles.contentContainerBottomSheetLegislation}>
 				<ScrollView 

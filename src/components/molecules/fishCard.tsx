@@ -18,7 +18,7 @@ const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardP
 	const { addToHistory } = useHistory();
 	const getImageUrl = (imgSource: string) =>
 	{
-		console.log("Image: " + imgSource);
+		// console.log("Image: " + imgSource);
 		if (imgSource.includes("http"))
 			return imgSource;
 		if (imgSource)

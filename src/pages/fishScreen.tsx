@@ -84,7 +84,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const fetchFishes = async () => {
         try {
             const fishesVar = await getAllFish();
-            // console.log("\x1b[36mFetched all fishes:\x1b[0m", fishesVar);
+            console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
             setFishes(fishesVar);
         } catch (err) {
             setError('Impossible de charger les données des poissons.');

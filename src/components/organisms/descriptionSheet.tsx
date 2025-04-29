@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Button, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
 import ImageSlider from '../organisms/slider.tsx';
 import CTAButton from '../atoms/button.tsx';
@@ -67,6 +67,14 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					ref={ref}
 					enablePanDownToClose
 					snapPoints={['40%']}
+					backdropComponent={(props: BottomSheetBackdropProps) => (
+						<BottomSheetBackdrop
+						  {...props}
+						  appearsOnIndex={0}
+						  disappearsOnIndex={-1}
+						  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+						/>
+					  )}
 				>
 					<BottomSheetView style={styles.contentContainerBottomSheet}>
 						<Text>Erreur</Text>
@@ -91,8 +99,15 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
-				containerStyle={{ zIndex: 999 }}
 				handleComponent={() => <HitArea />}
+				backdropComponent={(props: BottomSheetBackdropProps) => (
+					<BottomSheetBackdrop
+					  {...props}
+					  appearsOnIndex={0}
+					  disappearsOnIndex={-1}
+					  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+					/>
+				  )}
 			>
 				<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
 					<View style={[styles.headerContainerBottomSheet, { marginTop: -20 }]}>
