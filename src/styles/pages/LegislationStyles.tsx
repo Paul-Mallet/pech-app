@@ -9,12 +9,12 @@ const LegislationStyles = () => {
 		legislationPanel: {
 			display: "flex",
 			flexDirection: "column",
-			paddingTop: 0,
+			paddingTop: 10,
 			paddingLeft: 8,
 			paddingRight: 8,
 			paddingBottom: 0,
 			marginBottom: 60,
-			marginTop: 110,
+			marginTop: 100,
 		},
 		legislationParagraph: {
 			position: "relative",
@@ -23,10 +23,10 @@ const LegislationStyles = () => {
 			borderRadius: 8,
 			// overflow: 'hidden',
 			shadowColor: '#00000010',
-			shadowOffset: { width: 0, height: 10 },
+			shadowOffset: { width: 0, height: 3 },
 			shadowOpacity: 0.2,
-			shadowRadius: 5,
-			elevation: 5,
+			shadowRadius: 3,
+			elevation: 3,
 		},
   	}), [theme]);
 

@@ -126,7 +126,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		return (
 			<SafeAreaView style={styles.body}>
 				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-                <View style={{ marginTop: 110 }}>
+                <View style={{ marginTop: 100 }}>
                     <ActivityIndicator size="large" color={theme.textDark} />
                 </View>
 		    </SafeAreaView>
@@ -136,7 +136,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		return (
 			<SafeAreaView style={styles.body}>
 				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-			<View style={{ marginTop: 110 }}>
+			<View style={{ marginTop: 100 }}>
                     <Text>Erreur</Text>
                     <Text>{error || "Données non disponibles"}</Text>
                     <Button
