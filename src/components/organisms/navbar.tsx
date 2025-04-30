@@ -104,7 +104,10 @@ const BottomTabNavigator = () => {
         name="Poissons"
         component={FishScreen}
         listeners={{
-          tabPress: () => handleTabPress('Poissons'),
+          tabPress: () => {
+            EventBus.emit('poissonsTabPress');
+            handleTabPress('Poissons'); // Call your custom tab press handler
+          },
         }}
         options={{ headerShown: false }}
       />

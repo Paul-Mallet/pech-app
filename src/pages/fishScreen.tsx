@@ -10,6 +10,7 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import { getAllFish, getFishById } from '../services/fish.service.tsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import EventBus from '../components/organisms/EventBus.tsx';
 
 interface HomeCardProps {
     children?: ReactNode;
@@ -62,6 +63,16 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const navigation = useNavigation();
 	const styles = GlobalStyles();
     const { theme } = useTheme();
+
+    useEffect(() => {
+        const handler = () => {
+          navigation.navigate("Poissons");
+        };
+        EventBus.on('poissonsTabPress', handler);
+        return () => {
+          EventBus.off('poissonsTabPress', handler);
+        };
+      }, []);
 
     useEffect(() => {
         if (pressedFish && bottomSheetRef.current) {
