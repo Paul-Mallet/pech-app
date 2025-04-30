@@ -8,6 +8,7 @@ import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
 import { getAllLegislations } from '../services/fish.service.tsx';
+import EventBus from '../components/organisms/EventBus.tsx';
 
 export interface Legislation {
     id: number;
@@ -47,6 +48,7 @@ export interface Legislation {
 }
 
 const LegislationScreen = ({ route }: { route: any }) => {
+	const scrollViewRef = useRef<ScrollView>(null);
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const [searchText, setSearchText] = useState('');
 	const [legislations, setLegislations] = useState<Legislation[]>([]);
@@ -58,6 +60,24 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	const styles = GlobalStyles();
 	const legislationStyles = LegislationStyles();
 	const { theme } = useTheme();
+	const pressedLegislationRef = useRef(pressedLegislation);
+
+	useEffect(() => {
+		pressedLegislationRef.current = pressedLegislation;
+	  }, [pressedLegislation]);
+
+	useEffect(() => {
+		const handler = () => {
+			if (pressedLegislationRef.current)
+				setPressedLegislation(null);
+			else
+				scrollToTop();
+		};
+		EventBus.on('legislationTabPress', handler);
+		return () => {
+		  EventBus.off('legislationTabPress', handler);
+		};
+	  }, []);
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -67,6 +87,12 @@ const LegislationScreen = ({ route }: { route: any }) => {
 			navigation.setParams({ searchText: undefined });
 		}, [route.params?.searchText])
 	);
+
+	const scrollToTop = () => {
+		if (scrollViewRef.current) {
+		  scrollViewRef.current.scrollTo({ y: 0, animated: true });
+		}
+	  };
 	
 	const fetchLegislations = async () => {
 		setLoading(true);
@@ -92,7 +118,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	
 	const handleLegislationPress = (id: string) => {
 		setLegislationId(id);
-		setPressedLegislation(id);
+		setPressedLegislation(id.toString());
 		bottomSheetRef.current?.expand();
 	};
   
@@ -125,7 +151,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	return (
 		<SafeAreaView style={styles.body}>
 			<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-			<ScrollView style={legislationStyles.legislationPanel}>
+			<ScrollView ref={scrollViewRef} style={legislationStyles.legislationPanel}>
 				{filtered.map(legis => (
 					<LegislationCard
 						key={legis.id}
@@ -140,7 +166,12 @@ const LegislationScreen = ({ route }: { route: any }) => {
 				<LegislationSheet
 					ref={bottomSheetRef}
 					legislationId={legislationId}
-					onClose={() => setPressedLegislation(null)}
+					onClose={() => 
+						{
+							console.log("Close called");
+							setPressedLegislation(null);
+						}
+					}
 				/>
 			)}
 		</SafeAreaView>

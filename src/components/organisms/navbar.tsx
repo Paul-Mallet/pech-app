@@ -106,7 +106,7 @@ const BottomTabNavigator = () => {
         listeners={{
           tabPress: () => {
             EventBus.emit('poissonsTabPress');
-            handleTabPress('Poissons'); // Call your custom tab press handler
+            handleTabPress('Poissons');
           },
         }}
         options={{ headerShown: false }}
@@ -115,7 +115,10 @@ const BottomTabNavigator = () => {
         name="Législation"
         component={LegislationScreen}
         listeners={{
-          tabPress: () => handleTabPress('Législation'),
+          tabPress: () => {
+              EventBus.emit('legislationTabPress');
+              handleTabPress('Législation');
+            },
         }}
         options={{ headerShown: false }}
       />
