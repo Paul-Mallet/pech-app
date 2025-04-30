@@ -99,7 +99,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		setLoading(true);
 		try {
 			const legislations = await getAllLegislations();
-			// console.log("Legislations: ", legislations);
+			// console.log("\x1b[36mLegislations:\x1b[0m ", JSON.stringify(legislations));
 			setLegislations(legislations);
 		} catch (err) {
 			setError("Impossible de charger les infos des legislations.");
