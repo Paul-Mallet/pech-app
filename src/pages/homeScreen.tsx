@@ -10,26 +10,52 @@ import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
 import { Fish } from './fishScreen.tsx';
 import { useNavigation } from '@react-navigation/native';
 import EventBus from '../components/organisms/EventBus.tsx';
+import LegislationSheet from '../components/organisms/legislationSheet.tsx';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
 	const navigation = useNavigation();
 	const { groupedHistory } = useHistory();
-	const bottomSheetRef = useRef<BottomSheet>(null);
+	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
 	const startTouch = useRef({ x: 0, y: 0 });
 	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
 	const hasSwitched = useRef(false);
 	const [pressedFish, setPressedFish] = useState<Fish | null>(null);
+	const pressedFishRef = useRef(pressedFish);
 	const [activeTab, setActiveTab] = useState('découvrir');
 	const styles = GlobalStyles();
 	const decouvrir = 'découvrir';
 	const revoir = 'revoir';
+	const [legislationId, setLegislationId] = useState<string>("");
+	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
+	const pressedLegislationRef = useRef(pressedLegislation);
+
+	useEffect(() => {
+		pressedLegislationRef.current = pressedLegislation;
+	}, [pressedLegislation]);
+
+	useEffect(() => {
+		pressedFishRef.current = pressedFish;
+	}, [pressedFish]);
+	
+	const handleLegislationPress = (id: string) => {
+		setLegislationId(id);
+		setPressedLegislation(id.toString());
+		bottomSheetRef.current?.expand();
+	};
+
 
 	useEffect(() => {
 		const handler = () => {
-		  switchTab(decouvrir);
+			if (pressedLegislationRef.current)
+				setPressedLegislation(null);
+			else if (pressedFishRef.current)
+				setPressedFish(null);
+			else
+		  		switchTab(decouvrir);
 		};
 		EventBus.on('homeTabPress', handler);
 		return () => {
@@ -41,10 +67,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 		setPressedFish(fish);
 		bottomSheetRef.current?.expand();
 	};
-
-	const handleSheetClose = useCallback(() => {
-		setPressedFish(null);
-	}, []);
 	
 	const switchTab = (target: string) => {
 		const toValue = target === decouvrir ? 0 : -screenWidth;
@@ -113,11 +135,18 @@ const HomeScreen = ({ route }: { route: any }) => {
 			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>
 				<Animated.View style={{ flexDirection: 'row', width: screenWidth * 2, transform: [{ translateX }] }}>
-					<DecouvrirTab handleFishPress={handleFishPress} />
+					<DecouvrirTab handleFishPress={handleFishPress} handleLegislationPress={handleLegislationPress} />
 					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
 				</Animated.View>
 			</View>
-			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fish={pressedFish} onClose={handleSheetClose} />)}
+			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fish={pressedFish} onClose={() => {setPressedFish(null)}} />)}
+			{pressedLegislation && (
+				<LegislationSheet
+					ref={bottomSheetRef}
+					legislationId={legislationId}
+					onClose={() => setPressedLegislation(null)}
+				/>
+			)}
 		</SafeAreaView>
 	);
 };

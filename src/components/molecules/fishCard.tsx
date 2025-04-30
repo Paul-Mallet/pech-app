@@ -37,16 +37,6 @@ const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardP
 		}
 	};
 
-	// useEffect(() => 
-	// {
-	// 	console.log("Loaded: " + loaded);
-	// }, [loaded])
-
-	// useEffect(() => 
-	// {
-	// 	console.log("Error: " + error);
-	// }, [error])
-
 	return (
 		<View style={styles.fishCardContainer}>
 		 	<TouchableOpacity onPress={handlePress}>
