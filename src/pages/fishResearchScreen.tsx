@@ -27,7 +27,7 @@ const FishResearch = ({navigation} : any) => {
     const resetFilters = () =>
     {
         setShouldResetFilters(true);
-        setTimeout(() => setShouldResetFilters(false), 100); // reset back to false
+        setTimeout(() => setShouldResetFilters(false), 100);
     }
 
     useEffect(() => {
@@ -66,8 +66,7 @@ const FishResearch = ({navigation} : any) => {
                     <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.navigate("Poissons")}>
                         <Ionicons name='close' size={24} color={theme.iconColor}/>
                     </TouchableOpacity>
-                    <Questions navigation={navigation} questionsParams={questionsParams} shouldResetFilters={shouldResetFilters}/>
-
+                    <Questions questionsParams={questionsParams} shouldResetFilters={shouldResetFilters}/>
                     <View style={styles.mainButtonsDiv}>
                         <TouchableOpacity style={[styles.button, {borderColor: '#ff000080', backgroundColor: '#ff333350', paddingHorizontal: 10}]} onPress={() => resetFilters()}>
                             <Text style={styles.text}>Réinitialiser les filtres</Text>

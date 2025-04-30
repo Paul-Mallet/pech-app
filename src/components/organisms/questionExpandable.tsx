@@ -10,7 +10,7 @@ export type ItemType = {
   type: string;
   id: number;
   parameter: string;
-  fish: Fish;
+  fish?: any[];
 };
 type AnswerField = "bodyType" | "fins" | "eye";
 type QuestionExpandableProps = {

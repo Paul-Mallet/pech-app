@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View , Text, ScrollView, FlatList} from "react-native";
+import { View , FlatList} from "react-native";
 import QuestionStyles from "../../styles/organisms/questionStyles.tsx";
 import { useAnswers } from "../../@config/answerContext.tsx";
 import QuestionExpandable from "./questionExpandable.tsx";
@@ -8,7 +8,6 @@ import { getFishByAnswer } from "../../services/fish.service.tsx";
 import { useFishList } from "../../@config/fishListContext.tsx";
 
 type QuestionsProps = {
-    navigation : any,
     questionsParams : QuestionModel,
     shouldResetFilters: boolean
 }
@@ -33,7 +32,7 @@ type QuestionsProps = {
 //   }
 // ];
 
-const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams, shouldResetFilters}) => {
+const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilters}) => {
     const {answers, setAnswers } = useAnswers();
     const {setFishList} = useFishList();
     const styles = QuestionStyles();
@@ -46,7 +45,7 @@ const Questions : React.FC<QuestionsProps> = ({navigation, questionsParams, shou
     useEffect(() => {
       if (shouldResetFilters)
       {
-        console.log("filters resetted");
+        // console.log("filters resetted");
         setAnswers({});
         setFishList([]);
         setResetSignal(prev => prev + 1);

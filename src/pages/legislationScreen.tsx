@@ -9,6 +9,7 @@ import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
 import { getAllLegislations } from '../services/fish.service.tsx';
 import EventBus from '../components/organisms/EventBus.tsx';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 export interface Legislation {
     id: number;
@@ -49,7 +50,7 @@ export interface Legislation {
 
 const LegislationScreen = ({ route }: { route: any }) => {
 	const scrollViewRef = useRef<ScrollView>(null);
-	const bottomSheetRef = useRef<BottomSheet>(null);
+	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const [searchText, setSearchText] = useState('');
 	const [legislations, setLegislations] = useState<Legislation[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -166,12 +167,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 				<LegislationSheet
 					ref={bottomSheetRef}
 					legislationId={legislationId}
-					onClose={() => 
-						{
-							console.log("Close called");
-							setPressedLegislation(null);
-						}
-					}
+					onClose={() => setPressedLegislation(null)}
 				/>
 			)}
 		</SafeAreaView>

@@ -2,30 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Linking, Text, Button, ScrollView, ActivityIndicator, BackHandler, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
-import BottomSheet, { BottomSheetView, BottomSheetMethods, BottomSheetBackdropProps, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetView, BottomSheetBackdropProps, BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import HitArea from '../atoms/hitArea.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { getLegislationById } from '../../services/fish.service.tsx';
-import { FeatureCollection, Geometry } from 'geojson';
 import { Legislation } from '../../pages/legislationScreen.tsx';
-
-// Import avec 'with' au lieu de 'assert'
-// import regulationsData from '../../data/mocks/regulations.json' with { type: 'json' };
-// const regulations = regulationsData;
-
-// type LegislationType = {
-// 	id: number;
-// 	date: string;
-// 	title: string;
-// 	content: string[];
-// 	metadata: {
-// 		reference: string;
-// 		lastUpdated: string;
-// 	};
-// 	geojson: string;
-// };
 
 type LegislationSheetProps = {
 	legislationId: string | null;
@@ -39,9 +22,9 @@ type RegionCoordinates = {
 	longitudeDelta: number;
 };
 
-const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetProps>(
+const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProps>(
 	({ legislationId, onClose }, ref) => {
-	const bottomSheetRef = ref as React.RefObject<BottomSheetMethods>;
+	const bottomSheetRef = ref as React.RefObject<BottomSheetModal>;
 	const [stats, setStats] = useState<Legislation | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
@@ -54,11 +37,13 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 
 	const fetchLegislation = async () => {
 		setLoading(true);
+		setError(null);
 		try {
 			const legislation = await getLegislationById(legislationId);
 			setStats(legislation);
 		} catch (err) {
 			setError("Impossible de charger les infos de la legislation.");
+			setStats(null);
 		} finally {
 			setLoading(false);
 		}
@@ -69,8 +54,7 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 	}, []);
 
 	useEffect(() => {
-		if (stats && stats.places[0].geojson)
-		{
+		if (stats && stats.places[0].geojson) {
 			const loadGeojson = async () => {
 				setLoadingGeojson(true);
 				setGeojson(stats.places[0].geojson);
@@ -86,24 +70,21 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 		const onBackPress = () => {
 			if (bottomSheetRef && bottomSheetRef.current) {
 				bottomSheetRef.current.close();
-				return (true);
+				return true;
 			}
-			return (false);
+			return false;
 		};
 		BackHandler.addEventListener('hardwareBackPress', onBackPress);
 		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
 	}, [bottomSheetRef]);
 
 	const calculateRegionFromGeoJson = (geoJson: any): RegionCoordinates => {
-		let minLat = 90;
-		let maxLat = -90;
-		let minLng = 180;
-		let maxLng = -180;
+		let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
 		const processCoordinates = (coords: any[]) => {
 			coords.forEach(coord => {
-				if (Array.isArray(coord[0]))
+				if (Array.isArray(coord[0])) {
 					processCoordinates(coord);
-				else {
+				} else {
 					const [lng, lat] = coord;
 					minLat = Math.min(minLat, lat);
 					maxLat = Math.max(maxLat, lat);
@@ -113,8 +94,9 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 			});
 		};
 		geoJson.features.forEach((feature: any) => {
-			if (feature.geometry.coordinates)
+			if (feature.geometry.coordinates) {
 				processCoordinates(feature.geometry.coordinates);
+			}
 		});
 		const centerLat = (minLat + maxLat) / 2;
 		const centerLng = (minLng + maxLng) / 2;
@@ -129,62 +111,16 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 	};
 
 	const handleSheetChanges = useCallback((index: number) => {
-	  if (index === -1)
-		onClose();
+		if (index === -1) onClose();
 	}, [onClose]);
 
-	if (loading) {
-		return (
-			<BottomSheet 
-			ref={ref} 
-			snapPoints={['20%']}
-			backdropComponent={(props: BottomSheetBackdropProps) => (
-				<BottomSheetBackdrop
-				  {...props}
-				  appearsOnIndex={0}
-				  disappearsOnIndex={-1}
-				  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-				/>
-			  )}
-			>
-				<BottomSheetView style={styles.contentContainerBottomSheet}>
-					<ActivityIndicator size="large" color={theme.textDark} />
-					<Text style={styles.h2}>Chargement...</Text>
-				</BottomSheetView>
-			</BottomSheet>
-		);
-	}
-	if (error || !stats) {
-		return (
-			<BottomSheet
-			ref={ref} 
-			enablePanDownToClose 
-			snapPoints={['40%']}
-			backdropComponent={(props: BottomSheetBackdropProps) => (
-				<BottomSheetBackdrop
-				  {...props}
-				  appearsOnIndex={0}
-				  disappearsOnIndex={-1}
-				  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-				/>
-			  )}>
-				<BottomSheetView style={styles.contentContainerBottomSheet}>
-					<Text>Erreur</Text>
-					<Text>{error || "Données non disponibles"}</Text>
-					<Button
-						title="Réessayer"
-						onPress={fetchLegislation}
-						color={theme.textDark}
-					/>
-				</BottomSheetView>
-			</BottomSheet>
-		);
-	};
+	const snapPoints = loading ? ['20%'] : error || !stats ? ['40%'] : ['90%'];
+
 	return (
 		<BottomSheet
 			ref={ref}
 			enablePanDownToClose
-			snapPoints={['90%']}
+			snapPoints={snapPoints}
 			topInset={insets.top + 10}
 			overDragResistanceFactor={2}
 			enableContentPanningGesture={false}
@@ -194,98 +130,94 @@ const LegislationSheet = React.forwardRef<BottomSheetMethods, LegislationSheetPr
 			backgroundStyle={[styles.containerBottomSheet, { height: '100%' }]}
 			containerStyle={{ zIndex: 999 }}
 			android_keyboardInputMode="adjustPan"
-			handleComponent={() => <HitArea /> }
+			handleComponent={() => <HitArea />}
 			backdropComponent={(props: BottomSheetBackdropProps) => (
 				<BottomSheetBackdrop
-				  {...props}
-				  appearsOnIndex={0}
-				  disappearsOnIndex={-1}
-				  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+					{...props}
+					appearsOnIndex={0}
+					disappearsOnIndex={-1}
+					style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
 				/>
-			  )}
+			)}
 		>
-			<BottomSheetView focusable={true} style={styles.contentContainerBottomSheetLegislation}>
-				<ScrollView 
-					style={{ marginTop: -20 }}
-					contentContainerStyle={{ paddingBottom: 60 }}
-					bounces={false}
-					showsVerticalScrollIndicator={true}
-					keyboardShouldPersistTaps="handled"
-				>
-				<View style={styles.headerContainerBottomSheet}>
-					<View>
-						<Text style={[styles.h2, {fontSize: 16, lineHeight: 24}]}>{stats.title}</Text>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-							<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, }} />
-							<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
-						</View>
-					</View>
-				</View>
-					<Text style={[styles.textDescriptionBottomSheet, { marginBottom: -4 }]}>
-						{stats.article}
-					</Text>
-					<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
-						<Text style={[styles.textDescriptionBottomSheet, { marginBottom: 10, textDecorationLine: 'underline' }]}>
-							Réglementation complète
-						</Text>
-					</TouchableOpacity>
-					<View style={{ marginTop: 20, marginBottom: 20 }}>
-						<Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
-						<View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
-							{loadingGeojson ? (
-							<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
-								<ActivityIndicator size="large" color={theme.textHighlightDark} />
-								<Text style={{ marginTop: 10, color: theme.textDark }}>Chargement de la carte...</Text>
-							</View>
-							) : geojson ? (
+			<BottomSheetView style={styles.contentContainerBottomSheet}>
+				{loading ? (
+					<>
+						<ActivityIndicator size="large" color={theme.textDark} />
+						<Text style={styles.h2}>Chargement...</Text>
+					</>
+				) : error || !stats ? (
+					<>
+						<Text style={styles.h2}>Erreur</Text>
+						<Text>{error || "Données non disponibles"}</Text>
+						<Button title="Réessayer" onPress={fetchLegislation} color={theme.textDark} />
+					</>
+				) : (
+					<ScrollView 
+						style={{ marginTop: -20 }}
+						contentContainerStyle={{ paddingBottom: 60 }}
+						bounces={false}
+						showsVerticalScrollIndicator
+						keyboardShouldPersistTaps="handled"
+					>
+						<View style={styles.headerContainerBottomSheet}>
 							<View>
-								<MapView
-									provider={PROVIDER_GOOGLE}
-									style={{ height: 200, width: '100%' }}
-									initialRegion={regionCoor || {
-										latitude: 46.603354,
-										longitude: 1.888334,
-										latitudeDelta: 10,
-										longitudeDelta: 10,
-									}}
-									scrollEnabled={false}
-									zoomEnabled={false}
-									rotateEnabled={false}
-									pitchEnabled={false}
-								>
-									<Geojson 
-									geojson={geojson} 
-									strokeColor={theme.textHighlightDark}
-									fillColor={`${theme.textHighlightDark}50`}
-									strokeWidth={2}
-									/>
-								</MapView>
-								{/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-									<Ionicons name="document-text" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-									<Text style={{ fontSize: 14, color: theme.textDark }}>
-										Référence: {`${stats.places[0].geojson?.features[0].properties.nom}, ${stats.places[0].geojson?.features[0].properties.codeDepartement}`}
-									</Text>
+								<Text style={[styles.h2, { fontSize: 16, lineHeight: 24 }]}>{stats.title}</Text>
+								<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+									<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4 }} />
+									<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
 								</View>
-								<View style={{ marginBottom: 60, flexDirection: 'row', alignItems: 'center' }}>
-									<Ionicons name="time" size={16} color={theme.textDark} style={{ marginRight: 6 }} />
-									<Text style={{ fontSize: 14, color: theme.textDark }}>
-										Mis à jour: {stats.date}
-									</Text>
-								</View> */}
 							</View>
-							) : (
-							<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
-								<Ionicons name="map" size={48} color={theme.textDark} />
-								<Text style={{ marginTop: 10, color: theme.textDark }}>Carte non disponible</Text>
-							</View>
-							)}
 						</View>
-					</View>
-				</ScrollView>
+						<Text style={[styles.textDescriptionBottomSheet, { marginBottom: -4 }]}>{stats.article}</Text>
+						<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
+							<Text style={[styles.textDescriptionBottomSheet, { marginBottom: 10, textDecorationLine: 'underline' }]}>
+								Réglementation complète
+							</Text>
+						</TouchableOpacity>
+						<View style={{ marginTop: 20, marginBottom: 20 }}>
+							<Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
+							<View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
+								{loadingGeojson ? (
+									<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
+										<ActivityIndicator size="large" color={theme.textHighlightDark} />
+										<Text style={{ marginTop: 10, color: theme.textDark }}>Chargement de la carte...</Text>
+									</View>
+								) : geojson ? (
+									<MapView
+										provider={PROVIDER_GOOGLE}
+										style={{ height: 200, width: '100%' }}
+										initialRegion={regionCoor || {
+											latitude: 46.603354,
+											longitude: 1.888334,
+											latitudeDelta: 10,
+											longitudeDelta: 10,
+										}}
+										scrollEnabled={false}
+										zoomEnabled={false}
+										rotateEnabled={false}
+										pitchEnabled={false}
+									>
+										<Geojson 
+											geojson={geojson} 
+											strokeColor={theme.textHighlightDark}
+											fillColor={`${theme.textHighlightDark}50`}
+											strokeWidth={2}
+										/>
+									</MapView>
+								) : (
+									<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
+										<Ionicons name="map" size={48} color={theme.textDark} />
+										<Text style={{ marginTop: 10, color: theme.textDark }}>Carte non disponible</Text>
+									</View>
+								)}
+							</View>
+						</View>
+					</ScrollView>
+				)}
 			</BottomSheetView>
 		</BottomSheet>
 	);
-  }
-);
+});
 
 export default LegislationSheet;
