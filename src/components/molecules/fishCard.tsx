@@ -8,10 +8,11 @@ interface FishCardProps {
 	onPress?: () => void;
 	fishName: string;
 	imgSource: string;
+	id: string;
 	addHistory?: boolean;
 }
 
-const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardProps) => {
+const FishCard = ({ onPress, fishName, imgSource, id, addHistory = true }: FishCardProps) => {
 	const styles = GlobalStyles();
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
@@ -30,6 +31,7 @@ const FishCard = ({ onPress, fishName, imgSource, addHistory = true }: FishCardP
 			addToHistory({
 				entryType: "Poissons",
 				label: fishName,
+				id: id,
 				parameter: imgSource,
 			})
 		if (onPress) {

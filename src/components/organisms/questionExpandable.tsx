@@ -3,14 +3,12 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
-import { Fish } from '../../pages/fishScreen.tsx';
 
 export type ItemType = {
   label: string;
   type: string;
   id: number;
   parameter: string;
-  fish?: any[];
 };
 type AnswerField = "bodyType" | "fins" | "eye";
 type QuestionExpandableProps = {
@@ -83,6 +81,7 @@ const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, quest
             >
               <FishCard
                 fishName={item.label}
+                id={item.id.toString()}
                 imgSource={item.parameter?.toString() || ''}
                 onPress={() => handleAnswerPress(item.id, item.type, item.label)}
                 addHistory = {false}

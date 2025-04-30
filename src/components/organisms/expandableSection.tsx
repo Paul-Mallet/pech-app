@@ -11,35 +11,33 @@ import { Fish } from '../../pages/fishScreen.tsx';
 type ExpandableSectionProps = {
   entryType: string;
   items: ItemType[];
-  onFishPress?: (label: Fish) => void;
+  onFishPress?: (fishId: string) => void;
 };
-
-
-const screenWidth = Dimensions.get('window').width;
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items, onFishPress }) => {
   const [expanded, setExpanded] = useState(true);
   const { theme } = useTheme();
   const styles = GlobalStyles();
 
-const navigation = useNavigation();
-const handleRightIconPress = (text: string) => {
-    navigation.navigate('Tabs', {
-        screen: 'Législation',
-        params: { searchText: text },
-    });
-};
+  const navigation = useNavigation();
+  const handleRightIconPress = (text: string) => {
+      navigation.navigate('Tabs', {
+          screen: 'Législation',
+          params: { searchText: text },
+      });
+  };
 
   const toggleExpand = () => setExpanded(prev => !prev);
-
+  
   const renderItem = ({ item }: { item: ItemType }) => {
     switch (entryType) {
       case 'Poissons':
         return (
           <FishCard
             fishName={item.label}
+            id={item.id.toString()}
             imgSource={item.parameter || ''}
-            onPress={() => onFishPress?.(item.fish)}
+            onPress={() => onFishPress?.(item.id.toString())}
           />
         );
       case 'Recherches':

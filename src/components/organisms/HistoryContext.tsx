@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useState } from 'react';
+import { Fish } from '../../pages/fishScreen.tsx';
+import { getAllFish } from '../../services/fish.service.tsx';
 
 type HistoryItem = {
   entryType: string;
   label: string;
+  id: string;
   parameter: string;
 };
 
@@ -11,20 +14,21 @@ type HistoryContextType = {
   groupedHistory: Record<string, HistoryItem[]>;
   addToHistory: (item: HistoryItem) => void;
   clearHistory: () => void;
+  fetchFishes: () => void;
+  getFishById: (id: string) => Fish | undefined;
+  fishes: Fish[];
 };
-
 
 /* 
     TODO:
 
-    - add a style to the texts in the Revoir page.
-    - check the entryType and add a fish card for the fishes and a clickable text for the research with maximum elements. Maybe a scrollview?
     - when I go back from the Revoir to the Decouvrir section, the first click does nothing.
 */
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 
 export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [fishes, setFishes] = useState<Fish[]>([]);
 
   const addToHistory = (item: HistoryItem) => {
     setHistory(prev => [item, ...prev.filter(i => (i.label !== item.label || (i.label === item.label && i.entryType !== item.entryType)))]);
@@ -38,8 +42,27 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
 
   const clearHistory = () => setHistory([]);
 
+  const fetchFishes = async () => {
+      try {
+          const fishesVar = await getAllFish();
+          console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
+          setFishes(fishesVar);
+      } catch (err) {
+          console.error('Impossible de charger les données des poissons.');
+      }
+  };
+
+  const getFishById = (id: string): Fish | undefined => {
+    try {
+      return fishes.find(f => f.id.toString() === id);
+    } catch (e) {
+      console.error('Failed to get fish by ID:', e);
+      return undefined;
+    }
+  };
+
   return (
-    <HistoryContext.Provider value={{ history, groupedHistory, addToHistory, clearHistory }}>
+    <HistoryContext.Provider value={{ history, groupedHistory, addToHistory, clearHistory, fetchFishes, getFishById, fishes }}>
       {children}
     </HistoryContext.Provider>
   );

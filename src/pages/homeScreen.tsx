@@ -17,7 +17,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
 	const navigation = useNavigation();
-	const { groupedHistory } = useHistory();
+	const { groupedHistory, fetchFishes } = useHistory();
 	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
 	const startTouch = useRef({ x: 0, y: 0 });
@@ -33,6 +33,9 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const pressedLegislationRef = useRef(pressedLegislation);
 
+
+	useEffect(() => fetchFishes(), [])
+
 	useEffect(() => {
 		pressedLegislationRef.current = pressedLegislation;
 	}, [pressedLegislation]);
@@ -47,6 +50,11 @@ const HomeScreen = ({ route }: { route: any }) => {
 		bottomSheetRef.current?.expand();
 	};
 
+    useEffect(() => {
+        if (pressedFish && bottomSheetRef.current) {
+            bottomSheetRef.current.expand();
+        }
+    }, [pressedFish]);
 
 	useEffect(() => {
 		const handler = () => {
@@ -63,10 +71,12 @@ const HomeScreen = ({ route }: { route: any }) => {
 		};
 	  }, []);
 
-	const handleFishPress = (fish: Fish) => {
-		setPressedFish(fish);
-		bottomSheetRef.current?.expand();
-	};
+	const { getFishById } = useHistory();
+	const handleFishPress = (fishId: string) => {
+		const fish = getFishById(fishId);
+		if (fish)
+			setPressedFish(fish);
+	  };
 	
 	const switchTab = (target: string) => {
 		const toValue = target === decouvrir ? 0 : -screenWidth;

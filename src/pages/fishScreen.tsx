@@ -7,14 +7,12 @@ import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
-import { getAllFish, getFishById } from '../services/fish.service.tsx';
+import { getFishById } from '../services/fish.service.tsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import EventBus from '../components/organisms/EventBus.tsx';
+import { useHistory } from '../components/organisms/HistoryContext.tsx';
 
-interface HomeCardProps {
-    children?: ReactNode;
-}
 
 export interface Fish {
 	scientificName: string;
@@ -52,9 +50,8 @@ export interface Fish {
     }>;
 }
 
-const FishScreen = ({ children }: HomeCardProps) => {
+const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
-    const [fishes, setFishes] = useState<Fish[]>([]);
     // const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [pressedFish, setPressedFish] = useState<Fish | null>(null);
@@ -63,6 +60,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
     const navigation = useNavigation();
 	const styles = GlobalStyles();
     const { theme } = useTheme();
+    const { fetchFishes, fishes } = useHistory();
 
     useEffect(() => {
         const handler = () => {
@@ -89,27 +87,16 @@ const FishScreen = ({ children }: HomeCardProps) => {
 
     const onRefresh = () => {
         setRefreshing(true);
-        fetchFishes();
     };
 
-    const fetchFishes = async () => {
+    const handleFishPress = async (fishId: string) => {
         try {
-            const fishesVar = await getAllFish();
-            console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
-            setFishes(fishesVar);
-        } catch (err) {
-            setError('Impossible de charger les données des poissons.');
-        }
-    };
-
-    useEffect(() => {
-        fetchFishes();
-    }, []);
-
-    const handleFishPress = async (fish: Fish) => {
-        try {
-            // const fish = await getFishById(id);
-            setPressedFish(fish);
+            const fish = await getFishById(fishId);
+            // console.log("Fish: ", fish);
+            if (fish)
+                setPressedFish(fish);
+            else
+                console.error("Failed to fetch fish:", error);
         } catch (error) {
             console.error("Failed to fetch fish:", error);
         }
@@ -142,6 +129,7 @@ const FishScreen = ({ children }: HomeCardProps) => {
             return null;
         }
     };
+
 
     // const fetchFishes = async () => {
     //     try {
@@ -269,7 +257,8 @@ const FishScreen = ({ children }: HomeCardProps) => {
                         columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
                         renderItem={({ item }) => (
                             <FishCard
-                                onPress={() => handleFishPress(item)}
+                                onPress={() => handleFishPress(item.id.toString())}
+                                id={item.id.toString()}
                                 fishName={item.name}
                                 imgSource={item.additionalImages[0].url}
                             />

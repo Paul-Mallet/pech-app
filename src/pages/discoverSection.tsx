@@ -9,7 +9,7 @@ import { Fish } from './fishScreen.tsx';
 const screenWidth = Dimensions.get('window').width;
 
 type DecouvrirTabProps = {
-  handleFishPress: (fish: Fish) => void;
+  handleFishPress: (fishId: string) => void;
   handleLegislationPress: (id: string) => void;
 };
 
@@ -19,13 +19,13 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 	const [error, setError] = useState<string | null>(null);
 	const styles = GlobalStyles();
 
-
 	useEffect(() => 
 	{
 		const fetchData = async () => {
 			try {
 				const contentVar = await getHomeContent();
 				setLegislations(contentVar.legislations);
+				// console.log("Decouvrir fishes:", JSON.stringify(contentVar.fishes));
 				setFishes(contentVar.fishes);
 			} catch (err) {
 				setError('Impossible de charger les données.');
@@ -49,7 +49,8 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 							fishes.map((fish, index) => (
 								<FishCard
 									key={fish.id || index}
-									onPress={() => handleFishPress(fish)}
+									id={fish.id.toString()}
+									onPress={() => handleFishPress(fish.id.toString())}
 									fishName={fish.name}
 									imgSource={fish.additionalImages[0].url}
 								/>

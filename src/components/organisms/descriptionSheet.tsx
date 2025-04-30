@@ -8,7 +8,6 @@ import CTAButton from '../atoms/button.tsx';
 import { FontAwesome6 } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
-import { getFishById } from '../../services/fish.service.tsx';
 import { Fish } from '../../pages/fishScreen.tsx';
 
 type DescriptionSheetProps = {
@@ -19,23 +18,18 @@ type DescriptionSheetProps = {
 const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fish, onClose }, ref) => {
 		const [stats, setStats] = useState<any>({});
-		// const [loading, setLoading] = useState<boolean>(false);
 		const [error, setError] = useState<string | null>(null);
 		const { theme } = useTheme();
 		const styles = GlobalStyles();
 		const insets = useSafeAreaInsets();
 
 		const fetchFish = () => {
-			// setLoading(true);
 			try {
 				// console.log("\x1b[36mFetched fish:\x1b[0m", fish);
 				setStats(fish);
 			} catch (err) {
 				setError("Impossible de charger les infos du poisson.");
 			}
-			//  finally {
-			// 	setLoading(false);
-			// }
 		};
 
 		useEffect(() => {
@@ -48,19 +42,6 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			}
 		}, [onClose]);
 
-		// if (loading) {
-		// 	return (
-		// 		<BottomSheet
-		// 			ref={ref}
-		// 			snapPoints={['20%']}
-		// 		>
-		//  			<BottomSheetView style={styles.contentContainerBottomSheet}>
-		//  				<ActivityIndicator size="large" color={theme.textDark} />
-		// 				<Text style={styles.h2}>Chargement...</Text>
-		//  			</BottomSheetView>
-		//  		</BottomSheet>
-		//  	);
-		// }
 		if (error || !stats) {
 			return (
 				<BottomSheet
