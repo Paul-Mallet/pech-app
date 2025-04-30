@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabBar, BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from 'react-native';
 import HomeScreen from '../../pages/homeScreen.tsx';
@@ -10,6 +10,7 @@ import { useTheme } from './ThemeContext.tsx';
 import { useNavigationState } from '@react-navigation/native';
 import FishScreen from '../../pages/fishScreen.tsx';
 import FishResearch from '../../pages/fishResearchScreen.tsx';
+import EventBus from './EventBus.tsx';
 
 type TabParamList = {
   FishResearch: undefined;
@@ -93,6 +94,7 @@ const BottomTabNavigator = () => {
         listeners={({ navigation }: { navigation: any }) => ({
           tabPress: (e: { preventDefault: () => void; }) => {
             e.preventDefault();
+            EventBus.emit('homeTabPress');
             navigation.navigate('Accueil');
           },
         })}

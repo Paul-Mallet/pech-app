@@ -23,7 +23,7 @@ export default class QuestionModel
     toFlatListData() {
         return [
           {
-            type: 'Morphologie',
+            type: 'Corps',
             field: 'bodyType',
             reponses: this.bodyType.map(item => ({
               label: item.name,

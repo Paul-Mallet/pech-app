@@ -1,18 +1,20 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { View, SafeAreaView, Animated, Dimensions, PanResponder } from 'react-native';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
 import HistoryList from './historySection.tsx';
 import DecouvrirTab from './discoverSection.tsx';
 import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
 import { Fish } from './fishScreen.tsx';
+import { useNavigation } from '@react-navigation/native';
+import EventBus from '../components/organisms/EventBus.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
+	const navigation = useNavigation();
 	const { groupedHistory } = useHistory();
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
@@ -22,9 +24,18 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const [pressedFish, setPressedFish] = useState<Fish | null>(null);
 	const [activeTab, setActiveTab] = useState('découvrir');
 	const styles = GlobalStyles();
-	const { theme } = useTheme();
 	const decouvrir = 'découvrir';
 	const revoir = 'revoir';
+
+	useEffect(() => {
+		const handler = () => {
+		  switchTab(decouvrir);
+		};
+		EventBus.on('homeTabPress', handler);
+		return () => {
+		  EventBus.off('homeTabPress', handler);
+		};
+	  }, []);
 
 	const handleFishPress = (fish: Fish) => {
 		setPressedFish(fish);
