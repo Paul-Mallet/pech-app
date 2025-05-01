@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { useHistory } from '../organisms/HistoryContext.tsx';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import FishCardStyles from '../../styles/molecules/fishCardStyles.tsx';
 import { API_BASE_URL } from '../../services/fish.service.tsx';
 
 interface FishCardProps {
@@ -13,19 +13,21 @@ interface FishCardProps {
 }
 
 const FishCard = ({ onPress, fishName, imgSource, id, addHistory = true }: FishCardProps) => {
-	const styles = GlobalStyles();
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
 	const { addToHistory } = useHistory();
+	const styles = FishCardStyles();
+
 	const getImageUrl = (imgSource: string) =>
 	{
-		// console.log("Image: " + imgSource);
 		if (imgSource.includes("http"))
 			return imgSource;
 		if (imgSource)
 			return API_BASE_URL + imgSource;
 	}
+
 	const uri = imgSource ? getImageUrl(imgSource) : null;
+
 	const handlePress = () => {
 		if (addHistory)
 			addToHistory({
@@ -40,7 +42,7 @@ const FishCard = ({ onPress, fishName, imgSource, id, addHistory = true }: FishC
 	};
 
 	return (
-		<View style={styles.fishCardContainer}>
+		<View style={styles.cardContainer}>
 		 	<TouchableOpacity onPress={handlePress}>
 				{(!loaded || error) && (
 					<Image
@@ -58,7 +60,13 @@ const FishCard = ({ onPress, fishName, imgSource, id, addHistory = true }: FishC
 				)}
 		 	</TouchableOpacity>
 			 <View pointerEvents="none">
-			 	<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>{fishName}</Text>
+			 	<Text
+					numberOfLines={fishName?.length > 15 ? 2 : 1}
+					adjustsFontSizeToFit
+					style={styles.cardName}
+				>
+					{fishName}
+				</Text>
 			 </View>
 		</View>
 	);

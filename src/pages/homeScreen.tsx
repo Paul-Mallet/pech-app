@@ -1,23 +1,24 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { View, SafeAreaView, Animated, Dimensions, PanResponder } from 'react-native';
-import SearchBar from '../components/organisms/searchBar.tsx';
-import GlobalStyles from '../styles/base/globalStyles.tsx';
-import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
-import { useHistory } from '../components/organisms/HistoryContext.tsx';
-import HistoryList from './historySection.tsx';
-import DecouvrirTab from './discoverSection.tsx';
-import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
-import { Fish } from './fishScreen.tsx';
 import { useNavigation } from '@react-navigation/native';
-import EventBus from '../components/organisms/EventBus.tsx';
+import SearchBar from '../components/organisms/searchBar.tsx';
+import DecouvrirTab from './discoverSection.tsx';
+import HistoryList from './historySection.tsx';
+import { useHistory } from '../components/organisms/HistoryContext.tsx';
+import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
+import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
+import EventBus from '../components/organisms/EventBus.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import GlobalStyles from '../styles/base/globalStyles.tsx';
+import { Fish } from '../models/fish.model.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
-	const navigation = useNavigation();
 	const { groupedHistory, fetchFishes } = useHistory();
+	const { getFishById } = useHistory();
+	const navigation = useNavigation();
 	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
 	const startTouch = useRef({ x: 0, y: 0 });
@@ -32,7 +33,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const [legislationId, setLegislationId] = useState<string>("");
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const pressedLegislationRef = useRef(pressedLegislation);
-
 
 	useEffect(() => 
 	{
@@ -74,7 +74,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 		};
 	  }, []);
 
-	const { getFishById } = useHistory();
 	const handleFishPress = (fishId: string) => {
 		const fish = getFishById(fishId);
 		if (fish)
@@ -90,7 +89,6 @@ const HomeScreen = ({ route }: { route: any }) => {
 		setActiveTab(target);
 	};
 
-	// probable bug with multiple tabs (more than 2): the activeTab doesn't update correctly
 	const panResponder = useRef(
 		PanResponder.create({
 			onStartShouldSetPanResponder: () => true,
@@ -148,11 +146,23 @@ const HomeScreen = ({ route }: { route: any }) => {
 			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>
 				<Animated.View style={{ flexDirection: 'row', width: screenWidth * 2, transform: [{ translateX }] }}>
-					<DecouvrirTab handleFishPress={handleFishPress} handleLegislationPress={handleLegislationPress} />
-					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
+					<DecouvrirTab
+						handleFishPress={handleFishPress}
+						handleLegislationPress={handleLegislationPress}
+					/>
+					<HistoryList
+						groupedHistory={groupedHistory}
+						handleFishPress={handleFishPress}
+					/>
 				</Animated.View>
 			</View>
-			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fish={pressedFish} onClose={() => {setPressedFish(null)}} />)}
+			{pressedFish && (
+				<DescriptionSheet
+					ref={bottomSheetRef}
+					fish={pressedFish}
+					onClose={() => {setPressedFish(null)}}
+				/>
+			)}
 			{pressedLegislation && (
 				<LegislationSheet
 					ref={bottomSheetRef}

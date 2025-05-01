@@ -1,30 +1,14 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Fish } from '../../pages/fishScreen.tsx';
+import { Fish } from '../../models/fish.model.tsx';
+import { HistoryContext, HistoryItem } from '../../models/history.model.tsx';
 import { getAllFish } from '../../services/fish.service.tsx';
-
-type HistoryItem = {
-  entryType: string;
-  label: string;
-  id: string;
-  parameter: string;
-};
-
-type HistoryContextType = {
-  history: HistoryItem[];
-  groupedHistory: Record<string, HistoryItem[]>;
-  addToHistory: (item: HistoryItem) => void;
-  clearHistory: () => void;
-  fetchFishes: () => void;
-  getFishById: (id: string) => Fish | undefined;
-  fishes: Fish[];
-};
 
 /* 
     TODO:
 
     - when I go back from the Revoir to the Decouvrir section, the first click does nothing.
 */
-const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
+const HistoryContext = createContext<HistoryContext | undefined>(undefined);
 
 export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);

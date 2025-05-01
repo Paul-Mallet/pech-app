@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import SearchBarResultElement from './searchBarResultElement.tsx';
+import SearchBarResultElement from '../atoms/searchBarResultElement.tsx';
 
 interface ResultGroupProps {
     elementType: string;

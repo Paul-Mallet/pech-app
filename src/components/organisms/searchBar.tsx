@@ -2,14 +2,10 @@ import React, { useState, useRef, useCallback } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';        
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext.tsx';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
-
-interface ResultGroupProps {
-  elementType: string;
-  elements: string[];
-}
+import GlobalStyles from '../../styles/base/globalStyles.tsx';        
+import { ResultGroupProps } from '../../models/search.model.tsx';
 
 const data: ResultGroupProps[] = [
   { elementType: 'Poissons', elements: ['Poisson 1', 'Poisson 2', 'Poisson 3'] },

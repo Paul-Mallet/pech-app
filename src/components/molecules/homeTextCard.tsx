@@ -3,13 +3,13 @@ import { Text, View } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface HomeTextCardProps {
-    text: string;
-    title: string;
+  text: string;
+  title: string;
 }
 
 const HomeTextCard = (props: HomeTextCardProps) => {
-	const styles = GlobalStyles();
   const { text, title } = props;
+	const styles = GlobalStyles();
 
   const getHighlightedText = (text: string) => {
     const regex = /<h>(.*?)<\/h>/g;
@@ -18,22 +18,18 @@ const HomeTextCard = (props: HomeTextCardProps) => {
 
     let match;
     while ((match = regex.exec(text)) !== null) {
-      if (match.index > lastIndex) {
+      if (match.index > lastIndex)
         parts.push(<Text key={lastIndex}>{text.substring(lastIndex, match.index)}</Text>);
-      }
-
       parts.push(
         <Text key={match.index} style={styles.textHighlightDark}>
           {match[1]}
         </Text>
       );
-
       lastIndex = regex.lastIndex;
     }
 
-    if (lastIndex < text.length) {
+    if (lastIndex < text.length)
       parts.push(<Text key={lastIndex}>{text.substring(lastIndex)}</Text>);
-    }
 
     return parts;
   };

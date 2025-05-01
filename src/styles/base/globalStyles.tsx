@@ -18,20 +18,20 @@ const GlobalStyles = () => {
       fontFamily: font.bold,
       lineHeight: 40
     },
-    titleDark: {
-      fontFamily: font.bold,
-      textAlign: 'left',
-      fontSize: 16,
-      color: theme.textDark,
-      marginBottom: 8,
-      lineHeight: 20
-    },
-    textDark: {
-      fontFamily: font.regular,
-      fontSize: 12,
-      color: theme.textDark,
-      textAlign: 'left',
-    },
+    // titleDark: {
+    //   fontFamily: font.bold,
+    //   textAlign: 'left',
+    //   fontSize: 16,
+    //   color: theme.textDark,
+    //   marginBottom: 8,
+    //   lineHeight: 20
+    // },
+    // textDark: {
+    //   fontFamily: font.regular,
+    //   fontSize: 12,
+    //   color: theme.textDark,
+    //   textAlign: 'left',
+    // },
     textHighlightDark: {
       fontFamily: font.bold,
       fontSize: 14,
@@ -85,44 +85,44 @@ const GlobalStyles = () => {
       shadowRadius: 10,
       elevation: 10,
     },
-    backgroundImage: {
-			backgroundColor: theme.navBarBackground,
-      width: '100%',
-      height: '100%',
-      aspectRatio: 1,
-      borderRadius: 16,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 5 },
-      shadowOpacity: 0.2,
-      shadowRadius: 5,
-      elevation: 5
-    },
-    fishCardName: {
-      width: "90%",
-      alignSelf: 'center',
-      position: 'absolute',
-      bottom: 5,
-      fontFamily: font.bold,
-      fontSize: 16,
-      textAlign: 'center',
-      color: theme.textBoldLight,
-      textShadowColor: 'black', // Shadow color
-      textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
-      textShadowRadius: 6,
-      pointerEvents: 'none'
-    },
-    legislationCard: {
-      textAlign: 'left',
-      marginBottom: 16,
-      padding: 16,
-      backgroundColor: theme.cardBackground,
-      borderRadius: 24,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.2,
-      shadowRadius: 10,
-      elevation: 10,
-    },
+    // backgroundImage: {
+		// 	 backgroundColor: theme.navBarBackground,
+    //   width: '100%',
+    //   height: '100%',
+    //   aspectRatio: 1,
+    //   borderRadius: 16,
+    //   shadowColor: '#000',
+    //   shadowOffset: { width: 0, height: 5 },
+    //   shadowOpacity: 0.2,
+    //   shadowRadius: 5,
+    //   elevation: 5
+    // },
+    // fishCardName: {
+    //   width: "90%",
+    //   alignSelf: 'center',
+    //   position: 'absolute',
+    //   bottom: 5,
+    //   fontFamily: font.bold,
+    //   fontSize: 16,
+    //   textAlign: 'center',
+    //   color: theme.textBoldLight,
+    //   textShadowColor: 'black', // Shadow color
+    //   textShadowOffset: { width: 1, height: 1 }, // Shadow direction (x, y)
+    //   textShadowRadius: 6,
+    //   pointerEvents: 'none'
+    // },
+    // legislationCard: {
+    //   textAlign: 'left',
+    //   marginBottom: 16,
+    //   padding: 16,
+    //   backgroundColor: theme.cardBackground,
+    //   borderRadius: 24,
+    //   shadowColor: '#000',
+    //   shadowOffset: { width: 0, height: 8 },
+    //   shadowOpacity: 0.2,
+    //   shadowRadius: 10,
+    //   elevation: 10,
+    // },
     searchBar: {
       position: 'absolute',
       alignSelf: 'center',
@@ -238,13 +238,13 @@ const GlobalStyles = () => {
       fontFamily: font.italic,
 			color: theme.textDark,
 		},
-		fishCardContainer: {
-			position: "relative",
-			aspectRatio: 1,
-      padding: 6,
-			borderRadius: 24,
-			overflow: 'hidden',
-		},
+		// fishCardContainer: {
+		// 	position: "relative",
+		// 	aspectRatio: 1,
+    //   padding: 6,
+		// 	borderRadius: 24,
+		// 	overflow: 'hidden',
+		// },
 		fishListContainer: {
 			flexDirection: "row",
 			aspectRatio: 1,
@@ -282,7 +282,6 @@ const GlobalStyles = () => {
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
-    // elevation: 10,
 	},
 	contentContainerBottomSheet: {
 		flex: 1,

@@ -3,49 +3,19 @@ import { View , FlatList} from "react-native";
 import QuestionStyles from "../../styles/organisms/questionStyles.tsx";
 import { useAnswers } from "../../@config/answerContext.tsx";
 import QuestionExpandable from "./questionExpandable.tsx";
-import QuestionModel from "../../models/questions.model.tsx";
 import { getFishByAnswer } from "../../services/fish.service.tsx";
 import { useFishList } from "../../@config/fishListContext.tsx";
-
-type QuestionsProps = {
-    questionsParams : QuestionModel,
-    shouldResetFilters: boolean
-}
-// const questions = [
-//   {
-//     question: "Oui ou non ?",
-//     field: "fin",
-//     reponses: [
-//       { label: "oui", parameter: "" },
-//       { label: "non", parameter: "" },
-//       { label: "peut-etre", parameter: "" }
-//     ] as ItemType[]
-//   },
-//   {
-//     question: "Et sinon",
-//     field: "fin",
-//     reponses: [
-//       { label: "quoi", parameter: "" },
-//       { label: "hein", parameter: "" },
-//       { label: "euh", parameter: "" }
-//     ] as ItemType[]
-//   }
-// ];
+import { QuestionsProps, AnswerField } from "../../models/quiz.model.tsx";
 
 const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilters}) => {
     const {answers, setAnswers } = useAnswers();
     const {setFishList} = useFishList();
     const styles = QuestionStyles();
     const [resetSignal, setResetSignal] = useState(0);
-    // const [visibleModal, setModalVisible] = useState(false);
-    // const [questionType, setQuestionType] = useState<string | null>(null);
-
-    type AnswerField = "bodyType" | "fins" | "eye"
 
     useEffect(() => {
       if (shouldResetFilters)
       {
-        // console.log("filters resetted");
         setAnswers({});
         setFishList([]);
         setResetSignal(prev => prev + 1);
@@ -53,7 +23,6 @@ const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilte
     }, [shouldResetFilters]);
     
     const handleQuestionPress = (field: AnswerField, id: number) => {
-      // console.log("\x1b[36mAnswer:\x1b[0m", field, ", ", id);
       if (field !== "fins") {
         setAnswers({
           ...answers,
@@ -89,7 +58,6 @@ const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilte
         const updatedFishList = await getFishByAnswer(answers);
         setFishList(updatedFishList);
       }
-
       updateFish();
     }, [answers])
 

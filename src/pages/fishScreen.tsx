@@ -12,43 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import EventBus from '../components/organisms/EventBus.tsx';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
-
-
-export interface Fish {
-	scientificName: string;
-	minSizeCm: string;
-	englishAcronym: string;
-	physicalDescription: 
-    {
-        WRF: string;
-        moreInfos: string;
-    }
-    additionalImages: Array<{
-        id: number;
-        url: string;
-    }>;
-    id: number;
-    name: string;
-    img: string;
-    bodyType: {
-        id: number;
-        name: string;
-        description: string;
-    };
-    fins: Array<{
-        id: number;
-        type: string;
-        shape: string;
-        color: string;
-        size: string;
-    }>;
-    eyes: Array<{
-        id: number;
-        color: string;
-        size: string;
-        position: string;
-    }>;
-}
+import { Fish } from '../models/fish.model.tsx';
 
 const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);

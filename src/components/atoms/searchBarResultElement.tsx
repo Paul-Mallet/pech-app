@@ -1,14 +1,12 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../organisms/ThemeContext.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface ResultGroupProps {
     text: string;
-    // visible: boolean;
-    // setVisible: (visible: boolean) => void;
 }
 
 const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text }) => {
@@ -22,19 +20,10 @@ const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text }) => {
             params: { searchText: text },
         });
     };
-    const handleTextPress = (text: string) => {
-
-        // call the function to show the fish card
-
-        // navigation.navigate('Tabs', {
-        //     screen: 'Législation',
-        //     params: { searchText: text },
-        // });
-    };
 
     return (
         <View style={globalStyles.searchBarGroupElement}>
-            <TouchableOpacity onPress={() => handleTextPress(text)}>
+            <TouchableOpacity>
                 <Text style={globalStyles.searchBarGroupElementText}>{text}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleRightIconPress(text)}>

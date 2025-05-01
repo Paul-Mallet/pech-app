@@ -33,9 +33,9 @@ const FishResearch = ({navigation} : any) => {
     useEffect(() => {
         const createQuestions = async () => {
             try {
-                const bodyTypes : BodyTypeModel[] = await getAllBodyType();
-                const fins : FinModel[] = await getAllFins();
-                const eyes : EyeModel[] = await getAllEyes();
+                const bodyTypes: BodyTypeModel[] = await getAllBodyType();
+                const fins: FinModel[] = await getAllFins();
+                const eyes: EyeModel[] = await getAllEyes();
 
                 const questionsData : QuestionModel = QuestionsFactory.RequestToModel(bodyTypes, fins, eyes);
                 setQuestionsParams(questionsData);

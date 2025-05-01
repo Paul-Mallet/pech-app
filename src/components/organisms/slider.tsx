@@ -11,25 +11,11 @@ import {
 } from 'react-native';
 import { BottomSheetFlatList, BottomSheetView } from '@gorhom/bottom-sheet';
 import type { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet';
-import BottomSheetStyles from '../../styles/organisms/bottomSheetStyles.tsx';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext.tsx';
+import BottomSheetStyles from '../../styles/organisms/bottomSheetStyles.tsx';
 import { API_BASE_URL } from '../../services/fish.service.tsx';
-
-// type ImageKey = 'bar_01.png' | 'bar_02.png' | 'bar_03.png' | 'bar_04.png';
-
-// const imageMap: Record<ImageKey, number> = {
-// 	'bar_01.png': require('../../../assets/images/bar_01.png'),
-// 	'bar_02.png': require('../../../assets/images/bar_02.png'),
-// 	'bar_03.png': require('../../../assets/images/bar_03.png'),
-// 	'bar_04.png': require('../../../assets/images/bar_04.png'),
-// };
-
-// const images = ['bar_01.png', 'bar_02.png', 'bar_03.png', 'bar_04.png'];
-
-interface SliderProps {
-	images: string[];
-}
+import { SliderProps } from '../../models/fish.model.tsx';
 
 const ImageSlider = ({ images }: SliderProps) => {
     const { theme } = useTheme();
