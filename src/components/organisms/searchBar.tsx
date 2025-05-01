@@ -1,16 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';        
 import { useTheme } from './ThemeContext.tsx';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useHistory } from './HistoryContext.tsx';
-import { Fish } from '../../pages/fishScreen.tsx';
-import { Legislation } from '../../pages/legislationScreen.tsx';
 
-interface ElementType
-{
+interface ElementType {
   label: string;
   id: string;
 }
@@ -19,18 +15,9 @@ interface ResultGroupProps {
   elementType: string;
   elements: ElementType[];
 }
-interface FunctionsProps 
-{
-
-}
-
-// const data: ResultGroupProps[] = [
-//   { elementType: 'Poissons', elements: [{label:'Poisson 1', id:'1'}, {label:'Poisson 2', id:'2'}, {label:'Poisson 3', id:'3'}] },
-//   { elementType: 'Législation', elements: [{label:'Législation 1', id:'1'}, {label:'Législation 2', id:'2'}, {label:'Législation 3', id:'3'}] },
-// ];
 
 const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: (fishId: string) => void, setPressedLegislation: React.Dispatch<React.SetStateAction<string | null>> }) => {
-	const { fishes } = useHistory();
+	const { fishes, legislations } = useHistory();
   const [showResults, setShowResults] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
@@ -52,12 +39,31 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: 
       }));
   }
 
+  function getFilteredLegislationElements(searchText: string): ElementType[] {
+    const lowerSearch = searchText.toLowerCase();
+    
+    return legislations
+    .filter(legislation =>
+      legislation.article.toLowerCase().includes(lowerSearch) ||
+      legislation.title.toLowerCase().includes(lowerSearch)
+    )
+    .map(legislation => ({
+      label: legislation.article,
+      id: legislation.id.toString(),
+    }));
+  }
+
   function getFishResultGroup(searchText: string): ResultGroupProps[] {
     const filteredFish = getFilteredFishElements(searchText);
+    const filteredLegislation = getFilteredLegislationElements(searchText);
     return [
       {
         elementType: 'Poissons',
         elements: filteredFish,
+      },
+      {
+        elementType: 'Legislations',
+        elements: filteredLegislation,
       },
       // You can add more groups here if needed
     ];
