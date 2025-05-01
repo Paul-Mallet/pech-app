@@ -81,12 +81,13 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
 				handleComponent={() => <HitArea />}
+				containerStyle={{ zIndex: 999 }}
 				backdropComponent={(props: BottomSheetBackdropProps) => (
 					<BottomSheetBackdrop
 					  {...props}
 					  appearsOnIndex={0}
 					  disappearsOnIndex={-1}
-					  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+					  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 999 }}
 					/>
 				  )}
 			>

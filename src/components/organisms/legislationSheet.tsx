@@ -136,7 +136,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 					{...props}
 					appearsOnIndex={0}
 					disappearsOnIndex={-1}
-					style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+					style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 999 }}
 				/>
 			)}
 		>

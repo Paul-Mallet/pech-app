@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Fish } from '../../pages/fishScreen.tsx';
 import { getAllFish, getAllLegislations } from '../../services/fish.service.tsx';
 import { Legislation } from '../../pages/legislationScreen.tsx';
@@ -50,7 +50,7 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
   const fetchFishes = async () => {
       try {
           const fishesVar = await getAllFish();
-          // console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
+          console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
           setFishes(fishesVar);
       } catch (err) {
           console.error('Impossible de charger les données des poissons.');

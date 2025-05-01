@@ -28,7 +28,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const [activeTab, setActiveTab] = useState('découvrir');
 	const styles = GlobalStyles();
 	const decouvrir = 'découvrir';
-	const revoir = 'revoir';
+	const historique = 'historique';
 	const [legislationId, setLegislationId] = useState<string>("");
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const pressedLegislationRef = useRef(pressedLegislation);
@@ -126,7 +126,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 			
 				if (gestureDirection.current === 'horizontal') {
 					if (dx < -30) {
-						switchTab(revoir);
+						switchTab(historique);
 						hasSwitched.current = true;
 					} else if (dx > 30) {
 						switchTab(decouvrir);
@@ -147,13 +147,13 @@ const HomeScreen = ({ route }: { route: any }) => {
 
 	return (
 		<SafeAreaView style={styles.body}>
-			<SearchBar />
+			<SearchBar setPressedFish={handleFishPress} setPressedLegislation={setPressedLegislation} />
 			<TabSwitcher
 				activeTab={activeTab}
 				switchTab={switchTab}
 				tabs={[
 					{ key: decouvrir, label: 'Découvrir' },
-					{ key: revoir, label: 'Historique' },
+					{ key: historique, label: 'Historique' },
 				]}
 			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>

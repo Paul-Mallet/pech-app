@@ -7,11 +7,10 @@ import { useTheme } from '../organisms/ThemeContext.tsx';
 
 interface ResultGroupProps {
     text: string;
-    // visible: boolean;
-    // setVisible: (visible: boolean) => void;
+    callBack: () => void;
 }
 
-const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text }) => {
+const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text, callBack }) => {
     const { theme } = useTheme();
     const globalStyles = GlobalStyles();
     const navigation = useNavigation();
@@ -22,19 +21,10 @@ const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text }) => {
             params: { searchText: text },
         });
     };
-    const handleTextPress = (text: string) => {
-
-        // call the function to show the fish card
-
-        // navigation.navigate('Tabs', {
-        //     screen: 'Législation',
-        //     params: { searchText: text },
-        // });
-    };
 
     return (
         <View style={globalStyles.searchBarGroupElement}>
-            <TouchableOpacity onPress={() => handleTextPress(text)}>
+            <TouchableOpacity onPress={() => callBack()}>
                 <Text style={globalStyles.searchBarGroupElementText}>{text}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleRightIconPress(text)}>

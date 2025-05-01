@@ -3,16 +3,24 @@ import { ScrollView } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import SearchBarResultGroup from './searchBarResultGroup.tsx';
 
+interface ElementType
+{
+  label: string;
+  id: string;
+}
+
 interface ResultGroupProps {
     elementType: string;
-    elements: string[];
+    elements: ElementType[];
 }
 
 interface ResultListProps {
     elements: ResultGroupProps[];
+    setPressedFish: (fishId: string) => void;
+    setPressedLegislation: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const SearchBarResults: React.FC<ResultListProps> = ({ elements}) => {
+const SearchBarResults: React.FC<ResultListProps> = ({ elements, setPressedFish, setPressedLegislation}) => {
     const globalStyles = GlobalStyles();
 
     return (
@@ -22,6 +30,8 @@ const SearchBarResults: React.FC<ResultListProps> = ({ elements}) => {
                     key={index}
                     elementType={group.elementType}
                     elements={group.elements}
+                    setPressedFish={setPressedFish}
+                    setPressedLegislation={setPressedLegislation}
                 />
             ))}
         </ScrollView>
