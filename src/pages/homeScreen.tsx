@@ -57,9 +57,9 @@ const HomeScreen = ({ route }: { route: any }) => {
 		pressedFishRef.current = pressedFish;
 	}, [pressedFish]);
 	
-	const handleLegislationPress = (id: string) => {
-		setLegislationId(id);
-		setPressedLegislation(id.toString());
+	const handleLegislationPress = (legislationId: string) => {
+		setLegislationId(legislationId);
+		setPressedLegislation(legislationId.toString());
 		bottomSheetRef.current?.expand();
 	};
 
@@ -147,7 +147,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 
 	return (
 		<SafeAreaView style={styles.body}>
-			<SearchBar setPressedFish={handleFishPress} setPressedLegislation={setPressedLegislation} />
+			<SearchBar setPressedFish={handleFishPress} setPressedLegislation={handleLegislationPress} />
 			<TabSwitcher
 				activeTab={activeTab}
 				switchTab={switchTab}

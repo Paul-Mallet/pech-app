@@ -16,7 +16,7 @@ interface ResultGroupProps {
   elements: ElementType[];
 }
 
-const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: (fishId: string) => void, setPressedLegislation: React.Dispatch<React.SetStateAction<string | null>> }) => {
+const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: (fishId: string) => void, setPressedLegislation: (legislationId: string) => void }) => {
 	const { fishes, legislations } = useHistory();
   const [showResults, setShowResults] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -48,7 +48,7 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: 
       legislation.title.toLowerCase().includes(lowerSearch)
     )
     .map(legislation => ({
-      label: legislation.article,
+      label: legislation.title,
       id: legislation.id.toString(),
     }));
   }
@@ -62,7 +62,7 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: 
         elements: filteredFish,
       },
       {
-        elementType: 'Legislations',
+        elementType: 'Législations',
         elements: filteredLegislation,
       },
       // You can add more groups here if needed

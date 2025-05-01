@@ -17,7 +17,7 @@ interface ResultGroupProps {
 interface ResultListProps {
     elements: ResultGroupProps[];
     setPressedFish: (fishId: string) => void;
-    setPressedLegislation: React.Dispatch<React.SetStateAction<string | null>>;
+    setPressedLegislation: (legislationId: string) => void;
 }
 
 const SearchBarResults: React.FC<ResultListProps> = ({ elements, setPressedFish, setPressedLegislation}) => {

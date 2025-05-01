@@ -14,7 +14,7 @@ interface ResultGroupProps {
     elementType: string;
     elements: ElementType[];
     setPressedFish: (fishId: string) => void;
-    setPressedLegislation: React.Dispatch<React.SetStateAction<string | null>>;
+    setPressedLegislation: (legislationId: string) => void;
 }
 
 const SearchBarResultGroup: React.FC<ResultGroupProps> = ({ elementType, elements, setPressedFish, setPressedLegislation}) => {
@@ -23,13 +23,13 @@ const SearchBarResultGroup: React.FC<ResultGroupProps> = ({ elementType, element
     const handlePress = (text: string) => {
         if (elementType === 'Poissons') {
             setPressedFish(text);
-        } else if (elementType === 'Legislation') {
+        } else if (elementType === 'Législations') {
             setPressedLegislation(text);
         }
         // Add other condition checks for other elementTypes if necessary
       };
 
-    return (elements.length && 
+    return (elements.length > 0 && 
         <View style={globalStyles.searchBarListGroup}>
             <Text style={globalStyles.searchBarGroupTitle}>{elementType}</Text>
             {elements.map((element, index) => (

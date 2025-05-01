@@ -176,11 +176,11 @@ const GlobalStyles = () => {
       justifyContent: "space-between",
       alignItems: 'center',
       height: 30,
-      paddingLeft: 20,
       borderBottomWidth: 1,
       borderBottomColor: '#00000020'
     },
     searchBarGroupElementText: {
+      marginLeft: 10,
       fontFamily: font.regular,
       color: theme.textDark,
     },
