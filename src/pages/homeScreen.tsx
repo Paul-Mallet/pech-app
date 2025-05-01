@@ -17,7 +17,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = ({ route }: { route: any }) => {
 	const navigation = useNavigation();
-	const { groupedHistory, fetchFishes } = useHistory();
+	const { groupedHistory, fetchFishes, fetchLegislations, getHomeRandomContent, fishes, legislations } = useHistory();
 	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
 	const startTouch = useRef({ x: 0, y: 0 });
@@ -32,12 +32,22 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const [legislationId, setLegislationId] = useState<string>("");
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const pressedLegislationRef = useRef(pressedLegislation);
+	const [homeContent, setHomeContent] = useState<{ fishes: Fish[], legislations: any[] }>({ fishes: [], legislations: [] });
 
-
-	useEffect(() => 
-	{
-		fetchFishes();
-	}, [])
+	useEffect(() => {
+		const load = async () => {
+		  await Promise.all([fetchFishes(), fetchLegislations()]);
+		};
+	  
+		load();
+	  }, []);
+	  
+	useEffect(() => {
+	if (fishes.length && legislations.length) {
+		const content = getHomeRandomContent();
+		setHomeContent(content);
+	}
+	}, [fishes, legislations]);
 
 	useEffect(() => {
 		pressedLegislationRef.current = pressedLegislation;
@@ -143,12 +153,12 @@ const HomeScreen = ({ route }: { route: any }) => {
 				switchTab={switchTab}
 				tabs={[
 					{ key: decouvrir, label: 'Découvrir' },
-					{ key: revoir, label: 'Revoir' },
+					{ key: revoir, label: 'Historique' },
 				]}
 			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>
 				<Animated.View style={{ flexDirection: 'row', width: screenWidth * 2, transform: [{ translateX }] }}>
-					<DecouvrirTab handleFishPress={handleFishPress} handleLegislationPress={handleLegislationPress} />
+					<DecouvrirTab handleFishPress={handleFishPress} handleLegislationPress={handleLegislationPress} fishes={homeContent.fishes} legislations={homeContent.legislations} />
 					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
 				</Animated.View>
 			</View>

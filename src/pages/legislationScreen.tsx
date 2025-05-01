@@ -10,6 +10,7 @@ import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
 import { getAllLegislations } from '../services/fish.service.tsx';
 import EventBus from '../components/organisms/EventBus.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useHistory } from '../components/organisms/HistoryContext.tsx';
 
 export interface Legislation {
     id: number;
@@ -52,8 +53,6 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	const scrollViewRef = useRef<ScrollView>(null);
 	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const [searchText, setSearchText] = useState('');
-	const [legislations, setLegislations] = useState<Legislation[]>([]);
-	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const [legislationId, setLegislationId] = useState<string>("");
@@ -62,6 +61,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	const legislationStyles = LegislationStyles();
 	const { theme } = useTheme();
 	const pressedLegislationRef = useRef(pressedLegislation);
+	const { fetchLegislations, legislations } = useHistory();
 
 	useEffect(() => {
 		pressedLegislationRef.current = pressedLegislation;
@@ -95,23 +95,6 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		}
 	  };
 	
-	const fetchLegislations = async () => {
-		setLoading(true);
-		try {
-			const legislations = await getAllLegislations();
-			// console.log("\x1b[36mLegislations:\x1b[0m ", JSON.stringify(legislations));
-			setLegislations(legislations);
-		} catch (err) {
-			setError("Impossible de charger les infos des legislations.");
-		} finally {
-			setLoading(false);
-		}
-	};
-	
-	useEffect(() => {
-		fetchLegislations();
-	}, []);
-	
 	const filtered = legislations?.filter(legis => 
 		legis.title.toLowerCase().includes(searchText.toLowerCase()) || 
 		legis.article.toLowerCase().includes(searchText.toLowerCase())
@@ -123,23 +106,13 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		bottomSheetRef.current?.expand();
 	};
   
-	if (loading) {
-		return (
-			<SafeAreaView style={styles.body}>
-				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-                <View style={{ marginTop: 100 }}>
-                    <ActivityIndicator size="large" color={theme.textDark} />
-                </View>
-		    </SafeAreaView>
-		);
-	}
-	if (error || !legislations) {
+	if (!legislations.length) {
 		return (
 			<SafeAreaView style={styles.body}>
 				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
 			<View style={{ marginTop: 100 }}>
                     <Text>Erreur</Text>
-                    <Text>{error || "Données non disponibles"}</Text>
+                    <Text>{"Données non disponibles"}</Text>
                     <Button
                         title="Réessayer"
                         onPress={fetchLegislations}

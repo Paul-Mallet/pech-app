@@ -251,7 +251,7 @@ const FishScreen = () => {
                     <FlatList
                         data={fishes}
                         numColumns={2}
-                        contentContainerStyle={{gap: 6}}
+                        contentContainerStyle={{gap: 6, }}
                         scrollEnabled={false}
                         keyExtractor={(item) => item.id.toString()}
                         columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}

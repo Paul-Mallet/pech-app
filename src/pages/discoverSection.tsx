@@ -5,34 +5,20 @@ import LegislationCard from '../components/molecules/legislationCard.tsx';
 import { getHomeContent } from "../services/fish.service.tsx";
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { Fish } from './fishScreen.tsx';
+import { Legislation } from './legislationScreen.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
 type DecouvrirTabProps = {
   handleFishPress: (fishId: string) => void;
   handleLegislationPress: (id: string) => void;
+  fishes: Fish[];
+  legislations: Legislation[];
 };
 
-const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegislationPress }) => {
-	const [fishes, setFishes] = useState<Fish[]>([]);
-	const [legislations, setLegislations] = useState<any[]>([]);
-	const [error, setError] = useState<string | null>(null);
+const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegislationPress, fishes, legislations }) => {
 	const styles = GlobalStyles();
 
-	useEffect(() => 
-	{
-		const fetchData = async () => {
-			try {
-				const contentVar = await getHomeContent();
-				setLegislations(contentVar.legislations);
-				// console.log("Decouvrir fishes:", JSON.stringify(contentVar.fishes));
-				setFishes(contentVar.fishes);
-			} catch (err) {
-				setError('Impossible de charger les données.');
-			}
-		};
-		fetchData();
-	}, [])
 
 	return (
 		<ScrollView
@@ -40,9 +26,6 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 		showsVerticalScrollIndicator={false}
 		>
 			<View style={styles.fishCardsContainer}>
-				{ error &&
-					<Text style={{ color: 'red', padding: 20 }}>{error}</Text>
-				}
 				{ fishes &&
 					<View style={styles.fishCardsContainer}>
 						{
@@ -59,10 +42,6 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 					</View>
 				}
 			</View>
-
-			{ error &&
-				<Text style={{ color: 'red', padding: 20 }}>{error}</Text>
-			}
 			{ legislations &&
 				legislations.map((legislation, index) => (
 					<LegislationCard
