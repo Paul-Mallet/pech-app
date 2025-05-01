@@ -25,7 +25,7 @@ export const getHomeContent = async () => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the decouvrir content: ", error);
-        return error;
+        throw error;
     }
 };
 
@@ -36,7 +36,7 @@ export const getAllFish = async () => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the fish: ", error);
-        return error;
+        throw error;
     }
 };
 
@@ -46,7 +46,7 @@ export const getFishById = async (id: string) => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get a fish by id: ", error); 
-        return error;
+        throw error;
     }
 }
 
@@ -131,7 +131,7 @@ export const getAllLegislations = async () => {
         return response.data;
     } catch (error) {
         console.error("API error when trying to get legislations: ", error);
-        return error;
+        throw error;
     }
 }
 
@@ -141,7 +141,7 @@ export const getLegislationById = async (id : string | null) => {
         return response.data;
     } catch (error) {
         console.error("API error when trying to get a legislation: ", error);
-        return error;
+        throw error;
     }
 }
 
@@ -151,6 +151,6 @@ export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
         return response.data;
     } catch (error) {
         console.error("API error when trying to update the fishlist : ", error);
-        return error;
+        throw error;
     }
 }

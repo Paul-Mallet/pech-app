@@ -34,7 +34,10 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const pressedLegislationRef = useRef(pressedLegislation);
 
 
-	useEffect(() => fetchFishes(), [])
+	useEffect(() => 
+	{
+		fetchFishes();
+	}, [])
 
 	useEffect(() => {
 		pressedLegislationRef.current = pressedLegislation;
