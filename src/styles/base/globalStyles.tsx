@@ -91,11 +91,6 @@ const GlobalStyles = () => {
       height: '100%',
       aspectRatio: 1,
       borderRadius: 16,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 5 },
-      shadowOpacity: 0.2,
-      shadowRadius: 5,
-      elevation: 5
     },
     fishCardName: {
       width: "90%",
@@ -239,11 +234,16 @@ const GlobalStyles = () => {
       color: theme.textDark,
     },
     fishCardContainer: {
+			backgroundColor: theme.navBarBackground,
       position: "relative",
       aspectRatio: 1,
-      padding: 6,
       borderRadius: 24,
       overflow: 'hidden',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 4
     },
     fishListContainer: {
       flexDirection: "row",

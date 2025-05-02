@@ -23,11 +23,6 @@ type HistoryContextType = {
   getHomeRandomContent: () => { fishes: Fish[]; legislations: Legislation[] };
 };
 
-/* 
-    TODO:
-
-    - when I go back from the Revoir to the Decouvrir section, the first click does nothing.
-*/
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 
 export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
@@ -50,7 +45,7 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
   const fetchFishes = async () => {
       try {
           const fishesVar = await getAllFish();
-          console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
+          // console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
           setFishes(fishesVar);
       } catch (err) {
           console.error('Impossible de charger les données des poissons.');
