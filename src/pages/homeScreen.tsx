@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { View, SafeAreaView, Animated, Dimensions, PanResponder } from 'react-native';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
@@ -8,17 +8,14 @@ import HistoryList from './historySection.tsx';
 import DecouvrirTab from './discoverSection.tsx';
 import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
 import { Fish } from './fishScreen.tsx';
-import { useNavigation } from '@react-navigation/native';
 import EventBus from '../components/organisms/EventBus.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 const screenWidth = Dimensions.get('window').width;
 
-const HomeScreen = ({ route }: { route: any }) => {
-	const navigation = useNavigation();
+const HomeScreen = () => {
 	const { groupedHistory, fetchFishes, fetchLegislations, getHomeRandomContent, fishes, legislations } = useHistory();
-	const bottomSheetRef = useRef<BottomSheetModal>(null);
 	const translateX = useRef(new Animated.Value(0)).current;
 	const startTouch = useRef({ x: 0, y: 0 });
 	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
@@ -33,6 +30,20 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const pressedLegislationRef = useRef(pressedLegislation);
 	const [homeContent, setHomeContent] = useState<{ fishes: Fish[], legislations: any[] }>({ fishes: [], legislations: [] });
+	const fishSheetRef = useRef<BottomSheetModal>(null);
+	const legislationSheetRef = useRef<BottomSheetModal>(null);
+
+	const reinitRefs = () =>
+	{
+		gestureDirection.current = null;
+		hasSwitched.current = false;
+		// console.log("Gesture direction reset:", gestureDirection.current);
+	}
+
+	useEffect(() => 
+	{
+		// console.log("Active tab:", activeTab);
+	}, [activeTab])
 
 	useEffect(() => {
 		const load = async () => {
@@ -41,7 +52,7 @@ const HomeScreen = ({ route }: { route: any }) => {
 	  
 		load();
 	  }, []);
-	  
+
 	useEffect(() => {
 	if (fishes.length && legislations.length) {
 		const content = getHomeRandomContent();
@@ -60,12 +71,12 @@ const HomeScreen = ({ route }: { route: any }) => {
 	const handleLegislationPress = (legislationId: string) => {
 		setLegislationId(legislationId);
 		setPressedLegislation(legislationId.toString());
-		bottomSheetRef.current?.expand();
+		legislationSheetRef.current?.expand();
 	};
 
     useEffect(() => {
-        if (pressedFish && bottomSheetRef.current) {
-            bottomSheetRef.current.expand();
+        if (pressedFish && fishSheetRef.current) {
+            fishSheetRef.current.expand();
         }
     }, [pressedFish]);
 
@@ -95,10 +106,21 @@ const HomeScreen = ({ route }: { route: any }) => {
 		const toValue = target === decouvrir ? 0 : -screenWidth;
 		Animated.spring(translateX, {
 			toValue,
-			useNativeDriver: true,
+			useNativeDriver: false,
 		}).start();
 		setActiveTab(target);
 	};
+
+	const handleHorizontalSwipe = (dx: number) => {
+		if (dx < -30) {
+			switchTab(historique);
+			hasSwitched.current = true;
+		} else if (dx > 30) {
+			switchTab(decouvrir);
+			hasSwitched.current = true;
+		}
+	};
+
 
 	// probable bug with multiple tabs (more than 2): the activeTab doesn't update correctly
 	const panResponder = useRef(
@@ -113,34 +135,22 @@ const HomeScreen = ({ route }: { route: any }) => {
 					x: evt.nativeEvent.pageX,
 					y: evt.nativeEvent.pageY,
 				};
-				gestureDirection.current = null;
-				hasSwitched.current = false;
 			},
-			onPanResponderMove: (_, gestureState) => {
+			
+			onPanResponderMove: (_, { dx, dy }) => {
 				if (gestureDirection.current === 'vertical' || hasSwitched.current) return;
 			
-				const { dx, dy } = gestureState;
 				if (!gestureDirection.current && (Math.abs(dx) > 40 || Math.abs(dy) > 40)) {
 					gestureDirection.current = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+					// console.log("Gesture direction:", gestureDirection.current);
 				}
 			
 				if (gestureDirection.current === 'horizontal') {
-					if (dx < -30) {
-						switchTab(historique);
-						hasSwitched.current = true;
-					} else if (dx > 30) {
-						switchTab(decouvrir);
-						hasSwitched.current = true;
-					}
+					handleHorizontalSwipe(dx);
 				}
 			},
 			onPanResponderRelease: () => {
-				gestureDirection.current = null;
-				hasSwitched.current = false;
-			},
-			onPanResponderTerminate: () => {
-				gestureDirection.current = null;
-				hasSwitched.current = false;
+				reinitRefs();
 			},
 		})
 	).current;
@@ -162,14 +172,8 @@ const HomeScreen = ({ route }: { route: any }) => {
 					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
 				</Animated.View>
 			</View>
-			{pressedFish && (<DescriptionSheet ref={bottomSheetRef} fish={pressedFish} onClose={() => {setPressedFish(null)}} />)}
-			{pressedLegislation && (
-				<LegislationSheet
-					ref={bottomSheetRef}
-					legislationId={legislationId}
-					onClose={() => setPressedLegislation(null)}
-				/>
-			)}
+			{pressedFish && (<DescriptionSheet ref={fishSheetRef} fish={pressedFish} onClose={() => {setPressedFish(null)}} />)}
+			{pressedLegislation && (<LegislationSheet ref={legislationSheetRef} legislationId={legislationId} onClose={() => setPressedLegislation(null)} />)}
 		</SafeAreaView>
 	);
 };

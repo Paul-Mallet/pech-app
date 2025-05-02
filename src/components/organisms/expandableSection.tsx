@@ -69,7 +69,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
       {expanded && (
         <FlatList
           data={items}
-          keyExtractor={(item, index) => `${entryType}-${index}`}
+          keyExtractor={(item) => `${entryType}-${item.id}`}
           renderItem={renderItem}
           numColumns={entryType === 'Recherches' ? 1 : 2}
           columnWrapperStyle={entryType !== 'Recherches' ? { marginTop: 10, justifyContent: 'space-between', alignItems: 'center', width: "50%", aspectRatio: 1.05, gap: 6 } : undefined}

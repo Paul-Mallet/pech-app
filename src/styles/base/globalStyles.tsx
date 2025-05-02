@@ -89,8 +89,6 @@ const GlobalStyles = () => {
 			backgroundColor: theme.navBarBackground,
       width: '100%',
       height: '100%',
-
-  alignSelf: 'center',
       aspectRatio: 1,
       borderRadius: 16,
       shadowColor: '#000',
