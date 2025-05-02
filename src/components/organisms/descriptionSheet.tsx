@@ -8,12 +8,7 @@ import CTAButton from '../atoms/button.tsx';
 import { FontAwesome6 } from '@expo/vector-icons';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useTheme } from '../../components/organisms/ThemeContext.tsx';
-import { Fish } from '../../pages/fishScreen.tsx';
-
-type DescriptionSheetProps = {
-	fish: Fish;
-	onClose: () => void;
-};
+import { DescriptionSheetProps } from '../../models/fish.model.tsx';
 
 const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fish, onClose }, ref) => {
@@ -25,7 +20,6 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 
 		const fetchFish = () => {
 			try {
-				// console.log("\x1b[36mFetched fish:\x1b[0m", fish);
 				setStats(fish);
 			} catch (err) {
 				setError("Impossible de charger les infos du poisson.");

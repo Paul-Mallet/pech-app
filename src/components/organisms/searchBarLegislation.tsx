@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import { useTheme } from './ThemeContext.tsx';
 import { useHistory } from './HistoryContext.tsx';
-interface SearchBarLegislationProps {
-  searchText: string;
-  setSearchText: (text: string) => void;
-}
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from './ThemeContext.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { SearchBarLegislationProps } from '../../models/search.model.tsx';
 
 const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislationProps) => {
 	const { addToHistory } = useHistory();

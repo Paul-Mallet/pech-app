@@ -12,43 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import EventBus from '../components/organisms/EventBus.tsx';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
-
-
-export interface Fish {
-	scientificName: string;
-	minSizeCm: string;
-	englishAcronym: string;
-	physicalDescription: 
-    {
-        WRF: string;
-        moreInfos: string;
-    }
-    additionalImages: Array<{
-        id: number;
-        url: string;
-    }>;
-    id: number;
-    name: string;
-    img: string;
-    bodyType: {
-        id: number;
-        name: string;
-        description: string;
-    };
-    fins: Array<{
-        id: number;
-        type: string;
-        shape: string;
-        color: string;
-        size: string;
-    }>;
-    eyes: Array<{
-        id: number;
-        color: string;
-        size: string;
-        position: string;
-    }>;
-}
+import { Fish } from '../models/fish.model.tsx';
 
 const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -92,7 +56,6 @@ const FishScreen = () => {
     const handleFishPress = async (fishId: string) => {
         try {
             const fish = await getFishById(fishId);
-            // console.log("Fish: ", fish);
             if (fish)
                 setPressedFish(fish);
             else
@@ -103,70 +66,6 @@ const FishScreen = () => {
     };
 
     // used to remove the (not true) errors
-    const safeAsyncStorage = AsyncStorage as unknown as {
-        getItem: (key: string) => Promise<string | null>;
-        setItem: (key: string, value: string) => Promise<void>;
-    };
-
-    const saveFishesToStorage = async (fishesData: Fish[]) => {
-        try {
-            await safeAsyncStorage.setItem('cached_fishes', JSON.stringify(fishesData));
-            await safeAsyncStorage.setItem('fishes_last_updated', new Date().toISOString());
-        } catch (e) {
-            console.error('Erreur lors de la sauvegarde des données dans le stockage local:', e);
-        }
-    };
-
-    const getStoredFishes = async (): Promise<Fish[] | null> => {
-        try {
-            const cachedFishes = await safeAsyncStorage.getItem('cached_fishes');
-            if (cachedFishes) {
-                return JSON.parse(cachedFishes);
-            }
-            return null;
-        } catch (e) {
-            console.error('Erreur lors de la récupération des données du stockage local:', e);
-            return null;
-        }
-    };
-
-
-    // const fetchFishes = async () => {
-    //     try {
-    //         setLoading(true);
-    //         setIsOfflineData(false);
-            
-    //         const response = await fetch('https://pechapp.edwindev.fr/api/fish');
-            
-    //         if (!response.ok) {
-    //             throw new Error('Erreur lors de la récupération des données');
-    //         }
-            
-    //         const data = await response.json();
-    //         setFishes(data);
-    //         setError(null);
-            
-    //         // Sauvegarder les données dans le stockage local
-    //         saveFishesToStorage(data);
-            
-    //     } catch (err) {
-    //         console.error('Erreur:', err);
-            
-    //         // En cas d'erreur (comme pas de connexion), essayer de charger depuis le stockage local
-    //         const storedFishes = await getStoredFishes();
-            
-    //         if (storedFishes && storedFishes.length > 0) {
-    //             setFishes(storedFishes);
-    //             setIsOfflineData(true);
-    //             setError(null);
-    //         } else {
-    //             setError('Impossible de charger les données. Veuillez réessayer.');
-    //         }
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
     // const safeAsyncStorage = AsyncStorage as unknown as {
     //     getItem: (key: string) => Promise<string | null>;
     //     setItem: (key: string, value: string) => Promise<void>;
@@ -194,19 +93,6 @@ const FishScreen = () => {
     //     }
     // };
 
-    // if (loading) {
-	// 	return (
-	// 		<SafeAreaView style={styles.body}>
-    //             <Text style={[styles.h2, { zIndex: 110, marginTop: 60, paddingLeft: 16 }]}>Poissons</Text>
-    //             <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-    //                 <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-    //             </TouchableOpacity>
-    //             <View style={{ marginTop: 110 }}>
-    //                 <ActivityIndicator size="large" color={theme.textDark} />
-    //             </View>
-	// 	    </SafeAreaView>
-	// 	);
-	// }
 	if (error || !fishes) {
 		return (
 			<SafeAreaView style={styles.body}>

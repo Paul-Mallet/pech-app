@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';        
-import { useTheme } from './ThemeContext.tsx';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from './ThemeContext.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';        
 import { useHistory } from './HistoryContext.tsx';
 
 interface ElementType {

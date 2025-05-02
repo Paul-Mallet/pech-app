@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Dimensions } from 'react-native';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
-import { useNavigation } from '@react-navigation/native';
-import { ItemType } from './questionExpandable.tsx';
-import { Fish } from '../../pages/fishScreen.tsx';
-
-
-type ExpandableSectionProps = {
-  entryType: string;
-  items: ItemType[];
-  onFishPress?: (fishId: string) => void;
-};
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { ItemType, ExpandableSectionProps } from '../../models/quiz.model.tsx';
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items, onFishPress }) => {
   const [expanded, setExpanded] = useState(true);

@@ -1,23 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import FishCard from '../molecules/fishCard.tsx';
 import { useTheme } from './ThemeContext.tsx';
-
-export type ItemType = {
-  label: string;
-  type: string;
-  id: number;
-  parameter: string;
-};
-type AnswerField = "bodyType" | "fins" | "eye";
-type QuestionExpandableProps = {
-  question: string;
-  questionType: string;
-  items: ItemType[];
-  callBack: (field: AnswerField, id: number) => void;
-  resetFilter: number;
-};
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { AnswerField, QuestionExpandableProps } from '../../models/quiz.model.tsx';
 
 const QuestionExpandable: React.FC<QuestionExpandableProps> = ({ question, questionType, items, callBack, resetFilter }) => {
   const [expanded, setExpanded] = useState(false);

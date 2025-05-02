@@ -1,59 +1,56 @@
-import BodyTypeModel from "./bodyType.model.tsx";
-import EyeModel from "./eye.model.tsx";
-import FinModel from "./fins.model.tsx";
+import { BodyTypeModel, EyeModel, FinModel } from "./fish.model.tsx";
 
 export type FinGroup = {
     type: string;
-    fin: FinModel[]; // single fin, not an array
+    fin: FinModel[];
 }
 
 export type FinsIds = {
-    type : string,
-    ids : number[]
+    type : string;
+    ids : number[];
 }
 
 export default class QuestionModel
 {
-    constructor(
-        public bodyType : BodyTypeModel[],
-        public fins : FinGroup[],
-        public eye : EyeModel[],
-        public finsIds : FinsIds[]
-    ) {}
-    toFlatListData() {
-        return [
-          {
-            type: 'Corps',
-            field: 'bodyType',
-            reponses: this.bodyType.map(item => ({
-              label: item.name,
-              type: 'bodyType',
-              id: item.id,
-              parameter: item.parameter
-            }))
-          },
-          ...this.fins.map(group => ({
-            type: "Nageoire " + group.type,
-            field: 'fins',
-            reponses: group.fin.map(fin => ({
-              label: fin.shape ?? '',
-              type: 'fins',
-              id: fin.id ?? 0,
-              parameter: fin.shape ?? '' // or another value if more relevant
-            })),
-            groupLabel: group.type
-          })),
-          {
-            type: 'Yeux',
-            field: 'eye',
-            reponses: this.eye.map(item => ({
-              label: item.color + " " + item.position,
-              type: 'eye',
-              id: item.id,
-              parameter: item.parameter
-            }))
-          },
-        ];
-      }
-      
+  constructor(
+      public bodyType : BodyTypeModel[],
+      public fins : FinGroup[],
+      public eye : EyeModel[],
+      public finsIds : FinsIds[]
+  ) {}
+  toFlatListData() {
+    return [
+      {
+        type: 'Corps',
+        field: 'bodyType',
+        reponses: this.bodyType.map(item => ({
+          label: item.name,
+          type: 'bodyType',
+          id: item.id,
+          parameter: item.parameter
+        }))
+      },
+      ...this.fins.map(group => ({
+        type: "Nageoire " + group.type,
+        field: 'fins',
+        reponses: group.fin.map(fin => ({
+          label: fin.shape ?? '',
+          type: 'fins',
+          id: fin.id ?? 0,
+          parameter: fin.shape ?? ''
+        })),
+        groupLabel: group.type
+      })),
+      {
+        type: 'Yeux',
+        field: 'eye',
+        reponses: this.eye.map(item => ({
+          label: item.color + " " + item.position,
+          type: 'eye',
+          id: item.id,
+          parameter: item.parameter
+        }))
+      },
+    ];
+  }
 }

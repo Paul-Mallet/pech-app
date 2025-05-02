@@ -2,19 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { lightTheme, darkTheme, poppinsFont, dyslexiaFont } from '../../styles/base/Themes.tsx';
 import { StatusBar } from 'react-native';
 import * as NavigationBar from 'expo-navigation-bar';
-
-type ThemeType = typeof lightTheme;
-type FontType = typeof poppinsFont;
-interface ThemeContextType {
-    theme: ThemeType;
-    setSelectedTheme: (themeName: string) => void;
-    selectedTheme: string;
-    setThemeByName: (themeName: string) => void;
-    font: FontType;
-    setFontByName: (fontName: string) => void;
-    selectedFont: string;
-    setSelectedFont: (fontName: string) => void;
-}
+import { ThemeContextType } from '../../models/theme.model.tsx';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 

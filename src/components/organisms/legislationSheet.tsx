@@ -8,19 +8,8 @@ import HitArea from '../atoms/hitArea.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { getLegislationById } from '../../services/fish.service.tsx';
-import { Legislation } from '../../pages/legislationScreen.tsx';
-
-type LegislationSheetProps = {
-	legislationId: string | null;
-	onClose: () => void;
-};
-
-type RegionCoordinates = {
-	latitude: number;
-	longitude: number;
-	latitudeDelta: number;
-	longitudeDelta: number;
-};
+import { Legislation, LegislationSheetProps } from '../../models/legislation.model.tsx';
+import { RegionCoordinates } from '../../models/geojson.model.tsx';
 
 const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProps>(
 	({ legislationId, onClose }, ref) => {

@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Fish } from '../../pages/fishScreen.tsx';
 import { getAllFish, getAllLegislations } from '../../services/fish.service.tsx';
-import { Legislation } from '../../pages/legislationScreen.tsx';
+import { HistoryContextProps } from '../../models/history.model.tsx';
+import { Legislation } from '../../models/legislation.model.tsx';
+import { Fish } from '../../models/fish.model.tsx';
 
 type HistoryItem = {
   entryType: string;
@@ -23,7 +24,7 @@ type HistoryContextType = {
   getHomeRandomContent: () => { fishes: Fish[]; legislations: Legislation[] };
 };
 
-const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
+const HistoryContext = createContext<HistoryContextProps | undefined>(undefined);
 
 export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);

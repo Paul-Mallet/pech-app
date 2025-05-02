@@ -6,13 +6,13 @@ const ButtonStyles = () => {
     const { theme, font } = useTheme();
   
     const styles = useMemo(() => StyleSheet.create({
-        mainDiv: {
-            position: 'absolute',
-            bottom: 70,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
+        // mainDiv: {
+        //     position: 'absolute',
+        //     bottom: 70,
+        //     alignSelf: 'center',
+        //     justifyContent: 'center',
+        //     alignItems: 'center',
+        // },
         button : {
             justifyContent: 'center',
             height: 40,

@@ -1,7 +1,5 @@
 import QuestionModel, { FinGroup, FinsIds } from "../models/questions.model.tsx";
-import BodyTypeModel from "../models/bodyType.model.tsx";
-import FinModel from "../models/fins.model.tsx";
-import EyeModel from "../models/eye.model.tsx";
+import { BodyTypeModel, EyeModel, FinModel } from "../models/fish.model.tsx";
 
 export default class QuestionsFactory
 {

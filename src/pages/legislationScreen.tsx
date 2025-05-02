@@ -1,53 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SafeAreaView, ScrollView, View, Text, Button, ActivityIndicator } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import LegislationCard from '../components/molecules/legislationCard.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
-import LegislationCard from '../components/molecules/legislationCard.tsx';
-import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { useTheme } from '../components/organisms/ThemeContext.tsx';
-import LegislationStyles from '../styles/pages/LegislationStyles.tsx';
-import { getAllLegislations } from '../services/fish.service.tsx';
 import EventBus from '../components/organisms/EventBus.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
-
-export interface Legislation {
-    id: number;
-    title: string;
-    article: string;
-    date: string;
-    link: string;
-    places: {
-		id: number;
-		name: string;
-		geojson?: {
-			type: string;
-			features: {
-				type: string;
-				properties: {
-					nom: string;
-					code: string;
-					codeDepartement: string;
-					siren: string;
-					codeEpci: string;
-					codeRegion: string;
-					codesPostaux: string[];
-					population: number;
-				},
-				geometry: {
-					type: string;
-					coordinates:[number, number][][][];
-				}
-			}[];
-		}
-	}[];
-	fishingTypes: {
-		id: number,
-		name: string
-	}[];
-	fish: [];
-}
+import { useTheme } from '../components/organisms/ThemeContext.tsx';
+import GlobalStyles from '../styles/base/globalStyles.tsx';
+import LegislationScreenStyles from '../styles/pages/legislationScreenStyles.tsx';
 
 const LegislationScreen = ({ route }: { route: any }) => {
 	const scrollViewRef = useRef<ScrollView>(null);
@@ -57,15 +19,15 @@ const LegislationScreen = ({ route }: { route: any }) => {
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const [legislationId, setLegislationId] = useState<string>("");
 	const navigation = useNavigation();
-	const styles = GlobalStyles();
-	const legislationStyles = LegislationStyles();
 	const { theme } = useTheme();
+	const globalStyles = GlobalStyles();
+	const styles = LegislationScreenStyles();
 	const pressedLegislationRef = useRef(pressedLegislation);
 	const { fetchLegislations, legislations } = useHistory();
 
 	useEffect(() => {
 		pressedLegislationRef.current = pressedLegislation;
-	  }, [pressedLegislation]);
+	}, [pressedLegislation]);
 
 	useEffect(() => {
 		const handler = () => {
@@ -76,9 +38,9 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		};
 		EventBus.on('legislationTabPress', handler);
 		return () => {
-		  EventBus.off('legislationTabPress', handler);
+		  	EventBus.off('legislationTabPress', handler);
 		};
-	  }, []);
+	}, []);
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -93,7 +55,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		if (scrollViewRef.current) {
 		  scrollViewRef.current.scrollTo({ y: 0, animated: true });
 		}
-	  };
+	};
 	
 	const filtered = legislations?.filter(legis => 
 		legis.title.toLowerCase().includes(searchText.toLowerCase()) || 
@@ -108,7 +70,17 @@ const LegislationScreen = ({ route }: { route: any }) => {
   
 	if (!legislations.length) {
 		return (
-			<SafeAreaView style={styles.body}>
+			<SafeAreaView style={globalStyles.body}>
+				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
+                <View style={{ marginTop: 100 }}>
+                    <ActivityIndicator size="large" color={theme.textDark} />
+                </View>
+		    </SafeAreaView>
+		);
+	}
+	if (error || !legislations) {
+		return (
+			<SafeAreaView style={globalStyles.body}>
 				<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
 			<View style={{ marginTop: 100 }}>
                     <Text>Erreur</Text>
@@ -123,9 +95,9 @@ const LegislationScreen = ({ route }: { route: any }) => {
 		);
 	};
 	return (
-		<SafeAreaView style={styles.body}>
+		<SafeAreaView style={globalStyles.body}>
 			<SearchBarLegislation searchText={searchText} setSearchText={setSearchText} />
-			<ScrollView ref={scrollViewRef} style={legislationStyles.legislationPanel}>
+			<ScrollView ref={scrollViewRef} style={styles.scrollView}>
 				{filtered.map(legis => (
 					<LegislationCard
 						key={legis.id}

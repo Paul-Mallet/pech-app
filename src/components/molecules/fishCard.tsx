@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { useHistory } from '../organisms/HistoryContext.tsx';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import FishCardStyles from '../../styles/molecules/fishCardStyles.tsx';
 import { API_BASE_URL } from '../../services/fish.service.tsx';
 
 interface FishCardProps {
@@ -13,7 +13,6 @@ interface FishCardProps {
 }
 
 const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = true }: FishCardProps) => {
-	const styles = GlobalStyles();
 	const { addToHistory } = useHistory();
 
 	const uri = useMemo(() => {
@@ -31,6 +30,16 @@ const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = tr
 		setError(false);
 	}, [uri]);
 
+	const styles = FishCardStyles();
+
+	const getImageUrl = (imgSource: string) =>
+	{
+		if (imgSource.includes("http"))
+			return imgSource;
+		if (imgSource)
+			return API_BASE_URL + imgSource;
+	}
+
 	const handlePress = () => {
 		if (addHistory) {
 			addToHistory({
@@ -44,7 +53,7 @@ const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = tr
 	};
 
 	return (
-		<View style={styles.fishCardContainer}>
+		<View style={styles.cardContainer}>
 			<TouchableOpacity onPress={handlePress}>
 			<Image
 				source={
@@ -58,7 +67,7 @@ const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = tr
 			/>
 			</TouchableOpacity>
 			<View pointerEvents="none">
-				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.fishCardName}>
+				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.cardName}>
 					{fishName}
 				</Text>
 			</View>

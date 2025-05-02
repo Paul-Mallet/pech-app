@@ -1,10 +1,5 @@
 import mitt from 'mitt';
-
-type Events = {
-  homeTabPress: void;
-  poissonsTabPress: void;
-  legislationTabPress: void;
-};
+import { Events } from '../../models/event.model.tsx'
 
 const emitter: mitt.Emitter<Events> = (mitt as any)();
 

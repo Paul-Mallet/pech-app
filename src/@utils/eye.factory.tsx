@@ -1,4 +1,4 @@
-import EyeModel from "../models/eye.model.tsx";
+import { EyeModel } from "../models/fish.model.tsx";
 
 export default class EyeFactory {
     public static responseToModel(response : any) : EyeModel {
@@ -6,7 +6,8 @@ export default class EyeFactory {
             response.id,
             response.color,
             response.size,
-            response.position
+            response.position,
+            response.parameter
         )
     }
 }

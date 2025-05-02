@@ -277,6 +277,7 @@ const GlobalStyles = () => {
     },
     containerBottomSheet: {
       backgroundColor: theme.body,
+      borderTopStartRadius: 32,
       borderTopEndRadius: 32,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 10 },

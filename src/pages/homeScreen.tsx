@@ -1,16 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, SafeAreaView, Animated, Dimensions, PanResponder } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../components/organisms/searchBar.tsx';
-import GlobalStyles from '../styles/base/globalStyles.tsx';
-import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
-import { useHistory } from '../components/organisms/HistoryContext.tsx';
-import HistoryList from './historySection.tsx';
 import DecouvrirTab from './discoverSection.tsx';
-import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
-import { Fish } from './fishScreen.tsx';
-import EventBus from '../components/organisms/EventBus.tsx';
+import HistoryList from './historySection.tsx';
+import { useHistory } from '../components/organisms/HistoryContext.tsx';
+import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
+import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
+import EventBus from '../components/organisms/EventBus.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import GlobalStyles from '../styles/base/globalStyles.tsx';
+import { Fish } from '../models/fish.model.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -94,7 +95,7 @@ const HomeScreen = () => {
 		  EventBus.off('homeTabPress', handler);
 		};
 	  }, []);
-
+	  
 	const { getFishById } = useHistory();
 	const handleFishPress = (fishId: string) => {
 		const fish = getFishById(fishId);
@@ -122,7 +123,6 @@ const HomeScreen = () => {
 	};
 
 
-	// probable bug with multiple tabs (more than 2): the activeTab doesn't update correctly
 	const panResponder = useRef(
 		PanResponder.create({
 			onStartShouldSetPanResponder: () => true,

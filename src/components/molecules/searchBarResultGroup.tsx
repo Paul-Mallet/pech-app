@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import SearchBarResultElement from './searchBarResultElement.tsx';
-import { Fish } from '../../pages/fishScreen.tsx';
+import SearchBarResultElement from '../atoms/searchBarResultElement.tsx';
 
 interface ElementType
 {

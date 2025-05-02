@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Dimensions } from 'react-native';
+import React from 'react';
+import { ScrollView, View, Dimensions } from 'react-native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
-import { getHomeContent } from "../services/fish.service.tsx";
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { Fish } from './fishScreen.tsx';
-import { Legislation } from './legislationScreen.tsx';
+import { Fish } from '../models/fish.model.tsx';
+import { Legislation } from '../models/legislation.model.tsx';
 
 const screenWidth = Dimensions.get('window').width;
 

@@ -1,4 +1,4 @@
-import BodyTypeModel from "../models/bodyType.model.tsx"
+import { BodyTypeModel } from "../models/fish.model.tsx"
 
 export default class BodyTypeFactory
 {
@@ -6,7 +6,8 @@ export default class BodyTypeFactory
         return new BodyTypeModel(
             response.id,
             response.name,
-            response.description
+            response.description,
+            response.parameter
         );
     }
 };

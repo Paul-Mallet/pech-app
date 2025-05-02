@@ -1,15 +1,10 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { useTheme } from './ThemeContext.tsx'; // Adjust if path differs
+import { useTheme } from './ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { HomeSwitchProps } from '../../models/search.model.tsx';
 
-type Props = {
-	activeTab: string;
-	switchTab: (target: string) => void;
-	tabs: { key: string; label: string }[];
-};
-
-const TabSwitcher = ({ activeTab, switchTab, tabs }: Props) => {
+const TabSwitcher = ({ activeTab, switchTab, tabs }: HomeSwitchProps) => {
 	const styles = GlobalStyles();
 	const { theme } = useTheme();
 
