@@ -1,6 +1,4 @@
-import BodyTypeModel from "./bodyType.model.tsx";
-import EyeModel from "./eye.model.tsx";
-import FinModel from "./fins.model.tsx";
+import { BodyTypeModel, EyeModel, FinModel } from "./fish.model.tsx";
 
 export type FinGroup = {
     type: string;
@@ -8,8 +6,8 @@ export type FinGroup = {
 }
 
 export type FinsIds = {
-    type : string,
-    ids : number[]
+    type : string;
+    ids : number[];
 }
 
 export default class QuestionModel

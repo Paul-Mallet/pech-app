@@ -13,3 +13,8 @@ export type HomeSwitchProps = {
 	switchTab: (target: string) => void;
 	tabs: { key: string; label: string }[];
 };
+
+export type DecouvrirTabProps = {
+    handleFishPress: (fishId: string) => void;
+    handleLegislationPress: (id: string) => void;
+};

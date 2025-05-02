@@ -1,7 +1,3 @@
-import EyeModel from "./eye.model.tsx";
-import FinModel from "./fins.model.tsx";
-import BodyTypeModel from "./bodyType.model.tsx";
-
 export interface Fish {
 	scientificName: string;
 	minSizeCm: string;
@@ -38,6 +34,37 @@ export interface Fish {
     }>;
 }
 
+export class BodyTypeModel {
+    constructor(
+        public id : number,
+        public name : string,
+        public description : string,
+        public parameter : string
+    ) {}
+};
+
+export class EyeModel {
+    constructor (
+        public id : number,
+        public color : string,
+        public size : string,
+        public position : string,
+        public parameter : string
+    ) {}
+};
+
+export class FinModel {
+    constructor(
+        public id : number,
+        public type : string, 
+        public shape : string, 
+        public color : string, 
+        public size : string, 
+        public label?: string,
+        public parameter?: string,
+    ) {}
+};
+
 export class FishModel {
     constructor(
         id : number,
@@ -51,7 +78,7 @@ export class FishModel {
 
 export type FishList = FishModel[];
 
-export type FishListContext = {
+export type FishListContextProps = {
   fishList : FishList;
   setFishList : (newFishList : FishList) => void;
 };

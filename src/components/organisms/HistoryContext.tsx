@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Fish } from '../../models/fish.model.tsx';
-import { HistoryContext, HistoryItem } from '../../models/history.model.tsx';
+import { HistoryContextProps, HistoryItem } from '../../models/history.model.tsx';
 import { getAllFish } from '../../services/fish.service.tsx';
 
 /* 
@@ -8,7 +8,7 @@ import { getAllFish } from '../../services/fish.service.tsx';
 
     - when I go back from the Revoir to the Decouvrir section, the first click does nothing.
 */
-const HistoryContext = createContext<HistoryContext | undefined>(undefined);
+const HistoryContext = createContext<HistoryContextProps | undefined>(undefined);
 
 export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);

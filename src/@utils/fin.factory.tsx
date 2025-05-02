@@ -1,4 +1,4 @@
-import FinModel from "../models/fins.model.tsx";
+import { FinModel } from "../models/fish.model.tsx";
 
 export default class FinFactory {
     public static responseToModel(response : any) : FinModel {

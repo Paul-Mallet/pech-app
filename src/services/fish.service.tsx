@@ -2,9 +2,7 @@ import axios from "axios";
 import BodyTypeFactory from "../@utils/bodyType.factory.tsx";
 import FinFactory from "../@utils/fin.factory.tsx";
 import EyeFactory from "../@utils/eye.factory.tsx";
-import BodyTypeModel from "../models/bodyType.model.tsx";
-import FinModel from "../models/fins.model.tsx";
-import EyeModel from "../models/eye.model.tsx";
+import { BodyTypeModel, FinModel, EyeModel} from "../models/fish.model.tsx";
 import ResearchAnswerModel from "../models/researchAnswer.model.tsx";
 
 export const API_BASE_URL = "https://pechapp.edwindev.fr";
@@ -21,7 +19,6 @@ const apiClient = axios.create({
 export const getHomeContent = async () => {
     try {
         const response = await apiClient.get(`home`);
-        // console.log("Home data: ", JSON.stringify(response.data));
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the decouvrir content: ", error);
@@ -32,7 +29,6 @@ export const getHomeContent = async () => {
 export const getAllFish = async () => {
     try {
         const response = await apiClient.get(`fish`);
-        // console.log("Fishes: ", response.data);
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the fish: ", error);

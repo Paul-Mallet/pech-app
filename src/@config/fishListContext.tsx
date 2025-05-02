@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAllFish } from "../services/fish.service.tsx";
-import { FishList, FishListContext } from "../models/fish.model.tsx";
+import { FishList, FishListContextProps } from "../models/fish.model.tsx";
 
-const FishListContext = createContext<FishListContext | undefined>(undefined);
+const FishListContext = createContext<FishListContextProps | undefined>(undefined);
 
 export const FishListProvider : React.FC<{children: React.ReactNode}> = ({children}) => {
     const [fishList , setFishList] = useState<FishList>([]);
@@ -21,7 +21,7 @@ export const FishListProvider : React.FC<{children: React.ReactNode}> = ({childr
         </FishListContext.Provider>
     )
 }
-export const useFishList = (): FishListContext => {
+export const useFishList = (): FishListContextProps => {
     const context = useContext(FishListContext);
     if (!context) {
       throw new Error("useFishList must be used within a FishListProvider");

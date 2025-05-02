@@ -8,10 +8,8 @@ import FishResearchStyle from "../styles/pages/fishResearchScreenStyles.tsx";
 import { AnswerProvider } from "../@config/answerContext.tsx";
 import { useTheme } from "../components/organisms/ThemeContext.tsx";
 import { FishListProvider } from "../@config/fishListContext.tsx";
-import BodyTypeModel from "../models/bodyType.model.tsx";
-import FinModel from "../models/fins.model.tsx";
-import EyeModel from "../models/eye.model.tsx";
 import { getAllBodyType, getAllEyes, getAllFins } from "../services/fish.service.tsx";
+import { BodyTypeModel, FinModel, EyeModel } from "../models/fish.model.tsx";
 import QuestionModel from "../models/questions.model.tsx";
 import QuestionsFactory from "../@utils/questions.factory.tsx";
 

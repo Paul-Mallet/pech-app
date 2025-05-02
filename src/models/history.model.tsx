@@ -1,6 +1,6 @@
 import { Fish } from "./fish.model.tsx";
 
-export type HistoryContext = {
+export type HistoryContextProps = {
 	history: HistoryItem[];
 	groupedHistory: Record<string, HistoryItem[]>;
 	addToHistory: (item: HistoryItem) => void;

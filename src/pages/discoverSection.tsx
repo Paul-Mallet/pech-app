@@ -4,14 +4,10 @@ import FishCard from '../components/molecules/fishCard.tsx';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
 import { getHomeContent } from "../services/fish.service.tsx";
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { Fish } from './fishScreen.tsx';
+import { Fish } from '../models/fish.model.tsx';
+import { DecouvrirTabProps } from '../models/search.model.tsx';
 
 const screenWidth = Dimensions.get('window').width;
-
-type DecouvrirTabProps = {
-  handleFishPress: (fishId: string) => void;
-  handleLegislationPress: (id: string) => void;
-};
 
 const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegislationPress }) => {
 	const [fishes, setFishes] = useState<Fish[]>([]);
