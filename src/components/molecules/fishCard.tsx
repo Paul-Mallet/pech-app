@@ -1,19 +1,26 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { useHistory } from '../organisms/HistoryContext.tsx';
+import { FontAwesome6 } from '@expo/vector-icons';
+import { useTheme } from '../organisms/ThemeContext.tsx';
 import FishCardStyles from '../../styles/molecules/fishCardStyles.tsx';
 import { API_BASE_URL } from '../../services/fish.service.tsx';
 
 interface FishCardProps {
 	onPress?: () => void;
 	fishName: string;
+	fishMinSize: string;
 	imgSource: string;
 	id: string;
 	addHistory?: boolean;
 }
 
-const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = true }: FishCardProps) => {
+const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, addHistory = true }: FishCardProps) => {
+	const [loaded, setLoaded] = useState(false);
+	const [error, setError] = useState(false);
 	const { addToHistory } = useHistory();
+	const { theme } = useTheme();
+	const styles = FishCardStyles();
 
 	const uri = useMemo(() => {
 		if (!imgSource) return null;
@@ -21,16 +28,10 @@ const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = tr
 		return API_BASE_URL + imgSource;
 	}, [imgSource]);
 
-	const [loaded, setLoaded] = useState(false);
-	const [error, setError] = useState(false);
-
-	// Reset load/error state when URI changes
 	useEffect(() => {
 		setLoaded(false);
 		setError(false);
 	}, [uri]);
-
-	const styles = FishCardStyles();
 
 	const getImageUrl = (imgSource: string) =>
 	{
@@ -55,16 +56,20 @@ const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = tr
 	return (
 		<View style={styles.cardContainer}>
 			<TouchableOpacity onPress={handlePress}>
-			<Image
-				source={
-					error || !uri
-					? require('../../../assets/DefaultFish.webp')
-					: { uri }
-				}
-				onLoad={() => setLoaded(true)}
-				onError={() => setError(true)}
-				style={styles.backgroundImage}
-			/>
+				<View style={styles.minSizeContainer}>
+					<FontAwesome6 name="ruler" size={20} color={theme.textDark} />
+					<Text style={styles.hSize}>{fishMinSize}cm</Text>
+				</View>
+				<Image
+					source={
+						error || !uri
+						? require('../../../assets/DefaultFish.webp')
+						: { uri }
+					}
+					onLoad={() => setLoaded(true)}
+					onError={() => setError(true)}
+					style={styles.backgroundImage}
+				/>
 			</TouchableOpacity>
 			<View pointerEvents="none">
 				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.cardName}>

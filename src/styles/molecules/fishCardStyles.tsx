@@ -25,6 +25,24 @@ const FishCardStyles = () => {
 			shadowRadius: 4,
 			elevation: 4
 		},
+		minSizeContainer: {
+			position: 'absolute',
+			top: 0,
+			right: 0,
+			padding: 12,
+			zIndex: 1000,
+			elevation: 1000
+		},
+		hSize: {
+			marginTop: -8,
+			fontSize: 12,
+			fontFamily: font.bold,
+			color: theme.textDark,
+			textShadowColor: 'black',
+			textShadowOffset: { width: 1, height: 1 },
+			textShadowRadius: 6,
+			pointerEvents: 'none'
+		},
 		backgroundImage: {
 			backgroundColor: theme.navBarBackground,
 			width: '100%',
