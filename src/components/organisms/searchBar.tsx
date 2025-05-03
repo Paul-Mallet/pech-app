@@ -1,9 +1,9 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import SearchBarResults from '../molecules/searchBarResult.tsx';
 import { Ionicons } from '@expo/vector-icons';
+import SearchBarResults from '../molecules/searchBarResult.tsx';
 import { useTheme } from './ThemeContext.tsx';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';        
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useHistory } from './HistoryContext.tsx';
 
 interface ElementType {
@@ -16,83 +16,55 @@ interface ResultGroupProps {
   elements: ElementType[];
 }
 
-const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: (fishId: string) => void, setPressedLegislation: (legislationId: string) => void }) => {
-	const { fishes, legislations } = useHistory();
-  const [showResults, setShowResults] = useState<boolean>(false);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+interface SearchBarProps {
+  setPressedFish: (fishId: string) => void;
+  setPressedLegislation: (legislationId: string) => void;
+}
+
+const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) => {
+  const { fishes, legislations } = useHistory();
   const [searchText, setSearchText] = useState('');
+  const [data, setData] = useState<ResultGroupProps[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const { theme } = useTheme();
   const styles = GlobalStyles();
-  const [data, setData] = useState<ResultGroupProps[]>([]);
-  const [triggerSearch, setTriggerSearch] = useState(0);
 
-  const debounceTimerRef = useRef<number | null>(null);
+  const getResultGroups = useCallback((text: string): ResultGroupProps[] => {
+    const lowerSearch = text.toLowerCase();
 
-  function getFilteredFishElements(searchText: string): ElementType[] {
-    const lowerSearch = searchText.toLowerCase();
-    
-    return fishes
+    const filteredFish = fishes
       .filter(fish => fish.name.toLowerCase().includes(lowerSearch))
-      .map(fish => ({
-        label: fish.name,
-        id: fish.id.toString(),
-      }));
-  }
+      .map(fish => ({ label: fish.name, id: fish.id.toString() }));
 
-  function getFilteredLegislationElements(searchText: string): ElementType[] {
-    const lowerSearch = searchText.toLowerCase();
-    
-    return legislations
-    .filter(legislation =>
-      legislation.article.toLowerCase().includes(lowerSearch) ||
-      legislation.title.toLowerCase().includes(lowerSearch)
-    )
-    .map(legislation => ({
-      label: legislation.title,
-      id: legislation.id.toString(),
-    }));
-  }
+    const filteredLegislation = legislations
+      .filter(leg =>
+        leg.article.toLowerCase().includes(lowerSearch) ||
+        leg.title.toLowerCase().includes(lowerSearch)
+      )
+      .map(leg => ({ label: leg.title, id: leg.id.toString() }));
 
-  function getFishResultGroup(searchText: string): ResultGroupProps[] {
-    const filteredFish = getFilteredFishElements(searchText);
-    const filteredLegislation = getFilteredLegislationElements(searchText);
     return [
-      {
-        elementType: 'Poissons',
-        elements: filteredFish,
-      },
-      {
-        elementType: 'Législations',
-        elements: filteredLegislation,
-      },
-      // You can add more groups here if needed
+      { elementType: 'Poissons', elements: filteredFish },
+      { elementType: 'Législations', elements: filteredLegislation },
     ];
-  }
-
-  useEffect(() => {
-    if (fishes.length > 0 && searchText.length > 0) {
-      setData(getFishResultGroup(searchText));
-      setShowResults(true);
-    }
-  }, [triggerSearch, searchText]);
-
-  const handleSearch = useCallback((text: string) => {
-    setSearchText(text);
-    if (text.length < 1)
-    {
-      setShowResults(false);
-      setData([]);
-      return;
-    }
-    setTriggerSearch(prev => prev++);
-    console.log('User typed:', text);
-  }, []);
+  }, [fishes, legislations]);
 
   const handleTextChange = (text: string) => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
+    setSearchText(text);
+    if (text.length === 0) {
+      setShowResults(false);
+      setData([]);
+    } else {
+      setData(getResultGroups(text));
+      setShowResults(true);
     }
-    debounceTimerRef.current = setTimeout(() => handleSearch(text), 500);
+  };
+
+  const handleRightIconPress = () => {
+    setSearchText('');
+    setShowResults(false);
+    setData([]);
   };
 
   const searchBarStyle = isFocused
@@ -100,7 +72,7 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: 
     : styles.searchBar;
 
   return (
-    <View style={[searchBarStyle, showResults && { zIndex: 1, elevation: 1 }]}>
+    <View style={[searchBarStyle, { zIndex: 1, elevation: 1 }]}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
           <Ionicons
@@ -114,12 +86,24 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: { setPressedFish: 
           style={[styles.textDark, styles.input]}
           placeholder="Rechercher..."
           placeholderTextColor={theme.inputPlaceholder}
+          value={searchText}
           onChangeText={handleTextChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
+        {searchText.length > 0 && (
+          <TouchableOpacity onPress={handleRightIconPress}>
+            <Ionicons name="close" size={26} color={theme.textHighlightDark} />
+          </TouchableOpacity>
+        )}
       </View>
-      {showResults && <SearchBarResults elements={data} setPressedFish={setPressedFish} setPressedLegislation={setPressedLegislation} />}
+      {showResults && (
+        <SearchBarResults
+          elements={data}
+          setPressedFish={setPressedFish}
+          setPressedLegislation={setPressedLegislation}
+        />
+      )}
     </View>
   );
 };

@@ -49,9 +49,11 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        <TouchableOpacity onPress={handleRightIconPress}>
-          <Ionicons name="close" size={26} color={theme.textHighlightDark} />
-        </TouchableOpacity>
+        {searchText.length > 0 &&
+          <TouchableOpacity onPress={handleRightIconPress}>
+            <Ionicons name="close" size={26} color={theme.textHighlightDark} />
+          </TouchableOpacity>
+        }
       </View>
     </View>
   );

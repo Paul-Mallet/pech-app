@@ -1,97 +1,116 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import {
   View,
   Image,
   Dimensions,
-  StyleSheet,
   Pressable,
   GestureResponderEvent,
   TouchableOpacity,
-  Text
+  FlatList,
 } from 'react-native';
-import { BottomSheetFlatList, BottomSheetView } from '@gorhom/bottom-sheet';
-import type { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext.tsx';
 import BottomSheetStyles from '../../styles/organisms/bottomSheetStyles.tsx';
 import { API_BASE_URL } from '../../services/fish.service.tsx';
 import { SliderProps } from '../../models/fish.model.tsx';
 
+const { width: screenWidth } = Dimensions.get('window');
+const IMAGE_WIDTH = screenWidth - 72;
+
 const ImageSlider = ({ images }: SliderProps) => {
-    const { theme } = useTheme();
-	const styles = BottomSheetStyles();
-	const flatListRef = useRef<BottomSheetFlatListMethods>(null);
-	const [activeIndex, setActiveIndex] = useState(0);
-	const { width } = Dimensions.get('window');
+  const { theme } = useTheme();
+  const styles = BottomSheetStyles();
+  const flatListRef = useRef<FlatList>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-	const clickLeft = (index: number) =>
-	{
-		console.log(`Left side`);
-		flatListRef.current?.scrollToIndex({ index: index - 1, animated: true });
-		setActiveIndex(index - 1);
-	}
-	const clickRight = (index: number) =>
-	{
-		console.log(`Right side`);
-		flatListRef.current?.scrollToIndex({ index: index + 1, animated: true });
-		setActiveIndex(index + 1);
-	}
+  const scrollToIndex = useCallback((index: number) => {
+    flatListRef.current?.scrollToIndex({ index, animated: true });
+    setActiveIndex(index);
+  }, []);
 
-	const handleEdgeTap = (event: GestureResponderEvent, index: number) => {
-		const tapX = event.nativeEvent.locationX;
+  const handleEdgeTap = useCallback((e: GestureResponderEvent, index: number) => {
+    const tapX = e.nativeEvent.locationX;
 
-		if (tapX < width * 0.25 && index > 0) {
-			clickLeft(index);
-		} else if (tapX > width * 0.55 && index < images.length - 1) {
-			clickRight(index);
-		} else {
-		console.log(`Image ${index + 1} tapée (centre)`);
-		}
-	};
+    if (tapX < screenWidth * 0.25 && index > 0) {
+      scrollToIndex(index - 1);
+    } else if (tapX > screenWidth * 0.55 && index < images.length - 1) {
+      scrollToIndex(index + 1);
+    }
+  }, [scrollToIndex, images.length]);
+
+  const renderItem = useCallback(({ item, index }: { item: string; index: number }) => (
+    <Pressable
+      onTouchStart={(e: GestureResponderEvent) => {
+        e.stopPropagation();
+        handleEdgeTap(e, index);
+      }}
+      style={[styles.imageContainer, { width: screenWidth }]}
+    >
+      <Image
+        source={{ uri: API_BASE_URL + item }}
+        style={[styles.image, { width: IMAGE_WIDTH, height: screenWidth / 2 }]}
+      />
+    </Pressable>
+  ), [handleEdgeTap]);
+
+  const getItemLayout = useCallback((_: any, index: number) => ({
+    length: screenWidth + 12, // item width + separator
+    offset: (screenWidth + 12) * index,
+    index,
+  }), []);
 
   return (
-    <BottomSheetView style={styles.sliderContainer}>
-		<BottomSheetFlatList
-			ref={flatListRef}
-			data={images}
-			keyExtractor={(_, index) => index.toString()}
-			horizontal
-			scrollEnabled={false}
-			showsHorizontalScrollIndicator={false}
-			renderItem={({ item, index }) => (
-				<Pressable
-					onTouchStart={(e: GestureResponderEvent) => {
-						e.stopPropagation();
-						handleEdgeTap(e, index);
-					}}
-					style={[styles.imageContainer, { width: (width - (36 * 2)) }]}
-				>
-					<Image
-						source={{uri: API_BASE_URL + images[index]}}
-						style={[styles.image, { width: (width - (36 * 2)), height: width / 2 }]}
-					/>
-				</Pressable>
-			)}
-			ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
-		/>
-		<TouchableOpacity onPress={() => { if (activeIndex < images.length - 1) clickRight(activeIndex); }} style={{transform: [{ translateY: -30 }], position: 'absolute', top: '50%', right: -32, justifyContent: 'center', alignItems: 'center'}}>
-			<Ionicons name='caret-forward' size={40} color={theme.textHighlightDark}/>
-		</TouchableOpacity>
-		<TouchableOpacity onPress={() => { if (activeIndex > 0) clickLeft(activeIndex); }} style={{transform: [{ translateY: -30 }], position: 'absolute', top: '50%', left: -32, justifyContent: 'center', alignItems: 'center'}}>
-			<Ionicons name='caret-back' size={40} color={theme.textHighlightDark}/>
-		</TouchableOpacity>
-		<View style={styles.pagination}>
-			{images.map((_, index) => (
-				<View
-				key={index}
-				style={[
-					styles.dot,
-					activeIndex === index && styles.activeDot,
-				]}
-				/>
-			))}
-		</View>
-    </BottomSheetView>
+    <View style={styles.sliderContainer}>
+      <FlatList
+        ref={flatListRef}
+        data={images}
+        keyExtractor={(_, index) => index.toString()}
+        horizontal
+        scrollEnabled={false}
+        showsHorizontalScrollIndicator={false}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
+        getItemLayout={getItemLayout}
+      />
+      {activeIndex < images.length - 1 && (
+        <TouchableOpacity
+          onPress={() => scrollToIndex(activeIndex + 1)}
+          style={{
+            transform: [{ translateY: -30 }],
+            position: 'absolute',
+            top: '50%',
+            right: -32,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Ionicons name="caret-forward" size={40} color={theme.textHighlightDark} />
+        </TouchableOpacity>
+      )}
+      {activeIndex > 0 && (
+        <TouchableOpacity
+          onPress={() => scrollToIndex(activeIndex - 1)}
+          style={{
+            transform: [{ translateY: -30 }],
+            position: 'absolute',
+            top: '50%',
+            left: -32,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Ionicons name="caret-back" size={40} color={theme.textHighlightDark} />
+        </TouchableOpacity>
+      )}
+      <View style={styles.pagination}>
+        {images.map((_, index) => (
+          <View
+            key={index}
+            style={[styles.dot, activeIndex === index && styles.activeDot]}
+          />
+        ))}
+      </View>
+    </View>
   );
 };
 
