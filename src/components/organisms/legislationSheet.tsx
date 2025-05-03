@@ -24,7 +24,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 	const styles = GlobalStyles();
 	const insets = useSafeAreaInsets();
 
-	const fetchLegislation = async () => {
+	const fetchLegislation = useCallback(async () => {
 		setLoading(true);
 		setError(null);
 		try {
@@ -36,38 +36,9 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [legislationId]);
 
-	useEffect(() => {
-		fetchLegislation();
-	}, []);
-
-	useEffect(() => {
-		if (stats && stats.places[0].geojson) {
-			const loadGeojson = async () => {
-				setLoadingGeojson(true);
-				setGeojson(stats.places[0].geojson);
-				const regionCoor = calculateRegionFromGeoJson(stats.places[0].geojson);
-				setRegionCoor(regionCoor);
-				setLoadingGeojson(false);
-			};
-			loadGeojson();
-		}
-	}, [stats]);
-
-	useEffect(() => {
-		const onBackPress = () => {
-			if (bottomSheetRef && bottomSheetRef.current) {
-				bottomSheetRef.current.close();
-				return true;
-			}
-			return false;
-		};
-		BackHandler.addEventListener('hardwareBackPress', onBackPress);
-		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-	}, [bottomSheetRef]);
-
-	const calculateRegionFromGeoJson = (geoJson: any): RegionCoordinates => {
+	const calculateRegionFromGeoJson = useCallback((geoJson: any): RegionCoordinates => {
 		let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
 		const processCoordinates = (coords: any[]) => {
 			coords.forEach(coord => {
@@ -97,7 +68,34 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 			latitudeDelta: latDelta,
 			longitudeDelta: lngDelta
 		};
-	};
+	}, []);
+
+	useEffect(() => {
+		fetchLegislation();
+	}, [fetchLegislation]);
+
+	useEffect(() => {
+		if (stats && stats.places[0].geojson) {
+			setLoadingGeojson(true);
+			const geoJson = stats.places[0].geojson;
+			setGeojson(geoJson);
+			const regionCoor = calculateRegionFromGeoJson(geoJson);
+			setRegionCoor(regionCoor);
+			setLoadingGeojson(false);
+		}
+	}, [stats, calculateRegionFromGeoJson]);
+
+	useEffect(() => {
+		const onBackPress = () => {
+			if (bottomSheetRef && bottomSheetRef.current) {
+				bottomSheetRef.current.close();
+				return true;
+			}
+			return false;
+		};
+		BackHandler.addEventListener('hardwareBackPress', onBackPress);
+		return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+	}, [bottomSheetRef]);
 
 	const handleSheetChanges = useCallback((index: number) => {
 		if (index === -1) onClose();

@@ -342,6 +342,14 @@ const GlobalStyles = () => {
       fontFamily: font.regular,
       color: theme.textDark,
     },
+    researchItem: {
+      fontSize: 16,
+      padding: 6,
+      borderColor: '#00000010',
+      borderBottomWidth: 2,
+      borderRadius: 8,
+      color: theme.textHighlightDark, // If you're using theme, otherwise use a color code
+    },
 	}), [theme, font]);
 
 	return styles;
