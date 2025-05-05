@@ -20,7 +20,7 @@ const LoadingScreenStyles = () => {
       height: 99,
     },
     pechAppTitle: {
-      color: theme.title,
+      color: theme.textBoldLight,
       fontSize: 32,
       fontFamily: font.bold,
       marginTop: 20,

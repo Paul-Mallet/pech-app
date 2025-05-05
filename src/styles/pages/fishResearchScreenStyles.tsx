@@ -25,7 +25,7 @@ const FishResearchStyle = () => {
             paddingHorizontal: 40,
             borderRadius: 24,
             borderWidth: 2,
-            borderColor: theme.iconColor,
+            borderColor: theme.textHighlightDark,
             backgroundColor : theme.navBarBackground,
         },
         text : {

@@ -1,4 +1,4 @@
-import { lightTheme, poppinsFont } from '../../styles/base/Themes.tsx';
+import { lightTheme, poppinsFont } from "../styles/base/Themes.tsx";
 
 type ThemeType = typeof lightTheme;
 

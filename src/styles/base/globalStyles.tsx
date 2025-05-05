@@ -132,7 +132,7 @@ const GlobalStyles = () => {
       borderRadius: 32,
       paddingHorizontal: 12,
       height: 'auto',
-      backgroundColor: theme.searchBarBackground,
+      backgroundColor: theme.cardBackground,
       maxHeight: '70%',
       overflow: 'hidden',
     },
@@ -151,7 +151,7 @@ const GlobalStyles = () => {
       textAlign: 'left',
       width: '100%',
       height: 'auto',
-      paddingBottom: 6
+      paddingBottom: 6,
     },
     searchBarGroupTitle: {
       borderRadius: 8,
@@ -175,7 +175,7 @@ const GlobalStyles = () => {
     searchBarGroupElementText: {
       marginLeft: 10,
       fontFamily: font.regular,
-      color: theme.textDark,
+      color: theme.textHighlightDark,
     },
     searchBarGroupElementIcon: {
       width: 32,

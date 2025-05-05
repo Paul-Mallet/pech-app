@@ -52,7 +52,7 @@ const FishResearch = ({navigation} : any) => {
     if (loading || !questionsParams) {
         return (
             <View style={styles.mainDiv}>
-                <ActivityIndicator size="large" color={theme.iconColor} />
+                <ActivityIndicator size="large" color={theme.textHighlightDark} />
             </View>
         )
     }
@@ -62,7 +62,7 @@ const FishResearch = ({navigation} : any) => {
             <AnswerProvider>
                 <View style={styles.mainDiv}>
                     <TouchableOpacity style={buttonStyles.closeSearchButton} onPress={() => navigation.navigate("Poissons")}>
-                        <Ionicons name='close' size={24} color={theme.iconColor}/>
+                        <Ionicons name='close' size={24} color={theme.textHighlightDark}/>
                     </TouchableOpacity>
                     <Questions questionsParams={questionsParams} shouldResetFilters={shouldResetFilters}/>
                     <View style={styles.mainButtonsDiv}>

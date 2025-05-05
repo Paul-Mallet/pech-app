@@ -75,10 +75,8 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
     <View style={[searchBarStyle, { zIndex: 1, elevation: 1 }]}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
-          <Ionicons
-            name="search"
-            size={24}
-            color={showResults ? theme.textHighlightSearch : theme.iconColor}
+          <Ionicons name="search" size={24}
+            color={showResults ? theme.textHighlightSearch : theme.textHighlightDark}
             style={styles.searchBarIconLeft}
           />
         </TouchableOpacity>

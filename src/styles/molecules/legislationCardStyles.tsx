@@ -13,10 +13,10 @@ const LegislationCardStyles = () => {
 			backgroundColor: theme.cardBackground,
 			borderRadius: 24,
 			shadowColor: '#000',
-			shadowOffset: { width: 0, height: 8 },
+			shadowOffset: { width: 0, height: 2 },
 			shadowOpacity: 0.2,
-			shadowRadius: 10,
-			elevation: 10,
+			shadowRadius: 2,
+			elevation: 2,
 		},
 		titleContainer: {
 			display: 'flex',

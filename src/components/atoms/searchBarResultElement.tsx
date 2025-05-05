@@ -28,7 +28,7 @@ const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text, callBack }) 
                 <Text numberOfLines={1} ellipsizeMode="tail" style={globalStyles.searchBarGroupElementText}>{text}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleRightIconPress(text)}>
-                <Ionicons name="book-outline" size={22} color={theme.textDark} />
+                <Ionicons name="book-outline" size={22} color={theme.textHighlightDark} />
             </TouchableOpacity>
         </View>
     );

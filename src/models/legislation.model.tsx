@@ -1,5 +1,6 @@
 export type LegislationSheetProps = {
   legislationId: string | null;
+  onChange: () => void;
   onClose: () => void;
 };
 

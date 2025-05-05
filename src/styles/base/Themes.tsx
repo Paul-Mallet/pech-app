@@ -1,47 +1,35 @@
 export const lightTheme = {
     mode: 'light',
     body: '#F6F4EB',
-    title: '#F6F4EB',
     textDark: '#003B44',
-    titleBackground: '#31909C',
+    titleBackground: '#8bdae5',
     textHighlightDark: '#31909C',
     textBoldLight: '#F6FEFF',
     navBarBackground: '#cfe5e3',
     inputPlaceholder: '#8CABAF',
-    searchBarBackground: '#F6FEFF',
-    searchBarBackgroundFocused: '#EFFDFF',
+    searchBarBackgroundFocused: '#f6fdfe',
     textHighlightSearch: '#0070ff',
-    cardBackground: '#F6FEFF',
+    cardBackground: '#f9f9f5',
     subcardBackground: '#e7f8f7',
     btnBottomSheetBackground: '#92D8E1',
     green: '#0c0',
-    iconColor: '#31909C',
-    roundButton: '#31909C',
-    viewFishButton: '#92D8E1',
-    highlightBlue: '#92D8E1'
 };
-  
+
 export const darkTheme = {
     mode: 'dark',
     body: '#00282e',
-    title: '#F6F4EB',
     textDark: '#F4FEFF',
     textHighlightDark: '#0095a8',
     titleBackground: '#003942',
     textBoldLight: '#F6FEFF',
     navBarBackground: '#004752',
     inputPlaceholder: '#8CABAF',
-    searchBarBackground: '#254a50',
-    searchBarBackgroundFocused: '#2c5e68',
+    searchBarBackgroundFocused: '#003038',
     textHighlightSearch: '#0070ff',
     cardBackground: '#003942',
     subcardBackground: '#003942',
     btnBottomSheetBackground: '#0095a8',
     green: '#0c0',
-    iconColor: '#F6FEFF',
-    roundButton: '#31909C',
-    viewFishButton: '#92D8E1',
-    highlightBlue: '#92D8E1'
 };
 
 export const poppinsFont = {

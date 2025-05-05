@@ -24,7 +24,7 @@ const QuestionStyles = () => {
             margin: 4,
             padding: 2,
             borderRadius: 24,
-            backgroundColor: theme.searchBarBackground,
+            backgroundColor: theme.searchBarBackgroundFocused,
             gap: 6,
             shadowColor: '#000',
             shadowOffset: { width: 2, height: 2 },

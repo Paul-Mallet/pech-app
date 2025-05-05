@@ -67,7 +67,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
-				snapPoints={['70%', '100%']}
+				snapPoints={['90%']}
 				topInset={insets.top + 10}
 				overDragResistanceFactor={1}
 				enableContentPanningGesture={true}

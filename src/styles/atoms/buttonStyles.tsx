@@ -26,7 +26,7 @@ const ButtonStyles = () => {
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      borderColor: theme.iconColor,
+      borderColor: theme.textHighlightDark,
       backgroundColor: theme.body,
       borderRadius: "50%",
       padding: 4,
