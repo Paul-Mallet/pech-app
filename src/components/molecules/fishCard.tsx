@@ -56,9 +56,14 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 	return (
 		<View style={styles.cardContainer}>
 			<TouchableOpacity onPress={handlePress}>
-				<View style={styles.minSizeContainer}>
-					<FontAwesome6 name="ruler" size={20} color={theme.textDark} />
-					<Text style={styles.hSize}>{fishMinSize}cm</Text>
+				<View style={styles.minSizeContainer}> //oui
+					<View style={{right: 9}}>
+						<FontAwesome6 name="ruler" size={24} color={'#00000060'} />
+					</View>
+					<View style={{right: 9, position: 'absolute', top: 10}}>
+						<FontAwesome6 name="ruler" size={24} color={theme.textBoldLight} />
+					</View>
+					<Text style={styles.hSize}>{fishMinSize}144cm</Text>
 				</View>
 				<Image
 					source={
