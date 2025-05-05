@@ -66,7 +66,7 @@ const FishResearch = ({navigation} : any) => {
                     </TouchableOpacity>
                     <Questions questionsParams={questionsParams} shouldResetFilters={shouldResetFilters}/>
                     <View style={styles.mainButtonsDiv}>
-                        <TouchableOpacity style={[styles.button, {borderColor: '#ff000080', backgroundColor: '#ff333350', paddingHorizontal: 10}]} onPress={() => resetFilters()}>
+                        <TouchableOpacity style={styles.button} onPress={() => resetFilters()}>
                             <Text style={styles.text}>Réinitialiser les filtres</Text>
                         </TouchableOpacity>
                         <ViewFishButton/>

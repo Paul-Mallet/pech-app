@@ -22,11 +22,11 @@ const FishResearchStyle = () => {
         button : {
             justifyContent: 'center',
             height: 30,
-            paddingHorizontal: 40,
             borderRadius: 24,
             borderWidth: 2,
-            borderColor: theme.textHighlightDark,
-            backgroundColor : theme.navBarBackground,
+            borderColor: '#ff000080',
+            backgroundColor: '#ff333350',
+            paddingHorizontal: 10
         },
         text : {
             fontFamily: font.regular,

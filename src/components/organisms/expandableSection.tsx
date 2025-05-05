@@ -47,7 +47,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
     }
   }, [entryType, onFishPress, styles, handleRightIconPress]);
 
-  const keyExtractor = useCallback((item: ItemType) => `${entryType}-${item.id}`, [entryType]);
+  const keyExtractor = useCallback((item: ItemType) => `${entryType}-${item.label}`, [entryType]);
 
   return (
     <View style={{ marginBottom: 20, padding: 6, borderRadius: 24, backgroundColor: theme.cardBackground, 
@@ -57,7 +57,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
 			shadowRadius: 2,
 			elevation: 2}}>
       <TouchableOpacity onPress={toggleExpand} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={[styles.textDark, { fontWeight: 'bold', fontSize: 18, paddingLeft: 12 }]}>
+        <Text style={[styles.textDark, { fontSize: 18, paddingLeft: 12 }]}>
           {entryType}
         </Text>
         <Text style={[styles.textDark, { fontSize: 18 }]}>

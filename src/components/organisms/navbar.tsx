@@ -25,16 +25,11 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   const { theme } = useTheme();
 	const styles = NavBarStyles();
-  const [activeTab, setActiveTab] = useState('');
 
-  const handleTabPress = (tabName: string) => {
-    setActiveTab(tabName); // Update the active tab
-  };
-
-  const currentRouteName = useNavigationState((state: { routes: { [x: string]: any; }; index: string | number; }) => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
+  // const currentRouteName = useNavigationState((state: { routes: { [x: string]: any; }; index: string | number; }) => {
+  //   const route = state.routes[state.index];
+  //   return route.name;
+  // });
 
   return (
       <Tab.Navigator
@@ -106,7 +101,6 @@ const BottomTabNavigator = () => {
         listeners={{
           tabPress: () => {
             EventBus.emit('poissonsTabPress');
-            handleTabPress('Poissons');
           },
         }}
         options={{ headerShown: false }}
@@ -117,7 +111,6 @@ const BottomTabNavigator = () => {
         listeners={{
           tabPress: () => {
               EventBus.emit('legislationTabPress');
-              handleTabPress('Législation');
             },
         }}
         options={{ headerShown: false }}
@@ -125,17 +118,11 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name="Paramètres"
         component={SettingsScreen}
-        listeners={{
-          tabPress: () => handleTabPress('Paramètres'),
-        }}
         options={{ headerShown: false }}
       />
       <Tab.Screen
         name="FishResearch"
         component={FishResearch}
-        listeners={{
-          tabPress: () => handleTabPress('FishResearch'),
-        }}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>

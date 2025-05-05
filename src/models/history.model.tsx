@@ -17,6 +17,6 @@ export type HistoryContextProps = {
 export type HistoryItem = {
 	entryType: string;
 	label: string;
-	id: string;
-	parameter: string;
+	id?: string;
+	parameter?: string;
 };

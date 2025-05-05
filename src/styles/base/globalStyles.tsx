@@ -275,6 +275,13 @@ const GlobalStyles = () => {
       flexDirection: "row",
       gap: 4,
     },
+    viewContainerBottomSheet: {
+      position: 'absolute', 
+      height: '100%', 
+      width: "100%", 
+      zIndex: 999, 
+      elevation: 999
+    },
     containerBottomSheet: {
       backgroundColor: theme.body,
       borderTopStartRadius: 32,

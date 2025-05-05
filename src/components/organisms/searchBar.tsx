@@ -1,10 +1,11 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { View, TextInput, TouchableOpacity, BackHandler } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useHistory } from './HistoryContext.tsx';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ElementType {
   label: string;
@@ -29,6 +30,30 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
   const [isFocused, setIsFocused] = useState(false);
   const { theme } = useTheme();
   const styles = GlobalStyles();
+  const inputRef = useRef<TextInput>(null);
+
+  const focusSearchBar = () =>
+  {
+    if (!isFocused && inputRef.current)
+    {
+      setIsFocused(true);
+      setShowResults(true);
+    }
+  }
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (isFocused && inputRef.current) {
+        inputRef.current.blur();
+        setShowResults(false);
+        return true;
+      }
+      return false;
+    };
+  
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+  }, [isFocused]);
 
   const getResultGroups = useCallback((text: string): ResultGroupProps[] => {
     const lowerSearch = text.toLowerCase();
@@ -67,12 +92,12 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
     setData([]);
   };
 
-  const searchBarStyle = isFocused
+  const searchBarStyle = [isFocused
     ? [styles.searchBar, styles.searchBarFocused]
-    : styles.searchBar;
+    : styles.searchBar, { zIndex: 1, elevation: 1 }];
 
   return (
-    <View style={[searchBarStyle, { zIndex: 1, elevation: 1 }]}>
+    <View style={searchBarStyle}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
           <Ionicons name="search" size={24}
@@ -81,12 +106,13 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
           />
         </TouchableOpacity>
         <TextInput
+          ref={inputRef}
           style={[styles.textDark, styles.input]}
           placeholder="Rechercher..."
           placeholderTextColor={theme.inputPlaceholder}
           value={searchText}
           onChangeText={handleTextChange}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => focusSearchBar()}
           onBlur={() => setIsFocused(false)}
         />
         {searchText.length > 0 && (

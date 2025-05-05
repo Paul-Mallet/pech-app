@@ -32,13 +32,13 @@ const FishCard = React.memo(({ onPress, fishName, imgSource, id, addHistory = tr
 
 	const styles = FishCardStyles();
 
-	const getImageUrl = (imgSource: string) =>
-	{
-		if (imgSource.includes("http"))
-			return imgSource;
-		if (imgSource)
-			return API_BASE_URL + imgSource;
-	}
+	// const getImageUrl = (imgSource: string) =>
+	// {
+	// 	if (imgSource.includes("http"))
+	// 		return imgSource;
+	// 	if (imgSource)
+	// 		return API_BASE_URL + imgSource;
+	// }
 
 	const handlePress = () => {
 		if (addHistory) {

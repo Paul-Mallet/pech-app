@@ -1,28 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { getAllFish, getAllLegislations } from '../../services/fish.service.tsx';
-import { HistoryContextProps } from '../../models/history.model.tsx';
+import { HistoryContextProps, HistoryItem } from '../../models/history.model.tsx';
 import { Legislation } from '../../models/legislation.model.tsx';
 import { Fish } from '../../models/fish.model.tsx';
-
-type HistoryItem = {
-  entryType: string;
-  label: string;
-  id: string;
-  parameter: string;
-};
-
-type HistoryContextType = {
-  history: HistoryItem[];
-  groupedHistory: Record<string, HistoryItem[]>;
-  addToHistory: (item: HistoryItem) => void;
-  clearHistory: () => void;
-  fetchFishes: () => void;
-  fetchLegislations: () => void;
-  getFishById: (id: string) => Fish | undefined;
-  fishes: Fish[];
-  legislations: Legislation[];
-  getHomeRandomContent: () => { fishes: Fish[]; legislations: Legislation[] };
-};
 
 const HistoryContext = createContext<HistoryContextProps | undefined>(undefined);
 
@@ -73,7 +53,6 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
   };
 
   function getRandomElements<T>(array: T[], count: number): T[] {
-    // If the count exceeds the array length, use the length of the array
     const effectiveCount = Math.min(count, array.length);
   
     const result: T[] = [];

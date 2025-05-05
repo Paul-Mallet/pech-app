@@ -38,7 +38,6 @@ const HomeScreen = () => {
 	{
 		gestureDirection.current = null;
 		hasSwitched.current = false;
-		// console.log("Gesture direction reset:", gestureDirection.current);
 	}
 	
 	useEffect(() => {

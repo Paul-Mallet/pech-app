@@ -44,7 +44,8 @@ const FishCardStyles = () => {
 			textShadowColor: 'black',
 			textShadowOffset: { width: 1, height: 1 },
 			textShadowRadius: 6,
-			pointerEvents: 'none'
+			pointerEvents: 'none',
+			lineHeight: 20
 		},
 	}), [theme, font]);
 

@@ -10,6 +10,7 @@ import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { getLegislationById } from '../../services/fish.service.tsx';
 import { Legislation, LegislationSheetProps } from '../../models/legislation.model.tsx';
 import { RegionCoordinates } from '../../models/geojson.model.tsx';
+import { useFocusEffect } from '@react-navigation/native';
 
 const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProps>(
 	({ legislationId, onClose }, ref) => {
@@ -24,6 +25,21 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 	const styles = GlobalStyles();
 	const insets = useSafeAreaInsets();
 
+	useFocusEffect(
+		useCallback(() => {
+			const onBackPress = () => {
+			if (ref && 'current' in ref && ref.current) {
+				ref.current.close();
+				return true;
+			}
+			return false;
+			};
+		
+			BackHandler.addEventListener('hardwareBackPress', onBackPress);
+			return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+		}, [ref])
+	);
+	
 	const fetchLegislation = useCallback(async () => {
 		setLoading(true);
 		setError(null);
@@ -101,109 +117,109 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 		if (index === -1) onClose();
 	}, [onClose]);
 
-	const snapPoints = loading ? ['20%'] : error || !stats ? ['40%'] : ['90%'];
+	const snapPoints = loading || error || !stats ? ['40%'] : ['90%'];
 
 	return (
-		<BottomSheet
-			ref={ref}
-			enablePanDownToClose
-			snapPoints={snapPoints}
-			topInset={insets.top + 10}
-			overDragResistanceFactor={2}
-			enableContentPanningGesture={false}
-			enableHandlePanningGesture={true}
-			handleHeight={40}
-			onChange={handleSheetChanges}
-			backgroundStyle={[styles.containerBottomSheet, { height: '100%' }]}
-			containerStyle={{ zIndex: 999 }}
-			android_keyboardInputMode="adjustPan"
-			handleComponent={() => <HitArea />}
-			backdropComponent={(props: BottomSheetBackdropProps) => (
-				<BottomSheetBackdrop
-					{...props}
-					appearsOnIndex={0}
-					disappearsOnIndex={-1}
-					style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 999 }}
-				/>
-			)}
-		>
-			<BottomSheetView style={styles.contentContainerBottomSheet}>
-				{loading ? (
-					<>
-						<ActivityIndicator size="large" color={theme.textDark} />
-						<Text style={styles.h2}>Chargement...</Text>
-					</>
-				) : error || !stats ? (
-					<>
-						<Text style={styles.h2}>Erreur</Text>
-						<Text>{error || "Données non disponibles"}</Text>
-						<Button title="Réessayer" onPress={fetchLegislation} color={theme.textDark} />
-					</>
-				) : (
-					<ScrollView 
-						style={{ marginTop: -20 }}
-						contentContainerStyle={{ paddingBottom: 60 }}
-						bounces={false}
-						showsVerticalScrollIndicator
-						keyboardShouldPersistTaps="handled"
-					>
-						<View style={styles.headerContainerBottomSheet}>
-							<View>
-								<Text style={[styles.h2, { fontSize: 16, lineHeight: 24 }]}>{stats.title}</Text>
-								<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-									<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4 }} />
-									<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
+		<View style={styles.viewContainerBottomSheet}>
+			<BottomSheet
+				ref={ref}
+				enablePanDownToClose
+				snapPoints={snapPoints}
+				topInset={insets.top + 10}
+				overDragResistanceFactor={2}
+				enableContentPanningGesture={false}
+				enableHandlePanningGesture={true}
+				onChange={handleSheetChanges}
+				backgroundStyle={[styles.containerBottomSheet, { height: '100%' }]}
+				android_keyboardInputMode="adjustPan"
+				handleComponent={() => <HitArea />}
+				backdropComponent={(props: BottomSheetBackdropProps) => (
+					<BottomSheetBackdrop
+						{...props}
+						appearsOnIndex={0}
+						disappearsOnIndex={-1}
+						style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+					/>
+				)}
+			>
+				<BottomSheetView style={styles.contentContainerBottomSheet}>
+					{loading ? (
+						<>
+							<ActivityIndicator size="large" color={theme.textDark} />
+							<Text style={styles.h2}>Chargement...</Text>
+						</>
+					) : error || !stats ? (
+						<>
+							<Text style={styles.h2}>Erreur</Text>
+							<Text>{error || "Données non disponibles"}</Text>
+							<Button title="Réessayer" onPress={fetchLegislation} color={theme.textDark} />
+						</>
+					) : (
+						<ScrollView 
+							style={{ marginTop: -20 }}
+							contentContainerStyle={{ paddingBottom: 60 }}
+							bounces={false}
+							showsVerticalScrollIndicator
+							keyboardShouldPersistTaps="handled"
+						>
+							<View style={styles.headerContainerBottomSheet}>
+								<View>
+									<Text style={[styles.h2, { fontSize: 16, lineHeight: 24 }]}>{stats.title}</Text>
+									<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+										<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4 }} />
+										<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
+									</View>
 								</View>
 							</View>
-						</View>
-						<Text style={[styles.textDescriptionBottomSheet, { marginBottom: -4 }]}>{stats.article}</Text>
-						<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
-							<Text style={[styles.textDescriptionBottomSheet, { marginBottom: 10, textDecorationLine: 'underline' }]}>
-								Réglementation complète
-							</Text>
-						</TouchableOpacity>
-						<View style={{ marginTop: 20, marginBottom: 20 }}>
-							<Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
-							<View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
-								{loadingGeojson ? (
-									<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
-										<ActivityIndicator size="large" color={theme.textHighlightDark} />
-										<Text style={{ marginTop: 10, color: theme.textDark }}>Chargement de la carte...</Text>
-									</View>
-								) : geojson ? (
-									<MapView
-										provider={PROVIDER_GOOGLE}
-										style={{ height: 200, width: '100%' }}
-										initialRegion={regionCoor || {
-											latitude: 46.603354,
-											longitude: 1.888334,
-											latitudeDelta: 10,
-											longitudeDelta: 10,
-										}}
-										scrollEnabled={false}
-										zoomEnabled={false}
-										rotateEnabled={false}
-										pitchEnabled={false}
-									>
-										<Geojson 
-											geojson={geojson} 
-											strokeColor={theme.textHighlightDark}
-											fillColor={`${theme.textHighlightDark}50`}
-											strokeWidth={2}
-										/>
-									</MapView>
-								) : (
-									<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
-										<Ionicons name="map" size={48} color={theme.textDark} />
-										<Text style={{ marginTop: 10, color: theme.textDark }}>Carte non disponible</Text>
-									</View>
-								)}
+							<Text style={styles.textDescriptionBottomSheet}>{stats.article}</Text>
+							<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
+								<Text style={[styles.textDescriptionBottomSheet, { color: theme.textHighlightDark, textDecorationLine: 'underline' }]}>
+									Réglementation complète
+								</Text>
+							</TouchableOpacity>
+							<View style={{ marginTop: 0, marginBottom: 20 }}>
+								<Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
+								<View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
+									{loadingGeojson ? (
+										<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
+											<ActivityIndicator size="large" color={theme.textHighlightDark} />
+											<Text style={{ marginTop: 10, color: theme.textDark }}>Chargement de la carte...</Text>
+										</View>
+									) : geojson ? (
+										<MapView
+											provider={PROVIDER_GOOGLE}
+											style={{ height: 200, width: '100%' }}
+											initialRegion={regionCoor || {
+												latitude: 46.603354,
+												longitude: 1.888334,
+												latitudeDelta: 10,
+												longitudeDelta: 10,
+											}}
+											scrollEnabled={false}
+											zoomEnabled={false}
+											rotateEnabled={false}
+											pitchEnabled={false}
+										>
+											<Geojson 
+												geojson={geojson} 
+												strokeColor={theme.textHighlightDark}
+												fillColor={`${theme.textHighlightDark}50`}
+												strokeWidth={2}
+											/>
+										</MapView>
+									) : (
+										<View style={{ height: 200, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.body }}>
+											<Ionicons name="map" size={48} color={theme.textDark} />
+											<Text style={{ marginTop: 10, color: theme.textDark }}>Carte non disponible</Text>
+										</View>
+									)}
+								</View>
 							</View>
-						</View>
-					</ScrollView>
-				)}
-			</BottomSheetView>
-		</BottomSheet>
+						</ScrollView>
+					)}
+				</BottomSheetView>
+			</BottomSheet>
+		</View>
 	);
 });
 
