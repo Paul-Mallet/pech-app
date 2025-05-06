@@ -14,16 +14,35 @@ const FishCardStyles = () => {
 			overflow: 'hidden',
 		},
 		cardContainer: {
-			backgroundColor: theme.navBarBackground,
 			position: "relative",
 			aspectRatio: 1,
 			borderRadius: 24,
+			backgroundColor: theme.navBarBackground,
 			overflow: 'hidden',
-			shadowColor: '#000',
-			shadowOffset: { width: 0, height: 4 },
-			shadowOpacity: 0.2,
-			shadowRadius: 4,
-			elevation: 4
+		},
+		minSizeContainer: {
+			position: 'absolute',
+			paddingRight: 0,
+			alignItems: 'flex-end',
+			justifyContent: 'center',
+			top: 0,
+			right: 0,
+			padding: 12,
+			zIndex: 1,
+			elevation: 1
+		},
+		hSize: {
+			position: 'relative',
+			width: 'auto',
+			top: 0,
+			right: 10,
+			fontSize: 12,
+			fontFamily: font.bold,
+			color: theme.textBoldLight,
+			textShadowColor: 'black',
+			textShadowOffset: { width: 1, height: 1 },
+			textShadowRadius: 6,
+			pointerEvents: 'none'
 		},
 		backgroundImage: {
 			backgroundColor: theme.navBarBackground,
