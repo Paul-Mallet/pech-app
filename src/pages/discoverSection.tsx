@@ -35,6 +35,7 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 									onPress={() => handleFishPress(fish.id.toString())}
 									fishName={fish.name}
 									imgSource={fish.additionalImages[0].url}
+									fishMinSize={"143"}
 								/>
 							))
 						}

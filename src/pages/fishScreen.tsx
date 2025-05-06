@@ -147,7 +147,7 @@ const FishScreen = () => {
                                 id={item.id.toString()}
                                 fishName={item.name}
                                 imgSource={item.additionalImages[0].url}
-                                fishMinSize={item.minSizeCm}
+                                fishMinSize={"143"}
                             />
                         )}
                     />

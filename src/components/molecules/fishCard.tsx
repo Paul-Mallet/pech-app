@@ -9,7 +9,7 @@ import { API_BASE_URL } from '../../services/fish.service.tsx';
 interface FishCardProps {
 	onPress?: () => void;
 	fishName: string;
-	fishMinSize?: string;
+	fishMinSize?: string | null;
 	imgSource: string;
 	id: string;
 	addHistory?: boolean;
@@ -75,15 +75,15 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 				</View>
 			</View>
 			{fishMinSize && 
-			<View style={{position: 'absolute', bottom: -20, backgroundColor: '#00000010', width: '100%', height: 60, borderRadius: 12,}}>
-				<Text style={{textAlign: 'center', bottom: -40, zIndex: 1,
+			<View style={{position: 'absolute', bottom: -20, backgroundColor: '#00000020', width: '100%', height: 60, borderRadius: 12,}}>
+				<Text style={{textAlign: 'center', bottom: -42, zIndex: 1,
 			fontSize: 10,
 			fontFamily: font.bold,
 			color: theme.textBoldLight,
 			textShadowColor: 'black',
-			textShadowOffset: { width: 1, height: 1 },
-			textShadowRadius: 6,
-			pointerEvents: 'none'}}>{fishMinSize}Taille minimale : 144cm</Text>
+			textShadowOffset: { width: 0.8, height: 0.8 },
+			textShadowRadius: 4,
+			pointerEvents: 'none'}}>Taille min. : {fishMinSize}</Text>
 			</View>}
 		</View>
 	);
