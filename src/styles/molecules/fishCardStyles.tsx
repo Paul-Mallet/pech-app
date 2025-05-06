@@ -19,6 +19,7 @@ const FishCardStyles = () => {
 			borderRadius: 24,
 			backgroundColor: theme.navBarBackground,
 			overflow: 'hidden',
+			zIndex: 1,
 		},
 		minSizeContainer: {
 			position: 'absolute',

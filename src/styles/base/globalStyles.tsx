@@ -357,6 +357,19 @@ const GlobalStyles = () => {
       borderRadius: 8,
       color: theme.textHighlightDark, // If you're using theme, otherwise use a color code
     },
+    expandableSection: 
+    {
+      marginBottom: 20, 
+      padding: 6, 
+      borderRadius: 24, 
+      backgroundColor: 
+      theme.cardBackground, 
+			shadowColor: '#000',
+			shadowOffset: { width: 0, height: 2 },
+			shadowOpacity: 0.2,
+			shadowRadius: 2,
+			elevation: 2,
+    }
 	}), [theme, font]);
 
 	return styles;

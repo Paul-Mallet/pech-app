@@ -9,7 +9,7 @@ import { API_BASE_URL } from '../../services/fish.service.tsx';
 interface FishCardProps {
 	onPress?: () => void;
 	fishName: string;
-	fishMinSize: string;
+	fishMinSize?: string;
 	imgSource: string;
 	id: string;
 	addHistory?: boolean;
@@ -19,7 +19,7 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
 	const { addToHistory } = useHistory();
-	const { theme } = useTheme();
+	const { theme, font } = useTheme();
 	const styles = FishCardStyles();
 
 	const uri = useMemo(() => {
@@ -54,33 +54,37 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 	};
 
 	return (
-		<View style={styles.cardContainer}>
-			<TouchableOpacity onPress={handlePress}>
-				<View style={styles.minSizeContainer}>
-					<View style={{right: 9}}>
-						<FontAwesome6 name="ruler" size={24} color={'#00000060'} />
-					</View>
-					<View style={{right: 9, position: 'absolute', top: 10}}>
-						<FontAwesome6 name="ruler" size={24} color={theme.textBoldLight} />
-					</View>
-					<Text style={styles.hSize}>{fishMinSize}144cm</Text>
+		<View style={{position: 'relative', height: 'auto'}}>
+			<View style={styles.cardContainer}>
+				<TouchableOpacity onPress={handlePress}>
+					<Image
+						source={
+							error || !uri
+							? require('../../../assets/DefaultFish.webp')
+							: { uri }
+						}
+						onLoad={() => setLoaded(true)}
+						onError={() => setError(true)}
+						style={styles.backgroundImage}
+					/>
+				</TouchableOpacity>
+				<View pointerEvents="none">
+					<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.cardName}>
+						{fishName}
+					</Text>
 				</View>
-				<Image
-					source={
-						error || !uri
-						? require('../../../assets/DefaultFish.webp')
-						: { uri }
-					}
-					onLoad={() => setLoaded(true)}
-					onError={() => setError(true)}
-					style={styles.backgroundImage}
-				/>
-			</TouchableOpacity>
-			<View pointerEvents="none">
-				<Text numberOfLines={fishName?.length > 15 ? 2 : 1} adjustsFontSizeToFit style={styles.cardName}>
-					{fishName}
-				</Text>
 			</View>
+			{fishMinSize && 
+			<View style={{position: 'absolute', bottom: -20, backgroundColor: '#00000010', width: '100%', height: 60, borderRadius: 12,}}>
+				<Text style={{textAlign: 'center', bottom: -40, zIndex: 1,
+			fontSize: 10,
+			fontFamily: font.bold,
+			color: theme.textBoldLight,
+			textShadowColor: 'black',
+			textShadowOffset: { width: 1, height: 1 },
+			textShadowRadius: 6,
+			pointerEvents: 'none'}}>{fishMinSize}Taille minimale : 144cm</Text>
+			</View>}
 		</View>
 	);
 });

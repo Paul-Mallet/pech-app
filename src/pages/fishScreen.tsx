@@ -132,12 +132,12 @@ const FishScreen = () => {
 					/>
 				}
 			>
-				<View style={[styles.homePanel, {paddingTop: 20, marginTop: 40, paddingBottom: 40}]}>
+				<View style={[styles.homePanel, {paddingTop: 60, paddingBottom: 40}]}>
                     <Text style={styles.h2}>Poissons</Text>
                     <FlatList
                         data={fishes}
                         numColumns={2}
-                        contentContainerStyle={{gap: 6, paddingBottom: 8}}
+                        contentContainerStyle={{gap: 26, paddingBottom: 28,}}
                         scrollEnabled={false}
                         keyExtractor={(item) => item.id.toString()}
                         columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
@@ -147,6 +147,7 @@ const FishScreen = () => {
                                 id={item.id.toString()}
                                 fishName={item.name}
                                 imgSource={item.additionalImages[0].url}
+                                fishMinSize={item.minSizeCm}
                             />
                         )}
                     />

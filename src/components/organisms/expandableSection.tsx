@@ -50,12 +50,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
   const keyExtractor = useCallback((item: ItemType) => `${entryType}-${item.label}`, [entryType]);
 
   return (
-    <View style={{ marginBottom: 20, padding: 6, borderRadius: 24, backgroundColor: theme.cardBackground, 
-			shadowColor: '#000',
-			shadowOffset: { width: 0, height: 2 },
-			shadowOpacity: 0.2,
-			shadowRadius: 2,
-			elevation: 2}}>
+    <View style={styles.expandableSection}>
       <TouchableOpacity onPress={toggleExpand} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={[styles.textDark, { fontSize: 18, paddingLeft: 12 }]}>
           {entryType}
