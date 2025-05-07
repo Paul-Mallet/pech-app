@@ -137,7 +137,7 @@ const FishScreen = () => {
                     <FlatList
                         data={fishes}
                         numColumns={2}
-                        contentContainerStyle={{gap: 26, paddingBottom: 28,}}
+                        contentContainerStyle={{gap: 26, paddingBottom: 28}}
                         scrollEnabled={false}
                         keyExtractor={(item) => item.id.toString()}
                         columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
@@ -147,7 +147,7 @@ const FishScreen = () => {
                                 id={item.id.toString()}
                                 fishName={item.name}
                                 imgSource={item.additionalImages[0].url}
-                                fishMinSize={"143"}
+                                fishMinSize={item.minSizeCm}
                             />
                         )}
                     />

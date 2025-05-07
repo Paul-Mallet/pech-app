@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { useHistory } from '../organisms/HistoryContext.tsx';
-import { FontAwesome6 } from '@expo/vector-icons';
 import { useTheme } from '../organisms/ThemeContext.tsx';
 import FishCardStyles from '../../styles/molecules/fishCardStyles.tsx';
 import { API_BASE_URL } from '../../services/fish.service.tsx';
@@ -32,14 +31,6 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 		setLoaded(false);
 		setError(false);
 	}, [uri]);
-
-	// const getImageUrl = (imgSource: string) =>
-	// {
-	// 	if (imgSource.includes("http"))
-	// 		return imgSource;
-	// 	if (imgSource)
-	// 		return API_BASE_URL + imgSource;
-	// }
 
 	const handlePress = () => {
 		if (addHistory) {
