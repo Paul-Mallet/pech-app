@@ -30,26 +30,21 @@ const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilte
         });
         return;
       }
-
+  
       const finGroup = questionsParams.finsIds.find(group =>
         group.ids.includes(id)
       );
-    
+  
       if (!finGroup) return;
-
-      setAnswers((prev : any) => {
-        const currentFinIds = prev.fin || [];
-
-        const isSelected = currentFinIds.includes(id);
-
-        const filtered = currentFinIds.filter((id : number) => !finGroup.ids.includes(id));
-
-        const updated = isSelected ? filtered : [...filtered, id];
-    
-        return {
-          ...prev,
-          fin: updated,
-        };
+  
+      const currentFinIds = (answers.fin || []) as number[];
+      const isSelected = currentFinIds.includes(id);
+      const filtered = currentFinIds.filter((fid: number) => !finGroup.ids.includes(fid));
+      const updated = isSelected ? filtered : [...filtered, id];
+  
+      setAnswers({
+        ...answers,
+        fin: updated,
       });
     };
     
@@ -69,15 +64,15 @@ const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilte
                     keyExtractor={(_, index) => index.toString()}
                     contentContainerStyle={styles.questionDiv}
                     renderItem={({ item, index }) => (
-                    <React.Fragment>
-                        <QuestionExpandable
-                            question={item.type}
-                            questionType={item.field}
-                            items={item.reponses}
-                            callBack={handleQuestionPress}
-                            resetFilter={resetSignal}
-                        />
-                    </React.Fragment>
+                      <React.Fragment>
+                          <QuestionExpandable
+                              question={item.type}
+                              questionType={item.field}
+                              items={item.reponses}
+                              callBack={handleQuestionPress}
+                              resetFilter={resetSignal}
+                          />
+                      </React.Fragment>
                     )}
                 />
             </View>

@@ -30,6 +30,7 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
           setFishes(fishesVar);
       } catch (err) {
           console.error('Impossible de charger les données des poissons.');
+          setFishes([]);
       }
   };
 

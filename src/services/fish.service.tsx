@@ -32,7 +32,7 @@ export const getAllFish = async () => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the fish: ", error);
-        return error;
+        return [];
     }
 };
 
@@ -162,11 +162,11 @@ export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
         }
         const queryString = queryParts.length ? `?${queryParts.join('&')}` : '';
 
-        // utiliser seulement pour le test
-        const response = await axios.get(`http://127.0.0.1:8000/api/fish/filter${queryString}`);
+        console.log(queryString);
+        // const response = await axios.get(`http://127.0.0.1:8000/api/fish/filter${queryString}`);
 
         // a decommenter une fois la requete mise en preprod
-        // const response = await apiClient.get(`fish/filter${queryString}`);
+        const response = await apiClient.get(`fish/filter${queryString}`);
         return response.data;
     }
     catch (error) {
