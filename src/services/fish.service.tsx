@@ -2,7 +2,7 @@ import axios from "axios";
 import BodyTypeFactory from "../@utils/bodyType.factory.tsx";
 import FinFactory from "../@utils/fin.factory.tsx";
 import EyeFactory from "../@utils/eye.factory.tsx";
-import { BodyTypeModel, FinModel, EyeModel} from "../models/fish.model.tsx";
+import { BodyTypeModel, FinModel, EyeModel } from "../models/fish.model.tsx";
 import ResearchAnswerModel from "../models/researchAnswer.model.tsx";
 
 export const API_BASE_URL = "https://pechapp.edwindev.fr";
@@ -22,7 +22,7 @@ export const getHomeContent = async () => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the decouvrir content: ", error);
-        throw error;
+        return error;
     }
 };
 
@@ -32,7 +32,7 @@ export const getAllFish = async () => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get the fish: ", error);
-        throw error;
+        return error;
     }
 };
 
@@ -42,7 +42,7 @@ export const getFishById = async (id: string) => {
         return response.data;
     } catch (error) {
         console.error("API Error when trying to get a fish by id: ", error); 
-        throw error;
+        return error;
     }
 }
 
@@ -127,7 +127,7 @@ export const getAllLegislations = async () => {
         return response.data;
     } catch (error) {
         console.error("API error when trying to get legislations: ", error);
-        throw error;
+        return error;
     }
 }
 
@@ -137,16 +137,40 @@ export const getLegislationById = async (id : string | null) => {
         return response.data;
     } catch (error) {
         console.error("API error when trying to get a legislation: ", error);
-        throw error;
+        return error;
     }
 }
 
 export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
     try {
-        const response = await apiClient.get(`fish`);
+        const queryParts: string[] = [];
+
+        if (answers.bodyType != null) {
+            queryParts.push(`bodytype=${encodeURIComponent(answers.bodyType)}`);
+        }
+
+        if (answers.eye != null) {
+            queryParts.push(`eye=${encodeURIComponent(answers.eye)}`);
+        }
+
+        if (Array.isArray(answers.fin)) {
+            answers.fin.forEach(finValue => {
+                if (finValue != null) {
+                    queryParts.push(`fin[]=${encodeURIComponent(finValue)}`);
+                }
+            });
+        }
+        const queryString = queryParts.length ? `?${queryParts.join('&')}` : '';
+
+        // utiliser seulement pour le test
+        const response = await axios.get(`http://127.0.0.1:8000/api/fish/filter${queryString}`);
+
+        // a decommenter une fois la requete mise en preprod
+        // const response = await apiClient.get(`fish/filter${queryString}`);
         return response.data;
-    } catch (error) {
-        console.error("API error when trying to update the fishlist : ", error);
-        throw error;
+    }
+    catch (error) {
+        console.error("API error when trying to update the fishlist: ", error);
+        return error;
     }
 }
