@@ -18,6 +18,8 @@ const QuestionStyles = () => {
             top: 60,
             width: '95%',
             height: '65%',
+            justifyContent: 'flex-end',
+            alignItems : 'center'
         },
         questionDiv : {
             width: '95%',

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FlatList, SafeAreaView, Text, View, RefreshControl, ScrollView, TouchableOpacity, Button } from 'react-native';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { FlatList, SafeAreaView, Text, View, ScrollView, TouchableOpacity, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
@@ -40,7 +40,7 @@ const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const [pressedFish, setPressedFish] = useState<Fish | null>(null);
     const [filtered, setFiltered] = useState<boolean>(false);
-    const [refreshing, setRefreshing] = useState<boolean>(false);
+    // const [refreshing, setRefreshing] = useState<boolean>(false);
     const navigation = useNavigation();
 	const styles = GlobalStyles();
     const { theme } = useTheme();
@@ -70,9 +70,9 @@ const FishScreen = () => {
             setFiltered(false);
     };
 
-    const onRefresh = () => {
-        setRefreshing(true);
-    };
+    // const onRefresh = () => {
+    //     setRefreshing(true);
+    // };
 
     const handleFishPress = async (fishId: string) => {
         try {
@@ -84,7 +84,10 @@ const FishScreen = () => {
         }
     };
 
-    const visibleFishes = fishes.filter(fish => !filteredFishes.includes(fish.id));
+    const visibleFishes = useMemo(
+        () => fishes.filter(fish => !filteredFishes.includes(fish.id)),
+        [fishes, filteredFishes]
+      );
 
 	if (!fishes) {
 		return (
@@ -109,52 +112,35 @@ const FishScreen = () => {
 	};
 	return (
 		<SafeAreaView style={styles.body}>
-        {/* <TouchableOpacity style={[styles.quizzButton, {right: 80}]} onPress={() => {addFilteredFish([1, 3])}}>
-            <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-        </TouchableOpacity> */}
             <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
                 <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
             </TouchableOpacity>
-			<ScrollView
-				contentContainerStyle={{flexGrow: 1}}
-				// refreshControl={
-				// 	<RefreshControl
-				// 		refreshing={refreshing}
-				// 		onRefresh={onRefresh}
-				// 		colors={['#2e86de']}
-				// 		tintColor={'#2e86de'}
-				// 		title={'Chargement des poissons...'}
-				// 		titleColor={'#2e86de'}
-				// 	/>
-				// }
-			>
-				<View style={[styles.homePanel, {paddingTop: 60, paddingBottom: 40}]}>
-                    <Text style={styles.h2}>Poissons</Text>
-                    
-                    {visibleFishes.length > 0 ? (
-                    <FlatList
-                        data={visibleFishes}
-                        numColumns={2}
-                        contentContainerStyle={{ gap: 26, paddingBottom: 28 }}
-                        scrollEnabled={false}
-                        keyExtractor={(item) => item.id.toString()}
-                        columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
-                        renderItem={({ item }) => (
-                        <FishCard
-                            onPress={() => handleFishPress(item.id.toString())}
-                            id={item.id.toString()}
-                            fishName={item.name}
-                            imgSource={item.additionalImages[0].url}
-                            fishMinSize={item.minSizeCm}
-                        />
-                        )}
+            <View style={[styles.homePanel, {paddingTop: 60, paddingBottom: 40}]}>
+                <Text style={styles.h2}>Poissons</Text>
+                
+                {visibleFishes.length > 0 ? (
+                <FlatList
+                    data={visibleFishes}
+                    numColumns={2}
+                    contentContainerStyle={{ gap: 26, paddingBottom: 28 }}
+                    scrollEnabled={false}
+                    keyExtractor={(item) => item.id.toString()}
+                    columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
+                    renderItem={({ item }) => (
+                    <FishCard
+                        onPress={() => handleFishPress(item.id.toString())}
+                        id={item.id.toString()}
+                        fishName={item.name}
+                        imgSource={item.additionalImages[0].url}
+                        fishMinSize={item.minSizeCm}
                     />
-                    ) : (
-                    <Text>Pas de données</Text>
                     )}
-                    
-				</View>
-			</ScrollView>
+                />
+                ) : (
+                <Text style={styles.textDark}>Pas de données</Text>
+                )}
+                
+            </View>
             {pressedFish && (
                 <DescriptionSheet
                     ref={bottomSheetRef}

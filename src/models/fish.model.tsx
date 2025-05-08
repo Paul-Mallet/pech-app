@@ -84,7 +84,7 @@ export type FishListContextProps = {
 };
 
 export type DescriptionSheetProps = {
-	fish: Fish;
+	fish: Fish | null;
 	onClose: () => void;
 };
 

@@ -13,19 +13,24 @@ import { useFocusEffect } from '@react-navigation/native';
 
 const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fish, onClose }, ref) => {
-		const [stats, setStats] = useState<any>({});
-		const [error, setError] = useState<string | null>(null);
+		if (!fish) return null;
 		const { theme } = useTheme();
 		const styles = GlobalStyles();
 		const insets = useSafeAreaInsets();
 
-		const fetchFish = () => {
-			try {
-				setStats(fish);
-			} catch (err) {
-				setError("Impossible de charger les infos du poisson.");
-			}
-		};
+		const renderBackdrop = useCallback(
+			(props: BottomSheetBackdropProps) => (
+			  <BottomSheetBackdrop
+				{...props}
+				appearsOnIndex={0}
+				disappearsOnIndex={-1}
+				style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+			  />
+			),
+			[]
+		);
+		  
+		const renderHandle = useCallback(() => <HitArea />, []);
 
 		useFocusEffect(
 			useCallback(() => {
@@ -42,43 +47,12 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			}, [ref])
 		);
 
-		useEffect(() => {
-			fetchFish();
-		  }, []);
-
 		const handleSheetChanges = useCallback((index: number) => {
 			if (index === -1) {
 				onClose();
 			}
 		}, [onClose]);
 
-		if (error || !stats) {
-			return (
-				<BottomSheet
-					ref={ref}
-					enablePanDownToClose
-					snapPoints={['40%']}
-					backdropComponent={(props: BottomSheetBackdropProps) => (
-						<BottomSheetBackdrop
-						  {...props}
-						  appearsOnIndex={0}
-						  disappearsOnIndex={-1}
-						  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 999, elevation: 999 }}
-						/>
-					  )}
-				>
-					<BottomSheetView style={styles.contentContainerBottomSheet}>
-						<Text>Erreur</Text>
-						<Text>{error || "Données non disponibles"}</Text>
-						<Button
-							title="Réessayer"
-							onPress={fetchFish}
-							color={theme.textDark}
-						/>
-					</BottomSheetView>
-				</BottomSheet>
-			);
-		};
 		return (
 			<View style={styles.viewContainerBottomSheet}>
 				<BottomSheet
@@ -91,15 +65,8 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					enableHandlePanningGesture={true}
 					onChange={handleSheetChanges}
 					backgroundStyle={styles.containerBottomSheet}
-					handleComponent={() => <HitArea />}
-					backdropComponent={(props: BottomSheetBackdropProps) => (
-						<BottomSheetBackdrop
-						{...props}
-						appearsOnIndex={0}
-						disappearsOnIndex={-1}
-						style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-						/>
-					)}
+					handleComponent={renderHandle}
+					backdropComponent={renderBackdrop}
 				>
 					<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
 						<View style={[styles.headerContainerBottomSheet, { marginTop: -20 }]}>
@@ -112,7 +79,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 								<Text style={styles.hSize}>{fish?.minSizeCm}cm</Text>
 							</View>
 						</View>
-						<ImageSlider images={fish.additionalImages.map(image => image.url)} />
+						<ImageSlider images={fish.additionalImages?.map(img => img.url) || []} />
 						<Text style={styles.textDescriptionBottomSheet}>
 							{fish?.englishAcronym ? `${fish.englishAcronym}, ` : ''}
 							{fish?.physicalDescription?.WRF ?? ''}

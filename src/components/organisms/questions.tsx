@@ -58,24 +58,24 @@ const Questions : React.FC<QuestionsProps> = ({questionsParams, shouldResetFilte
 
     return (
         <View style={styles.mainDiv}>
-        <View style={[styles.questionsList, {justifyContent: 'flex-end', alignItems : 'center',}]}>
-                <FlatList
-                    data={questionsParams.toFlatListData()}
-                    keyExtractor={(_, index) => index.toString()}
-                    contentContainerStyle={styles.questionDiv}
-                    renderItem={({ item, index }) => (
-                      <React.Fragment>
-                          <QuestionExpandable
-                              question={item.type}
-                              questionType={item.field}
-                              items={item.reponses}
-                              callBack={handleQuestionPress}
-                              resetFilter={resetSignal}
-                          />
-                      </React.Fragment>
-                    )}
-                />
-            </View>
+          <View style={styles.questionsList}>
+            <FlatList
+                data={questionsParams.toFlatListData()}
+                keyExtractor={(_, index) => index.toString()}
+                contentContainerStyle={styles.questionDiv}
+                renderItem={({ item, index }) => (
+                  <React.Fragment>
+                      <QuestionExpandable
+                          question={item.type}
+                          questionType={item.field}
+                          items={item.reponses}
+                          callBack={handleQuestionPress}
+                          resetFilter={resetSignal}
+                      />
+                  </React.Fragment>
+                )}
+            />
+          </View>
         </View>
     )
 }

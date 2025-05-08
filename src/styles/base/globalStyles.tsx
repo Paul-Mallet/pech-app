@@ -369,7 +369,22 @@ const GlobalStyles = () => {
 			shadowOpacity: 0.2,
 			shadowRadius: 2,
 			elevation: 2,
-    }
+    },
+    expandableSectionButton:
+    {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+    expandableSectionList: 
+    {
+      marginTop: 10, 
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: "50%",
+      aspectRatio: 1.05,
+      gap: 6
+    },
 	}), [theme, font]);
 
 	return styles;

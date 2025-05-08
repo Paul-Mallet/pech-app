@@ -66,15 +66,8 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 				</View>
 			</View>
 			{fishMinSize && 
-			<View style={{position: 'absolute', bottom: -20, backgroundColor: '#00000020', width: '100%', height: 60, borderRadius: 12,}}>
-				<Text style={{textAlign: 'center', bottom: -42, zIndex: 1,
-			fontSize: 10,
-			fontFamily: font.bold,
-			color: theme.textBoldLight,
-			textShadowColor: 'black',
-			textShadowOffset: { width: 0.8, height: 0.8 },
-			textShadowRadius: 4,
-			pointerEvents: 'none'}}>Taille min. : {fishMinSize}</Text>
+			<View style={styles.bottomContainer}>
+				<Text style={styles.bottomContainerText}>Taille min. : {fishMinSize}</Text>
 			</View>}
 		</View>
 	);

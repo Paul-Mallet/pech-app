@@ -44,6 +44,15 @@ const BottomSheetStyles = () => {
 		backgroundColor: theme.textHighlightDark,
 		opacity: 1,
 	},
+	imageSliderButton: 
+	{
+		transform: [{ translateY: -30 }],
+		position: 'absolute',
+		top: '50%',
+		left: -32,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
   }), [theme]);
 
   return styles;

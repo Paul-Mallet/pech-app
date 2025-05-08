@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { BottomTabBar, BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from 'react-native';
@@ -30,6 +30,45 @@ const BottomTabNavigator = () => {
   //   const route = state.routes[state.index];
   //   return route.name;
   // });
+  const poissonsTabPress = useCallback(() => EventBus.emit('poissonsTabPress'), []);
+  const onLegislationTabPress = useCallback(() => EventBus.emit('legislationTabPress'), []);
+
+  const onHomeTabPress = useCallback((e: any, navigation: any) => {
+    e.preventDefault();
+    EventBus.emit('homeTabPress');
+    navigation.navigate('Accueil');
+  }, []);
+
+  const screenOptions = useCallback(({ route }: { route: { name: keyof TabParamList } }) => ({
+    tabBarIcon: ({ color, size, focused }: { color: string; size: number; focused: boolean }) => {
+      let iconName: string;
+      switch (route.name) {
+        case 'Accueil':
+          iconName = focused ? 'home' : 'home-outline';
+          break;
+        case 'Poissons':
+          iconName = focused ? 'fish' : 'fish-outline';
+          break;
+        case 'Législation':
+          iconName = focused ? 'book' : 'book-outline';
+          break;
+        case 'Paramètres':
+          iconName = focused ? 'settings' : 'settings-outline';
+          break;
+        default:
+          iconName = 'help';
+      }
+      return <Ionicons name={iconName as keyof typeof Ionicons.glyphMap} size={size} color={color} />;
+    },
+    tabBarActiveTintColor: theme.textHighlightDark,
+    tabBarInactiveTintColor: theme.textDark,
+    tabBarStyle: styles.tabBar,
+    tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
+      <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>
+        {route.name}
+      </Text>
+    ),
+  }), [theme.textHighlightDark, theme.textDark, styles]);
 
   return (
       <Tab.Navigator
@@ -51,68 +90,26 @@ const BottomTabNavigator = () => {
             />
           );
         }}
-        screenOptions={({ route }: { route: { name: keyof TabParamList } }) => ({
-          tabBarIcon: ({ color, size, focused }: { color: string; size: number; focused: boolean }) => {
-            let iconName: string;
-            switch (route.name)
-            {
-              case 'Accueil':
-                iconName = focused ? 'home' : 'home-outline';
-                break;
-              case 'Poissons':
-                iconName = focused ? 'fish' : 'fish-outline';
-                break;
-              case 'Législation':
-                iconName = focused ? 'book' : 'book-outline';
-                break;
-              case 'Paramètres':
-                iconName = focused ? 'settings' : 'settings-outline';
-                break;
-              default:
-                iconName = 'help';
-            }
-            return <Ionicons name={iconName as keyof typeof Ionicons.glyphMap} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: theme.textHighlightDark,
-          tabBarInactiveTintColor: theme.textDark,
-          tabBarStyle: styles.tabBar,
-          tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
-            <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>
-              {route.name}
-            </Text>
-          ),
-        })}
+        screenOptions={screenOptions}
       >
       <Tab.Screen
         name="Accueil"
         component={HomeScreen}
         listeners={({ navigation }: { navigation: any }) => ({
-          tabPress: (e: { preventDefault: () => void; }) => {
-            e.preventDefault();
-            EventBus.emit('homeTabPress');
-            navigation.navigate('Accueil');
-          },
+          tabPress: (e: { preventDefault: () => void; }) => onHomeTabPress(e, navigation),
         })}
         options={{ headerShown: false }}
       />
       <Tab.Screen
         name="Poissons"
         component={FishScreen}
-        listeners={{
-          tabPress: () => {
-            EventBus.emit('poissonsTabPress');
-          },
-        }}
+        listeners={{ tabPress: poissonsTabPress }}
         options={{ headerShown: false }}
       />
       <Tab.Screen
         name="Législation"
         component={LegislationScreen}
-        listeners={{
-          tabPress: () => {
-              EventBus.emit('legislationTabPress');
-            },
-        }}
+        listeners={{ tabPress: onLegislationTabPress }}
         options={{ headerShown: false }}
       />
       <Tab.Screen

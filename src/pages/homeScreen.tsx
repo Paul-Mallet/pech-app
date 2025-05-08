@@ -23,10 +23,10 @@ const HomeScreen = () => {
 	const hasSwitched = useRef(false);
 	const [pressedFish, setPressedFish] = useState<Fish | null>(null);
 	const pressedFishRef = useRef(pressedFish);
-	const [activeTab, setActiveTab] = useState('découvrir');
+	const [activeTab, setActiveTab] = useState('Découvrir');
 	const styles = GlobalStyles();
-	const decouvrir = 'découvrir';
-	const historique = 'historique';
+	const decouvrir = 'Découvrir';
+	const historique = 'Historique';
 	const [legislationId, setLegislationId] = useState<string>("");
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
 	const pressedLegislationRef = useRef(pressedLegislation);
@@ -172,8 +172,8 @@ const HomeScreen = () => {
 				activeTab={activeTab}
 				switchTab={switchTab}
 				tabs={[
-					{ key: decouvrir, label: 'Découvrir' },
-					{ key: historique, label: 'Historique' },
+					{ key: decouvrir, label: decouvrir },
+					{ key: historique, label: historique },
 				]}
 			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>

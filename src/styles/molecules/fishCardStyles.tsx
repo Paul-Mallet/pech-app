@@ -67,6 +67,27 @@ const FishCardStyles = () => {
 			pointerEvents: 'none',
 			lineHeight: 20
 		},
+		bottomContainer: {
+			position: 'absolute', 
+			bottom: -20, 
+			backgroundColor: '#00000020', 
+			width: '100%', 
+			height: 60, 
+			borderRadius: 12
+		},
+		bottomContainerText: 
+		{
+			textAlign: 'center', 
+			bottom: -42, 
+			zIndex: 1,
+			fontSize: 10,
+			fontFamily: font.bold,
+			color: theme.textBoldLight,
+			textShadowColor: 'black',
+			textShadowOffset: { width: 0.8, height: 0.8 },
+			textShadowRadius: 4,
+			pointerEvents: 'none'
+		},
 	}), [theme, font]);
 
 	return styles;

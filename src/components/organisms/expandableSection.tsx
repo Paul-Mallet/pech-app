@@ -2,13 +2,11 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FishCard from '../molecules/fishCard.tsx';
-import { useTheme } from './ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { ItemType, ExpandableSectionProps } from '../../models/quiz.model.tsx';
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items, onFishPress }) => {
   const [expanded, setExpanded] = useState(true);
-  const { theme } = useTheme();
   const styles = GlobalStyles();
   const navigation = useNavigation();
 
@@ -51,7 +49,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
 
   return (
     <View style={styles.expandableSection}>
-      <TouchableOpacity onPress={toggleExpand} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <TouchableOpacity onPress={toggleExpand} style={styles.expandableSectionButton}>
         <Text style={[styles.textDark, { fontSize: 18, paddingLeft: 12 }]}>
           {entryType}
         </Text>
@@ -66,7 +64,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
           keyExtractor={keyExtractor}
           renderItem={renderItem}
           numColumns={entryType === 'Recherches' ? 1 : 2}
-          columnWrapperStyle={entryType !== 'Recherches' ? { marginTop: 10, justifyContent: 'space-between', alignItems: 'center', width: "50%", aspectRatio: 1.05, gap: 6 } : undefined}
+          columnWrapperStyle={entryType !== 'Recherches' ? styles.expandableSectionList : undefined}
         />
       )}
     </View>

@@ -75,14 +75,7 @@ const ImageSlider = ({ images }: SliderProps) => {
       {activeIndex < images.length - 1 && (
         <TouchableOpacity
           onPress={() => scrollToIndex(activeIndex + 1)}
-          style={{
-            transform: [{ translateY: -30 }],
-            position: 'absolute',
-            top: '50%',
-            right: -32,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          style={styles.imageSliderButton}
         >
           <Ionicons name="caret-forward" size={40} color={theme.textHighlightDark} />
         </TouchableOpacity>
@@ -90,14 +83,7 @@ const ImageSlider = ({ images }: SliderProps) => {
       {activeIndex > 0 && (
         <TouchableOpacity
           onPress={() => scrollToIndex(activeIndex - 1)}
-          style={{
-            transform: [{ translateY: -30 }],
-            position: 'absolute',
-            top: '50%',
-            left: -32,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          style={styles.imageSliderButton}
         >
           <Ionicons name="caret-back" size={40} color={theme.textHighlightDark} />
         </TouchableOpacity>
