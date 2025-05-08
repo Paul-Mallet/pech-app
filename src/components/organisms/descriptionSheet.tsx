@@ -58,10 +58,9 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				<BottomSheet
 					ref={ref}
 					enablePanDownToClose
-					snapPoints={['95%']}
-					topInset={insets.top + 10}
-					overDragResistanceFactor={1}
-					enableContentPanningGesture={true}
+					snapPoints={['90%']}
+					overDragResistanceFactor={2}
+					enableContentPanningGesture={false}
 					enableHandlePanningGesture={true}
 					onChange={handleSheetChanges}
 					backgroundStyle={styles.containerBottomSheet}
@@ -69,19 +68,26 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					backdropComponent={renderBackdrop}
 				>
 					<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
-						<View style={styles.headerContainerBottomSheet}>
-							<Text style={[styles.h2, {fontSize: 20}]}>{fish?.name}</Text>
-							<View style={styles.sizeContainerBottomSheet}>
-								<FontAwesome6 name="ruler" size={28} color={theme.textDark} />
-								<Text style={styles.hSize}>{fish?.minSizeCm}cm</Text>
+					<ScrollView
+							contentContainerStyle={{ rowGap: 20, paddingHorizontal: 20 }}
+							showsVerticalScrollIndicator={true}
+						>
+							<View style={[styles.headerContainerBottomSheet, {marginBottom: -30}]}>
+								<Text style={[styles.h2, {fontSize: 20}]}>{fish?.name}</Text>
+								<View style={styles.sizeContainerBottomSheet}>
+									<FontAwesome6 name="ruler" size={28} color={theme.textDark} />
+									<Text style={styles.hSize}>{fish?.minSizeCm}cm</Text>
+								</View>
 							</View>
-						</View>
-						<Text style={[styles.hScientific, {width: '100%', textAlign: 'left'}]}>({fish?.faoCode? fish.faoCode + ' - ' : '' }{fish?.scientificName})</Text>
-						<ImageSlider images={fish.additionalImages?.map(img => img.url) || []} />
-						<Text style={[styles.textDescriptionBottomSheet, {fontSize: 14}]}>
-							{fish?.physicalDescription? `${fish.physicalDescription}` : ''}
-						</Text>
-						<CTAButton searchText={fish?.name} />
+							<Text style={[styles.hScientific, {width: '100%'}]}>({fish?.faoCode? fish.faoCode + ' - ' : '' }{fish?.scientificName})</Text>
+							<ImageSlider images={fish.additionalImages?.map(img => img.url) || []} />
+							<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>
+								{fish?.physicalDescription ? fish.physicalDescription : ''}
+							</Text>
+							<View style={{paddingBottom: 140}}>
+								<CTAButton searchText={fish?.name} />
+							</View>
+						</ScrollView>
 					</BottomSheetView>
 				</BottomSheet>
 			</View>

@@ -373,7 +373,12 @@ export const fishData: Fish[] = [
       bodyType: { id: 0, name: '', description: '' },
       fins: [{ id: 0, type: '', shape: '', color: '', size: '' }],
       eyes: [{ id: 0, color: '', size: '', position: '' }],
-      img: '',
-      additionalImages: []
+      img: '/api/image/HOM/0',
+      additionalImages: [
+        { id: 1, url: '/api/image/HOM/1' },
+        { id: 2, url: '/api/image/HOM/2' },
+        { id: 3, url: '/api/image/HOM/3' },
+        { id: 4, url: '/api/image/HOM/4' },
+      ]
     }
   ];

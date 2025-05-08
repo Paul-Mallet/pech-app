@@ -296,10 +296,9 @@ const GlobalStyles = () => {
       flex: 1,
       position:'relative',
       width: '100%',
-      padding: 20,
       alignItems: 'center',
       backgroundColor: theme.body,
-      paddingTop: 0
+      paddingTop: 0,
     },
     contentContainerBottomSheetLegislation: {
       flex: 1,
@@ -328,7 +327,6 @@ const GlobalStyles = () => {
       alignItems: 'center',
     },
     hScientific: {
-      marginTop: -12,
       fontSize: 16,
       fontFamily: font.italic,
       color: theme.textDark,
@@ -346,8 +344,6 @@ const GlobalStyles = () => {
       borderRadius: 32,
     },
     textDescriptionBottomSheet: {
-      marginTop: 16,
-      marginBottom: 16,
       fontFamily: font.regular,
       color: theme.textDark,
     },

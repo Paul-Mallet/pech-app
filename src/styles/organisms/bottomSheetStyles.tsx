@@ -47,7 +47,9 @@ const BottomSheetStyles = () => {
 		left: -16,
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: '100%'
+		height: '100%',
+		zIndex: 1, 
+		elevation: 1
 	},
 	imageSliderButtonRight: 
 	{
@@ -55,7 +57,9 @@ const BottomSheetStyles = () => {
 		right: -16,
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: '100%'
+		height: '100%',
+		zIndex: 1, 
+		elevation: 1
 	},
   }), [theme]);
 
