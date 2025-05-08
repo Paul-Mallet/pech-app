@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Button, ActivityIndicator, BackHandler } from 'react-native';
+import { View, Text, Button, ActivityIndicator, BackHandler, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
@@ -58,7 +58,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 				<BottomSheet
 					ref={ref}
 					enablePanDownToClose
-					snapPoints={['90%']}
+					snapPoints={['95%']}
 					topInset={insets.top + 10}
 					overDragResistanceFactor={1}
 					enableContentPanningGesture={true}
@@ -69,21 +69,17 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					backdropComponent={renderBackdrop}
 				>
 					<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
-						<View style={[styles.headerContainerBottomSheet, { marginTop: -20 }]}>
-							<View>
-								<Text style={styles.h2}>{fish?.name}</Text>
-								<Text style={styles.hScientific}>({fish?.scientificName})</Text>
-							</View>
+						<View style={styles.headerContainerBottomSheet}>
+							<Text style={[styles.h2, {fontSize: 20}]}>{fish?.name}</Text>
 							<View style={styles.sizeContainerBottomSheet}>
 								<FontAwesome6 name="ruler" size={28} color={theme.textDark} />
 								<Text style={styles.hSize}>{fish?.minSizeCm}cm</Text>
 							</View>
 						</View>
+						<Text style={[styles.hScientific, {width: '100%', textAlign: 'left'}]}>({fish?.faoCode? fish.faoCode + ' - ' : '' }{fish?.scientificName})</Text>
 						<ImageSlider images={fish.additionalImages?.map(img => img.url) || []} />
-						<Text style={styles.textDescriptionBottomSheet}>
-							{fish?.englishAcronym ? `${fish.englishAcronym}, ` : ''}
-							{fish?.physicalDescription?.WRF ?? ''}
-							{fish?.physicalDescription?.moreInfos ? ` ${fish.physicalDescription.moreInfos}` : ''}
+						<Text style={[styles.textDescriptionBottomSheet, {fontSize: 14}]}>
+							{fish?.physicalDescription? `${fish.physicalDescription}` : ''}
 						</Text>
 						<CTAButton searchText={fish?.name} />
 					</BottomSheetView>

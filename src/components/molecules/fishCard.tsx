@@ -9,7 +9,7 @@ interface FishCardProps {
 	onPress?: () => void;
 	fishName: string;
 	fishMinSize?: string | null;
-	imgSource: string;
+	imgSource: string | null;
 	id: string;
 	addHistory?: boolean;
 }

@@ -156,7 +156,6 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 						</>
 					) : (
 						<ScrollView 
-							style={{ marginTop: -20 }}
 							contentContainerStyle={{ paddingBottom: 60 }}
 							bounces={false}
 							showsVerticalScrollIndicator

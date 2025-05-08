@@ -61,25 +61,6 @@ const ImageSlider = ({ images }: SliderProps) => {
 
   return (
     <View style={styles.sliderContainer}>
-      <FlatList
-        ref={flatListRef}
-        data={images}
-        keyExtractor={(_, index) => index.toString()}
-        horizontal
-        scrollEnabled={false}
-        showsHorizontalScrollIndicator={false}
-        renderItem={renderItem}
-        ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
-        getItemLayout={getItemLayout}
-      />
-      {activeIndex < images.length - 1 && (
-        <TouchableOpacity
-          onPress={() => scrollToIndex(activeIndex + 1)}
-          style={styles.imageSliderButton}
-        >
-          <Ionicons name="caret-forward" size={40} color={theme.textHighlightDark} />
-        </TouchableOpacity>
-      )}
       {activeIndex > 0 && (
         <TouchableOpacity
           onPress={() => scrollToIndex(activeIndex - 1)}
@@ -88,6 +69,18 @@ const ImageSlider = ({ images }: SliderProps) => {
           <Ionicons name="caret-back" size={40} color={theme.textHighlightDark} />
         </TouchableOpacity>
       )}
+      <FlatList
+        ref={flatListRef}
+        data={images}
+        keyExtractor={(_, index) => index.toString()}
+        horizontal
+        contentContainerStyle={{paddingLeft: 16}}
+        scrollEnabled={false}
+        showsHorizontalScrollIndicator={false}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
+        getItemLayout={getItemLayout}
+      />
       <View style={styles.pagination}>
         {images.map((_, index) => (
           <View
@@ -96,6 +89,14 @@ const ImageSlider = ({ images }: SliderProps) => {
           />
         ))}
       </View>
+      {activeIndex < images.length - 1 && (
+        <TouchableOpacity
+          onPress={() => scrollToIndex(activeIndex + 1)}
+          style={styles.imageSliderButtonRight}
+        >
+          <Ionicons name="caret-forward" size={40} color={theme.textHighlightDark} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

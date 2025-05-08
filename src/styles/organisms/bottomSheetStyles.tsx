@@ -7,11 +7,8 @@ const BottomSheetStyles = () => {
 
   const styles = useMemo(() => StyleSheet.create({
 	sliderContainer: {
-		position: 'relative',
-		display: 'flex',
 		flexDirection: 'column',
 		width: '100%',
-		height: 'auto'
 	},
 	flatList: {
 		position: 'relative',
@@ -46,12 +43,19 @@ const BottomSheetStyles = () => {
 	},
 	imageSliderButton: 
 	{
-		transform: [{ translateY: -30 }],
 		position: 'absolute',
-		top: '50%',
-		left: -32,
+		left: -16,
 		justifyContent: 'center',
 		alignItems: 'center',
+		height: '100%'
+	},
+	imageSliderButtonRight: 
+	{
+		position: 'absolute',
+		right: -16,
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: '100%'
 	},
   }), [theme]);
 

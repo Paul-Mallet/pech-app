@@ -296,9 +296,10 @@ const GlobalStyles = () => {
       flex: 1,
       position:'relative',
       width: '100%',
-      padding: 36,
+      padding: 20,
       alignItems: 'center',
       backgroundColor: theme.body,
+      paddingTop: 0
     },
     contentContainerBottomSheetLegislation: {
       flex: 1,
@@ -315,14 +316,15 @@ const GlobalStyles = () => {
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '100%',
-      marginBottom: 16,
     },
     headerContainerTitles: {
       display: 'flex',
       flexDirection: 'column',
     },
     sizeContainerBottomSheet: {
-      display: 'flex',
+      position: 'absolute',
+      top: 0,
+      right: 0,
       alignItems: 'center',
     },
     hScientific: {

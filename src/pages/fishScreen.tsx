@@ -75,13 +75,14 @@ const FishScreen = () => {
     // };
 
     const handleFishPress = async (fishId: string) => {
-        try {
-            const fish = await getFishById(fishId);
-            if (fish)
-                setPressedFish(fish);
-        } catch (error) {
-            console.error("Failed to fetch fish:", error);
-        }
+        // try {
+        //     const fish = await getFishById(fishId);
+        //     if (fish)
+        //         setPressedFish(fish);
+        // } catch (error) {
+        //     console.error("Failed to fetch fish:", error);
+        // }
+        setPressedFish(fishes[parseInt(fishId)]);
     };
 
     const visibleFishes = useMemo(
@@ -122,8 +123,8 @@ const FishScreen = () => {
                 <FlatList
                     data={visibleFishes}
                     numColumns={2}
-                    contentContainerStyle={{ gap: 26, paddingBottom: 28 }}
-                    scrollEnabled={false}
+                    contentContainerStyle={{ gap: 26, paddingBottom: 38 }}
+                    scrollEnabled={true}
                     keyExtractor={(item) => item.id.toString()}
                     columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
                     renderItem={({ item }) => (
@@ -131,7 +132,7 @@ const FishScreen = () => {
                         onPress={() => handleFishPress(item.id.toString())}
                         id={item.id.toString()}
                         fishName={item.name}
-                        imgSource={item.additionalImages[0].url}
+                        imgSource={item.img ? item.img : null}
                         fishMinSize={item.minSizeCm}
                     />
                     )}

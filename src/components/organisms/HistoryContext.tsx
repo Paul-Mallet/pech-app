@@ -3,6 +3,7 @@ import { getAllFish, getAllLegislations } from '../../services/fish.service.tsx'
 import { HistoryContextProps, HistoryItem } from '../../models/history.model.tsx';
 import { Legislation } from '../../models/legislation.model.tsx';
 import { Fish } from '../../models/fish.model.tsx';
+import { fishData } from '../../models/fishLocalData.tsx';
 
 const HistoryContext = createContext<HistoryContextProps | undefined>(undefined);
 
@@ -23,16 +24,29 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
 
   const clearHistory = () => setHistory([]);
 
-  const fetchFishes = async () => {
-      try {
-          const fishesVar = await getAllFish();
-          // console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
-          setFishes(fishesVar);
-      } catch (err) {
-          console.error('Impossible de charger les données des poissons.');
-          setFishes([]);
-      }
-  };
+  // const fetchFishes = async () => {
+  //     try {
+  //         const fishesVar = await getAllFish();
+  //         // console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
+  //         setFishes(fishesVar);
+  //     } catch (err) {
+  //         console.error('Impossible de charger les données des poissons.');
+  //         setFishes([]);
+  //     }
+  // };
+
+
+
+  const fetchFishes = () => {
+    try {
+        // const fishesVar = getAllFish();
+        // console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
+        setFishes(fishData);
+    } catch (err) {
+        console.error('Impossible de charger les données des poissons.');
+        setFishes([]);
+    }
+};
 
 	const fetchLegislations = async () => {
 		try {

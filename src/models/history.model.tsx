@@ -18,5 +18,5 @@ export type HistoryItem = {
 	entryType: string;
 	label: string;
 	id?: string;
-	parameter?: string;
+	parameter?: string | null;
 };

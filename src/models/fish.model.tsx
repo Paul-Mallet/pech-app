@@ -1,12 +1,8 @@
 export interface Fish {
 	scientificName: string;
 	minSizeCm: string;
-	englishAcronym: string;
-	physicalDescription: 
-    {
-        WRF: string;
-        moreInfos: string;
-    }
+	faoCode: string;
+	physicalDescription: string;
     additionalImages: Array<{
         id: number;
         url: string;
