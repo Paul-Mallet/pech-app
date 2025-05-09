@@ -14,7 +14,7 @@ import { useFocusEffect } from '@react-navigation/native';
 const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 	({ fish, onClose }, ref) => {
 		if (!fish) return null;
-		const { theme } = useTheme();
+		const { theme, font } = useTheme();
 		const styles = GlobalStyles();
 		const insets = useSafeAreaInsets();
 
@@ -84,6 +84,16 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 							<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>
 								{fish?.physicalDescription ? fish.physicalDescription : ''}
 							</Text>
+							{fish?.particularity &&
+								<View>
+									<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14, fontFamily: font.bold }]}>
+										{'Particularités : '}
+									</Text>
+									<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>
+										{fish.particularity}
+									</Text>
+								</View>
+							}
 							<View style={{paddingBottom: 140}}>
 								<CTAButton searchText={fish?.name} />
 							</View>

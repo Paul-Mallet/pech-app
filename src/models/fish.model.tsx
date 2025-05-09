@@ -1,19 +1,19 @@
 export interface Fish {
+    id: number;
+    name: string;
 	scientificName: string;
 	minSizeCm: string;
 	faoCode: string;
 	physicalDescription: string;
-    additionalImages: Array<{
+    particularity: string;
+    mouth: 
+    {
         id: number;
-        url: string;
-    }>;
-    id: number;
-    name: string;
-    img: string;
+        forme: string;
+    }
     bodyType: {
         id: number;
         name: string;
-        description: string;
     };
     fins: Array<{
         id: number;
@@ -22,11 +22,16 @@ export interface Fish {
         color: string;
         size: string;
     }>;
-    eyes: Array<{
+    eyes: {
         id: number;
-        color: string;
+        forme: string;
         size: string;
         position: string;
+    };
+    img: string;
+    additionalImages: Array<{
+        id: number;
+        url: string;
     }>;
 }
 
