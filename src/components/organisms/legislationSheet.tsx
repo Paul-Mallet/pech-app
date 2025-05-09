@@ -124,13 +124,12 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 			<BottomSheet
 				ref={ref}
 				enablePanDownToClose
-				snapPoints={snapPoints}
-				topInset={insets.top + 10}
+				snapPoints={['90%']}
 				overDragResistanceFactor={2}
 				enableContentPanningGesture={false}
 				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
-				backgroundStyle={[styles.containerBottomSheet, { height: '100%' }]}
+				backgroundStyle={styles.containerBottomSheet}
 				android_keyboardInputMode="adjustPan"
 				handleComponent={() => <HitArea />}
 				backdropComponent={(props: BottomSheetBackdropProps) => (
@@ -156,7 +155,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 						</>
 					) : (
 						<ScrollView 
-							contentContainerStyle={{ paddingBottom: 60 }}
+							contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 60 }}
 							bounces={false}
 							showsVerticalScrollIndicator
 							keyboardShouldPersistTaps="handled"

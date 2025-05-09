@@ -29,8 +29,6 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 			),
 			[]
 		);
-		  
-		const renderHandle = useCallback(() => <HitArea />, []);
 
 		useFocusEffect(
 			useCallback(() => {
@@ -63,14 +61,18 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					enableContentPanningGesture={false}
 					enableHandlePanningGesture={true}
 					onChange={handleSheetChanges}
+					android_keyboardInputMode="adjustPan"
 					backgroundStyle={styles.containerBottomSheet}
-					handleComponent={renderHandle}
+					handleComponent={() => <HitArea />}
+					enableOverDrag={false}
 					backdropComponent={renderBackdrop}
 				>
-					<BottomSheetView focusable={true} style={styles.contentContainerBottomSheet}>
-					<ScrollView
+					<BottomSheetView style={styles.contentContainerBottomSheet}>
+						<ScrollView
 							contentContainerStyle={{ rowGap: 20, paddingHorizontal: 20 }}
 							showsVerticalScrollIndicator={true}
+							keyboardShouldPersistTaps="handled"
+							bounces={false}
 						>
 							<View style={[styles.headerContainerBottomSheet, {marginBottom: -30}]}>
 								<Text style={[styles.h2, {fontSize: 20}]}>{fish?.name}</Text>
