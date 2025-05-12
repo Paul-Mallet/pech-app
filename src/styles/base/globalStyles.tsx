@@ -204,9 +204,6 @@ const GlobalStyles = () => {
       backgroundColor: theme.textHighlightDark
     },
     quizzButton: {
-      position: 'absolute',
-      top: 60,
-      right: 20,
       alignItems: 'center',
       justifyContent: 'center',
       width: 40,
@@ -214,7 +211,7 @@ const GlobalStyles = () => {
       padding: 8,
       borderRadius: 32,
       backgroundColor: theme.textHighlightDark,
-      zIndex: 10
+      
     },
     input: {
       marginTop: 4,

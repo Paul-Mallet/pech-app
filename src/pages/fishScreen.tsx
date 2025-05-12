@@ -70,6 +70,13 @@ const FishScreen = () => {
             setFiltered(false);
     };
 
+    const handleCameraButtonPress = () => {
+        if (!filtered)
+            navigation.navigate('FishAICamera');
+        else
+            setFiltered(false);
+    };
+
     // const onRefresh = () => {
     //     setRefreshing(true);
     // };
@@ -95,9 +102,14 @@ const FishScreen = () => {
 			<SafeAreaView style={styles.body}>
                 <View>
                     <Text style={styles.h2}>Poissons</Text>
-                    <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                        <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                    </TouchableOpacity>
+                    <View style={{zIndex: 10, backgroundColor: 'red', height: 100, position: 'absolute', top: 60, right: 20}}>
+                        <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                            <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                            <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={{ marginTop: 110 }}>
                     <Text>Erreur</Text>
@@ -113,9 +125,14 @@ const FishScreen = () => {
 	};
 	return (
 		<SafeAreaView style={styles.body}>
-            <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-            </TouchableOpacity>
+            <View style={{zIndex: 10, position: 'absolute', top: 60, right: 20, flexDirection: 'row', gap: 6}}>
+                <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                    <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.quizzButton} onPress={handleCameraButtonPress}>
+                    <FontAwesome name={"camera"} size={20} color={theme.textBoldLight} />
+                </TouchableOpacity>
+            </View>
             <View style={[styles.homePanel, {paddingTop: 60, paddingBottom: 40}]}>
                 <Text style={styles.h2}>Poissons</Text>
                 

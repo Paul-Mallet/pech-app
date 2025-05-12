@@ -7,10 +7,10 @@ import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
 import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import { useTheme } from './ThemeContext.tsx';
-import { useNavigationState } from '@react-navigation/native';
 import FishScreen from '../../pages/fishScreen.tsx';
 import FishResearch from '../../pages/fishResearchScreen.tsx';
 import EventBus from './EventBus.tsx';
+import FishAICamera from '../../pages/fishAICameraScreen.tsx';
 
 type TabParamList = {
   FishResearch: undefined;
@@ -73,7 +73,7 @@ const BottomTabNavigator = () => {
   return (
       <Tab.Navigator
         tabBar={(props: { state: { routes: any[]; index: any } }) => {
-          const visibleRoutes = props.state.routes.filter(route => route.name !== 'FishResearch');
+          const visibleRoutes = props.state.routes.filter(route => route.name !== 'FishResearch' && route.name !== 'FishAICamera');
           const realIndex = props.state.index;
           const adjustedIndex = visibleRoutes.findIndex(
             route => route.key === props.state.routes[realIndex]?.key
@@ -120,6 +120,11 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name="FishResearch"
         component={FishResearch}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="FishAICamera"
+        component={FishAICamera}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>

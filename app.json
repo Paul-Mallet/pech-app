@@ -4,26 +4,42 @@
     "slug": "pech-app-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Logo.webp",
+    "icon": "./assets/Logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/Logo.webp",
+      "image": "./assets/Logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#92D8E1"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Pech'App a besoin d'accéder à votre Caméra."
+      },
+      "bundleIdentifier": "com.anonymous.pechappmobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Logo.webp",
+        "foregroundImage": "./assets/Logo.png",
         "backgroundColor": "#92D8E1"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "package": "com.anonymous.pechappmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermissionText": "Pech'App a besoin d'accéder à votre Caméra."
+        }
+      ]
+    ]
   }
 }

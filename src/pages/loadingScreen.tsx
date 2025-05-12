@@ -33,7 +33,7 @@ const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim :
           { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }, // Apply fade and move-up effect
         ]}
       >
-        <Image source={require('../../assets/Logo.webp')} style={styles.image} />
+        <Image source={require('../../assets/Logo.png')} style={styles.image} />
         <Text style={styles.pechAppTitle}>Pêch’App</Text>
       </Animated.View>
     );
