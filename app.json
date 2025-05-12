@@ -39,7 +39,8 @@
         {
           "cameraPermissionText": "Pech'App a besoin d'accéder à votre Caméra."
         }
-      ]
+      ],
+      "react-native-vision-camera"
     ]
   }
 }
