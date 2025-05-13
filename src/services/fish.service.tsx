@@ -174,3 +174,13 @@ export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
         return error;
     }
 }
+
+export const getCustomFishList = async () => {
+    try {
+        const response = await apiClient.get(`fish`);
+        return response.data;
+    } catch (error) {
+        console.error("API Error when trying to get the fish: ", error);
+        return [];
+    }
+};

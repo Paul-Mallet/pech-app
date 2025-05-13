@@ -13,6 +13,8 @@ export const lightTheme = {
     subcardBackground: '#e7f8f7',
     btnBottomSheetBackground: '#92D8E1',
     green: '#0c0',
+    red: '#c03',
+    redBg: '#ffa8a8',
 };
 
 export const darkTheme = {
@@ -30,6 +32,8 @@ export const darkTheme = {
     subcardBackground: '#003942',
     btnBottomSheetBackground: '#0095a8',
     green: '#0c0',
+    red: '#c03',
+    redBg: '#a03',
 };
 
 export const poppinsFont = {

@@ -12,6 +12,7 @@ import { getAllBodyType, getAllEyes, getAllFins } from "../services/fish.service
 import { BodyTypeModel, FinModel, EyeModel } from "../models/fish.model.tsx";
 import QuestionModel from "../models/questions.model.tsx";
 import QuestionsFactory from "../@utils/questions.factory.tsx";
+import ButtonClose from "../components/atoms/buttonClose.tsx";
 
 const FishResearch = ({navigation} : any) => {
     const buttonStyles = ButtonStyles();
@@ -66,9 +67,7 @@ const FishResearch = ({navigation} : any) => {
                     </TouchableOpacity>
                     <Questions questionsParams={questionsParams} shouldResetFilters={shouldResetFilters}/>
                     <View style={styles.mainButtonsDiv}>
-                        <TouchableOpacity style={styles.button} onPress={() => resetFilters()}>
-                            <Text style={styles.text}>Réinitialiser les filtres</Text>
-                        </TouchableOpacity>
+                        <ButtonClose onPressFunction={resetFilters} buttonText="Réinitialiser les filtres"></ButtonClose>
                         <ViewFishButton/>
                     </View>
                 </View>

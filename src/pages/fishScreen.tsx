@@ -34,8 +34,15 @@ export const useFilteredFishes = () => {
     }
   
     return { filteredFishes, addFilteredFish, resetFilteredFishes, replaceFilteredFishes };
-  };
-  
+};
+
+export const useCustomFishList = () => 
+{
+    const [probaFishes, setProbaFishes] = useState<Fish[]>([]);
+
+    return {probaFishes, setProbaFishes};
+}
+
 const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const [pressedFish, setPressedFish] = useState<Fish | null>(null);
@@ -46,6 +53,7 @@ const FishScreen = () => {
     const { theme } = useTheme();
     const { fetchFishes, fishes } = useHistory();
     const {filteredFishes, addFilteredFish} = useFilteredFishes();
+    const {probaFishes, setProbaFishes} = useCustomFishList();
     
     useEffect(() => {
         const handler = () => {
@@ -93,9 +101,9 @@ const FishScreen = () => {
     };
 
     const visibleFishes = useMemo(
-        () => fishes.filter(fish => !filteredFishes.includes(fish.id)),
-        [fishes, filteredFishes]
-      );
+        () => (probaFishes.length !== 0 ? probaFishes : fishes).filter(fish => !filteredFishes.includes(fish.id)),
+        [fishes, filteredFishes, probaFishes]
+    );
 
 	if (!fishes) {
 		return (
