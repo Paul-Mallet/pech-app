@@ -12,6 +12,8 @@ export type HistoryContextProps = {
 	fishes: Fish[];
 	legislations: Legislation[];
 	getHomeRandomContent: () => { fishes: Fish[]; legislations: Legislation[] };
+	probaFishes: Fish[], 
+	setProbabilityFishes: (newProbaFishes: Fish[]) => void;
 };
 
 export type HistoryItem = {

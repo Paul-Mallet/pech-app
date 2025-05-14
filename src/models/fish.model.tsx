@@ -33,6 +33,7 @@ export interface Fish {
         id: number;
         url: string;
     }>;
+    probability?: number;
 }
 
 export class BodyTypeModel {

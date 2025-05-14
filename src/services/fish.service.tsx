@@ -200,7 +200,7 @@ export const sendPhotoToBack = async (photoPath: string) => {
             },
         });
 
-        console.log('Upload success:');
+        console.log('Upload success');
         return response.data;
     } catch (error) {
         console.error('Upload error:', error);

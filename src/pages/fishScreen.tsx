@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { FlatList, SafeAreaView, Text, View, ScrollView, TouchableOpacity, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { FlatList, SafeAreaView, Text, View, ScrollView, TouchableOpacity, Button, BackHandler } from 'react-native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
@@ -36,13 +36,6 @@ export const useFilteredFishes = () => {
     return { filteredFishes, addFilteredFish, resetFilteredFishes, replaceFilteredFishes };
 };
 
-export const useCustomFishList = () => 
-{
-    const [probaFishes, setProbaFishes] = useState<Fish[]>([]);
-
-    return {probaFishes, setProbaFishes};
-}
-
 const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const [pressedFish, setPressedFish] = useState<Fish | null>(null);
@@ -51,10 +44,24 @@ const FishScreen = () => {
     const navigation = useNavigation();
 	const styles = GlobalStyles();
     const { theme } = useTheme();
-    const { fetchFishes, fishes } = useHistory();
+    const { fetchFishes, fishes, probaFishes, setProbabilityFishes } = useHistory();
     const {filteredFishes, addFilteredFish} = useFilteredFishes();
-    const {probaFishes, setProbaFishes} = useCustomFishList();
     
+    useFocusEffect(
+        useCallback(() => {
+          const onBackPress = () => {
+            if (probaFishes.length !== 0) {
+                setProbabilityFishes([]);
+              return true;
+            }
+            return false;
+          };
+      
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+          return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [probaFishes])
+    );
+
     useEffect(() => {
         const handler = () => {
           navigation.navigate("Poissons");
@@ -148,13 +155,13 @@ const FishScreen = () => {
                 </TouchableOpacity>
             </View>
             <View style={[styles.homePanel, {paddingTop: 60, paddingBottom: 40}]}>
-                <Text style={styles.h2}>Poissons</Text>
+                <Text style={styles.h2}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
                 
                 {visibleFishes.length > 0 ? (
                 <FlatList
                     data={visibleFishes}
                     numColumns={2}
-                    contentContainerStyle={{ gap: 26, paddingBottom: 38 }}
+                    contentContainerStyle={{ gap: probaFishes.length !== 0 ? 46 : 26, paddingBottom: probaFishes.length !== 0 ? 90 : 38 }}
                     scrollEnabled={true}
                     keyExtractor={(item) => item.id.toString()}
                     columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
@@ -165,6 +172,7 @@ const FishScreen = () => {
                         fishName={item.name}
                         imgSource={item.img ? item.img : null}
                         fishMinSize={item.minSizeCm}
+                        probability={probaFishes.length !== 0 ? item.probability : null}
                     />
                     )}
                 />

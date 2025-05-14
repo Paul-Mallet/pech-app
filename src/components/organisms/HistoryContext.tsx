@@ -11,6 +11,7 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [fishes, setFishes] = useState<Fish[]>([]);
 	const [legislations, setLegislations] = useState<Legislation[]>([]);
+  const [probaFishes, setProbaFishes] = useState<Fish[]>([]);
 
   const addToHistory = (item: HistoryItem) => {
     setHistory(prev => [item, ...prev.filter(i => (i.label !== item.label || (i.label === item.label && i.entryType !== item.entryType)))]);
@@ -42,11 +43,21 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
         // const fishesVar = getAllFish();
         // console.log("\x1b[36mFetched all fishes:\x1b[0m", JSON.stringify(fishesVar));
         setFishes(fishData);
+      //   const fishesWithProbability = fishData.map(fish => ({
+      //     ...fish,
+      //     probability: 0.01,
+      // }));
+      // setFishes(fishesWithProbability);
     } catch (err) {
         console.error('Impossible de charger les données des poissons.');
         setFishes([]);
     }
-};
+  };
+
+  const setProbabilityFishes = (newProbaFishes: Fish[]) => 
+  {
+    setProbaFishes(newProbaFishes);
+  }
 
 	const fetchLegislations = async () => {
 		try {
@@ -91,7 +102,7 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
   };
 
   return (
-    <HistoryContext.Provider value={{ history, groupedHistory, addToHistory, clearHistory, fetchFishes, getFishById, fishes, fetchLegislations, legislations, getHomeRandomContent }}>
+    <HistoryContext.Provider value={{ history, groupedHistory, addToHistory, clearHistory, fetchFishes, getFishById, fishes, fetchLegislations, legislations, getHomeRandomContent, probaFishes, setProbabilityFishes }}>
       {children}
     </HistoryContext.Provider>
   );

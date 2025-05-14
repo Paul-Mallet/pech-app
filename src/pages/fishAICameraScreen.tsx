@@ -7,9 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import FishAIScreenStyles from "../styles/molecules/fishAIScreenStyles.tsx";
 import ButtonClose from "../components/atoms/buttonClose.tsx";
 import { useCustomFishList } from "./fishScreen.tsx";
-import { getCustomFishList, sendPhotoToBack } from "../services/fish.service.tsx";
+import { sendPhotoToBack } from "../services/fish.service.tsx";
 import * as ImageManipulator from 'expo-image-manipulator';
 import { useHistory } from "../components/organisms/HistoryContext.tsx";
+import { Fish } from "../models/fish.model.tsx";
 
 const FishAICamera = () => {
     const navigation = useNavigation();
@@ -18,8 +19,7 @@ const FishAICamera = () => {
     const cameraRef = useRef(null);
     const [photoUri, setPhotoUri] = useState<string | null>(null);
     const styles = FishAIScreenStyles();
-    const {setProbaFishes} = useCustomFishList();
-    const { fishes } = useHistory();
+    const { fishes, setProbabilityFishes } = useHistory();
 
     if (!permission) return <View />;
 
@@ -34,7 +34,6 @@ const FishAICamera = () => {
 
     async function takePhoto() {
         if (cameraRef.current) {
-            console.log("Taking photo");
             const photo = await cameraRef.current.takePictureAsync({skipProcessing: true, base64: true});
             const resized = await ImageManipulator.manipulateAsync(
                 photo.uri,
@@ -51,34 +50,30 @@ const FishAICamera = () => {
         navigation.navigate('Poissons');
     }
 
-    const sendPhoto = async () => 
-    {
-        if (photoUri)
-        {
-            const results = await sendPhotoToBack(photoUri);
-            type Prediction = { className: string; probability: number };
-            const matchedFishes = Object.values(results)
-                .map(pred => {
-                    const typedPred = pred as Prediction;
-                    const fish = fishes.find(f => f.faoCode === typedPred.className);
-                    if (fish) {
-                        return { id: fish.id, probability: typedPred.probability };
-                    }
-                    return null;
-                })
-                .filter(Boolean)
-                .sort((a, b) => {
-                    if (a && b) {
-                        return b.probability - a.probability;
-                    }
-                    return 0;
-                });
-
-            console.log(matchedFishes);
-        }
-        // send the photo and gets the server answer
-        // display the fishes by probability order
-    }
+    const sendPhoto = async () => {
+        if (!photoUri) return;
+    
+        const results = await sendPhotoToBack(photoUri);
+    
+        type Prediction = { className: string; probability: number };
+    
+        const matchedFishes: (Fish)[] = Object.values(results)
+            .map(pred => {
+                const typedPred = pred as Prediction;
+                const fish = fishes.find(f => f.faoCode === typedPred.className);
+                if (fish) {
+                    fish.probability = Math.round(typedPred.probability * 100);
+                    return { ...fish};
+                }
+                return null;
+            })
+            .filter((item): item is Fish & { probability: number } => item !== null)
+            .sort((a, b) => b.probability - a.probability)
+            .slice(0, 4);
+    
+        setProbabilityFishes(matchedFishes);
+        closePhotoView();
+    };
 
     const resetPhoto = () => 
     {
@@ -103,7 +98,7 @@ const FishAICamera = () => {
                     <View style={{alignItems: 'center'}}>
                         <View style={{position: 'absolute', bottom: 80, gap: 40, flexDirection: 'row'}}>
                             <TouchableOpacity style={styles.buttonSend} onPress={sendPhoto}>
-                                <Text style={styles.buttonText}>Envoyer</Text>
+                                <Text style={styles.buttonText}>Analyser</Text>
                             </TouchableOpacity>
                             <ButtonClose onPressFunction={resetPhoto} buttonText="Annuler"></ButtonClose>
                         </View>
