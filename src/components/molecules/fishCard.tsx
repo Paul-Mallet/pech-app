@@ -12,9 +12,10 @@ interface FishCardProps {
 	imgSource: string | null;
 	id: string;
 	addHistory?: boolean;
+	probability?: number | null;
 }
 
-const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, addHistory = true }: FishCardProps) => {
+const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, addHistory = true, probability }: FishCardProps) => {
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
 	const { addToHistory } = useHistory();
@@ -46,6 +47,11 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 
 	return (
 		<View style={{position: 'relative', height: 'auto'}}>
+
+			{probability && 
+			<View style={styles.topContainer}>
+				<Text style={styles.topContainerText}>Probabilite : {probability}</Text>
+			</View>}
 			<View style={styles.cardContainer}>
 				<TouchableOpacity onPress={handlePress}>
 					<Image

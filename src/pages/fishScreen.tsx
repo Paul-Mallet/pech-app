@@ -100,10 +100,16 @@ const FishScreen = () => {
         setPressedFish(fishes[parseInt(fishId)]);
     };
 
-    const visibleFishes = useMemo(
-        () => (probaFishes.length !== 0 ? probaFishes : fishes).filter(fish => !filteredFishes.includes(fish.id)),
-        [fishes, filteredFishes, probaFishes]
-    );
+    const visibleFishes = useMemo(() => {
+        if (probaFishes.length !== 0) {
+            return probaFishes.filter(fish => {
+                const matchingFish = fishes.find(f => f.faoCode === fish.faoCode);
+                return matchingFish ? !filteredFishes.includes(matchingFish.id) : true;
+            });
+        } else {
+            return fishes.filter(fish => !filteredFishes.includes(fish.id));
+        }
+    }, [fishes, filteredFishes, probaFishes]);
 
 	if (!fishes) {
 		return (

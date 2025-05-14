@@ -175,12 +175,35 @@ export const getFishByAnswer = async(answers : ResearchAnswerModel) => {
     }
 }
 
-export const getCustomFishList = async () => {
+// export const getCustomFishList = async () => {
+//     try {
+//         const response = await apiClient.get(`fish`);
+//         return response.data;
+//     } catch (error) {
+//         console.error("API Error when trying to get the fish: ", error);
+//         return [];
+//     }
+// };
+
+export const sendPhotoToBack = async (photoPath: string) => {
     try {
-        const response = await apiClient.get(`fish`);
+        const formData = new FormData();
+        formData.append('image', {
+            uri: photoPath,
+            name: 'photo.jpg',
+            type: 'image/jpeg',
+        } as any);
+
+        const response = await axios.post('https://pechapp.edwindev.fr/api/ai/predict', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        console.log('Upload success:');
         return response.data;
     } catch (error) {
-        console.error("API Error when trying to get the fish: ", error);
-        return [];
+        console.error('Upload error:', error);
+        throw error;
     }
 };

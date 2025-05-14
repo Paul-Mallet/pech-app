@@ -7,7 +7,9 @@ import { useNavigation } from "@react-navigation/native";
 import FishAIScreenStyles from "../styles/molecules/fishAIScreenStyles.tsx";
 import ButtonClose from "../components/atoms/buttonClose.tsx";
 import { useCustomFishList } from "./fishScreen.tsx";
-import { getCustomFishList } from "../services/fish.service.tsx";
+import { getCustomFishList, sendPhotoToBack } from "../services/fish.service.tsx";
+import * as ImageManipulator from 'expo-image-manipulator';
+import { useHistory } from "../components/organisms/HistoryContext.tsx";
 
 const FishAICamera = () => {
     const navigation = useNavigation();
@@ -17,6 +19,7 @@ const FishAICamera = () => {
     const [photoUri, setPhotoUri] = useState<string | null>(null);
     const styles = FishAIScreenStyles();
     const {setProbaFishes} = useCustomFishList();
+    const { fishes } = useHistory();
 
     if (!permission) return <View />;
 
@@ -33,8 +36,12 @@ const FishAICamera = () => {
         if (cameraRef.current) {
             console.log("Taking photo");
             const photo = await cameraRef.current.takePictureAsync({skipProcessing: true, base64: true});
-            setPhotoUri(photo.uri);
-            console.log('Photo URI:', photo.uri);
+            const resized = await ImageManipulator.manipulateAsync(
+                photo.uri,
+                [{ resize: { width: 800 } }],
+                { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
+            );
+            setPhotoUri(resized.uri);
         }
     }
 
@@ -44,18 +51,33 @@ const FishAICamera = () => {
         navigation.navigate('Poissons');
     }
 
-    const sendPhoto = () => 
+    const sendPhoto = async () => 
     {
+        if (photoUri)
+        {
+            const results = await sendPhotoToBack(photoUri);
+            type Prediction = { className: string; probability: number };
+            const matchedFishes = Object.values(results)
+                .map(pred => {
+                    const typedPred = pred as Prediction;
+                    const fish = fishes.find(f => f.faoCode === typedPred.className);
+                    if (fish) {
+                        return { id: fish.id, probability: typedPred.probability };
+                    }
+                    return null;
+                })
+                .filter(Boolean)
+                .sort((a, b) => {
+                    if (a && b) {
+                        return b.probability - a.probability;
+                    }
+                    return 0;
+                });
+
+            console.log(matchedFishes);
+        }
         // send the photo and gets the server answer
         // display the fishes by probability order
-    }
-
-    // function that will show the custom fishes list from the answer 
-    const showResults = async () =>
-    {
-        const customList = await getCustomFishList();
-        setProbaFishes(customList);
-        closePhotoView();
     }
 
     const resetPhoto = () => 

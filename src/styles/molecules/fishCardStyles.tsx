@@ -75,10 +75,31 @@ const FishCardStyles = () => {
 			height: 60, 
 			borderRadius: 12
 		},
+		topContainer: {
+			position: 'absolute', 
+			top: -20, 
+			backgroundColor: '#00000020', 
+			width: '100%', 
+			height: 60, 
+			borderRadius: 12
+		},
 		bottomContainerText: 
 		{
 			textAlign: 'center', 
 			bottom: -42, 
+			zIndex: 1,
+			fontSize: 10,
+			fontFamily: font.bold,
+			color: theme.textBoldLight,
+			textShadowColor: 'black',
+			textShadowOffset: { width: 0.8, height: 0.8 },
+			textShadowRadius: 4,
+			pointerEvents: 'none'
+		},
+		topContainerText: 
+		{
+			textAlign: 'center', 
+			top: -42, 
 			zIndex: 1,
 			fontSize: 10,
 			fontFamily: font.bold,
