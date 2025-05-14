@@ -1,12 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Text, View, Button, TouchableOpacity, Image } from "react-native";
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useTheme } from "../components/organisms/ThemeContext.tsx";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import FishAIScreenStyles from "../styles/molecules/fishAIScreenStyles.tsx";
 import ButtonClose from "../components/atoms/buttonClose.tsx";
-import { useCustomFishList } from "./fishScreen.tsx";
 import { sendPhotoToBack } from "../services/fish.service.tsx";
 import * as ImageManipulator from 'expo-image-manipulator';
 import { useHistory } from "../components/organisms/HistoryContext.tsx";
@@ -20,6 +19,10 @@ const FishAICamera = () => {
     const [photoUri, setPhotoUri] = useState<string | null>(null);
     const styles = FishAIScreenStyles();
     const { fishes, setProbabilityFishes } = useHistory();
+
+    useEffect(() => {
+        console.log("Photo uri changed:", photoUri);
+	}, [photoUri]);
 
     if (!permission) return <View />;
 
@@ -44,9 +47,10 @@ const FishAICamera = () => {
         }
     }
 
+
     const closePhotoView = () => 
     {
-        setPhotoUri("");
+        setPhotoUri(null);
         navigation.navigate('Poissons');
     }
 
@@ -77,7 +81,7 @@ const FishAICamera = () => {
 
     const resetPhoto = () => 
     {
-        setPhotoUri("");
+        setPhotoUri(null);
     }
 
     return (
