@@ -13,7 +13,7 @@ import { Fish } from "../models/fish.model.tsx";
 
 const FishAICamera = () => {
     const navigation = useNavigation();
-    const { theme } = useTheme();
+    const { theme, font } = useTheme();
     const [permission, requestPermission] = useCameraPermissions();
     const cameraRef = useRef(null);
     const [photoUri, setPhotoUri] = useState<string | null>(null);
@@ -100,7 +100,13 @@ const FishAICamera = () => {
                 <View style={{ flex: 1 }}> 
                     <Image source={{ uri: photoUri }} style={{ flex: 1 }} />
                     <View style={{alignItems: 'center'}}>
-                        <View style={{position: 'absolute', bottom: 80, gap: 40, flexDirection: 'row'}}>
+                        <View style={{bottom: 60, backgroundColor: '#00000080', width: "100%", alignItems: 'center'}}>
+                            <Text style={{fontFamily: font.regular, 
+                                color : theme.textHighlightDark, 
+                                fontSize: 12}}>Les images envoyées seront utilisées à des fins de réentraînement du service d’intelligence artificielle.
+                            </Text>
+                        </View>
+                        <View style={{position: 'absolute', bottom: 110, gap: 40, flexDirection: 'row'}}>
                             <TouchableOpacity style={styles.buttonSend} onPress={sendPhoto}>
                                 <Text style={styles.buttonText}>Analyser</Text>
                             </TouchableOpacity>

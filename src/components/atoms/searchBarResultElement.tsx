@@ -17,7 +17,7 @@ const SearchBarResultElement: React.FC<ResultGroupProps> = ({ text, callBack }) 
 
     const handleRightIconPress = (text: string) => {
         navigation.navigate('Tabs', {
-            screen: 'Législation',
+            screen: 'Réglementation',
             params: { searchText: text },
         });
     };

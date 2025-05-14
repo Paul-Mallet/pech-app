@@ -11,7 +11,7 @@ interface CTAButtonProps {
 
 const CTAButton: React.FC<CTAButtonProps> = ({ 
   searchText, 
-  buttonText = "Législation",
+  buttonText = "Réglementation",
   onPress
 }) => {
   const navigation = useNavigation();
@@ -25,7 +25,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
     } else if (searchText) {
       // Navigation par défaut vers l'écran Législation si searchText est fourni
       navigation.navigate('Tabs', {
-        screen: 'Législation',
+        screen: 'Réglementation',
         params: { searchText: searchText },
       });
     }

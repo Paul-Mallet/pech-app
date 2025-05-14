@@ -14,7 +14,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
 
   const handleRightIconPress = useCallback((text: string) => {
     navigation.navigate('Tabs', {
-      screen: 'Législation',
+      screen: 'Réglementation',
       params: { searchText: text },
     });
   }, [navigation]);

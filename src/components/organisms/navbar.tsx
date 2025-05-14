@@ -49,7 +49,7 @@ const BottomTabNavigator = () => {
         case 'Poissons':
           iconName = focused ? 'fish' : 'fish-outline';
           break;
-        case 'Législation':
+        case 'Réglementation':
           iconName = focused ? 'book' : 'book-outline';
           break;
         case 'Paramètres':
@@ -107,7 +107,7 @@ const BottomTabNavigator = () => {
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Législation"
+        name="Réglementation"
         component={LegislationScreen}
         listeners={{ tabPress: onLegislationTabPress }}
         options={{ headerShown: false }}
