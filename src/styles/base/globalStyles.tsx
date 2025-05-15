@@ -380,6 +380,15 @@ const GlobalStyles = () => {
       aspectRatio: 1.05,
       gap: 6
     },
+    topButtonsFishScreen: 
+    {
+      zIndex: 10, 
+      position: 'absolute', 
+      top: 40, 
+      right: 20, 
+      flexDirection: 'row', 
+      gap: 6
+    },
 	}), [theme, font]);
 
 	return styles;

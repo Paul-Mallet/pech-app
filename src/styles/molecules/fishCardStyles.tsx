@@ -56,16 +56,16 @@ const FishCardStyles = () => {
 			width: "90%",
 			alignSelf: 'center',
 			position: 'absolute',
-			bottom: 5,
+			bottom: 0,
 			fontFamily: font.bold,
-			fontSize: 16,
+			fontSize: 15,
 			textAlign: 'center',
 			color: theme.textBoldLight,
 			textShadowColor: 'black',
-			textShadowOffset: { width: 1, height: 1 },
-			textShadowRadius: 6,
+			textShadowOffset: { width: 0.1, height: 0.1 },
+			textShadowRadius: 10,
 			pointerEvents: 'none',
-			lineHeight: 20
+			lineHeight: 18
 		},
 		topContainer: {
 			top: 40, 
@@ -82,27 +82,27 @@ const FishCardStyles = () => {
 			fontFamily: font.bold,
 			color: theme.textBoldLight,
 			textShadowColor: 'black',
-			textShadowOffset: { width: 1, height: 1 },
-			textShadowRadius: 0.1,
+			textShadowOffset: { width: 0.1, height: 0.1 },
+			textShadowRadius: 10,
 			pointerEvents: 'none'
 		},
 		bottomContainer: {
-			bottom: 40, 
+			bottom: 30, 
 			backgroundColor: '#00000020', 
 			width: '100%', 
-			height: 60, 
+			height: 50, 
 			borderRadius: 12
 		},
 		bottomContainerText: 
 		{
 			textAlign: 'center', 
-			bottom: -40, 
+			bottom: -33, 
 			fontSize: 10,
 			fontFamily: font.bold,
 			color: theme.textBoldLight,
 			textShadowColor: 'black',
-			textShadowOffset: { width: 0.8, height: 0.8 },
-			textShadowRadius: 4,
+			textShadowOffset: { width: 0.1, height: 0.1 },
+			textShadowRadius: 10,
 			pointerEvents: 'none'
 		},
 	}), [theme, font]);

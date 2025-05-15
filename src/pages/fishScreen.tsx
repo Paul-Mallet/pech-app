@@ -118,11 +118,17 @@ const FishScreen = () => {
         }
     }, [fishes, filteredFishes, probaFishes]);
 
+    const hasProbaFishes = probaFishes.length !== 0;
+    const contentContainerStyle = {
+        gap: hasProbaFishes ? 46 : 26,
+        paddingBottom: hasProbaFishes ? 90 : 38
+    };
+
 	if (!fishes) {
 		return (
 			<SafeAreaView style={styles.body}>
                 <View>
-                    <Text style={styles.h2}>Poissons</Text>
+                    <Text style={[styles.h2, {borderBottomWidth: 2, borderBottomColor: '#00000020'}]}>Poissons</Text>
                     <View style={{zIndex: 10, backgroundColor: 'red', height: 100, position: 'absolute', top: 60, right: 20}}>
                         <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
                             <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
@@ -146,7 +152,7 @@ const FishScreen = () => {
 	};
 	return (
 		<SafeAreaView style={styles.body}>
-            <View style={{zIndex: 10, position: 'absolute', top: 60, right: 20, flexDirection: 'row', gap: 6}}>
+            <View style={styles.topButtonsFishScreen}>
                 <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
                     <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
                 </TouchableOpacity>
@@ -154,14 +160,14 @@ const FishScreen = () => {
                     <FontAwesome name={"camera"} size={20} color={theme.textBoldLight} />
                 </TouchableOpacity>
             </View>
-            <View style={[styles.homePanel, {paddingTop: 60, paddingBottom: 40}]}>
-                <Text style={styles.h2}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
+            <View style={[styles.homePanel, {paddingTop: 40, paddingBottom: 40}]}>
+                <Text style={[styles.h2, {borderBottomWidth: 2, borderBottomColor: theme.navBarBackground}]}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
                 
                 {visibleFishes.length > 0 ? (
                 <FlatList
                     data={visibleFishes}
                     numColumns={2}
-                    contentContainerStyle={{ gap: probaFishes.length !== 0 ? 46 : 26, paddingBottom: probaFishes.length !== 0 ? 90 : 38 }}
+                    contentContainerStyle={contentContainerStyle}
                     scrollEnabled={true}
                     keyExtractor={(item) => item.id.toString()}
                     columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}

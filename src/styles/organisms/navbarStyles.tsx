@@ -7,6 +7,8 @@ const NavBarStyles = () => {
 
   const styles = useMemo(() => StyleSheet.create({
     tabLabel: {
+      width: '100%',
+      textAlign: 'center',
       fontSize: 10,
       fontFamily: font.regular,
     },

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { Button, View , Text, TouchableOpacity, ActivityIndicator} from "react-native"
+import React, { useCallback, useEffect, useState } from "react"
+import { Button, View , Text, TouchableOpacity, ActivityIndicator, BackHandler} from "react-native"
 import ButtonStyles from "../styles/atoms/buttonStyles.tsx"
 import { Ionicons } from '@expo/vector-icons';
 import Questions from "../components/organisms/questions.tsx";
@@ -13,6 +13,7 @@ import { BodyTypeModel, FinModel, EyeModel } from "../models/fish.model.tsx";
 import QuestionModel from "../models/questions.model.tsx";
 import QuestionsFactory from "../@utils/questions.factory.tsx";
 import ButtonClose from "../components/atoms/buttonClose.tsx";
+import { useFocusEffect } from "@react-navigation/native";
 
 const FishResearch = ({navigation} : any) => {
     const buttonStyles = ButtonStyles();
@@ -28,6 +29,17 @@ const FishResearch = ({navigation} : any) => {
         setShouldResetFilters(true);
         setTimeout(() => setShouldResetFilters(false), 100);
     }
+    
+    useFocusEffect(
+        useCallback(() => {
+          const onBackPress = () => {
+            navigation.navigate("Poissons");
+            return true;
+          };
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+          return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [])
+    );
 
     useEffect(() => {
         const createQuestions = async () => {

@@ -5,7 +5,6 @@ import SearchBarResults from '../molecules/searchBarResult.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useHistory } from './HistoryContext.tsx';
-import { useFocusEffect } from '@react-navigation/native';
 
 interface ElementType {
   label: string;

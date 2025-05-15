@@ -52,15 +52,15 @@ const SettingsScreen = ({ route }: { route: any }) => {
 
   return (
 		<SafeAreaView style={styles.body}>
-      <View style={[styles.homePanel, {paddingTop: 20, marginTop: 40}]}>
+      <View style={[styles.homePanel, {paddingTop: 40}]}>
         <View>
-          <Text style={[styles.h2, {marginBottom: 16}]}>Thème</Text>
+          <Text style={[styles.h2]}>Thème</Text>
           <ThemeSelectGroup
             options={options}
             selected={selectedTheme}
             onSelect={(option) => selectTheme(option)}
           />
-          <Text style={[styles.h2, {marginBottom: 16}]}>Police</Text>
+          <Text style={[styles.h2]}>Police</Text>
           <FontSelectGroup
             options={fontOptions}
             selected={selectedFont}

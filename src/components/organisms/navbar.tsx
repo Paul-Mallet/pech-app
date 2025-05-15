@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { BottomTabBar, BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import HomeScreen from '../../pages/homeScreen.tsx';
 import LegislationScreen from '../../pages/legislationScreen.tsx';
 import SettingsScreen from '../../pages/settingsScreen.tsx';
@@ -16,7 +16,7 @@ type TabParamList = {
   FishResearch: undefined;
   Poissons: undefined;
   Accueil: undefined;
-  Législation: undefined;
+  Réglementation: undefined;
   Paramètres: undefined;
 };
 
@@ -64,9 +64,11 @@ const BottomTabNavigator = () => {
     tabBarInactiveTintColor: theme.textDark,
     tabBarStyle: styles.tabBar,
     tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
-      <Text style={[styles.tabLabel, focused && styles.tabLabelFocused, { color }]}>
+    <View>
+      <Text numberOfLines={1} style={[ styles.tabLabel, focused && styles.tabLabelFocused, {color} ]}>
         {route.name}
       </Text>
+    </View>
     ),
   }), [theme.textHighlightDark, theme.textDark, styles]);
 
