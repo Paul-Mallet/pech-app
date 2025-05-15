@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getAllFish, getAllLegislations } from '../../services/fish.service.tsx';
 import { HistoryContextProps, HistoryItem } from '../../models/history.model.tsx';
 import { Legislation } from '../../models/legislation.model.tsx';
 import { Fish } from '../../models/fish.model.tsx';
 import { fishData } from '../../models/fishLocalData.tsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HistoryContext = createContext<HistoryContextProps | undefined>(undefined);
 
@@ -12,16 +13,45 @@ export const HistoryProvider = ({ children }: { children: React.ReactNode }) => 
   const [fishes, setFishes] = useState<Fish[]>([]);
 	const [legislations, setLegislations] = useState<Legislation[]>([]);
   const [probaFishes, setProbaFishes] = useState<Fish[]>([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  const safeAsyncStorage = AsyncStorage as unknown as {
+    getItem: (key: string) => Promise<string | null>;
+    setItem: (key: string, value: string) => Promise<void>;
+  };
 
   const addToHistory = (item: HistoryItem) => {
     setHistory(prev => [item, ...prev.filter(i => (i.label !== item.label || (i.label === item.label && i.entryType !== item.entryType)))]);
   };
-  
+
   const groupedHistory = history.reduce((acc, item) => {
     if (!acc[item.entryType]) acc[item.entryType] = [];
     acc[item.entryType].push(item);
     return acc;
   }, {} as Record<string, HistoryItem[]>);
+
+  useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const stored = await safeAsyncStorage.getItem('history');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setHistory(parsed);
+        }
+      } catch (error) {
+        console.error("Failed to load history:", error);
+      } finally {
+        setHasLoaded(true);
+      }
+    };
+    loadHistory();
+  }, []);
+
+  useEffect(() => {
+    if (hasLoaded) {
+      safeAsyncStorage.setItem('history', JSON.stringify(history));
+    }
+  }, [history, hasLoaded]);
 
   const clearHistory = () => setHistory([]);
 
