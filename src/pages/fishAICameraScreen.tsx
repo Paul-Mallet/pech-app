@@ -146,7 +146,7 @@ const FishAICamera = () => {
             {isFocused && state === 0 && !photoUri && 
                 <CameraView style={styles.camera} ref={cameraRef}>
                     <TouchableOpacity style={styles.closeSearchButton} onPress={closePhotoView}>
-                        <Ionicons name='close' size={24} color={theme.body}/>
+                        <Ionicons name='close' size={24} color={theme.textBoldLight}/>
                     </TouchableOpacity>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.takePictureButton} onPress={takePhoto}>

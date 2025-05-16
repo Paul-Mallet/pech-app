@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { FlatList, SafeAreaView, Text, View, ScrollView, TouchableOpacity, Button, BackHandler } from 'react-native';
+import { FlatList, SafeAreaView, Text, View, TouchableOpacity, Button, BackHandler } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
-import { getFishById } from '../services/fish.service.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import EventBus from '../components/organisms/EventBus.tsx';
 import { useHistory } from '../components/organisms/HistoryContext.tsx';
@@ -40,7 +39,6 @@ const FishScreen = () => {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const [pressedFish, setPressedFish] = useState<Fish | null>(null);
     const [filtered, setFiltered] = useState<boolean>(false);
-    // const [refreshing, setRefreshing] = useState<boolean>(false);
     const navigation = useNavigation();
 	const styles = GlobalStyles();
     const { theme } = useTheme();
@@ -92,18 +90,7 @@ const FishScreen = () => {
             setFiltered(false);
     };
 
-    // const onRefresh = () => {
-    //     setRefreshing(true);
-    // };
-
     const handleFishPress = async (fishId: string) => {
-        // try {
-        //     const fish = await getFishById(fishId);
-        //     if (fish)
-        //         setPressedFish(fish);
-        // } catch (error) {
-        //     console.error("Failed to fetch fish:", error);
-        // }
         setPressedFish(fishes[parseInt(fishId)]);
     };
 

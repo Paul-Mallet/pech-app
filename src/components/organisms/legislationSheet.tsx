@@ -117,8 +117,6 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 		if (index === -1) onClose();
 	}, [onClose]);
 
-	const snapPoints = loading || error || !stats ? ['40%'] : ['90%'];
-
 	return (
 		<View style={styles.viewContainerBottomSheet}>
 			<BottomSheet

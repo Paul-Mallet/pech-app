@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Button, ActivityIndicator, BackHandler, ScrollView } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React, { useCallback } from 'react';
+import { View, Text, BackHandler, ScrollView } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
 import ImageSlider from '../organisms/slider.tsx';
@@ -16,19 +15,6 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 		if (!fish) return null;
 		const { theme, font } = useTheme();
 		const styles = GlobalStyles();
-		const insets = useSafeAreaInsets();
-
-		const renderBackdrop = useCallback(
-			(props: BottomSheetBackdropProps) => (
-			  <BottomSheetBackdrop
-				{...props}
-				appearsOnIndex={0}
-				disappearsOnIndex={-1}
-				style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-			  />
-			),
-			[]
-		);
 
 		useFocusEffect(
 			useCallback(() => {
@@ -65,7 +51,14 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					backgroundStyle={styles.containerBottomSheet}
 					handleComponent={() => <HitArea />}
 					enableOverDrag={false}
-					backdropComponent={renderBackdrop}
+					backdropComponent={(props: BottomSheetBackdropProps) => (
+						<BottomSheetBackdrop
+							{...props}
+							appearsOnIndex={0}
+							disappearsOnIndex={-1}
+							style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+						/>
+					)}
 				>
 					<BottomSheetView style={styles.contentContainerBottomSheet}>
 						<ScrollView
