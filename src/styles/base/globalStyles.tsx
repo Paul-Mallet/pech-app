@@ -209,7 +209,7 @@ const GlobalStyles = () => {
       width: 40,
       height: 40,
       padding: 8,
-      borderRadius: 32,
+      borderRadius: '50%',
       backgroundColor: theme.textHighlightDark,
       
     },

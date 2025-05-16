@@ -4,7 +4,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import { getFishById } from '../services/fish.service.tsx';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -153,15 +153,29 @@ const FishScreen = () => {
 	return (
 		<SafeAreaView style={styles.body}>
             <View style={styles.topButtonsFishScreen}>
-                <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                    <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.quizzButton} onPress={handleCameraButtonPress}>
-                    <FontAwesome name={"camera"} size={20} color={theme.textBoldLight} />
-                </TouchableOpacity>
+            {probaFishes.length !== 0 ?
+            ( 
+                <>
+                    <TouchableOpacity style={styles.quizzButton} onPress={() => setProbabilityFishes([])}>
+                        <FontAwesome name={"close"} size={20} color={theme.textBoldLight}/>
+                    </TouchableOpacity>
+                </>
+            ) : 
+            (
+                <>
+                    <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                        <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.quizzButton} onPress={handleCameraButtonPress}>
+                        <FontAwesome name={"camera"} size={20} color={theme.textBoldLight} />
+                    </TouchableOpacity>
+                </>
+            )}
             </View>
             <View style={[styles.homePanel, {paddingTop: 40, paddingBottom: 40}]}>
-                <Text style={[styles.h2, {borderBottomWidth: 2, borderBottomColor: theme.navBarBackground}]}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
+                <View style={{flexDirection: 'row', borderBottomWidth: 2, borderBottomColor: theme.navBarBackground, marginBottom: 8}}>
+                    <Text style={[styles.h2, {marginBottom: 0}]}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
+                </View>
                 
                 {visibleFishes.length > 0 ? (
                 <FlatList

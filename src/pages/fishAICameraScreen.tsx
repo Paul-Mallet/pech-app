@@ -3,7 +3,7 @@ import { Text, View, Button, TouchableOpacity, Image, BackHandler } from "react-
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useTheme } from "../components/organisms/ThemeContext.tsx";
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/native";
 import FishAIScreenStyles from "../styles/molecules/fishAIScreenStyles.tsx";
 import ButtonClose from "../components/atoms/buttonClose.tsx";
 import { sendPhotoToBack } from "../services/fish.service.tsx";
@@ -19,7 +19,8 @@ const FishAICamera = () => {
     const [photoUri, setPhotoUri] = useState<string | null>(null);
     const styles = FishAIScreenStyles();
     const { fishes, setProbabilityFishes } = useHistory();
-    const [state, setState] = useState(1);
+    const [state, setState] = useState(0); // 0 = photo taking, 1 = photo taken, 2 = back to fish screen
+    const isFocused = useIsFocused();
 
     useFocusEffect(
         useCallback(() => {
@@ -36,14 +37,10 @@ const FishAICamera = () => {
                     setState(2);
                     return true;
                 }
-                else if (state === 0)
-                {
-                    setPhotoUri(null);
-                    return true;
-                }
                 else if (state === 1)
                 {
                     setState(0);
+                    setPhotoUri(null);
                     return true;
                 }
             return false;
@@ -56,7 +53,10 @@ const FishAICamera = () => {
     useEffect(() => {
         // console.log("State:", state);
         if (state === 2 && !photoUri)
+        {
+            setState(0);
             navigation.navigate('Poissons');
+        }
 	}, [state, photoUri]);
 
     if (!permission) return <View />;
@@ -80,7 +80,7 @@ const FishAICamera = () => {
                 { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
             );
             setPhotoUri(resized.uri);
-            setState(0);
+            setState(1);
         }
     }
 
@@ -119,12 +119,12 @@ const FishAICamera = () => {
     const resetPhoto = () => 
     {
         setPhotoUri(null);
-        setState(1);
+        setState(0);
     }
 
     return (
         <View style={styles.container}>
-            {state === 0 && photoUri ? (
+            {state === 1 && photoUri &&
                 <View style={{ flex: 1 }}>
                     <Image source={{ uri: photoUri }} style={{ flex: 1 }} />
                     <View style={{alignItems: 'center'}}>
@@ -142,17 +142,18 @@ const FishAICamera = () => {
                         </View>
                     </View>
                 </View>
-            ) : 
-            (<CameraView style={styles.camera} ref={cameraRef}>
-                <TouchableOpacity style={styles.closeSearchButton} onPress={closePhotoView}>
-                    <Ionicons name='close' size={24} color={theme.body}/>
-                </TouchableOpacity>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.takePictureButton} onPress={takePhoto}>
-                    <View style={styles.button}></View>
-                </TouchableOpacity>
-            </View>
-        </CameraView>)}
+            }
+            {isFocused && state === 0 && !photoUri && 
+                <CameraView style={styles.camera} ref={cameraRef}>
+                    <TouchableOpacity style={styles.closeSearchButton} onPress={closePhotoView}>
+                        <Ionicons name='close' size={24} color={theme.body}/>
+                    </TouchableOpacity>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.takePictureButton} onPress={takePhoto}>
+                            <View style={styles.button}></View>
+                        </TouchableOpacity>
+                    </View>
+                </CameraView>}
         </View>
     );
 };
