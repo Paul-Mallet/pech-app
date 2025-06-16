@@ -55,52 +55,52 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 		}
 	}, [legislationId]);
 
-	const calculateRegionFromGeoJson = useCallback((geoJson: any): RegionCoordinates => {
-		let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
-		const processCoordinates = (coords: any[]) => {
-			coords.forEach(coord => {
-				if (Array.isArray(coord[0])) {
-					processCoordinates(coord);
-				} else {
-					const [lng, lat] = coord;
-					minLat = Math.min(minLat, lat);
-					maxLat = Math.max(maxLat, lat);
-					minLng = Math.min(minLng, lng);
-					maxLng = Math.max(maxLng, lng);
-				}
-			});
-		};
-		geoJson.features.forEach((feature: any) => {
-			if (feature.geometry.coordinates) {
-				processCoordinates(feature.geometry.coordinates);
-			}
-		});
-		const centerLat = (minLat + maxLat) / 2;
-		const centerLng = (minLng + maxLng) / 2;
-		const latDelta = (maxLat - minLat) * 1.5;
-		const lngDelta = (maxLng - minLng) * 1.5;
-		return {
-			latitude: centerLat,
-			longitude: centerLng,
-			latitudeDelta: latDelta,
-			longitudeDelta: lngDelta
-		};
-	}, []);
+	// const calculateRegionFromGeoJson = useCallback((geoJson: any): RegionCoordinates => {
+	// 	let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+	// 	const processCoordinates = (coords: any[]) => {
+	// 		coords.forEach(coord => {
+	// 			if (Array.isArray(coord[0])) {
+	// 				processCoordinates(coord);
+	// 			} else {
+	// 				const [lng, lat] = coord;
+	// 				minLat = Math.min(minLat, lat);
+	// 				maxLat = Math.max(maxLat, lat);
+	// 				minLng = Math.min(minLng, lng);
+	// 				maxLng = Math.max(maxLng, lng);
+	// 			}
+	// 		});
+	// 	};
+	// 	geoJson.features.forEach((feature: any) => {
+	// 		if (feature.geometry.coordinates) {
+	// 			processCoordinates(feature.geometry.coordinates);
+	// 		}
+	// 	});
+	// 	const centerLat = (minLat + maxLat) / 2;
+	// 	const centerLng = (minLng + maxLng) / 2;
+	// 	const latDelta = (maxLat - minLat) * 1.5;
+	// 	const lngDelta = (maxLng - minLng) * 1.5;
+	// 	return {
+	// 		latitude: centerLat,
+	// 		longitude: centerLng,
+	// 		latitudeDelta: latDelta,
+	// 		longitudeDelta: lngDelta
+	// 	};
+	// }, []);
 
 	useEffect(() => {
 		fetchLegislation();
 	}, [fetchLegislation]);
 
-	useEffect(() => {
-		if (stats && stats.places[0].geojson) {
-			setLoadingGeojson(true);
-			const geoJson = stats.places[0].geojson;
-			setGeojson(geoJson);
-			const regionCoor = calculateRegionFromGeoJson(geoJson);
-			setRegionCoor(regionCoor);
-			setLoadingGeojson(false);
-		}
-	}, [stats, calculateRegionFromGeoJson]);
+	// useEffect(() => {
+	// 	if (stats && stats.places[0].geojson) {
+	// 		setLoadingGeojson(true);
+	// 		const geoJson = stats.places[0].geojson;
+	// 		setGeojson(geoJson);
+	// 		const regionCoor = calculateRegionFromGeoJson(geoJson);
+	// 		setRegionCoor(regionCoor);
+	// 		setLoadingGeojson(false);
+	// 	}
+	// }, [stats, calculateRegionFromGeoJson]);
 
 	useEffect(() => {
 		const onBackPress = () => {
