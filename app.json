@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/Logo.png",
+      "image": "./assets/LogoSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#92D8E1"
     },
@@ -26,7 +26,8 @@
       },
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [
-        "android.permission.CAMERA"
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ],
       "package": "com.anonymous.pechappmobile"
     },
@@ -39,8 +40,12 @@
         {
           "cameraPermissionText": "Pech'App a besoin d'accéder à votre Caméra."
         }
-      ],
-      "react-native-vision-camera"
-    ]
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e3a4d02f-f1c4-40be-b640-af41fd236652"
+      }
+    }
   }
 }

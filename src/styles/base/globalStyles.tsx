@@ -58,7 +58,7 @@ const GlobalStyles = () => {
       marginTop: 0,
     },
     homePanelTabs: {
-      marginTop: 100,
+      marginTop: 60,
       textAlign: 'center',
       alignItems: 'center',
       justifyContent: 'space-around',
@@ -121,7 +121,6 @@ const GlobalStyles = () => {
     searchBar: {
       position: 'absolute',
       alignSelf: 'center',
-      top: 40,
       marginHorizontal: 'auto',
       width: "95%",
       flexDirection: 'column',

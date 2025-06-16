@@ -8,12 +8,12 @@ import SettingsScreen from '../../pages/settingsScreen.tsx';
 import NavBarStyles from '../../styles/organisms/navbarStyles.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import FishScreen from '../../pages/fishScreen.tsx';
-import FishResearch from '../../pages/fishResearchScreen.tsx';
+// import FishResearch from '../../pages/fishResearchScreen.tsx';
 import EventBus from './EventBus.tsx';
 import FishAICamera from '../../pages/fishAICameraScreen.tsx';
 
 type TabParamList = {
-  FishResearch: undefined;
+  // FishResearch: undefined;
   Poissons: undefined;
   Accueil: undefined;
   Réglementation: undefined;
@@ -119,11 +119,11 @@ const BottomTabNavigator = () => {
         component={SettingsScreen}
         options={{ headerShown: false }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="FishResearch"
         component={FishResearch}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Tab.Screen
         name="FishAICamera"
         component={FishAICamera}

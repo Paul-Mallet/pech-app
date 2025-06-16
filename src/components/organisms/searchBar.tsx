@@ -5,6 +5,7 @@ import SearchBarResults from '../molecules/searchBarResult.tsx';
 import { useTheme } from './ThemeContext.tsx';
 import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useHistory } from './HistoryContext.tsx';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ElementType {
   label: string;
@@ -30,6 +31,14 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
   const { theme } = useTheme();
   const styles = GlobalStyles();
   const inputRef = useRef<TextInput>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        setShowResults(false);
+      };
+    }, [])
+  );
 
   const focusSearchBar = () =>
   {

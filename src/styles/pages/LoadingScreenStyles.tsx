@@ -16,8 +16,8 @@ const LoadingScreenStyles = () => {
       zIndex: 10,
     },
     image: {
-      width: 256,
-      height: 99,
+      width: 128,
+      height: 128,
     },
     pechAppTitle: {
       color: theme.textBoldLight,

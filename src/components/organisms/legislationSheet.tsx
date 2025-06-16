@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Linking, Text, Button, ScrollView, ActivityIndicator, BackHandler, TouchableOpacity } from 'react-native';
+import { View, Linking, Text, Button, ActivityIndicator, BackHandler, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
 import BottomSheet, { BottomSheetView, BottomSheetBackdropProps, BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';

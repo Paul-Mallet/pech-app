@@ -14,7 +14,7 @@ const LegislationScreenStyles = () => {
 			paddingRight: 8,
 			paddingBottom: 0,
 			marginBottom: 60,
-			marginTop: 100,
+			marginTop: 60,
 		},
   	}), [theme]);
 

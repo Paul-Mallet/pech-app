@@ -76,12 +76,12 @@ const FishScreen = () => {
         }
     }, [pressedFish]);
 
-    const handleFilterButtonPress = () => {
-        if (!filtered)
-            navigation.navigate('FishResearch');
-        else
-            setFiltered(false);
-    };
+    // const handleFilterButtonPress = () => {
+    //     if (!filtered)
+    //         navigation.navigate('FishResearch');
+    //     else
+    //         setFiltered(false);
+    // };
 
     const handleCameraButtonPress = () => {
         if (!filtered)
@@ -117,12 +117,6 @@ const FishScreen = () => {
                 <View>
                     <Text style={[styles.h2, {borderBottomWidth: 2, borderBottomColor: '#00000020'}]}>Poissons</Text>
                     <View style={{zIndex: 10, backgroundColor: 'red', height: 100, position: 'absolute', top: 60, right: 20}}>
-                        <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                            <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                            <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{ marginTop: 110 }}>
@@ -150,9 +144,9 @@ const FishScreen = () => {
             ) : 
             (
                 <>
-                    <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
+                    {/* <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
                         <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity style={styles.quizzButton} onPress={handleCameraButtonPress}>
                         <FontAwesome name={"camera"} size={20} color={theme.textBoldLight} />
                     </TouchableOpacity>

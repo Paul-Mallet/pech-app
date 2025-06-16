@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { View, Text, BackHandler, ScrollView } from 'react-native';
+import { View, Text, BackHandler } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
 import ImageSlider from '../organisms/slider.tsx';
