@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import * as React from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { useHistory } from '../organisms/HistoryContext.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';

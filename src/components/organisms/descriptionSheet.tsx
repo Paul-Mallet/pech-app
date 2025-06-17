@@ -52,7 +52,6 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					backgroundStyle={styles.containerBottomSheet}
 					handleComponent={() => <HitArea />}
 					enableOverDrag={false}
-					gestureEventsEnabled={true}
 					backdropComponent={(props: BottomSheetBackdropProps) => (
 						<BottomSheetBackdrop
 							{...props}
@@ -83,7 +82,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 							</Text>
 							{fish?.particularity &&
 								<View>
-									<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14, fontFamily: font.bold }]}>
+									<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14, fontFamily: font.italic }]}>
 										{'Particularités : '}
 									</Text>
 									<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import * as React from 'react';
 import { FlatList, SafeAreaView, Text, View, TouchableOpacity, Button, BackHandler } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';

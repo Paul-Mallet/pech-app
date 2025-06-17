@@ -12,9 +12,6 @@ const NavBarStyles = () => {
       fontSize: 10,
       fontFamily: font.regular,
     },
-    tabLabelFocused: {
-      fontFamily: font.bold,
-    },
     tabBar: {
       backgroundColor: theme.navBarBackground,
       height: 60,

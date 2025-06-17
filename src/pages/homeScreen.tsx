@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import * as React from 'react';
 import { View, SafeAreaView, Animated, Dimensions, PanResponder, BackHandler } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../components/organisms/searchBar.tsx';
 import DecouvrirTab from './discoverSection.tsx';
 import HistoryList from './historySection.tsx';

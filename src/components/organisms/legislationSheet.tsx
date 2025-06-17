@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import * as React from 'react';
 import { View, Linking, Text, Button, ActivityIndicator, BackHandler, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -131,7 +132,6 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 				backgroundStyle={styles.containerBottomSheet}
 				android_keyboardInputMode="adjustPan"
 				handleComponent={() => <HitArea />}
-				gestureEventsEnabled={true}
 				backdropComponent={(props: BottomSheetBackdropProps) => (
 					<BottomSheetBackdrop
 						{...props}

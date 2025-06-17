@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import * as React from 'react';
 import { BottomTabBar, BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
@@ -65,7 +66,7 @@ const BottomTabNavigator = () => {
     tabBarStyle: styles.tabBar,
     tabBarLabel: ({ focused, color }: { focused: boolean; color: string }) => (
     <View>
-      <Text numberOfLines={1} style={[ styles.tabLabel, focused && styles.tabLabelFocused, {color} ]}>
+      <Text numberOfLines={1} style={[ styles.tabLabel, {color} ]}>
         {route.name}
       </Text>
     </View>

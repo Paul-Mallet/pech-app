@@ -3,8 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react-native",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "typeRoots": ["node_modules/@types", "node_modules/react-native-vector-icons"],
     "types": ["react", "react-native", "react-native-vector-icons"],

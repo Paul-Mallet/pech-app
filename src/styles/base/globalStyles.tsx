@@ -330,7 +330,7 @@ const GlobalStyles = () => {
     hSize: {
       marginTop: -8,
       fontSize: 12,
-      fontFamily: font.bold,
+      fontFamily: font.regular,
       color: theme.textDark,
       backgroundColor: theme.body,
     },
