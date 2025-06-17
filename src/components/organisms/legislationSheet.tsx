@@ -131,6 +131,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 				backgroundStyle={styles.containerBottomSheet}
 				android_keyboardInputMode="adjustPan"
 				handleComponent={() => <HitArea />}
+				gestureEventsEnabled={true}
 				backdropComponent={(props: BottomSheetBackdropProps) => (
 					<BottomSheetBackdrop
 						{...props}

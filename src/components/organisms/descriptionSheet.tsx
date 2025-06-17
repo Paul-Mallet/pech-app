@@ -52,6 +52,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					backgroundStyle={styles.containerBottomSheet}
 					handleComponent={() => <HitArea />}
 					enableOverDrag={false}
+					gestureEventsEnabled={true}
 					backdropComponent={(props: BottomSheetBackdropProps) => (
 						<BottomSheetBackdrop
 							{...props}
