@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { View, Text, BackHandler } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 import HitArea from '../atoms/hitArea.tsx';
 import ImageSlider from '../organisms/slider.tsx';
 import CTAButton from '../atoms/button.tsx';
@@ -45,7 +45,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					enablePanDownToClose
 					snapPoints={['90%']}
 					overDragResistanceFactor={2}
-					enableContentPanningGesture={true}
+					enableContentPanningGesture={false}
 					enableHandlePanningGesture={true}
 					onChange={handleSheetChanges}
 					android_keyboardInputMode="adjustPan"
@@ -62,7 +62,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					)}
 				>
 					<BottomSheetView style={styles.contentContainerBottomSheet}>
-						<ScrollView
+						<BottomSheetScrollView
 							contentContainerStyle={{ rowGap: 20, paddingHorizontal: 20 }}
 							showsVerticalScrollIndicator={true}
 							keyboardShouldPersistTaps="handled"
@@ -93,7 +93,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 							<View style={{paddingBottom: 140}}>
 								<CTAButton searchText={fish?.name} />
 							</View>
-						</ScrollView>
+						</BottomSheetScrollView>
 					</BottomSheetView>
 				</BottomSheet>
 			</View>

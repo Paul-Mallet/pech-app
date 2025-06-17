@@ -10,26 +10,26 @@
     "splash": {
       "image": "./assets/LogoSplash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#92D8E1"
+      "backgroundColor": "#2e9d99"
     },
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Pêch'App a besoin d'accéder à votre Caméra."
       },
-      "bundleIdentifier": "com.42lehavre.pechappmobile"
+      "bundleIdentifier": "com.students42lehavre.pechappmobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/LogoAdaptive.png",
-        "backgroundColor": "#92D8E1"
+        "backgroundColor": "#2e9d99"
       },
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.42lehavre.pechappmobile"
+      "package": "com.students42lehavre.pechappmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

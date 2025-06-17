@@ -3,7 +3,7 @@ import { View, Linking, Text, Button, ActivityIndicator, BackHandler, TouchableO
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { PROVIDER_GOOGLE, Geojson } from 'react-native-maps';
-import BottomSheet, { BottomSheetView, BottomSheetBackdropProps, BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetView, BottomSheetBackdropProps, BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import HitArea from '../atoms/hitArea.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
@@ -125,7 +125,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 				enablePanDownToClose
 				snapPoints={['90%']}
 				overDragResistanceFactor={2}
-				enableContentPanningGesture={true}
+				enableContentPanningGesture={false}
 				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}
@@ -153,7 +153,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 							<Button title="Réessayer" onPress={fetchLegislation} color={theme.textDark} />
 						</>
 					) : (
-						<ScrollView 
+						<BottomSheetScrollView 
 							contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 60 }}
 							bounces={false}
 							showsVerticalScrollIndicator
@@ -212,7 +212,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 									)}
 								</View>
 							</View>
-						</ScrollView>
+						</BottomSheetScrollView>
 					)}
 				</BottomSheetView>
 			</BottomSheet>
