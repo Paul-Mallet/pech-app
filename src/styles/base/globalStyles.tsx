@@ -383,7 +383,7 @@ const GlobalStyles = () => {
     {
       zIndex: 10, 
       position: 'absolute', 
-      top: 40, 
+      top: 0, 
       right: 20, 
       flexDirection: 'row', 
       gap: 6

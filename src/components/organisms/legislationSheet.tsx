@@ -125,7 +125,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 				enablePanDownToClose
 				snapPoints={['90%']}
 				overDragResistanceFactor={2}
-				enableContentPanningGesture={false}
+				enableContentPanningGesture={true}
 				enableHandlePanningGesture={true}
 				onChange={handleSheetChanges}
 				backgroundStyle={styles.containerBottomSheet}

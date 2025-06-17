@@ -45,7 +45,7 @@ const DescriptionSheet = React.forwardRef<BottomSheet, DescriptionSheetProps>(
 					enablePanDownToClose
 					snapPoints={['90%']}
 					overDragResistanceFactor={2}
-					enableContentPanningGesture={false}
+					enableContentPanningGesture={true}
 					enableHandlePanningGesture={true}
 					onChange={handleSheetChanges}
 					android_keyboardInputMode="adjustPan"

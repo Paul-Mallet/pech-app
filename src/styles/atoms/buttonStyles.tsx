@@ -12,6 +12,7 @@ const ButtonStyles = () => {
       padding: 16,
       borderRadius: 48,
       backgroundColor: theme.btnBottomSheetBackground,
+      maxHeight: 60
     },
     textCTAButton: {
       fontSize: 16,

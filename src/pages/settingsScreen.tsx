@@ -52,7 +52,7 @@ const SettingsScreen = ({ route }: { route: any }) => {
 
   return (
 		<SafeAreaView style={styles.body}>
-      <View style={[styles.homePanel, {paddingTop: 40}]}>
+      <View style={styles.homePanel}>
         <View>
           <Text style={[styles.h2]}>Thème</Text>
           <ThemeSelectGroup

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "pech-app-mobile",
+    "name": "Pêch'App",
     "slug": "pech-app-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,13 +15,13 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSCameraUsageDescription": "Pech'App a besoin d'accéder à votre Caméra."
+        "NSCameraUsageDescription": "Pêch'App a besoin d'accéder à votre Caméra."
       },
-      "bundleIdentifier": "com.anonymous.pechappmobile"
+      "bundleIdentifier": "com.42lehavre.pechappmobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Logo.png",
+        "foregroundImage": "./assets/LogoAdaptive.png",
         "backgroundColor": "#92D8E1"
       },
       "softwareKeyboardLayoutMode": "pan",
@@ -29,7 +29,7 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.anonymous.pechappmobile"
+      "package": "com.42lehavre.pechappmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,7 +38,7 @@
       [
         "expo-camera",
         {
-          "cameraPermissionText": "Pech'App a besoin d'accéder à votre Caméra."
+          "cameraPermissionText": "Pêch'App a besoin d'accéder à votre Caméra."
         }
       ]
     ],
