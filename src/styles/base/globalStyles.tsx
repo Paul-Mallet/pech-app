@@ -273,8 +273,9 @@ const GlobalStyles = () => {
     },
     viewContainerBottomSheet: {
       position: 'absolute', 
-      height: '100%', 
+      height: '85%', 
       width: "100%", 
+      bottom: 0,
       zIndex: 999, 
       elevation: 999
     },
@@ -286,6 +287,7 @@ const GlobalStyles = () => {
       shadowOffset: { width: 0, height: 10 },
       shadowOpacity: 0.2,
       shadowRadius: 10,
+      paddingTop: 10,
       // elevation: 10,
     },
     contentContainerBottomSheet: {
@@ -356,8 +358,7 @@ const GlobalStyles = () => {
       marginBottom: 20, 
       padding: 6, 
       borderRadius: 24, 
-      backgroundColor: 
-      theme.cardBackground, 
+      backgroundColor: theme.cardBackground, 
 			shadowColor: '#000',
 			shadowOffset: { width: 0, height: 2 },
 			shadowOpacity: 0.2,
@@ -387,6 +388,35 @@ const GlobalStyles = () => {
       right: 20, 
       flexDirection: 'row', 
       gap: 6
+    },
+    modalBackdrop: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: theme.body,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      paddingTop: 10,
+      maxHeight: '75%',
+      overflow: 'hidden',
+    },
+    modalContent: {
+      flex: 1,
+    },
+    closeIcon: {
+      alignSelf: 'center',
+      width: '100%',
+      alignItems: 'center',
+      transform: [{ scaleX: 2 }]
     },
 	}), [theme, font]);
 

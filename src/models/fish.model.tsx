@@ -88,6 +88,7 @@ export type FishListContextProps = {
 export type DescriptionSheetProps = {
 	fish: Fish | null;
 	onClose: () => void;
+    visible: boolean;
 };
 
 export interface SliderProps {

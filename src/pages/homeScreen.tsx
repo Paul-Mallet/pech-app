@@ -9,7 +9,6 @@ import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';
 import LegislationSheet from '../components/organisms/legislationSheet.tsx';
 import TabSwitcher from '../components/organisms/tabSwitcher.tsx';
 import EventBus from '../components/organisms/EventBus.tsx';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { Fish } from '../models/fish.model.tsx';
 
@@ -22,99 +21,74 @@ const HomeScreen = () => {
 	const gestureDirection = useRef<'horizontal' | 'vertical' | null>(null);
 	const hasSwitched = useRef(false);
 	const [pressedFish, setPressedFish] = useState<Fish | null>(null);
-	const pressedFishRef = useRef(pressedFish);
-	const [activeTab, setActiveTab] = useState('Découvrir');
-	const styles = GlobalStyles();
-	const decouvrir = 'Découvrir';
-	const historique = 'Historique';
-	const [legislationId, setLegislationId] = useState<string>("");
 	const [pressedLegislation, setPressedLegislation] = useState<string | null>(null);
-	const pressedLegislationRef = useRef(pressedLegislation);
+	const [activeTab, setActiveTab] = useState('Découvrir');
+	const [legislationId, setLegislationId] = useState<string>("");
 	const [homeContent, setHomeContent] = useState<{ fishes: Fish[], legislations: any[] }>({ fishes: [], legislations: [] });
-	const fishSheetRef = useRef<BottomSheetModal>(null);
-	const legislationSheetRef = useRef<BottomSheetModal>(null);
+	const styles = GlobalStyles();
 
-	const reinitRefs = () =>
-	{
+	const reinitRefs = () => {
 		gestureDirection.current = null;
 		hasSwitched.current = false;
-	}
-	
+	};
+
 	useEffect(() => {
 		const backHandler = BackHandler.addEventListener(
-		  'hardwareBackPress',
-		  () => {
-			if (activeTab !== decouvrir) {
-				switchTab(decouvrir);
-			  return true;
+			'hardwareBackPress',
+			() => {
+				if (activeTab !== 'Découvrir') {
+					switchTab('Découvrir');
+					return true;
+				}
+				return false;
 			}
-			return false;
-		  }
 		);
-	
 		return () => backHandler.remove();
-	  }, [activeTab]);
-
+	}, [activeTab]);
 
 	useEffect(() => {
 		const load = async () => {
-		  await Promise.all([fetchFishes(), fetchLegislations()]);
+			await Promise.all([fetchFishes(), fetchLegislations()]);
 		};
-	  
 		load();
-	  }, []);
+	}, []);
 
 	useEffect(() => {
-	if (fishes.length && legislations.length) {
-		const content = getHomeRandomContent();
-		setHomeContent(content);
-	}
+		if (fishes.length && legislations.length) {
+			const content = getHomeRandomContent();
+			setHomeContent(content);
+		}
 	}, [fishes, legislations]);
 
 	useEffect(() => {
-		pressedLegislationRef.current = pressedLegislation;
-	}, [pressedLegislation]);
-
-	useEffect(() => {
-		pressedFishRef.current = pressedFish;
-	}, [pressedFish]);
-	
-	const handleLegislationPress = (legislationId: string) => {
-		setLegislationId(legislationId);
-		setPressedLegislation(legislationId.toString());
-		legislationSheetRef.current?.expand();
-	};
-
-    useEffect(() => {
-        if (pressedFish && fishSheetRef.current) {
-            fishSheetRef.current.expand();
-        }
-    }, [pressedFish]);
-
-	useEffect(() => {
 		const handler = () => {
-			if (pressedLegislationRef.current)
+			if (pressedLegislation)
 				setPressedLegislation(null);
-			else if (pressedFishRef.current)
+			else if (pressedFish)
 				setPressedFish(null);
 			else
-		  		switchTab(decouvrir);
+				switchTab('Découvrir');
 		};
 		EventBus.on('homeTabPress', handler);
 		return () => {
-		  EventBus.off('homeTabPress', handler);
+			EventBus.off('homeTabPress', handler);
 		};
-	  }, []);
-	  
+	}, [pressedFish, pressedLegislation]);
+
 	const { getFishById } = useHistory();
 	const handleFishPress = (fishId: string) => {
 		const fish = getFishById(fishId);
 		if (fish)
 			setPressedFish(fish);
-	  };
-	
+	};
+
+	const handleLegislationPress = (legislationId: string) => {
+		setLegislationId(legislationId);
+		setPressedLegislation(legislationId);
+	};
+
 	const switchTab = (target: string) => {
-		const toValue = target === decouvrir ? 0 : -screenWidth;
+		const toValue = target === 'Découvrir' ? 0 : -screenWidth;
 		Animated.spring(translateX, {
 			toValue,
 			useNativeDriver: false,
@@ -124,14 +98,13 @@ const HomeScreen = () => {
 
 	const handleHorizontalSwipe = (dx: number) => {
 		if (dx < -30) {
-			switchTab(historique);
+			switchTab('Historique');
 			hasSwitched.current = true;
 		} else if (dx > 30) {
-			switchTab(decouvrir);
+			switchTab('Découvrir');
 			hasSwitched.current = true;
 		}
 	};
-
 
 	const panResponder = useRef(
 		PanResponder.create({
@@ -146,15 +119,11 @@ const HomeScreen = () => {
 					y: evt.nativeEvent.pageY,
 				};
 			},
-			
 			onPanResponderMove: (_, { dx, dy }) => {
 				if (gestureDirection.current === 'vertical' || hasSwitched.current) return;
-			
 				if (!gestureDirection.current && (Math.abs(dx) > 40 || Math.abs(dy) > 40)) {
 					gestureDirection.current = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
-					// console.log("Gesture direction:", gestureDirection.current);
 				}
-			
 				if (gestureDirection.current === 'horizontal') {
 					handleHorizontalSwipe(dx);
 				}
@@ -171,19 +140,16 @@ const HomeScreen = () => {
 			<TabSwitcher
 				activeTab={activeTab}
 				switchTab={switchTab}
-				tabs={[
-					{ key: decouvrir, label: decouvrir },
-					{ key: historique, label: historique },
-				]}
+				tabs={[{ key: 'Découvrir', label: 'Découvrir' }, { key: 'Historique', label: 'Historique' }]}
 			/>
 			<View style={{ flex: 1 }} {...panResponder.panHandlers}>
 				<Animated.View style={{ flexDirection: 'row', width: screenWidth * 2, transform: [{ translateX }] }}>
 					<DecouvrirTab handleFishPress={handleFishPress} handleLegislationPress={handleLegislationPress} fishes={homeContent.fishes} legislations={homeContent.legislations} />
-					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress}/>
+					<HistoryList groupedHistory={groupedHistory} handleFishPress={handleFishPress} />
 				</Animated.View>
 			</View>
-			{pressedFish && (<DescriptionSheet ref={fishSheetRef} fish={pressedFish} onClose={() => {setPressedFish(null)}} />)}
-			{pressedLegislation && (<LegislationSheet ref={legislationSheetRef} legislationId={legislationId} onClose={() => setPressedLegislation(null)} />)}
+			<DescriptionSheet fish={pressedFish} visible={!!pressedFish} onClose={() => setPressedFish(null)} />
+			<LegislationSheet legislationId={legislationId} visible={!!pressedLegislation} onClose={() => setPressedLegislation(null)} />
 		</SafeAreaView>
 	);
 };

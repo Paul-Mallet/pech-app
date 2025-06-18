@@ -1,6 +1,7 @@
 export type LegislationSheetProps = {
   legislationId: string | null;
   onClose: () => void;
+  visible: boolean;
 };
 
 export interface Legislation {

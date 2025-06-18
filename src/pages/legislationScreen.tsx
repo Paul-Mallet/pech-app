@@ -110,7 +110,7 @@ const LegislationScreen = ({ route }: { route: any }) => {
 			</ScrollView>
 			{pressedLegislation && (
 				<LegislationSheet
-					ref={bottomSheetRef}
+					visible={!!pressedLegislation}
 					legislationId={legislationId}
 					onClose={() => setPressedLegislation(null)}
 				/>
