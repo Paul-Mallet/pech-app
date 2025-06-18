@@ -175,7 +175,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 									Réglementation complète
 								</Text>
 							</TouchableOpacity>
-							<View style={{ marginTop: 0, marginBottom: 20 }}>
+							{/* <View style={{ marginTop: 0, marginBottom: 20 }}>
 								<Text style={[styles.h2, { fontSize: 20, marginBottom: 10 }]}>Zone concernée</Text>
 								<View style={{ height: 200, width: '100%', borderRadius: 8, overflow: 'hidden' }}>
 									{loadingGeojson ? (
@@ -212,7 +212,7 @@ const LegislationSheet = React.forwardRef<BottomSheetModal, LegislationSheetProp
 										</View>
 									)}
 								</View>
-							</View>
+							</View> */}
 						</BottomSheetScrollView>
 					)}
 				</BottomSheetView>
