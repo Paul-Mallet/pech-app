@@ -91,12 +91,12 @@ const LegislationSheet = ({ legislationId, visible, onClose }: LegislationSheetP
 							<View>
 								<Text style={[styles.h2, { fontSize: 16, lineHeight: 24 }]}>{stats.title}</Text>
 								<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-									<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4 }} />
-									<Text style={[styles.hScientific, { marginTop: 0 }]}>{stats.date}</Text>
+									<Ionicons name="calendar" size={16} color={theme.textDark} style={{ marginRight: 8, marginTop: -4, marginBottom: 16 }} />
+									<Text style={[styles.hScientific, { marginTop: 0, marginBottom: 20 }]}>{stats.date}</Text>
 								</View>
 							</View>
 						</View>
-						<Text style={styles.textDescriptionBottomSheet}>{stats.article}</Text>
+						<Text style={[styles.textDescriptionBottomSheet, {marginBottom: 16}]}>{stats.article}</Text>
 						<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
 							<Text style={[styles.textDescriptionBottomSheet, { color: theme.textHighlightDark, textDecorationLine: 'underline' }]}>
 								Réglementation complète

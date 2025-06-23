@@ -16,9 +16,9 @@ const TabSwitcher = ({ activeTab, switchTab, tabs }: HomeSwitchProps) => {
 						key={key}
 						onPress={() => switchTab(key)}
 						style={{
-							flex: 1 / tabs.length,
-							borderBottomWidth: 2,
-							borderBottomColor: activeTab === key ? theme.navBarBackground : 'transparent',
+							flex: 0.9 / tabs.length,
+							borderBottomWidth: 1,
+							borderBottomColor: activeTab === key ? theme.textDark : 'transparent',
 						}}
 					>
 						<Text
@@ -27,7 +27,7 @@ const TabSwitcher = ({ activeTab, switchTab, tabs }: HomeSwitchProps) => {
 								{
 									textAlign: 'center',
 									fontSize: 16,
-									color: activeTab === key ? theme.textHighlightDark : theme.textDark,
+									color: activeTab === key ? theme.textDark : theme.textHighlightDark,
 								},
 							]}
 						>

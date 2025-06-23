@@ -24,7 +24,7 @@ const HistoryList: React.FC<HistoryListProps> = ({ groupedHistory, handleFishPre
           />
         );
       }}
-      contentContainerStyle={{ width: screenWidth, padding: 20 }}
+      contentContainerStyle={{ width: screenWidth, padding: 8 }}
       showsVerticalScrollIndicator={false}
     />
   );

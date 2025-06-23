@@ -9,10 +9,14 @@ const FishAIScreenStyles = () => {
 		container: {
 		  flex: 1,
 		  justifyContent: 'center',
+		  backgroundColor: theme.body,
 		},
 		message: {
 		  textAlign: 'center',
 		  paddingBottom: 10,
+		  color: theme.textHighlightDark,
+		  marginVertical: 20, 
+		  fontSize: 16
 		},
 		camera: {
 		  flex: 1,

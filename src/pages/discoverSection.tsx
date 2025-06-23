@@ -21,7 +21,7 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 
 	return (
 		<ScrollView
-		style={[styles.homePanel, { width: screenWidth, padding: 20 }]}
+		style={[styles.homePanel, { width: screenWidth }]}
 		showsVerticalScrollIndicator={false}
 		>
 			<View style={[styles.fishCardsContainer, {marginBottom: 30}]}>

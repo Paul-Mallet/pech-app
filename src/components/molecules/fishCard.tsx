@@ -51,7 +51,7 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 			{probability && 
 			<View style={styles.topContainer}>
 				<Text style={styles.topContainerText}>Probabilité : 
-					<Text style={{color: '#ff0'}}> {probability}%</Text>
+					<Text style={{color: theme.minFishSize}}> {probability}%</Text>
 				</Text>
 			</View>}
 			<View style={styles.cardContainer}>
@@ -76,7 +76,7 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 			{fishMinSize && 
 			<View style={styles.bottomContainer}>
 				<Text style={styles.bottomContainerText}>Taille min. : 
-					<Text style={{color: '#ff0'}}> {fishMinSize} {fishMinSize !== '-' ? 'cm' : ''}</Text>
+					<Text style={styles.minSizeText}> {fishMinSize} {fishMinSize !== '-' ? 'cm' : ''}</Text>
 				</Text>
 			</View>}
 		</View>

@@ -154,7 +154,7 @@ const FishScreen = () => {
                 </>
             )}
             </View>
-            <View style={[styles.homePanel, {paddingTop: 0, paddingBottom: 40}]}>
+            <View style={[styles.homePanel, {paddingTop: 0, paddingBottom: 40, paddingLeft: 16, paddingRight: 16}]}>
                 <View style={{flexDirection: 'row', borderBottomWidth: 2, borderBottomColor: theme.navBarBackground, marginBottom: 8}}>
                     <Text style={[styles.h2, {marginBottom: 0}]}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
                 </View>

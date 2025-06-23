@@ -15,6 +15,7 @@ export const lightTheme = {
     green: '#0c0',
     red: '#c03',
     redBg: '#ffa8a8',
+    minFishSize: '#0070ff',
 };
 
 export const darkTheme = {
@@ -34,6 +35,7 @@ export const darkTheme = {
     green: '#0c0',
     red: '#c03',
     redBg: '#a03',
+    minFishSize: '#ff0',
 };
 
 export const poppinsFont = {

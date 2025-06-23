@@ -88,10 +88,15 @@ const FishCardStyles = () => {
 		},
 		bottomContainer: {
 			bottom: 30, 
-			backgroundColor: '#00000020', 
+			backgroundColor: theme.cardBackground, 
 			width: '100%', 
 			height: 50, 
-			borderRadius: 12
+			borderRadius: 12,
+			shadowColor: '#000',
+			shadowOffset: { width: 0, height: 2 },
+			shadowOpacity: 0.2,
+			shadowRadius: 2,
+			elevation: 2,
 		},
 		bottomContainerText: 
 		{
@@ -99,11 +104,16 @@ const FishCardStyles = () => {
 			bottom: -33,
 			fontSize: 10,
 			fontFamily: font.regular,
-			color: theme.textBoldLight,
-			textShadowColor: 'black',
-			textShadowOffset: { width: 0.1, height: 0.1 },
-			textShadowRadius: 10,
+			color: theme.textDark,
 			pointerEvents: 'none'
+		},
+		minSizeText: 
+		{
+			color: theme.minFishSize, 
+			fontSize: 11, 
+			textShadowColor: theme.minFishSize,
+			textShadowOffset: { width: 0.2, height: 0.2 },
+			textShadowRadius: 1,
 		},
 	}), [theme, font]);
 

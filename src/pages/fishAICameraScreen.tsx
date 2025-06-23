@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Text, View, Button, TouchableOpacity, Image, BackHandler } from "react-native";
+import { Text, View, TouchableOpacity, Image, BackHandler, Linking } from "react-native";
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useTheme } from "../components/organisms/ThemeContext.tsx";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,55 +24,64 @@ const FishAICamera = () => {
 
     useFocusEffect(
         useCallback(() => {
-        setState(0);
-      }, [])
+            setState(0);
+        }, [])
     );
 
     useFocusEffect(
         useCallback(() => {
-          const onBackPress = () => {
-                // console.log("ici:", state, ",", photoUri);
-                if (state === 0 && !photoUri)
-                {
+            const onBackPress = () => {
+                if (state === 0 && !photoUri) {
                     setState(2);
                     return true;
-                }
-                else if (state === 1)
-                {
+                } else if (state === 1) {
                     setState(0);
                     setPhotoUri(null);
                     return true;
                 }
-            return false;
-          };
-          BackHandler.addEventListener('hardwareBackPress', onBackPress);
-          return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+                return false;
+            };
+            BackHandler.addEventListener('hardwareBackPress', onBackPress);
+            return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
         }, [state, photoUri])
     );
 
     useEffect(() => {
-        // console.log("State:", state);
-        if (state === 2 && !photoUri)
-        {
+        if (state === 2 && !photoUri) {
             setState(0);
             navigation.navigate('Poissons');
         }
-	}, [state, photoUri]);
+    }, [state, photoUri]);
 
-    if (!permission) return <View />;
-
-    if (!permission.granted) {
+    // === Custom Permission UI ===
+    if (!permission || !permission.granted) {
         return (
-            <View style={styles.container}>
-                <Text style={styles.message}>Pech'App a besoin de votre permission pour accéder à la Caméra</Text>
-                <Button onPress={requestPermission} title="Donner la permission" />
+            <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }]}>
+                <Ionicons name="camera-outline" size={80} color={theme.textHighlightDark} />
+                <Text style={styles.message}>
+                    Pêch'App a besoin d'accéder à la caméra pour identifier vos poissons.
+                </Text>
+
+                <TouchableOpacity style={[styles.buttonSend, { marginBottom: 20 }]} onPress={requestPermission}>
+                    <Text style={styles.buttonText}>Donner la permission</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.buttonClose, { marginBottom: 20 }]} onPress={() => navigation.navigate('Poissons')}>
+                    <Text style={styles.buttonText}>Refuser</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => Linking.openSettings()}>
+                    <Text style={{ color: theme.textHighlightDark, textDecorationLine: 'underline' }}>
+                        Ouvrir les réglages
+                    </Text>
+                </TouchableOpacity>
             </View>
         );
     }
 
     async function takePhoto() {
         if (cameraRef.current) {
-            const photo = await cameraRef.current.takePictureAsync({skipProcessing: true, base64: true});
+            const photo = await cameraRef.current.takePictureAsync({ skipProcessing: true, base64: true });
             if (!photo) return;
             const resized = await ImageManipulator.manipulateAsync(
                 photo.uri,
@@ -84,40 +93,38 @@ const FishAICamera = () => {
         }
     }
 
-    const closePhotoView = () => 
-    {
+    const closePhotoView = () => {
         setPhotoUri(null);
         setState(2);
     }
 
     const sendPhoto = async () => {
         if (!photoUri) return;
-    
+
         const results = await sendPhotoToBack(photoUri);
-    
+
         type Prediction = { className: string; probability: number };
-    
+
         const matchedFishes: (Fish)[] = Object.values(results)
             .map(pred => {
                 const typedPred = pred as Prediction;
                 const fish = fishes.find(f => f.faoCode === typedPred.className);
                 if (fish) {
                     fish.probability = Math.round(typedPred.probability * 100);
-                    return { ...fish};
+                    return { ...fish };
                 }
                 return null;
             })
             .filter((item): item is Fish & { probability: number } => item !== null)
             .sort((a, b) => b.probability - a.probability)
             .slice(0, 4);
-    
+
         setProbabilityFishes(matchedFishes);
         setPhotoUri(null);
         setState(2);
     };
 
-    const resetPhoto = () => 
-    {
+    const resetPhoto = () => {
         setPhotoUri(null);
         setState(0);
     }
@@ -127,33 +134,38 @@ const FishAICamera = () => {
             {state === 1 && photoUri &&
                 <View style={{ flex: 1 }}>
                     <Image source={{ uri: photoUri }} style={{ flex: 1 }} />
-                    <View style={{alignItems: 'center'}}>
-                        <View style={{bottom: 60, backgroundColor: '#00000080', width: "100%", alignItems: 'center'}}>
-                            <Text style={{fontFamily: font.regular, 
-                                color : theme.textHighlightDark, 
-                                fontSize: 12}}>Les images envoyées seront utilisées à des fins de réentraînement du service d’intelligence artificielle.
+                    <View style={{ alignItems: 'center' }}>
+                        <View style={{ bottom: 60, backgroundColor: '#00000080', width: "100%", alignItems: 'center' }}>
+                            <Text style={{
+                                fontFamily: font.regular,
+                                color: theme.textHighlightDark,
+                                fontSize: 12
+                            }}>
+                                Les images envoyées seront utilisées à des fins de réentraînement du service d’intelligence artificielle.
                             </Text>
                         </View>
-                        <View style={{position: 'absolute', bottom: 110, gap: 40, flexDirection: 'row'}}>
+                        <View style={{ position: 'absolute', bottom: 110, gap: 40, flexDirection: 'row' }}>
                             <TouchableOpacity style={styles.buttonSend} onPress={sendPhoto}>
                                 <Text style={styles.buttonText}>Analyser</Text>
                             </TouchableOpacity>
-                            <ButtonClose onPressFunction={resetPhoto} buttonText="Annuler"></ButtonClose>
+                            <ButtonClose onPressFunction={resetPhoto} buttonText="Annuler" />
                         </View>
                     </View>
                 </View>
             }
-            {isFocused && state === 0 && !photoUri && 
+
+            {isFocused && state === 0 && !photoUri &&
                 <CameraView style={styles.camera} ref={cameraRef}>
                     <TouchableOpacity style={styles.closeSearchButton} onPress={closePhotoView}>
-                        <Ionicons name='close' size={24} color={theme.textBoldLight}/>
+                        <Ionicons name='close' size={24} color={theme.textBoldLight} />
                     </TouchableOpacity>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.takePictureButton} onPress={takePhoto}>
                             <View style={styles.button}></View>
                         </TouchableOpacity>
                     </View>
-                </CameraView>}
+                </CameraView>
+            }
         </View>
     );
 };
