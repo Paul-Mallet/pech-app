@@ -68,13 +68,13 @@ const GlobalStyles = () => {
       height: 40,
     },
     fishCardsContainer: {
-      flex: 1,
-      width: '100%',
-      height: 160,
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
+      width: '100%',
+      height: 160,
       marginBottom: 20,
+      // flex: 1,
     },
     boxShadow: {
       backgroundColor: 'red',

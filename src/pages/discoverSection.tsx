@@ -23,7 +23,7 @@ const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegi
 		style={[styles.homePanel, { width: screenWidth }]}
 		showsVerticalScrollIndicator={false}
 		>
-			<View style={[styles.fishCardsContainer, {marginBottom: 30}]}>
+			<View style={[styles.fishCardsContainer, {marginBottom: 60}]}>
 				{ fishes &&
 					<View style={styles.fishCardsContainer}>
 						{
