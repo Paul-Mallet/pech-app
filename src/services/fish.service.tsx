@@ -5,7 +5,7 @@ import EyeFactory from "../@utils/eye.factory.tsx";
 import { BodyTypeModel, FinModel, EyeModel } from "../models/fish.model.tsx";
 import ResearchAnswerModel from "../models/researchAnswer.model.tsx";
 
-export const API_BASE_URL = "https://pechapp.edwindev.fr";
+export const API_BASE_URL = "https://pech-app.osc-fr1.scalingo.io";
 const API_NAME = "/api/";
 
 const apiClient = axios.create({
@@ -194,7 +194,7 @@ export const sendPhotoToBack = async (photoPath: string) => {
             type: 'image/jpeg',
         } as any);
 
-        const response = await axios.post('https://pechapp.edwindev.fr/api/ai/predict', formData, {
+        const response = await axios.post('https://pech-app.osc-fr1.scalingo.io/api/ai/predict', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

@@ -1,12 +1,13 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import * as React from 'react';
 import { View, TextInput, TouchableOpacity, BackHandler } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SearchBarResults from '../molecules/searchBarResult.tsx';
 import { useTheme } from './ThemeContext.tsx';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { useHistory } from './HistoryContext.tsx';
-import { useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
 
 interface ElementType {
   label: string;
@@ -30,6 +31,7 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
   const [showResults, setShowResults] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const { theme } = useTheme();
+  const insets = useSafeAreaInsets();
   const styles = GlobalStyles();
   const inputRef = useRef<TextInput>(null);
 
@@ -59,7 +61,7 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
       }
       return false;
     };
-  
+
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
     return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
   }, [isFocused]);
@@ -106,7 +108,7 @@ const SearchBar = ({ setPressedFish, setPressedLegislation }: SearchBarProps) =>
     : styles.searchBar, { zIndex: 1, elevation: 1 }];
 
   return (
-    <View style={searchBarStyle}>
+    <View style={[searchBarStyle, { top: insets.top + 10 }]}>
       <View style={styles.searchBarTopItems}>
         <TouchableOpacity onPress={() => setShowResults(prev => !prev)}>
           <Ionicons name="search" size={24}

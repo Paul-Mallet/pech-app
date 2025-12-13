@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import GlobalStyles from '../styles/base/globalStyles.tsx';
 import { useTheme } from '../components/organisms/ThemeContext.tsx';
 import ThemeSelectGroup from '../components/molecules/themeSelectGroup.tsx';

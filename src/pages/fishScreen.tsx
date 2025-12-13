@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import * as React from 'react';
-import { FlatList, SafeAreaView, Text, View, TouchableOpacity, Button, BackHandler } from 'react-native';
+import { FlatList, Text, View, TouchableOpacity, Button, BackHandler } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import FishCard from '../components/molecules/fishCard.tsx';
 import DescriptionSheet from '../components/organisms/descriptionSheet.tsx';

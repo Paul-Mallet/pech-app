@@ -318,7 +318,7 @@ export const fishData: Fish[] = [
       name: "Dorade Rose",
       scientificName: "Pagellus bogaraveo",
       // category: "Démersaux",
-      minSizeCm: "-",
+      minSizeCm: "40",
       faoCode: "SBR",
       physicalDescription: "Corps ovale, assez épais, tête courte, bouche à l’aplomb de l’avant de l’œil qui est gros, dos et ventre arrondis, elle a une tâche noire sur la ligne latérale. Le dos est rouge orangé ainsi que les nageoires pectorales et caudale, la partie ventrale est argentée. Confusion possible avec le pageot acarne et le pageot commun.",
       particularity: "1 tâche noire à la base haute de la ligne latérale. Dos rougeatre, flancs blanc argenté, ventre blanc, nageoires roses. Juvéniles de couleur blanche.",

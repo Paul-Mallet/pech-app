@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { SafeAreaView, ScrollView, View, Text, Button, ActivityIndicator } from 'react-native';
+import { ScrollView, View, Text, Button, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import LegislationCard from '../components/molecules/legislationCard.tsx';
 import SearchBarLegislation from '../components/organisms/searchBarLegislation.tsx';

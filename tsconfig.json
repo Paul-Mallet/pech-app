@@ -1,14 +1,21 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
     "jsx": "react-native",
     "module": "esnext",
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
-    "typeRoots": ["node_modules/@types", "node_modules/react-native-vector-icons"],
-    "types": ["react", "react-native", "react-native-vector-icons"],
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/react-native-vector-icons"
+    ],
+    "types": [
+      "react",
+      "react-native",
+      "react-native-vector-icons"
+    ],
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true
+  },
+  "extends": "expo/tsconfig.base"
 }

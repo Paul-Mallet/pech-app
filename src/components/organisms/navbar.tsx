@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
 import * as React from 'react';
-import { BottomTabBar, BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useCallback } from 'react';
+import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import HomeScreen from '../../pages/homeScreen.tsx';

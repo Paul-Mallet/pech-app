@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Animated, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from './pages/loadingScreen.tsx';
 import MainNavigator from './pages/mainNavigator.tsx';
@@ -27,23 +28,25 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <HistoryProvider>
-          <LoadPreferences>
-            <View style={{ flex: 1 }}>
-              <SplashScreen
-                fadeAnim={fadeAnim}
-                translateYAnim={translateYAnim}
-                onAnimationEnd={handleAnimationEnd}
-              />
-              <NavigationContainer>
-                <ReducedMotionConfig mode={ReduceMotion.Never} />
-                <MainNavigator />
-              </NavigationContainer>
-            </View>
-          </LoadPreferences>
-        </HistoryProvider>
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <HistoryProvider>
+            <LoadPreferences>
+              <View style={{ flex: 1 }}>
+                <SplashScreen
+                  fadeAnim={fadeAnim}
+                  translateYAnim={translateYAnim}
+                  onAnimationEnd={handleAnimationEnd}
+                />
+                <NavigationContainer>
+                  <ReducedMotionConfig mode={ReduceMotion.Never} />
+                  <MainNavigator />
+                </NavigationContainer>
+              </View>
+            </LoadPreferences>
+          </HistoryProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

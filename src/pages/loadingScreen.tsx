@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
-import { Animated,
-	Easing,
-	Text,
-	Image,
-	useWindowDimensions } from 'react-native';
+import { Animated, Easing, Image, useWindowDimensions } from 'react-native';
 import LoadingScreenStyles from '../styles/pages/LoadingScreenStyles.tsx';
 
 const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim : any, onAnimationEnd : any, translateYAnim : any}) => {
 	const styles = LoadingScreenStyles();
-	const { height: windowHeight, width, scale, fontScale } = useWindowDimensions();
+	const { height: windowHeight } = useWindowDimensions();
 	const bottomBarHeight = 60;
 
 	useEffect(() => {
@@ -25,16 +21,15 @@ const SplashScreen = ({ fadeAnim, translateYAnim, onAnimationEnd } : {fadeAnim :
 	  	});
 	  }, 1500);
 	}, [fadeAnim, translateYAnim, windowHeight]);
-  
+
     return (
       <Animated.View
         style={[
 			styles.container,
-          { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }, // Apply fade and move-up effect
+          { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] },
         ]}
       >
         <Image source={require('../../assets/LogoSplash.png')} style={styles.image} />
-        {/* <Text style={styles.pechAppTitle}>Pêch’App</Text> */}
       </Animated.View>
     );
   };

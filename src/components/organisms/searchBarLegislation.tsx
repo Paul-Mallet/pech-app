@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHistory } from './HistoryContext.tsx';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext.tsx';
@@ -12,6 +13,7 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
 	const styles = GlobalStyles();
   const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const handleSearch = (text: string) => {
     if (text.length < 2) return;
@@ -37,7 +39,7 @@ const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislatio
     : styles.searchBar;
 
   return (
-    <View style={searchBarStyle}>
+    <View style={[searchBarStyle, { top: insets.top + 10 }]}>
       <View style={styles.searchBarTopItems}>
         <Ionicons name="search" size={24} color={theme.textDark} style={styles.searchBarIconLeft} />
         <TextInput
