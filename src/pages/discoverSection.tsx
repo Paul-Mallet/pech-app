@@ -18,7 +18,6 @@ type DecouvrirTabProps = {
 const DecouvrirTab: React.FC<DecouvrirTabProps> = ({ handleFishPress, handleLegislationPress, fishes, legislations }) => {
 	const styles = GlobalStyles();
 
-
 	return (
 		<ScrollView
 		style={[styles.homePanel, { width: screenWidth }]}

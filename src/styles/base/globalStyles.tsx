@@ -348,45 +348,43 @@ const GlobalStyles = () => {
     researchItem: {
       fontSize: 16,
       padding: 6,
+      paddingLeft: 16,
       borderColor: '#00000010',
-      borderBottomWidth: 2,
+      borderBottomWidth: 1,
       borderRadius: 8,
       color: theme.textHighlightDark, // If you're using theme, otherwise use a color code
     },
-    expandableSection: 
+    expandableSection:
     {
-      marginBottom: 20, 
-      padding: 6, 
-      borderRadius: 24, 
-      backgroundColor: theme.cardBackground, 
+      marginBottom: 12,
+      borderRadius: 24,
+      backgroundColor: theme.cardBackground,
 			shadowColor: '#000',
 			shadowOffset: { width: 0, height: 2 },
 			shadowOpacity: 0.2,
 			shadowRadius: 2,
 			elevation: 2,
+      overflow: 'hidden',
     },
     expandableSectionButton:
     {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'center'
-    },
-    expandableSectionList: 
-    {
-      marginTop: 10, 
-      justifyContent: 'space-between',
       alignItems: 'center',
-      width: "50%",
-      aspectRatio: 1.05,
-      gap: 6
+      paddingTop: 12,
+      paddingLeft: 12,
+      paddingRight: 12,
+      paddingBottom: 12,
     },
-    topButtonsFishScreen: 
+    expandableSectionList:
+    {},
+    topButtonsFishScreen:
     {
-      zIndex: 10, 
-      position: 'absolute', 
-      top: 0, 
-      right: 20, 
-      flexDirection: 'row', 
+      zIndex: 10,
+      position: 'absolute',
+      top: 10,
+      right: 20,
+      flexDirection: 'row',
       gap: 6
     },
     modalBackdrop: {

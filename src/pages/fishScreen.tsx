@@ -15,7 +15,7 @@ import { Fish } from '../models/fish.model.tsx';
 
 export const useFilteredFishes = () => {
     const [filteredFishes, setFilteredFishes] = useState<number[]>([]);
-  
+
     const addFilteredFish = (ids: number | number[]) => {
       setFilteredFishes(prev => {
         const newIds = Array.isArray(ids) ? ids : [ids];
@@ -33,7 +33,7 @@ export const useFilteredFishes = () => {
     {
         setFilteredFishes([]);
     }
-  
+
     return { filteredFishes, addFilteredFish, resetFilteredFishes, replaceFilteredFishes };
 };
 
@@ -46,7 +46,7 @@ const FishScreen = () => {
     const { theme } = useTheme();
     const { fetchFishes, fishes, probaFishes, setProbabilityFishes } = useHistory();
     const {filteredFishes, addFilteredFish} = useFilteredFishes();
-    
+
     useFocusEffect(
         useCallback(() => {
           const onBackPress = () => {
@@ -56,7 +56,7 @@ const FishScreen = () => {
             }
             return false;
           };
-      
+
           BackHandler.addEventListener('hardwareBackPress', onBackPress);
           return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
         }, [probaFishes])
@@ -77,13 +77,6 @@ const FishScreen = () => {
             bottomSheetRef.current.expand();
         }
     }, [pressedFish]);
-
-    // const handleFilterButtonPress = () => {
-    //     if (!filtered)
-    //         navigation.navigate('FishResearch');
-    //     else
-    //         setFiltered(false);
-    // };
 
     const handleCameraButtonPress = () => {
         if (!filtered)
@@ -146,9 +139,6 @@ const FishScreen = () => {
             ) : 
             (
                 <>
-                    {/* <TouchableOpacity style={styles.quizzButton} onPress={handleFilterButtonPress}>
-                        <FontAwesome name={filtered ? "close" : "filter"} size={20} color={theme.textBoldLight} />
-                    </TouchableOpacity> */}
                     <TouchableOpacity style={styles.quizzButton} onPress={handleCameraButtonPress}>
                         <FontAwesome name={"camera"} size={20} color={theme.textBoldLight} />
                     </TouchableOpacity>
@@ -159,7 +149,6 @@ const FishScreen = () => {
                 <View style={{flexDirection: 'row', borderBottomWidth: 2, borderBottomColor: theme.navBarBackground, marginBottom: 8}}>
                     <Text style={[styles.h2, {marginBottom: 0}]}>{probaFishes.length !== 0 ? 'Résultats' : 'Poissons'}</Text>
                 </View>
-                
                 {visibleFishes.length > 0 ? (
                 <FlatList
                     data={visibleFishes}
@@ -167,22 +156,21 @@ const FishScreen = () => {
                     contentContainerStyle={contentContainerStyle}
                     scrollEnabled={true}
                     keyExtractor={(item) => item.id.toString()}
-                    columnWrapperStyle={{ gap: 6, width: 160, aspectRatio: 1 }}
+                    columnWrapperStyle={{ justifyContent: 'space-between' }}
                     renderItem={({ item }) => (
-                    <FishCard
-                        onPress={() => handleFishPress(item.id.toString())}
-                        id={item.id.toString()}
-                        fishName={item.name}
-                        imgSource={item.img ? item.img : null}
-                        fishMinSize={item.minSizeCm}
-                        probability={probaFishes.length !== 0 ? item.probability : null}
-                    />
+                        <FishCard
+                            onPress={() => handleFishPress(item.id.toString())}
+                            id={item.id.toString()}
+                            fishName={item.name}
+                            imgSource={item.img ? item.img : null}
+                            fishMinSize={item.minSizeCm}
+                            probability={probaFishes.length !== 0 ? item.probability : null}
+                        />
                     )}
                 />
                 ) : (
                 <Text style={styles.textDark}>Pas de données</Text>
                 )}
-                
             </View>
             {pressedFish && (
                 <DescriptionSheet

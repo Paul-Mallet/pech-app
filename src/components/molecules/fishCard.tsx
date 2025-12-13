@@ -1,5 +1,5 @@
-import { useState, useMemo, useEffect } from 'react';
 import * as React from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { useHistory } from '../organisms/HistoryContext.tsx';
 import { useTheme } from '../organisms/ThemeContext.tsx';
@@ -47,7 +47,12 @@ const FishCard = React.memo(({ onPress, fishName, fishMinSize, imgSource, id, ad
 	};
 
 	return (
-		<View style={{position: 'relative', height: 'auto'}}>
+		<View style={[{
+                flex: 1,
+                aspectRatio: 1,
+                marginBottom: 16,
+                marginHorizontal: 8,
+            }, {position: 'relative', height: 'auto' }]}>
 			{probability && 
 			<View style={styles.topContainer}>
 				<Text style={styles.topContainerText}>Probabilité : 

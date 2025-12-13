@@ -50,7 +50,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ entryType, items,
   return (
     <View style={styles.expandableSection}>
       <TouchableOpacity onPress={toggleExpand} style={styles.expandableSectionButton}>
-        <Text style={[styles.textDark, { fontSize: 18, paddingLeft: 12 }]}>
+        <Text style={[styles.textDark, { fontSize: 18, paddingLeft: 4 }]}>
           {entryType}
         </Text>
         <Text style={[styles.textDark, { fontSize: 18 }]}>

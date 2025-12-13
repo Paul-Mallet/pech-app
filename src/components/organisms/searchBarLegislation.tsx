@@ -8,11 +8,11 @@ import GlobalStyles from '../../styles/base/globalStyles.tsx';
 import { SearchBarLegislationProps } from '../../models/search.model.tsx';
 
 const SearchBarLegislation = ({ searchText, setSearchText }: SearchBarLegislationProps) => {
+  const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
 	const { addToHistory } = useHistory();
   const { theme } = useTheme();
 	const styles = GlobalStyles();
-  const [debounceTimer, setDebounceTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
-  const [isFocused, setIsFocused] = useState(false);
   const insets = useSafeAreaInsets();
 
   const handleSearch = (text: string) => {

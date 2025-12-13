@@ -1,12 +1,11 @@
-// Updated DescriptionSheet.tsx using Modal
 import React from 'react';
 import { Modal, View, Text, ScrollView, BackHandler, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
-import ImageSlider from '../organisms/slider.tsx';
-import CTAButton from '../atoms/button.tsx';
-import { FontAwesome6, Ionicons } from '@expo/vector-icons';
-import GlobalStyles from '../../styles/base/globalStyles.tsx';
-import { useTheme } from '../../components/organisms/ThemeContext.tsx';
 import { useFocusEffect } from '@react-navigation/native';
+import CTAButton from '../atoms/button.tsx';
+import ImageSlider from '../organisms/slider.tsx';
+import { useTheme } from '../../components/organisms/ThemeContext.tsx';
+import GlobalStyles from '../../styles/base/globalStyles.tsx';
+import { FontAwesome6, Ionicons } from '@expo/vector-icons';
 import { DescriptionSheetProps } from '../../models/fish.model.tsx';
 
 const DescriptionSheet = React.forwardRef<null, DescriptionSheetProps>(
@@ -58,8 +57,8 @@ const DescriptionSheet = React.forwardRef<null, DescriptionSheetProps>(
 					<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>{fish?.physicalDescription || ''}</Text>
 					{fish?.particularity && (
 						<View>
-						<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14, fontFamily: font.bold, lineHeight: 30 }]}>Particularités :</Text>
-						<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>{fish.particularity}</Text>
+							<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14, fontFamily: font.bold, lineHeight: 30 }]}>Particularités :</Text>
+							<Text style={[styles.textDescriptionBottomSheet, { fontSize: 14 }]}>{fish.particularity}</Text>
 						</View>
 					)}
 					<View style={{ paddingBottom: 40 }}>

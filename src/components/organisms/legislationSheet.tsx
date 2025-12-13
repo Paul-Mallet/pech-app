@@ -96,7 +96,9 @@ const LegislationSheet = ({ legislationId, visible, onClose }: LegislationSheetP
 								</View>
 							</View>
 						</View>
-						<Text style={[styles.textDescriptionBottomSheet, {marginBottom: 16}]}>{stats.article}</Text>
+						<Text style={[styles.textDescriptionBottomSheet, {marginBottom: 16}]}>
+							{stats.article}
+						</Text>
 						<TouchableOpacity onPress={() => Linking.openURL(`${stats.link}`)}>
 							<Text style={[styles.textDescriptionBottomSheet, { color: theme.textHighlightDark, textDecorationLine: 'underline' }]}>
 								Réglementation complète
