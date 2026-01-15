@@ -18,8 +18,6 @@ The application integrates real-world legal data provided by maritime authoritie
 2. **Porquerolles Regulations**: Management of 9 specific fishing zones (A to R), including seasonal closures and strict "No-Take" zones (F, H, R).
 3. **Marine Reserves**: Specific logic for the Cerbère-Banyuls Natural Reserve, handling the 10-catch daily limit and sunrise/sunset fishing windows.
 
----
-
 ## 🎨 UI/UX Design & Features
 A complete Figma mockup was realized to define a clean and accessible interface. The following core features were implemented:
 
