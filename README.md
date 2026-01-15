@@ -21,12 +21,20 @@ The application integrates real-world legal data provided by maritime authoritie
 ## 🎨 UI/UX Design & Features
 A complete Figma mockup was realized to define a clean and accessible interface. The following core features were implemented:
 
+<p align="center">
+  <img src="./assets/images/home.png" alt="Home page Figma Mockup" width="400px">
+</p>
+
 ### Global Navigation
 
 * Unified Searchbar:
    * Dynamic filtering of the legislation page.
    * Interactive History: Quick access to recent fish searches, categories, and fishing methods.
    * Direct Link: Bridge between fish sheets and their corresponding legal status via a "Legislation" button.
+
+<p align="center">
+  <img src="./assets/images/search.png" alt="Home page Figma Mockup" width="720px">
+</p>
 
 ### App Navigation
 
@@ -39,6 +47,10 @@ A complete Figma mockup was realized to define a clean and accessible interface.
 * /settings:
    * **Visual Themes**: Radio buttons with live previews of the interface.
    * **Accessibility**: Choice between standard Poppins font and a specialized Dyslexic-friendly font.
+
+<p align="center">
+  <img src="./assets/images/description_sheets.png" alt="Home page Figma Mockup" width="640px">
+</p>
 
 ###  Accessibility & Settings
 
